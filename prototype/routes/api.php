@@ -13,6 +13,16 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+//Route::middleware('auth:api')->get('/user', function (Request $request) {
+//    return $request->user();
+//});
+
+//From here added by Jung
+//ユーザ新規コントローラ
+
+Route::group(
+    ['prefix' => 'users',
+    'namespace'=> 'User'],
+    function () {
+        Route::get('/auth/{facebookId}', 'AuthController@get');
 });
