@@ -7,6 +7,7 @@
  */
 namespace App\Lib\JSYService;
 use App\Constants\StatusCode;
+use App\Lib\Logger;
 use Log;
 abstract class ServiceManager
 {
@@ -21,7 +22,10 @@ abstract class ServiceManager
     protected abstract function finallyExecute();
     protected abstract function errorExecute(\Exception $exception);
 
-    public function setTask(\Closure $task,Object $newthis){$this->task = $task;$this->newthis = $newthis;}
+    public function setTask(\Closure $task,$newthis){
+        $this->task = $task;
+        $this->newthis = $newthis;
+    }
     private function runTask(){
         $this->serviceResult = $this->task->call($this->newthis);
     }
@@ -36,8 +40,8 @@ abstract class ServiceManager
             $this->runTask();
             $this->afterExecute();
         }catch (\Exception $exception){
-            $this->serviceResult = new ServiceResult(null,StatusCode::UNKNOWN,$exception);
-            Log::error($exception->getTraceAsString());
+            $this->serviceResult = new ServiceResult(null,StatusCode::UNKNOWN,$exception->getMessage());
+            Logger::serverError($exception);
             $this->errorExecute($exception);
         }finally{
             $this->finallyExecute();

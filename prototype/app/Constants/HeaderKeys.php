@@ -11,9 +11,11 @@ namespace App\Constants;
 
 
 
-final class Versions
+
+final class HeaderKeys
 {
-        const CURRENT = "1";
-        const ALLOWED = ["v2017-07-31"];
-        const AUTH_ALLOW_VERSION = "v2017-07-31";
+    const REACT_USER_ID = "react-user-id";
+    const REACT_AUTH = "react-auth";
+    const FB_TOKEN = "fb-token";
+    const REACT_VERSION = "x-react-api-version";
 }

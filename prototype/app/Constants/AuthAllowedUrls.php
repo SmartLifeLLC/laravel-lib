@@ -1,6 +1,6 @@
 <?php
 /**
- * class ServiceStatus
+ * class ValidateRule
  * @package App\Constants
  * @Author : Sinyu Jung
  * Copyright :  WonderPlanet Inc. All rights reserved.
@@ -10,10 +10,12 @@
 namespace App\Constants;
 
 
+use App\Lib\Enum;
 
-final class Versions
+final class AuthAllowedUrls extends Enum
 {
-        const CURRENT = "1";
-        const ALLOWED = ["v2017-07-31"];
-        const AUTH_ALLOW_VERSION = "v2017-07-31";
+    const LIST = [
+        'api/users/auth/',
+        'users/auth'
+    ];
 }

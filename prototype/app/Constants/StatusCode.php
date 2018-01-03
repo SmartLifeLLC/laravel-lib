@@ -33,28 +33,7 @@ final class StatusCode
          * 正常系
          * アプリ（サーバーサイド）
          */
-        const    READ_SUCCESS = "0200";                      // 各情報取得
-        const    LOGIN_SUCCESS = "0210";                     // ログイン
-        const    LOGIN_CONTINUE = "0211";                    // ログイン継続
-        const    LOGOUT_SUCCESS = "0212";                    // ログアウト
-        const    USER_LOGOUT = "0213";                       // 強制ログアウト
-        const    REVIEW_POST_SUCCESS = "0220";               // レビュー投稿
-        const    REVIEW_UPDATE_SUCCESS = "0221";             // レビュー編集
-        const    REVIEW_DELETE_SUCCESS = "0222";             // レビュー削除
-        const    COMMENT_POST_SUCCESS = "0230";              // コメント投稿
-        const    COMMENT_DELETE_SUCCESS = "0231";            // コメント削除
-        const    FOLLOW_ADD_SUCCESS = "0240";                // フォロー追加
-        const    FOLLOW_REMOVE_SUCCESS = "0241";             // フォロー解除
-        const    FOLLOWER_ADD_SUCCESS = "0242";              // フォロワー追加
-        const    FOLLOWER_REMOVE_SUCCESS = "0243";           // フォロワー解除
-        const    BLOCK_ADD_SUCCESS = "0250";                 // ブロック追加
-        const    BLOCK_REMOVE_SUCCESS = "0251";              // ブロック解除
-        const    USER_CREATE_SUCCESS = "0260";               // 新規登録
-        const    USER_UPDATE_SUCCESS = "0261";               // プロフィール編集
-        const    USER_SETTING_UPDATE_SUCCESS = "0262";       // 通知設定編集
-        const    REACTION_ADD_SUCCESS = "0270";              // リアクション追加
-        const    REACTION_REMOVE_SUCCESS = "0271";           // リアクション解除
-        const    DEVICE_TOKEN_CREATE_SUCCESS = "0280";       // デバイストークン登録
+        const    SUCCESS = "0200";                          // 成功
 
 
         /**
@@ -68,7 +47,7 @@ final class StatusCode
         /**
          * 異常系
          */
-        const    REQUEST_ERROR = "9100";                     // リクエストパラメータエラー
+        const    REQUEST_PARAMETER_ERROR = "9100";           // リクエストパラメータエラー
         const    READ_ERROR = "9200";                        // 各情報取得エラー
         const    USER_READ_ERROR = "9201";                   // 会員情報取得エラー（存在しない会員ID）
         const    LOGIN_ERROR = "9210";                       // ログインエラー
@@ -93,7 +72,8 @@ final class StatusCode
         const    BLOCKED_USER_ERROR = "9290";                // ブロックユーザ
 
 
-
+        const    FACEBOOK_TOKEN_API_ERROR = "8001";          // TOKEN API ERROR
+        const    FACEBOOK_ID_DOES_NOT_MATCH = "8002";
         /**
          * 不明
          */

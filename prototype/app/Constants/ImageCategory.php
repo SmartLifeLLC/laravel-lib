@@ -10,10 +10,12 @@
 namespace App\Constants;
 
 
-
-final class Versions
+final class ImageCategory
 {
-        const CURRENT = "1";
-        const ALLOWED = ["v2017-07-31"];
-        const AUTH_ALLOW_VERSION = "v2017-07-31";
+        const PROFILE = "profile";
+        const COVER = "cover";
+        const REVIEW_POST ="review_post";
+
+
+
 }

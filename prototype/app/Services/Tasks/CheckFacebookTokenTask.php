@@ -10,6 +10,7 @@
 namespace App\Services\Tasks;
 use App\Constants\URLs;
 use App\Lib\JSYService\ServiceTask;
+use App\ValueObject\FacebookResponseVO;
 
 
 class CheckFacebookTokenTask implements ServiceTask
@@ -29,22 +30,30 @@ class CheckFacebookTokenTask implements ServiceTask
     private $result;
 
     /**
+     * @return mixed
+     */
+    public function getResult()
+    {
+        return $this->result;
+    }
+
+    /**
      * CheckFacebookToken constructor.
      * @param String $facebookId
      * @param String $facebookToken
      */
     public function __construct(String $facebookId,String $facebookToken)
     {
-        parent::__construct();
         $this->facebookId = $facebookId;
         $this->facebookToken = $facebookToken;
     }
 
 
+
     /**
      *
      */
-    function run()
+    function run():FacebookResponseVO
     {
         //Start Curl
         $url = URLs::API_FB_USER_INFO.$this->facebookToken;
@@ -52,16 +61,11 @@ class CheckFacebookTokenTask implements ServiceTask
         curl_setopt($curl,CURLOPT_CUSTOMREQUEST,'GET');
         curl_setopt($curl,CURLOPT_RETURNTRANSFER,true);
         $result = curl_exec($curl);
-        $this->result = json_decode($result,true);
+        $result = json_decode($result,true);
         curl_close($curl);
-//        //Check response
-//        if(array_key_exists('error',$this->taskData)){
-//            return TaskCondition::FACEBOOK_USER_API_FAILED;
-//        }else{
-//            if($this->taskData['id'] != $this->facebookId)
-//                return TaskCondition::FACEBOOK_USER_API_ID_FAILED;
-//            return TaskCondition::FACEBOOK_USER_API_SUCCEED;
-//        }
+        $this->result = $result;
+        return new FacebookResponseVO($result);
+
     }
 
 }

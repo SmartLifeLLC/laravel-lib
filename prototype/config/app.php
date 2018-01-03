@@ -26,7 +26,7 @@ return [
     |
     */
 
-    'env' => env('APP_ENV', 'production'),
+    'env' => env('APP_ENV', \App\Constants\ConfigConstants::ENV_LOCAL),
 
     /*
     |--------------------------------------------------------------------------

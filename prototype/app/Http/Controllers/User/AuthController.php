@@ -1,8 +1,12 @@
 <?php
 namespace App\Http\Controllers\User;
+use App\Constants\HeaderKeys;
 use App\Constants\StatusCode;
 use App\Http\Controllers\Controller;
-use App\Http\JsonResponse;
+use App\Http\JsonResponseView;
+use App\Http\JsonView\User\Auth\GetIdAndAuthJsonView;
+use App\Services\AuthService;
+use Illuminate\Http\Request;
 
 /**
  * class GetAuthController
@@ -13,12 +17,24 @@ use App\Http\JsonResponse;
 
 class AuthController extends Controller
 {
-    public function __construct()
-    {
-    }
+    /**
+     * @param Request $request
+     * @param $facebookId
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getIdAndAuth(Request $request, $facebookId){
+        $facebookToken = $request->header(HeaderKeys::FB_TOKEN);
+        if(empty($facebookId)||empty($facebookToken )){
+            $jsonResponseView =
+                JsonResponseView::withErrorCode(
+                    StatusCode::REQUEST_PARAMETER_ERROR,
+                    "Facebook ID : {$facebookId}, Facebook Token : {$facebookToken}"
+                );
+            return $this->responseJson($jsonResponseView);
+        }
 
-    public function get($facebookId){
-        $jsonResponse = JsonResponse::withErrorCode(StatusCode::USER_UPDATE_ERROR);
-        return response()->json($jsonResponse->getResponseData());
+        $serviceResult = (new AuthService())->getIdAndAuth($facebookId,$facebookToken);
+        $jsonResponseView = GetIdAndAuthJsonView::createJsonView($serviceResult);
+        return $this->responseJson($jsonResponseView);
     }
 }

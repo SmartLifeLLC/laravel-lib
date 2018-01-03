@@ -10,10 +10,12 @@
 namespace App\Constants;
 
 
+use App\Lib\Enum;
 
-final class Versions
+final class HttpMethod extends Enum
 {
-        const CURRENT = "1";
-        const ALLOWED = ["v2017-07-31"];
-        const AUTH_ALLOW_VERSION = "v2017-07-31";
+        const GET = "GET";
+        const POST = "POST";
+        const PUT = "PUT";
+        const DELETE = "DELETE";
 }

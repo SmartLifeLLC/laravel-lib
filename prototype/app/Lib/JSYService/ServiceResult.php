@@ -1,5 +1,7 @@
 <?php
 namespace App\Lib\JSYService;
+use App\Constants\StatusCode;
+use App\ValueObject\UserVO;
 
 /**
  * Class ServiceResult
@@ -15,17 +17,18 @@ class ServiceResult
      * @var
      */
     private $result;
-    /**
-     * @var \Exception|null
-     */
-    private $exception;
-    /**
-     * @var bool
-     */
-    private $isFinishedTask;
 
 
+
+    /**
+     * @var StatusCode
+     */
     private $statusCode;
+
+    /**
+     * @var String
+     */
+    private $debugMessage;
 
 
     /**
@@ -35,26 +38,37 @@ class ServiceResult
         return $this->result;
     }
 
+
     /**
-     * @return \Exception|null
+     * @return StatusCode
      */
-    function getException(){
-        return $this->exception;
+    public function getStatusCode()
+    {
+        return $this->statusCode;
     }
+
+    /**
+     * @return String
+     */
+    public function getDebugMessage(): String
+    {
+        return $this->debugMessage;
+    }
+
 
 
     /**
      * ServiceResult constructor.
      * @param $result
      * @param $statusCode
-     * @param \Exception|null $exception
+     * @param String|null $debugMessage
      */
-
-    public function __construct($result,$statusCode, ?\Exception $exception)
+    public function __construct($result,$statusCode,$resultClass = null, String $debugMessage = null)
     {
+        var_dump($result instanceof $resultClass);
         $this->result = $result;
         $this->statusCode = $statusCode;
-        $this->isFinishedTask = ($exception == null)?true:false;
-        $this->exception = $exception;
+        $this->debugMessage = $debugMessage;
     }
+
 }
