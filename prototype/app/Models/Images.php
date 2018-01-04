@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Constants\ConfigConstants;
 use App\Constants\S3Buckets;
 use App\Lib\Util;
 use Aws\S3\S3Client;

@@ -3,11 +3,12 @@
 namespace App\Http\Middleware;
 
 use App\Constants\AuthAllowedUrls;
+use App\Constants\CurrentUser;
 use App\Constants\HeaderKeys;
 use App\Constants\StatusCode;
 use App\Constants\StatusMessage;
 use App\Constants\Versions;
-use App\Http\JsonResponseView;
+use App\Http\JsonView\JsonResponseErrorView;
 use App\Lib\Logger;
 use App\Services\AuthService;
 use App\Services\UserService;
@@ -16,7 +17,7 @@ use Log;
 
 use App\Http\Middleware\Request;
 
-class ReactApiAuthCheck
+class ReactApiAuthChecker
 {
     /**
      * Handle an incoming request.
@@ -49,10 +50,15 @@ class ReactApiAuthCheck
         $serviceResult = (new AuthService())->isValidAuth($userId,$auth);
 
         if($serviceResult->getResult() == false){
-            $jsonResponse = JsonResponseView::withErrorCode(StatusCode::AUTH_FAILED,"ID and Auth does not match");
-            Logger::requestError($request,StatusCode::AUTH_FAILED);
-            return response()->json($jsonResponse->createJsonString());
+            $debugMessage = "ID : {$userId}  and Auth : {$auth}  does not match";
+            $jsonResponse = new JsonResponseErrorView(StatusCode::AUTH_FAILED,$debugMessage);
+            Logger::requestError($request,StatusCode::AUTH_FAILED,$debugMessage);
+            return response()->json($jsonResponse->getResponse());
         }
+
+        $currentUser = CurrentUser::shared();
+        $currentUser->setUserId($userId);
+        $currentUser->setAuth($auth);
 
         return $next($request);
     }

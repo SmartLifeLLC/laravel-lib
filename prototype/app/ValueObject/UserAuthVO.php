@@ -7,7 +7,7 @@
  */
 namespace App\ValueObject;
 
-class UserVO
+class UserAuthVO
 {
     private $userId;
     private $auth;
@@ -18,7 +18,7 @@ class UserVO
 
     /**
      * @param mixed $userId
-     * @return UserVO
+     * @return UserAuthVO
      */
     public function setUserId($userId)
     {
@@ -28,7 +28,7 @@ class UserVO
 
     /**
      * @param mixed $auth
-     * @return UserVO
+     * @return UserAuthVO
      */
     public function setAuth($auth)
     {

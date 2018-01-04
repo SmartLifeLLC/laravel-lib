@@ -22,7 +22,7 @@ use App\Models\User;
 use App\ValueObject\FacebookResponseVO;
 use DateTime;
 use Exception;
-use App\ValueObject\UserVO;
+use App\ValueObject\UserAuthVO;
 
 class CreateUserTask implements ServiceTask
 {
@@ -45,6 +45,15 @@ class CreateUserTask implements ServiceTask
     private $userId;
 
     /**
+     * @var UserAuthVO
+     */
+    private $result;
+    public function getResult()
+    {
+        return $this->result;
+    }
+
+    /**
      * CreateUserTask constructor.
      * @param $facebookUserData
      * @param User $userModel
@@ -57,7 +66,7 @@ class CreateUserTask implements ServiceTask
         $this->imagesModel = $imagesModel;
     }
 
-    public function run():UserVO
+    public function run():UserAuthVO
     {
         // TODO: Implement getTask() method.
             $fbData = $this->facebookUserData;
@@ -66,7 +75,7 @@ class CreateUserTask implements ServiceTask
 
             $this->auth = $auth;
             $this->userId = $userId;
-            $userVO = new UserVO();
+            $userVO = new UserAuthVO();
             try {
                 //Image URL
                 $profileId = 0;
@@ -88,8 +97,8 @@ class CreateUserTask implements ServiceTask
             }catch (exception $e){
                 Logger::serverError($e);
             }finally{
+                $this->result = $userVO;
                 return $userVO;
-
             }
     }
 }

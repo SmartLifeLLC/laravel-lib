@@ -1,7 +1,9 @@
 <?php
 namespace App\Lib\JSYService;
 use App\Constants\StatusCode;
-use App\ValueObject\UserVO;
+use App\Constants\StatusMessage;
+use App\ValueObject\UserAuthVO;
+use PhpParser\Node\Scalar\String_;
 
 /**
  * Class ServiceResult
@@ -55,6 +57,13 @@ class ServiceResult
         return $this->debugMessage;
     }
 
+    /**
+     * @return String
+     */
+    public function getStatusMessage(): String
+    {
+        return StatusMessage::get($this->statusCode);
+    }
 
 
     /**
@@ -63,12 +72,38 @@ class ServiceResult
      * @param $statusCode
      * @param String|null $debugMessage
      */
-    public function __construct($result,$statusCode,$resultClass = null, String $debugMessage = null)
+    private function __construct($result,$statusCode,$resultClass = null, String $debugMessage = null)
     {
-        var_dump($result instanceof $resultClass);
         $this->result = $result;
         $this->statusCode = $statusCode;
         $this->debugMessage = $debugMessage;
+    }
+
+    /**
+     * @param $statusCode
+     * @param String|null $debugMessage
+     * @return ServiceResult
+     */
+    public static function withError($statusCode,String $debugMessage = null):ServiceResult
+    {
+        $instance = new self(null,$statusCode,null,$debugMessage);
+        return $instance;
+    }
+
+    /**
+     * @param $result
+     * @param null $resultClass
+     * @return ServiceResult
+     * @throws \TypeError
+     */
+    public static function withResult($result,$resultClass = null){
+        $instance = new self($result,StatusCode::SUCCESS,$resultClass);
+        if($resultClass != null){
+            if(!$result instanceof $resultClass){
+                throw new \TypeError("Current result does instance of ".$resultClass);
+            }
+        }
+        return $instance;
     }
 
 }

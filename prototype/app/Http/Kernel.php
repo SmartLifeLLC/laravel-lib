@@ -20,7 +20,7 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         \App\Http\Middleware\TrustProxies::class,
         //AuthCheck
-        \App\Http\Middleware\ReactApiAuthCheck::class
+        \App\Http\Middleware\ReactApiAuthChecker::class
     ];
 
     /**

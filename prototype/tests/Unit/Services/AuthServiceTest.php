@@ -8,18 +8,16 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class AuthServiceTest extends TestCase
 {
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
-    public function testBasicTest()
-    {
-        $this->assertTrue(true);
-    }
+
+    //Get random user id  and auth data from server.
+    private $authUserId = 48;
+    private $auth = "5a4ca9c659465";
+
 
     public function testIsAuth(){
         $authService = new AuthService();
-        $serviceResult = $authService->isValidAuth(12345,"12345");
+        $serviceResult = $authService->isValidAuth($this->authUserId,$this->auth);
+        $this->assertTrue($serviceResult->getResult());
     }
+
 }

@@ -8,26 +8,42 @@
 namespace App\Lib\JSYService;
 class NormalServiceManager extends ServiceManager
 {
+    /**
+     *
+     */
     final protected function beforeExecute()
     {
 
     }
 
+    /**
+     *
+     */
     final protected function afterExecute()
     {
 
     }
 
+    /**
+     * @param \Exception $exception
+     * @throws \Exception
+     */
     final protected function errorExecute(\Exception $exception)
     {
         throw new \Exception($exception->getMessage());
     }
 
+    /**
+     *
+     */
     final protected  function finallyExecute()
     {
         // TODO: Implement finallyExecute() method.
     }
 
+    /**
+     * @return ServiceResult
+     */
     public  function getServiceResult(): ServiceResult
     {
         // TODO: Implement getServiceResult() method.

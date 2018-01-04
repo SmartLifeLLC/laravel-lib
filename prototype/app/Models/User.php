@@ -6,7 +6,7 @@ use App\Constants\DateTimeFormat;
 use App\Constants\DefaultValues;
 use App\Lib\Util;
 use App\ValueObject\FacebookResponseVO;
-use App\ValueObject\UserVO;
+use App\ValueObject\UserAuthVO;
 use Illuminate\Database\Eloquent\Model;
 
 class User extends Model
@@ -16,12 +16,12 @@ class User extends Model
 
     /**
      * @param String $facebookId
-     * @return UserVO|null
+     * @return UserAuthVO|null
      */
-    public function getAuthByFacebookId(String $facebookId):?UserVO{
+    public function getAuthByFacebookId(String $facebookId):?UserAuthVO{
         $userData = $this->where("facebook_id",$facebookId)->select(["id","auth"])->first();
         if($userData == null) return null;
-        return (new UserVO())->setUserId($userData->id)->setAuth($userData->auth);
+        return (new UserAuthVO())->setUserId($userData->id)->setAuth($userData->auth);
     }
 
     /**
@@ -89,10 +89,12 @@ class User extends Model
     }
 
     /**
-     * @param String $userId
-     * @return Model|null|static
+     * @param $userId
+     * @return UserAuthVO|null
      */
-    public function getAuthByUserId(String $userId){
-        return $this->where("id",$userId)->select(["id","auth"])->first();
+    public function getAuthByUserId($userId):?UserAuthVO{
+        $userData = $this->where("id",$userId)->select(["id","auth"])->first();
+        if($userData == null) return null;
+        return (new UserAuthVO())->setUserId($userData->id)->setAuth($userData->auth);
     }
 }

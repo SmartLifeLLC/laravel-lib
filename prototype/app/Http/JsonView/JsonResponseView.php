@@ -23,7 +23,7 @@ use Psy\Util\Json;
  * Copyright :  WonderPlanet Inc. All rights reserved.
  * Last Modified  2018/01/02
  */
-class JsonResponseView
+abstract class JsonResponseView
 {
 
     /**
@@ -42,73 +42,94 @@ class JsonResponseView
      * @var array
      */
     protected $body = [];
+
     /**
      * @var string
      */
-    protected $errorMsg ="" ;
+    private $debugMessage ="" ;
 
     /**
-     * JsonResponseView constructor.
+     * @return mixed
      */
-    public function __construct() {
-        // allocate your stuff
+    public function getStatus()
+    {
+        return $this->status;
     }
 
     /**
-     * @param $message
+     * @return mixed
      */
-    public function appendErrorMessage($message){
-        $this->errorMsg .= $message;
+    public function getCode()
+    {
+        return $this->code;
     }
 
     /**
-     * @param $data
-     * @return JsonResponseView
+     * @return mixed
      */
-    public static function withSuccessData($data) {
-        $instance = new self();
-        $instance->data = $data;
-        $instance->code = StatusCode::SUCCESS;
-        $instance->status = "OK";
-        return $instance;
+    public function getData()
+    {
+        return $this->data;
     }
 
     /**
-     * @param $code
-     * @param string $errorMessage
-     * @return JsonResponseView
+     * @return array
      */
-    public static function withErrorCode($code, $errorMessage = "") {
-        $instance = new self();
-        $instance->status = "ERROR";
-        $instance->code = $code;
-        $instance->body = ["message"=>StatusMessage::get($code),"detail"=>$errorMessage];
-        return $instance;
-    }
-
-
-    /**
-     * @param ServiceResult $serviceResult
-     * @return JsonResponseView
-     */
-    public static function withErrorServiceResult(ServiceResult $serviceResult) {
-
-        return JsonResponseView::withErrorCode($serviceResult->getStatusCode(),$serviceResult->getDebugMessage());
-    }
-    //Must override this method for making body
-
-    /**
-     *
-     */
-    protected function createBody(){
-
+    public function getBody(): array
+    {
+        return $this->body;
     }
 
     /**
      * @return string
      */
-    public function createJsonString(){
-        $this->createBody();
+    public function getDebugMessage(): string
+    {
+        return $this->debugMessage;
+    }
+
+
+
+    /**
+     * JsonResponseView constructor.
+     * @param ServiceResult $serviceResult
+     */
+    public function __construct(ServiceResult $serviceResult) {
+        $this->code = $serviceResult->getStatusCode();
+        if($serviceResult->getResult() === null){
+            $this->status = "ERROR";
+            $this->debugMessage = $serviceResult->getDebugMessage();
+        }else{
+            $this->data = $serviceResult->getResult();
+            $this->status = "OK";
+
+        }
+    }
+
+
+
+    //Must override this method for making body
+
+    /**
+     *
+     */
+    abstract function createBody();
+
+
+    private function createErrorBody(){
+        $this->body = [
+            "message"=>StatusMessage::get( $this->getCode() ),
+            "debug"=>$this->getDebugMessage()
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function getResponse(){
+        if($this->data !== null)  $this->createBody();
+        else $this->createErrorBody();
+
         $response =
             [
                 'version'=>Versions::CURRENT,
@@ -116,6 +137,6 @@ class JsonResponseView
                 'code'=>$this->code,
                 'body'=>base64_encode(json_encode($this->body))
             ];
-        return json_encode($response);
+        return $response;
     }
 }

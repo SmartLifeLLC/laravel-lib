@@ -16,6 +16,6 @@ final class AuthAllowedUrls extends Enum
 {
     const LIST = [
         'api/users/auth/',
-        'users/auth'
+        'user/auth'
     ];
 }

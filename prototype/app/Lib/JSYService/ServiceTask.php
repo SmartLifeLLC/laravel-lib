@@ -9,4 +9,5 @@ namespace App\Lib\JSYService;
 interface ServiceTask
 {
     function run();
+    function getResult();
 }

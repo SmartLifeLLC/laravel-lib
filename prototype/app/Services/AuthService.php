@@ -15,7 +15,7 @@ use App\Models\Images;
 use App\Models\User;
 use App\Services\Tasks\CheckFacebookTokenTask;
 use App\Services\Tasks\CreateUserTask;
-use App\ValueObject\UserVO;
+use App\ValueObject\UserAuthVO;
 
 /**
  * Class AuthService
@@ -24,7 +24,7 @@ use App\ValueObject\UserVO;
  * Copyright :  WonderPlanet Inc. All rights reserved.
  * Last Modified  2018/01/02
  */
-class AuthService
+class AuthService extends BaseService
 {
 
     /**
@@ -35,7 +35,7 @@ class AuthService
     public function isValidAuth($userId, $auth): ServiceResult
     {
         $manager = new TransactionServiceManager();
-        $manager->setTask($this->_isValidAuth($userId, $auth), $this);
+        $manager->setTasks($this->_isValidAuth($userId, $auth), $this);
         $manager->execute();
         return $manager->getServiceResult();
     }
@@ -49,7 +49,16 @@ class AuthService
     {
         return
             function () use ($userId, $auth) {
-                $serviceResult = new ServiceResult(true, 200,null, null);
+                $userAuthVO = (new User())->getAuthByUserId($userId);
+                if($userAuthVO == null || $userAuthVO->getAuth() != $auth){
+                    $debugMessage = ($userAuthVO == null)?"User for {$userId} does not exist. ":"Auth does not matched :  {$userAuthVO->getAuth()} vs {$auth} ";
+                    $statusCode = StatusCode::AUTH_FAILED;
+                    $serviceResult = ServiceResult::withError($statusCode, $debugMessage);
+                }else {
+                    $result = true;
+                    $serviceResult = ServiceResult::withResult($result, null);
+                }
+
                 return $serviceResult;
             };
     }
@@ -62,38 +71,47 @@ class AuthService
     public function getIdAndAuth($facebookId, $facebookToken): ServiceResult
     {
         $manager = new TransactionServiceManager();
-        $manager->setTask(
-            function () use($facebookId,$facebookToken){
-                $facebookResponseVO = (new CheckFacebookTokenTask($facebookId,$facebookToken)) -> run();
-
-                //Facebook API ERROR
-                if(!empty($facebookResponseVO->getError())){
-                    $serviceResult = new ServiceResult(null, StatusCode::FACEBOOK_TOKEN_API_ERROR,null, $facebookResponseVO->getError());
-                    Logger::serviceError(compact('facebookId','facebookToken'),$facebookResponseVO->getError());
-                    return $serviceResult;
-
-                //Facebook ID does not match
-                }else if($facebookResponseVO->getFacebookId() != $facebookId){
-                    $realFacebookId = $facebookResponseVO->getFacebookId();
-                    $debugMessage = "ID does not match. Request ID : ".$facebookId." Facebook response : ".$realFacebookId;
-                    $serviceResult = new ServiceResult(null, StatusCode::FACEBOOK_ID_DOES_NOT_MATCH, null, $debugMessage);
-                    Logger::serviceError(compact('facebookId','facebookToken','realFacebookId'),$debugMessage);
-                    return $serviceResult;
-                }
-
-                //Get user auth from database.
-                $userModel = new User();
-                $imagesModel = new Images();
-                $userVO = $userModel->getAuthByFacebookId($facebookId);
-
-                //Need to create user data
-                if($userVO == null){
-                    $userVO =  (new CreateUserTask($facebookResponseVO,$userModel,$imagesModel))->run();
-                }
-                return new ServiceResult($userVO,StatusCode::SUCCESS,UserVO::class);
-            }
-            ,$this);
+        $manager->setTasks($this->_getIdAndAuth($facebookId,$facebookToken), $this);
         $manager->execute();
         return $manager->getServiceResult();
+    }
+
+    /**
+     * @param $facebookId
+     * @param $facebookToken
+     * @return \Closure
+     */
+    private function _getIdAndAuth($facebookId,$facebookToken):\Closure{
+        return
+        function () use($facebookId,$facebookToken) : ServiceResult{
+
+            $resultClass = UserAuthVO::class;
+            $facebookResponseVO = (new CheckFacebookTokenTask($facebookId,$facebookToken)) -> run();
+
+            //Facebook API ERROR
+            if(!empty($facebookResponseVO->getError())){
+                $serviceResult = ServiceResult::withError(StatusCode::FACEBOOK_TOKEN_API_ERROR, $facebookResponseVO->getError());
+                Logger::serviceError(compact('facebookId','facebookToken'),$facebookResponseVO->getError());
+                return $serviceResult;
+
+                //Facebook ID does not match
+            }else if($facebookResponseVO->getFacebookId() != $facebookId){
+                $realFacebookId = $facebookResponseVO->getFacebookId();
+                $debugMessage = "ID does not match. Request ID : ".$facebookId." Facebook response : ".$realFacebookId;
+                $serviceResult = ServiceResult::withError(StatusCode::FACEBOOK_ID_DOES_NOT_MATCH, $debugMessage);
+                Logger::serviceError(compact('facebookId','facebookToken','realFacebookId'),$debugMessage);
+                return $serviceResult;
+            }
+
+            //Get user auth from database.
+            $userModel = new User();
+            $imagesModel = new Images();
+            $userVO = $userModel->getAuthByFacebookId($facebookId);
+            //Need to create user data
+            if($userVO == null){
+                $userVO =  (new CreateUserTask($facebookResponseVO,$userModel,$imagesModel))->run();
+            }
+            return ServiceResult::withResult($userVO,$resultClass);
+        };
     }
 }

@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -21,11 +20,33 @@ use Illuminate\Http\Request;
 //ユーザ新規コントローラ
 
 Route::group(
-    ['prefix' => 'users',
+    ['prefix' => 'user',
     'namespace'=> 'User'],
     function () {
+        //Get ID and Auth
         Route::get('/auth/{facebookId}', 'AuthController@getIdAndAuth');
+
+        //Switch user block status.
+        //isBlockOn : {0/1}
+        Route::put('/block/{targetUserId}/{isBlockOn}','BlockController@switchUserBlockStatus');
+
+        //Switch user Follow status
+        Route::put('/follow/{targetUserId}/{isFollowOn}','FollowController@switchUserFollowStatus');
+
+    });
+
+Route::group(['prefix' => 'block'], function(){
+    Route::post('/user', 'User\BlockController@blockUser');
+    Route::post('/cancel', 'User\BlockController@cancelBlock');
 });
+
+// フォロー
+Route::group(['prefix' => 'follow'], function () {
+    Route::post('/user', 'User\FollowController@followUser');
+    Route::post('/cancel', 'User\FollowController@followCancel');
+});
+
+
 //
 //
 //
@@ -81,11 +102,7 @@ Route::group(
 //    Route::post('/interest/{offset?}/{limit?}', 'UserPageController@interest');
 //});
 //
-//// フォロー
-//Route::group(['prefix' => 'follow'], function () {
-//    Route::post('/user', 'FollowController@followUser');
-//    Route::post('/cancel', 'FollowController@followCancel');
-//});
+
 //
 //// ブロック
 //Route::group(['prefix' => 'block'], function(){

@@ -9,6 +9,8 @@ namespace App\Lib\JSYService;
 use App\Constants\StatusCode;
 use App\Lib\Logger;
 use Log;
+use Mockery\Exception;
+
 abstract class ServiceManager
 {
     /**
@@ -22,7 +24,7 @@ abstract class ServiceManager
     protected abstract function finallyExecute();
     protected abstract function errorExecute(\Exception $exception);
 
-    public function setTask(\Closure $task,$newthis){
+    public function setTasks(\Closure $task, $newthis){
         $this->task = $task;
         $this->newthis = $newthis;
     }
@@ -40,7 +42,7 @@ abstract class ServiceManager
             $this->runTask();
             $this->afterExecute();
         }catch (\Exception $exception){
-            $this->serviceResult = new ServiceResult(null,StatusCode::UNKNOWN,$exception->getMessage());
+            $this->serviceResult =  ServiceResult::withError(StatusCode::UNKNOWN,$exception->getMessage());
             Logger::serverError($exception);
             $this->errorExecute($exception);
         }finally{

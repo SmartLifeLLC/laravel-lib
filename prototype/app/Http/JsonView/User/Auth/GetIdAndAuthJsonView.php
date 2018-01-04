@@ -9,13 +9,13 @@ namespace App\Http\JsonView\User\Auth;
 
 use App\Http\JsonView\JsonResponseView;
 use App\Lib\JSYService\ServiceResult;
-use App\ValueObject\UserVO;
+use App\ValueObject\UserAuthVO;
 
 class GetIdAndAuthJsonView extends JsonResponseView
 {
 
     /**
-     * @var UserVO
+     * @var UserAuthVO
      */
     protected $data;
     function createBody()
@@ -25,19 +25,5 @@ class GetIdAndAuthJsonView extends JsonResponseView
                 'user_id'=>$this->data->getUserId(),
                 'auth' =>$this->data->getAuth()
             ];
-    }
-
-    /**
-     * @param ServiceResult $serviceResult
-     * @return JsonResponseView
-     */
-    public static function createJsonView(ServiceResult $serviceResult){
-        if($serviceResult->getResult()==null){
-            return JsonResponseView::withErrorServiceResult($serviceResult);
-        }
-
-        $userVO = $serviceResult->getResult();
-        $jsonResponseView = GetIdAndAuthJsonView::withSuccessData($userVO);
-        return $jsonResponseView;
     }
 }

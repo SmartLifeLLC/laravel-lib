@@ -43,7 +43,7 @@ final class StatusMessage
 
 
             case StatusCode::FACEBOOK_TOKEN_FAILED : return "Facebook Token認証に失敗しました。";
-            case StatusCode::AUTH_FAILED : return "auth 認証に失敗しました。";
+            case StatusCode::AUTH_FAILED : return "認証に失敗しました。";
             case StatusCode::FEED_FAILED_TO_GET_DATA : return "投稿詳細を取得できませんでした。";
 
             /**

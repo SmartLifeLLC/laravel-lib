@@ -26,7 +26,9 @@ class CheckFacebookTokenTask implements ServiceTask
      */
     private $facebookToken;
 
-
+    /**
+     * @var FacebookResponseVO
+     */
     private $result;
 
     /**

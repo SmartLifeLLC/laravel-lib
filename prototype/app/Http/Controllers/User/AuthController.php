@@ -3,7 +3,8 @@ namespace App\Http\Controllers\User;
 use App\Constants\HeaderKeys;
 use App\Constants\StatusCode;
 use App\Http\Controllers\Controller;
-use App\Http\JsonResponseView;
+use App\Http\JsonView\JsonResponseErrorView;
+use App\Http\JsonView\JsonResponseView;
 use App\Http\JsonView\User\Auth\GetIdAndAuthJsonView;
 use App\Services\AuthService;
 use Illuminate\Http\Request;
@@ -25,16 +26,15 @@ class AuthController extends Controller
     public function getIdAndAuth(Request $request, $facebookId){
         $facebookToken = $request->header(HeaderKeys::FB_TOKEN);
         if(empty($facebookId)||empty($facebookToken )){
-            $jsonResponseView =
-                JsonResponseView::withErrorCode(
-                    StatusCode::REQUEST_PARAMETER_ERROR,
-                    "Facebook ID : {$facebookId}, Facebook Token : {$facebookToken}"
-                );
+            $jsonResponseView = new JsonResponseErrorView(
+                StatusCode::REQUEST_PARAMETER_ERROR,
+                "Facebook ID : {$facebookId}, Facebook Token : {$facebookToken}"
+            );
             return $this->responseJson($jsonResponseView);
         }
 
         $serviceResult = (new AuthService())->getIdAndAuth($facebookId,$facebookToken);
-        $jsonResponseView = GetIdAndAuthJsonView::createJsonView($serviceResult);
+        $jsonResponseView = new GetIdAndAuthJsonView($serviceResult);
         return $this->responseJson($jsonResponseView);
     }
 }
