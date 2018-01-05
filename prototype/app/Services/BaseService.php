@@ -10,8 +10,22 @@ namespace App\Services;
 
 
 use App\Lib\JSYService\Service;
+use App\Lib\JSYService\ServiceManagerFactory;
+use App\Lib\JSYService\ServiceResult;
+
 
 class BaseService implements Service
 {
 
+    /**
+     * @param \Closure $tasks
+     * @param bool $runTransaction
+     * @return ServiceResult
+     */
+    protected function executeTasks(\Closure $tasks, bool $runTransaction = false) : ServiceResult{
+        $manager = ServiceManagerFactory::create($runTransaction);
+        $manager->setTasks($tasks,$this);
+        $manager->execute();
+        return $manager->getServiceResult();
+    }
 }

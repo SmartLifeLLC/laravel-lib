@@ -9,15 +9,8 @@
  */
 
 namespace App\Lib;
+use ReflectionObject;
 
-
-/**
- * Class Enum
- * @package App\Lib
- * @Author : Sinyu Jung
- * Copyright :  WonderPlanet Inc. All rights reserved.
- * Last Modified  2018/01/01
- */
 abstract class Enum
 {
     /**
@@ -56,7 +49,7 @@ abstract class Enum
     /**
      * @return mixed
      */
-    final public function valueOf()
+    final public function getValue()
     {
         return $this->scalar;
     }

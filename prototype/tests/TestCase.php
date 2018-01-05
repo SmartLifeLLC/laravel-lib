@@ -82,7 +82,7 @@ abstract class TestCase extends BaseTestCase
         echo "\r\n";
         echo "CODE : " . $response["code"];
         echo "\r\n";
-        echo "MESSAGE : " ;
+        echo "BODY : " ;
         print_r(json_decode(base64_decode($response['body']),true));
     }
 

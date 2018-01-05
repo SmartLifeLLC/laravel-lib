@@ -10,6 +10,7 @@ namespace App\Services;
 
 
 use App\Constants\StatusCode;
+use App\Lib\JSYService\ServiceManagerFactory;
 use App\Lib\JSYService\ServiceResult;
 use App\Lib\JSYService\TransactionServiceManager;
 use App\Models\Follow;
@@ -27,11 +28,7 @@ class FollowService extends BaseService
      * @return ServiceResult (data is instance of SwitchFollowResultVO)
      */
     public function switchFollowStatus($userId,$targetUserId,$isFollowOn):ServiceResult{
-        $manager = new TransactionServiceManager();
-        $manager->setTasks($this->_getSwitchBlockStatusTasks($userId,$targetUserId,$isFollowOn),$this);
-        $manager->execute();
-        $serviceResult = $manager->getServiceResult();
-        return $serviceResult;
+        return $this->executeTasks($this->_getSwitchBlockStatusTasks($userId,$targetUserId,$isFollowOn));
     }
 
 

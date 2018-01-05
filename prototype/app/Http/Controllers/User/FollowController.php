@@ -10,8 +10,8 @@ namespace App\Http\Controllers\User;
 
 
 use App\Http\Controllers\Controller;
-use App\Constants\ValidateRule;
-use App\Constants\CurrentUser;
+use App\Constants\PostParametersValidationRule;
+use App\Models\CurrentUser;
 use App\Lib\Logger;
 use App\Services\FollowService;
 use Illuminate\Http\Request;
@@ -29,7 +29,7 @@ class FollowController extends Controller
      */
     public function followUser(Request $request)
     {
-        $validator = $this->createValidator( $request->all(), ValidateRule::TARGET_USER_ID) ;
+        $validator = $this->createValidator( $request->all(), PostParametersValidationRule::TARGET_USER_ID) ;
         if($validator->fails()) return  $this->responseParameterErrorJsonViewWithValidator($validator);
         return $this->switchUserFollowStatus($request->to,1);
     }
@@ -42,7 +42,7 @@ class FollowController extends Controller
      */
     public function followCancel(Request $request)
     {
-        $validator = $this->createValidator( $request->all(), ValidateRule::TARGET_USER_ID) ;
+        $validator = $this->createValidator( $request->all(), PostParametersValidationRule::TARGET_USER_ID) ;
         if($validator->fails()) return  $this->responseParameterErrorJsonViewWithValidator($validator);
         return $this->switchUserFollowStatus($request->to,0);
     }
@@ -79,4 +79,16 @@ class FollowController extends Controller
         return $this->responseJson($jsonView);
     }
 
+
+    /**
+     * @param $boundaryId
+     */
+    public function getFollowList($boundaryId){
+
+    }
+
+
+    public function getFollowerList($boundaryId){
+
+    }
 }

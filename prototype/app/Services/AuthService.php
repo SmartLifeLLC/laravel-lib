@@ -7,6 +7,7 @@
  */
 namespace App\Services;
 use App\Constants\StatusCode;
+use App\Lib\JSYService\ServiceManagerFactory;
 use App\Lib\JSYService\ServiceResultBoolean;
 use App\Lib\JSYService\TransactionServiceManager;
 use App\Lib\JSYService\ServiceResult;
@@ -34,10 +35,7 @@ class AuthService extends BaseService
      */
     public function isValidAuth($userId, $auth): ServiceResult
     {
-        $manager = new TransactionServiceManager();
-        $manager->setTasks($this->_isValidAuth($userId, $auth), $this);
-        $manager->execute();
-        return $manager->getServiceResult();
+        return $this->executeTasks($this->_isValidAuth($userId,$auth),true);
     }
 
     /**
@@ -70,10 +68,7 @@ class AuthService extends BaseService
      */
     public function getIdAndAuth($facebookId, $facebookToken): ServiceResult
     {
-        $manager = new TransactionServiceManager();
-        $manager->setTasks($this->_getIdAndAuth($facebookId,$facebookToken), $this);
-        $manager->execute();
-        return $manager->getServiceResult();
+        return $this->executeTasks($this->_getIdAndAuth($facebookId,$facebookToken),true);
     }
 
     /**

@@ -9,11 +9,9 @@
 namespace App\Http\Controllers\User;
 
 
-use App\Constants\CurrentUser;
-use App\Constants\StatusCode;
-use App\Constants\ValidateRule;
+use App\Models\CurrentUser;
+use App\Constants\PostParametersValidationRule;
 use App\Http\Controllers\Controller;
-use App\Http\JsonView\JsonResponseErrorView;
 use App\Services\BlockService;
 use Illuminate\Http\Request;
 use Validator;
@@ -29,7 +27,7 @@ class BlockController extends Controller
     public function blockUser(Request $request){
 
         //パラメータチェック
-        $validator = $this->createValidator( $request->all(), ValidateRule::TARGET_USER_ID) ;
+        $validator = $this->createValidator( $request->all(), PostParametersValidationRule::TARGET_USER_ID) ;
         if($validator->fails()) return  $this->responseParameterErrorJsonViewWithValidator($validator);
         return $this->switchUserBlockStatus($request->to,1);
     }
@@ -41,7 +39,7 @@ class BlockController extends Controller
      */
     public function cancelBlock(Request $request){
         //パラメータチェック
-        $validator = $this->createValidator( $request->all(), ValidateRule::TARGET_USER_ID) ;
+        $validator = $this->createValidator( $request->all(), PostParametersValidationRule::TARGET_USER_ID) ;
         if($validator->fails()) return  $this->responseParameterErrorJsonViewWithValidator($validator);
         return $this->switchUserBlockStatus($request->to,0);
     }

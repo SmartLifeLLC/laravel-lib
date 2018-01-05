@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Constants\StatusCode;
-use App\Constants\ValidateRule;
+use App\Constants\PostParametersValidationRule;
 use App\Http\JsonView\JsonResponseErrorView;
 use App\Http\JsonView\JsonResponseView;
 use App\Lib\Logger;
@@ -34,7 +34,7 @@ class Controller extends BaseController
      * @return mixed
      */
     protected function createValidator($parameters, ...$targets){
-        $data = ValidateRule::get($targets);
+        $data = PostParametersValidationRule::get($targets);
         return Validator::make($parameters, $data);
     }
 

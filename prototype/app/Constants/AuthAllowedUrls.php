@@ -12,7 +12,7 @@ namespace App\Constants;
 
 use App\Lib\Enum;
 
-final class AuthAllowedUrls extends Enum
+final class AuthAllowedUrls
 {
     const LIST = [
         'api/users/auth/',

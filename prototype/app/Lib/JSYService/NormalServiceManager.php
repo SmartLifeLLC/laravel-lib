@@ -30,7 +30,7 @@ class NormalServiceManager extends ServiceManager
      */
     final protected function errorExecute(\Exception $exception)
     {
-        throw new \Exception($exception->getMessage());
+
     }
 
     /**
@@ -41,11 +41,4 @@ class NormalServiceManager extends ServiceManager
         // TODO: Implement finallyExecute() method.
     }
 
-    /**
-     * @return ServiceResult
-     */
-    public  function getServiceResult(): ServiceResult
-    {
-        // TODO: Implement getServiceResult() method.
-    }
 }

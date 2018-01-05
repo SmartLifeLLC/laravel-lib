@@ -9,6 +9,7 @@
 namespace App\Services;
 
 
+use App\Lib\JSYService\ServiceManagerFactory;
 use App\Lib\JSYService\TransactionServiceManager;
 use App\Lib\JSYService\ServiceResult;
 use App\Models\Follow;
@@ -26,11 +27,7 @@ class BlockService extends BaseService
      * @return ServiceResult (Always return true.)
      */
     public function switchBlockStatus($userId,$targetUserId,$isBlockOn){
-        $manager = new TransactionServiceManager();
-        $manager->setTasks($this->_getSwitchBlockStatusTasks($userId,$targetUserId,$isBlockOn),$this);
-        $manager->execute();
-        $serviceResult = $manager->getServiceResult();
-        return $serviceResult;
+        return $this->executeTasks($this->_getSwitchBlockStatusTasks($userId,$targetUserId,$isBlockOn),true);
     }
 
     /**

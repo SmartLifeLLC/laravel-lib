@@ -65,14 +65,13 @@ class ServiceResult
         return StatusMessage::get($this->statusCode);
     }
 
-
     /**
      * ServiceResult constructor.
      * @param $result
      * @param $statusCode
      * @param String|null $debugMessage
      */
-    private function __construct($result,$statusCode,$resultClass = null, String $debugMessage = null)
+    private function __construct($result,$statusCode, String $debugMessage = null)
     {
         $this->result = $result;
         $this->statusCode = $statusCode;
@@ -86,21 +85,21 @@ class ServiceResult
      */
     public static function withError($statusCode,String $debugMessage = null):ServiceResult
     {
-        $instance = new self(null,$statusCode,null,$debugMessage);
+        $instance = new self(null,$statusCode,$debugMessage);
         return $instance;
     }
 
     /**
      * @param $result
-     * @param null $resultClass
+     * @param null $resultClassForCheckingType
      * @return ServiceResult
      * @throws \TypeError
      */
-    public static function withResult($result,$resultClass = null){
-        $instance = new self($result,StatusCode::SUCCESS,$resultClass);
-        if($resultClass != null){
-            if(!$result instanceof $resultClass){
-                throw new \TypeError("Current result does instance of ".$resultClass);
+    public static function withResult($result, $resultClassForCheckingType = null){
+        $instance = new self($result,StatusCode::SUCCESS);
+        if($resultClassForCheckingType != null){
+            if(!$result instanceof $resultClassForCheckingType){
+                throw new \TypeError("Current result does instance of ".$resultClassForCheckingType);
             }
         }
         return $instance;

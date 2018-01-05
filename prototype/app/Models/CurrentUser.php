@@ -6,7 +6,7 @@
  * Time: 12:23
  */
 
-namespace App\Constants;
+namespace App\Models;
 
 
 use App\Lib\Singleton;

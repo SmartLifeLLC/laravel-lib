@@ -19,12 +19,14 @@ use Illuminate\Http\Request;
 //From here added by Jung
 //ユーザ新規コントローラ
 
+//New Apis
 Route::group(
     ['prefix' => 'user',
     'namespace'=> 'User'],
     function () {
         //Get ID and Auth
         Route::get('/auth/{facebookId}', 'AuthController@getIdAndAuth');
+        Route::get('/notificationLogs/{boundaryId?}/{limit?}/{orderTypeString?}','NotificationLogController@getLogs');
 
         //Switch user block status.
         //isBlockOn : {0/1}
@@ -33,8 +35,18 @@ Route::group(
         //Switch user Follow status
         Route::put('/follow/{targetUserId}/{isFollowOn}','FollowController@switchUserFollowStatus');
 
+        Route::post('/device/register','DeviceController@register');
+
+
     });
 
+Route::group(['prefix'=>'featured','namespace'=>'Featured'],
+    function(){
+        Route::get('/users/onInit','FeaturedUsersController@getListOnAppInit');
+    });
+
+
+//Old apis
 Route::group(['prefix' => 'block'], function(){
     Route::post('/user', 'User\BlockController@blockUser');
     Route::post('/cancel', 'User\BlockController@cancelBlock');
@@ -45,6 +57,13 @@ Route::group(['prefix' => 'follow'], function () {
     Route::post('/user', 'User\FollowController@followUser');
     Route::post('/cancel', 'User\FollowController@followCancel');
 });
+
+// レコメンド
+Route::group(['prefix' => 'recommend_users'], function () {
+    Route::post('/', 'Featured\FeaturedUsersController@getListOnAppInit');
+});
+
+
 
 
 //
@@ -104,12 +123,7 @@ Route::group(['prefix' => 'follow'], function () {
 //
 
 //
-//// ブロック
-//Route::group(['prefix' => 'block'], function(){
-//    Route::post('/user', 'BlockController@blockUser');
-//    Route::post('/cancel', 'BlockController@cancelBlock');
-//});
-//
+
 //// タイムライン
 //Route::group(['prefix' => 'timeline'], function () {
 //    Route::post('/my/{offset?}/{limit?}', 'TimelineController@getMyTimeLine');
@@ -125,11 +139,7 @@ Route::group(['prefix' => 'follow'], function () {
 //    Route::post('/review_post/cancel', 'ReactionController@cancelToReviewPost');
 //});
 //
-//// ログイン
-//Route::group(['prefix' => 'login'], function () {
-//    Route::post('/get_fb_token', 'LoginController@getFBLoginToken');
-//    Route::post('/do_fb_login', 'LoginController@processFBLogin');
-//});
+
 //
 //// レビュー投稿
 //Route::group(['prefix' => 'review_post'], function () {

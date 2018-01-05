@@ -3,7 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Constants\AuthAllowedUrls;
-use App\Constants\CurrentUser;
+use App\Models\CurrentUser;
 use App\Constants\HeaderKeys;
 use App\Constants\StatusCode;
 use App\Constants\StatusMessage;
