@@ -84,4 +84,11 @@ final class Util
         return $key;
     }
 
+    /**
+     * @param $s3key
+     * @return string
+     */
+    static function getS3ImageFullPath($s3key):String{
+        return  ($s3key == null)?"":ConfigConstants::getCdnHost().$s3key;
+    }
 }

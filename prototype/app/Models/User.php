@@ -59,6 +59,54 @@ class User extends Model
         return $id;
     }
 
+    /**
+     * @param $userId
+     * @return mixed
+     */
+    public function getUserInfo($userId){
+        return
+            $this->where('users.id',$userId)
+            ->select(
+                'users.id as user_id',
+                'facebook_id',
+                'mail_address',
+                'first_name',
+                'last_name',
+                'user_name',
+                'users.description',
+                'address',
+                'gender',
+                'birthday',
+                'worked_history',
+                'cover_images.s3_key as cover_image_url',
+                'profile_images.s3_key as profile_image_url',
+                'gender_published_flag',
+                'birthday_published_flag',
+                'users.created_at',
+                'users.updated_at'
+                )
+            ->leftJoin('images as cover_images', 'users.cover_image_id', '=', 'cover_images.user_id')
+            ->leftJoin('images as profile_images', 'users.profile_image_id', '=', 'profile_images.user_id')
+            ->first();
+    }
+
+    /**
+     * @param $userId
+     * @return mixed
+     */
+    public function getNotificationSettings($userId){
+        return $this
+                ->select(
+                    'id',
+                    'is_follow_notification_allowed',
+                    'is_have_notification_allowed',
+                    'is_like_notification_allowed',
+                    'is_interest_notification_allowed',
+                    'is_comment_notification_allowed'
+                )
+                ->where('users.id',$userId)
+                ->first();
+    }
 
     public function createAuthForUser($userId){
         $auth = Util::getUniqueAuth();

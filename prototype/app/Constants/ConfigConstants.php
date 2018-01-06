@@ -17,8 +17,12 @@ final class ConfigConstants
     const ENV_STAGING = "stg";
     const ENV_LOCAL = "local";
 
-    static function getCdnHost(){
 
+    static function getImageUrl($s3key){
+        return ($s3key == null)?"":self::getCdnHost().$s3key;
+    }
+
+    static function getCdnHost(){
         if(config("app.env") == ConfigConstants::ENV_DEVELOPMENT){
             return URLs::IMG_HOST_DEVP;
         }else{

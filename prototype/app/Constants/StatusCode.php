@@ -44,6 +44,9 @@ final class StatusCode
 
         const   FEED_FAILED_TO_GET_DATA = "0400";
 
+        const UNKNOWN_USER_ID = "9300"; //User id によるユーザ確認失敗
+
+
         /**
          * 異常系
          */

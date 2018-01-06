@@ -24,7 +24,6 @@ class NotificationLogControllerTest extends TestCase
         $httpMethod = HttpMethod::GET;
         $uri = "/user/notificationLogs/101";
         $content = $this->getJsonRequestContent($httpMethod,$uri);
-        echo json_encode($content);
         $this->printResponse($content);
         $this->assertEquals(StatusCode::SUCCESS,$content["code"]);
     }

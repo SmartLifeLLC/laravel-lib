@@ -75,6 +75,7 @@ final class StatusMessage
 
             case StatusCode::FACEBOOK_TOKEN_API_ERROR : return "Facebook ログインエラー";
             case StatusCode::FACEBOOK_ID_DOES_NOT_MATCH : return "Facebook ID 認証エラー";
+            case StatusCode::UNKNOWN_USER_ID : return "不明なユーザです。"; //User id によるユーザ確認失敗
             /**
              * 不明
              */

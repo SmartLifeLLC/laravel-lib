@@ -26,6 +26,8 @@ Route::group(
     function () {
         //Get ID and Auth
         Route::get('/auth/{facebookId}', 'AuthController@getIdAndAuth');
+
+        //Get user notification logs
         Route::get('/notificationLogs/{boundaryId?}/{limit?}/{orderTypeString?}','NotificationLogController@getLogs');
 
         //Switch user block status.
@@ -37,6 +39,15 @@ Route::group(
 
         Route::post('/device/register','DeviceController@register');
 
+        //User detail
+        Route::get('/info','UserController@getInfo');
+        //Old version
+        Route::post('/get','UserController@getInfo');
+
+        //User setting
+        Route::get('/setting/notification/list','UserController@getNotificationSettings');
+        //Old
+        Route::get('/setting/show/{user_id?}'   ,'UserController@getNotificationSettings');
 
     });
 
@@ -66,10 +77,25 @@ Route::group(['prefix' => 'recommend_users'], function () {
 
 
 
+//// ユーザー
+//Route::group(['prefix' => 'user'], function () {
+
+//    Route::post('/get', 'LoginUserController@get'); => OK
+//    Route::post('/regist', 'UserController@regist'); => 廃止
+//    Route::get('/setting/show/{user_id}', 'UserSettingController@show');
+
+//    Route::post('/edit', 'UserController@edit');
+//    Route::get('/setting/show/block/{user_id}/{offset?}', 'UserSettingController@blockList');
+//    Route::post('/setting', 'UserSettingController@update');
+//});
+
+
 //
 //
 //
 //
+
+
 //// 検索
 //Route::group(['prefix' => 'search'], function () {
 //    Route::get('/', 'SearchController@index');
@@ -79,6 +105,8 @@ Route::group(['prefix' => 'recommend_users'], function () {
 ////    Route::get('/category/get/{section_id}/{offset?}/{limit?}', 'SearchController@getFromCategoryId');
 //});
 //
+
+
 //// 商品
 //Route::group(['prefix' => 'product_item'], function () {
 //    Route::get('/jan_code', 'ProductItemController@jan_code');
@@ -88,6 +116,8 @@ Route::group(['prefix' => 'recommend_users'], function () {
 //    Route::post('/refusal/{product_item_id}/{offset?}/{limit?}', 'ProductItemController@getRefusalList');
 //});
 //
+
+
 //// 投稿
 //Route::group(['prefix' => 'post'], function () {
 //    Route::post('/product_item_review', 'PostController@createProductItemReviewPost');
@@ -96,15 +126,8 @@ Route::group(['prefix' => 'recommend_users'], function () {
 //    Route::post('/delete_comment', "PostController@deleteCommentToReviewPost");
 //});
 //
-//// ユーザー
-//Route::group(['prefix' => 'UserVO'], function () {
-//    Route::post('/get', 'LoginUserController@get');
-//    Route::post('/regist', 'UserController@regist');
-//    Route::post('/edit', 'UserController@edit');
-//    Route::get('/setting/show/{user_id}', 'UserSettingController@show');
-//    Route::get('/setting/show/block/{user_id}/{offset?}', 'UserSettingController@blockList');
-//    Route::post('/setting', 'UserSettingController@update');
-//});
+
+
 //
 //
 //
@@ -149,24 +172,10 @@ Route::group(['prefix' => 'recommend_users'], function () {
 //    Route::post('/{reviewPostId}', 'PostController@getReviewPostDetail');
 //});
 //
-//// 通知
-//Route::group(['prefix' => 'notification'], function () {
-//    Route::post('/regist_device', 'NotificationDeviceTokenController@registFCMDeviceToken');
-//    Route::post('/user_logs/{offset?}/{limit?}', 'NotificationLogsController@listUserNotificationLogs');
-//    Route::post('/all_already_read', 'NotificationLogsController@updateAllUserLogsToAlreadyRead');
-//});
+
+
 //
-//// レコメンド
-//Route::group(['prefix' => 'recommend_users'], function () {
-//    Route::post('/', 'RecommendUserController@get');
-//});
-//
-////From here added by Jung
-////ユーザ新規コントローラ
-//Route::group(['prefix' => 'users'], function () {
-//    Route::get('/auth/{facebookId}', 'UsersController@auth');
-//});
-//
+
 //Route::group(['prefix'=> 'feeds'],function(){
 //    Route::get('/detail/{feedId}','FeedsController@detail');
 //    Route::get('/comments/{feedId}/{boundaryId}','FeedsController@comments');
