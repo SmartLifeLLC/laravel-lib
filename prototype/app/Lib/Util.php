@@ -91,4 +91,32 @@ final class Util
     static function getS3ImageFullPath($s3key):String{
         return  ($s3key == null)?"":ConfigConstants::getCdnHost().$s3key;
     }
+
+    /**
+     * from : https://qiita.com/a_yasui/items/fc6e1c564b5b21482882
+     * @param $str
+     * @return null|string|string[]
+     */
+    static function removeWhite ($str){
+        return preg_replace(
+            '/(?:'
+            .'(?:\x09)'
+            .'|(?:\x20)'
+            .'|(?:\xc2\xa0)'
+            .'|(?:\xe2\x80\x82)'
+            .'|(?:\xe2\x80\x83)'
+            .'|(?:\xe2\x80\x84)'
+            .'|(?:\xe2\x80\x85)'
+            .'|(?:\xe2\x80\x86)'
+            .'|(?:\xe2\x80\x87)'
+            .'|(?:\xe2\x80\x88)'
+            .'|(?:\xe2\x80\x89)'
+            .'|(?:\xe2\x80\x8a)'
+            .'|(?:\xe2\x80\x8b)'
+            .'|(?:\xe3\x80\x80)'
+            .'|(?:\xef\xbb\xbf)'
+            .')+/',
+            '',
+            $str);
+    }
 }

@@ -2,9 +2,11 @@
 
 namespace App\Console;
 
+use App\Console\Commands\JicfsItemReader;
+use App\Models\JicfsCategory;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-
+use App\Console\Commands\CategoryGenerator;
 class Kernel extends ConsoleKernel
 {
     /**
@@ -13,7 +15,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        CategoryGenerator::class,
+        JicfsItemReader::class
     ];
 
     /**
