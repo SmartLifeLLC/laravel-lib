@@ -119,4 +119,15 @@ final class Util
             '',
             $str);
     }
+
+    /**
+     *  全角英数字を半角に : 'a'
+     *  全角スペースを半角に : 's'
+     *  see http://php.net/manual/ja/function.mb-convert-kana.php
+     * @param $value
+     * @return string
+     */
+    static function convertToHankakuAlphaNum($value){
+        return (mb_convert_kana(($value),"as"));
+    }
 }

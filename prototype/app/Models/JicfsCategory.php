@@ -31,4 +31,12 @@ class JicfsCategory extends Model
                 ]
         );
     }
+
+    /**
+     * @param $code
+     * @return mixed
+     */
+    public function getCategoryInfo($code){
+        return $this->where('category_code',$code)->first();
+    }
 }

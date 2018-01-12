@@ -9,14 +9,9 @@ namespace App\ValueObject\JicfsObject;
 
 trait JANProductBaseInfoVars
 {
-    //1 レコード区分 半角 	英数、カナ　1 「E」固定
-    public $_1_recordId;
 
-    //2 英数、カナ 半角 	2「A1」固定
-    public $_2_dataType;
 
-    //3 確定更新区分	半角  1：新規、2：再使用、3：変更、4：退避、5：退避戻し、9：削除
-    public $_3_updateType;
+
 
     //4 共通商品コード（ＪＡＮコード）半角 英数、カナ	13	"キー項目（JAN、EAN、UPC）標準13桁／短縮8桁、UPCｺｰﾄﾞ（12桁）は先頭に0（ｾﾞﾛ）を加えて13桁とします"
     public $_4_janCode;
@@ -48,7 +43,7 @@ trait JANProductBaseInfoVars
     //13 商品名称 （カナ）		半角	英数、カナ	50	商品の固有名称
     public $_13_productNameKana;
 
-    //14 商品名称 (漢字)
+    //14 商品名称 (漢字) 全角
     public $_14_productNameKanji;
 
     //15 表示用規格 （カナ）半角	英数、カナ	10	商品の内容量、重量、規格等。　例）1500ml、200ｇ×5個入　等
@@ -69,7 +64,7 @@ trait JANProductBaseInfoVars
     //20 ＰＯＳレシート名（漢字）	全角		漢字、英数、カナ	14
     public $_20_posReceiptNameKanji;
 
-    /*** 21
+    /***
      * 商品分類	ＪＩＣＦＳ商品分類（大分類）		○	英数、カナ	1
      * ＪＩＣＦＳ商品分類（中分類）		○	英数、カナ	1
      * ＪＩＣＦＳ商品分類（小分類）		○	英数、カナ	2
@@ -101,6 +96,11 @@ trait JANProductBaseInfoVars
     //29 価格 オープン価格フラグ	 半角 英数、カナ	1	0：通常、1：ｵｰﾌﾟﾝ価格
     public $_29_openPriceFlag;
 
+
+    /**
+     * price
+     * @var
+     */
     //30 希望小売価格	 半角　数字	8	内容については「消費税区分」で判断
     public $_30_price;
 

@@ -8,29 +8,44 @@
 // EA1 Data
 
 namespace App\ValueObject\JicfsObject;
-class JANProductBaseInfo extends BaseObject
+use App\Lib\Util;
+
+class JANProductBaseInfoVO extends JFBaseObject
 {
     use JANProductBaseInfoVars;
 
+    function getVarCount()
+    {
+        return 55;
+    }
+
     public function createVars($data){
         $arrayKey = 0;
-        for($methodId = 1 ; $methodId < 56 ; $methodId ++){
+        for($n = 1 ; $n < 56 ; $n ++){
             $iteration = 0;
-            //3 times for same field
-            if($methodId >= 23 && $methodId <= 25) $iteration = 3;
 
+            //機能分類
+            //3 times for same field
+            if($n >= 23 && $n <= 25) $iteration = 3;
+
+            //販売限定項目
             //2 times for same field
-            else if($methodId >= 26 && $methodId <= 28) $iteration = 2;
+            else if($n >= 26 && $n <= 28) $iteration = 2;
 
             //10 times for same field
-            else if($methodId == 38) $iteration = 10;
-            $varName = $this->getVarNameFor($methodId);
+            //38 = 検索キーワード
+            else if($n == 38) $iteration = 10;
+            $varName = $this->getVarNameForNth($n);
 
             for ($i = 0 ; $i < $iteration ; $i++) {
+
+                //全角英数字を半角に - 14は商品名
                 $value = $data[$arrayKey++];
+                if($n == 14)  $value = Util::convertToHankakuAlphaNum($value)  ;
                 $this->{$varName}[] = $value;
             }
 
+            //繰り返しがない項目
             if($iteration == 0){
                 $value = $data[$arrayKey++];
                 $this->{$varName} = $value;

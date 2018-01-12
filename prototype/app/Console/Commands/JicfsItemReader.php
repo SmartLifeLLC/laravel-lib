@@ -2,7 +2,9 @@
 
 namespace App\Console\Commands;
 
-use App\ValueObject\JicfsObject\JANProductBaseInfo;
+use App\Services\ProductService;
+use App\ValueObject\JicfsObject\JANProductBaseInfoVO;
+use App\ValueObject\JicfsObject\JicfsManufacturerInfoVO;
 use Illuminate\Console\Command;
 
 class JicfsItemReader extends Command
@@ -38,21 +40,40 @@ class JicfsItemReader extends Command
      */
     public function handle()
     {
+        $productService = new ProductService();
         $filePath = storage_path('app/rawdata/product_item_sample.csv');
         if(($handler = fopen($filePath,"r"))!==false) {
-            while($data = fgetcsv($handler,0,"\t")) {
-                $data = mb_convert_encoding($data,'utf-8','sjis');
-                if($data[1]=="A1"){
-                    $janProductBaseInfo = new JANProductBaseInfo($data);
-                    for($i=1; $i<56 ; $i++){
-                        $varName = $janProductBaseInfo->getVarNameFor($i);
-                        var_dump($janProductBaseInfo->{$varName});
+            $count = 0;
+            while($csvData = fgetcsv($handler,0,"\t")) {
+                $csvData = mb_convert_encoding($csvData,'utf-8','sjis-win');
+                $recordType = $csvData[1];
+
+                switch ($recordType){
+                    case "A1" : {
+                        $janProductBaseInfoVO = new JANProductBaseInfoVO($csvData);
+                        $productService->createProductAndJicfsProduct($janProductBaseInfoVO);
+                        $count ++;
+                        $this->consoleLog("#{$count} : A1 - ".$janProductBaseInfoVO->_14_productNameKanji);
+                        break;
                     }
-                    exit;
+                    case "D5":{
+                        //There is two types for D5.
+                        //Determine by 10th column exists or not
+                        if(isset($csvData['10'])){
+                            $jicfsManufacturerInfoVO = new JicfsManufacturerInfoVO($csvData);
+                            $productService->createProductBrand($jicfsManufacturerInfoVO);
+                            $count ++;
+                            $this->consoleLog("#{$count} : A1 - ".$jicfsManufacturerInfoVO->_7_companyName);
+                        }
+                        break;
+                    }
                 }
             }
         }
     }
 
+    private function consoleLog($log){
+
+    }
 
 }

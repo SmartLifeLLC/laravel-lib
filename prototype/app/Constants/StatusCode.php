@@ -14,13 +14,6 @@ use App\Lib\Enum;
 
 final class StatusCode
 {
-        const   SERVICE_SUCCESS = "0000";
-        const   SERVICE_FAILED = "0001";
-
-
-
-        const STATUS_OK_OLD_CODE = "OK";
-        const STATUS_ERROR_OLD_CODE = "ERROR";
 
         /**
          * 正常系
@@ -42,7 +35,7 @@ final class StatusCode
         const FACEBOOK_TOKEN_FAILED = "0300" ;
         const AUTH_FAILED  = "0301" ;
 
-        const   FEED_FAILED_TO_GET_DATA = "0400";
+        const FEED_FAILED_TO_GET_DATA = "0400";
 
         const UNKNOWN_USER_ID = "9300"; //User id によるユーザ確認失敗
 

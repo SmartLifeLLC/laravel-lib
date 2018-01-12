@@ -6,6 +6,8 @@
  * Time: 2:17
  */
 
+
+
 class ITFDistributionProductInfo extends BaseObject
 {
 
