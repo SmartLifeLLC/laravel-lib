@@ -53,10 +53,10 @@ trait JANProductBaseInfoVars
     public $_16_displayUnitKanji;
 
     //17 伝票用商品名称（カナ）		半角	英数、カナ	25	"伝票（統一伝票）等での表示用商品名称　 ﾌﾞﾗﾝﾄﾞ名または企業ﾌﾞﾗﾝﾄﾞ名またはﾒｰｶ略称＋商品名称＋表示用規格により自動編集可"
-    public $_17_receiptProductNameKana;
+    public $_17_voucherqqqqProductNameKana;
 
-    //18 	伝票用商品名称（漢字）	全角　	漢字、英数、カナ	25
-    public $_18_receiptProductNameKanji;
+    //18 伝票用商品名称（漢字）	全角　	漢字、英数、カナ	25
+    public $_18_voucherProductNameKanji;
 
     //19 POS	ＰＯＳレシート名（カナ）	半角	英数、カナ	14	POSやEOS（ﾊﾝﾃﾞｨﾀｰﾐﾅﾙ用）等で使用する商品略称名
     public $_19_posReceiptNameKana;
@@ -108,7 +108,7 @@ trait JANProductBaseInfoVars
     public $_31_totalQuantity;
 
     //32 内容量単位コード	半角 英数、カナ	3	"総内容量の単位をｍｌ、ｇ、本、枚、個、粒などで指定（ｌ、Ｋｇは使用せず） ※項番31、32は従来の「商品規格」の各項目相当"
-    public $_32_quantityUnityCode;
+    public $_32_quantityUnitCode;
 
     //33 単品重量	半角 数字	7	単位はｇ
     public $_33_singleProductWeight;

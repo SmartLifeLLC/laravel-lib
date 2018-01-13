@@ -95,4 +95,53 @@ class ProductCategory extends Model
         return $ancestorCategoryName.' / '. $currentCategoryName ;
     }
 
+
+    /**
+     * @param $categoryId
+     */
+    public function increaseProductCount($categoryId){
+        $set = "product_count = product_count + 1";
+        $this->_updateCount($categoryId,$set);
+    }
+
+    /**
+     * @param $categoryId
+     */
+    public function decreaseProductCount($categoryId){
+        $set = "product_count = product_count - 1";
+        $this->_updateCount($categoryId,$set);
+    }
+
+    /**
+     * @param $categoryId
+     */
+    public function increaseFeedCount($categoryId){
+        $set = "feed_count = feed_count + 1";
+        $this->_updateCount($categoryId,$set);
+    }
+
+    /**
+     * @param $categoryId
+     */
+    public function decreaseFeedCount($categoryId){
+        $set = "feed_count = feed_count - 1";
+        $this->_updateCount($categoryId,$set);
+    }
+
+
+    /**
+     * @param $categoryId
+     * @param $set
+     */
+    private function _updateCount($categoryId,$set){
+        $updateQuery =
+            "UPDATE product_categories
+              SET {$set}
+              WHERE id IN (
+                  SELECT ancestor_id
+                  FROM product_category_hierarchies
+                  WHERE descendant_id = ?);
+            ";
+        DB::update($updateQuery,[$categoryId]);
+    }
 }

@@ -14,6 +14,7 @@ class BlockUser extends Model
      * @param $userId
      * @param $targetUserId
      * @return bool|null
+     * @throws \Exception
      */
     public function deleteBlock($userId,$targetUserId){
         return self::where(['user_id'=>$userId,'target_user_id'=>$targetUserId])->delete();

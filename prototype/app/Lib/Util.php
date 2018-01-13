@@ -130,4 +130,31 @@ final class Util
     static function convertToHankakuAlphaNum($value){
         return (mb_convert_kana(($value),"as"));
     }
+
+    /**
+     * @return string
+     */
+    static function getDateFormat(){
+        return "Y-m-d";
+    }
+
+    /**
+     * @param $str
+     * @param $num
+     * @param string $encoding
+     * @return string
+     */
+    static function getNGram($str, $num, $encoding = 'UTF-8'){
+        if($num == 0 ) return $str;
+        if (func_num_args() < 3) {
+            $encoding = mb_internal_encoding();
+        }
+        $strList = [];
+        $strLen = mb_strlen($str, $encoding);
+
+        for ($i = 0; $i < $strLen; ++$i) {
+            $strList[] = mb_substr($str, $i, $num, $encoding);
+        }
+        return implode($strList, "\x20");
+    }
 }

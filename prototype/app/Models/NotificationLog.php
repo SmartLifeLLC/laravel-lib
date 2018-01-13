@@ -50,7 +50,7 @@ class NotificationLog extends Model
 
     /**
      * @param array $ids
-     * @return mixeds
+     * @return bool
      */
     public function updateReadDate(Array $ids){
         return self::whereIn('id', $ids)

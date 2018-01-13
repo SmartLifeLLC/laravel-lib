@@ -13,27 +13,53 @@ use Illuminate\Database\Eloquent\Model;
 
 class JicfsProduct extends Model
 {
-    public function getProduct($janCode,$name){
-        return $this->where('jan_code',$janCode)->where('name',$name)->first();
+    public $timestamps = false;
+    public function getProduct($janCode,$posName){
+        return $this->where('jan_code',$janCode)->where('voucher_name',$posName)->first();
     }
 
     /**
-     * @param $janCode
+     * @param array $janCode
      * @param $name
+     * @param $productId
      * @param $jicfsCategoryId
      * @param $productCategoryId
-     * @param $productBrandId
-     * @return mixed
+     * @param $productManufacturerId
+     * @param $displayUnit
+     * @param $voucherName
+     * @param $totalQuantity
+     * @param $quantityType
+     * @param $releaseDate
+     * @return $this|Model|int
      */
-    public function create($janCode,$name,$productId,$jicfsCategoryId,$productCategoryId,$productBrandId){
+    public function createGetId(
+        $janCode,
+        $name,
+        $productId,
+        $jicfsCategoryId,
+        $productCategoryId,
+        $productManufacturerId,
+        $displayUnit,
+        $voucherName,
+        $totalQuantity,
+        $quantityType,
+        $releaseDate
+        ){
+
         $data = [
             'jan_code' => $janCode,
             'name'  => $name,
             'product_id'=> $productId,
             'jicfs_category_id' => $jicfsCategoryId,
             'product_category_id' => $productCategoryId,
-            'product_brand_id' => $productBrandId
+            'jicfs_manufacturer_id' => $productManufacturerId,
+            'display_unit' => $displayUnit,
+            'voucher_name' => $voucherName,
+            'total_quantity' => $totalQuantity,
+            'quantity_type' => $quantityType
         ];
+
+        if($releaseDate != null) $data['release_date'] = $releaseDate;
         return $this->insertGetId($data);
     }
 

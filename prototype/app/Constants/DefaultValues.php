@@ -23,5 +23,6 @@ final class DefaultValues extends Enum
         const USER_NAME_MAX = 10000;
         const USER_DESCRIPTION_MAX = 255;
         const QUERY_DEFAULT_LIMIT = 10;
+        const PRODUCT_N_GRAM_SIZE = 2;
 
 }

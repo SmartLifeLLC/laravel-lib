@@ -1,16 +1,18 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: jung
- * Date: 2018/01/12
- * Time: 2:22
+ * class JicfsManufacturer
+ * @package App\Models
+ * @Author : Sinyu Jung
+ * Copyright :  WonderPlanet Inc. All rights reserved.
+ * Last Modified  2018/01/13
  */
 
 namespace App\Models;
 
 
 use Illuminate\Database\Eloquent\Model;
-class ProductBrand extends Model
+
+class JicfsManufacturer extends Model
 {
     /**
      * @param $id
@@ -22,11 +24,4 @@ class ProductBrand extends Model
         return $this->insertGetId($data);
     }
 
-    /**
-     * @param $id
-     * @return mixed
-     */
-    public function getBrand($id){
-        return $this->find($id);
-    }
 }

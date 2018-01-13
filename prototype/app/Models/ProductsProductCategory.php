@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProductsProductCategory extends Model
 {
-    public function create($productId,$productCategoryId){
+    public function createGetId($productId,$productCategoryId){
         $data = [
             'product_id' => $productId,
             'product_category_id'=>$productCategoryId
