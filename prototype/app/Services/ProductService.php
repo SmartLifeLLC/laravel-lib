@@ -9,6 +9,7 @@
 namespace App\Services;
 
 
+use App\Constants\DefaultValues;
 use App\Constants\StatusCode;
 use App\Lib\JSYService\ServiceResult;
 use App\Lib\Util;
@@ -138,5 +139,40 @@ class ProductService extends BaseService
             }
             return ServiceResult::withResult(new CreateProductManufacturerResultVO($id,$isCreated));
         },true);
+    }
+
+
+    /**
+     * @param $keyword
+     * @param $categoryId
+     * @param int $limit
+     * @param int $page
+     * @return ServiceResult
+     */
+    public function getProductList($keyword,$categoryId,$limit=DefaultValues::QUERY_DEFAULT_LIMIT,$page=0){
+        if($keyword != null){
+            return $this->getProductListByKeyword($keyword,$categoryId,$limit,$page);
+        }else{
+            return $this->categorySearch($categoryId,$limit,$page);
+        }
+    }
+
+    /**
+     * @param $keyword
+     * @param $categoryId
+     * @param $limit
+     * @param $page
+     * @return ServiceResult
+     */
+    public function getProductListByKeyword($keyword,$categoryId,$limit,$page){
+        return $this->executeTasks(function() use ($keyword,$categoryId,$limit,$page){
+            $productModel = new Product();
+            $result = $productModel->getProductAndCountByKeyword($keyword,$page,$limit);
+            return ServiceResult::withResult($result);
+        });
+    }
+
+    public function getProductListByCategory($categoryId,$limit,$page){
+
     }
 }

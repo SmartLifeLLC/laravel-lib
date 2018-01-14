@@ -10,6 +10,7 @@ namespace App\Lib;
 
 
 use App\Constants\ConfigConstants;
+use Illuminate\Http\Request;
 
 final class Util
 {
@@ -61,6 +62,16 @@ final class Util
             return $default;
         }
 
+    }
+
+    /**
+     * @param Request $request
+     * @param $key
+     * @param $default
+     * @return mixed
+     */
+    static function getValueForKeyOnGetRequest(Request $request,$key,$default){
+        return (empty($request->get($key)))?$default:$request->get($key);
     }
 
     /**

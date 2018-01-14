@@ -91,7 +91,6 @@ Route::group(['prefix' => 'recommend_users'], function () {
 //    Route::get('/category/large', 'SearchController@searchForLargeCategory'); //Done - Category::getList
 //    Route::get('/category/medium/{section_id}', 'SearchController@searchForMediumCategory'); // Done - Category::getList
 //    Route::get('/category/get/{category_id}/{offset?}/{limit?}', 'SearchController@getFromCategoryId');
-////    Route::get('/category/get/{section_id}/{offset?}/{limit?}', 'SearchController@getFromCategoryId');
 //});
 //
 
@@ -115,16 +114,6 @@ Route::group(['prefix' => 'recommend_users'], function () {
 //
 //
 
-
-//// 検索
-//Route::group(['prefix' => 'search'], function () {
-//    Route::get('/', 'SearchController@index');
-//    Route::get('/category/large', 'SearchController@searchForLargeCategory');
-//    Route::get('/category/medium/{section_id}', 'SearchController@searchForMediumCategory');
-//    Route::get('/category/get/{category_id}/{offset?}/{limit?}', 'SearchController@getFromCategoryId');
-////    Route::get('/category/get/{section_id}/{offset?}/{limit?}', 'SearchController@getFromCategoryId');
-//});
-//
 
 
 //// 商品

@@ -14,7 +14,7 @@ class ProductTest extends TestCase
 {
     public function testKeywordSearch(){
         $product = new Product();
-        $result = $product->searchKeyword("チキン");
+        $result = $product->getProductAndCountByKeyword("インペラ");
         var_dump($result);
         $this->printSQLLog();
     }

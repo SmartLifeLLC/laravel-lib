@@ -24,7 +24,7 @@ class ProductControllerTest extends TestCase
 
     public function testGetList(){
         $httpMethod = HttpMethod::GET;
-        $keyword = base64_encode("こにちは。");
+        $keyword = base64_encode("インペ");
         $uri = "/product/list?keyword={$keyword}&category=1&sort=feed_count_desc,release_date_desc";
         $content = $this->getJsonRequestContent($httpMethod,$uri);
         $this->printResponse($content);

@@ -49,7 +49,7 @@ class CreateGetProductIdTask implements ServiceTask
     {
         $productModel = new Product();
         //productのユニーク性は名前で確認(jancodeでは判断できない)
-        $product = $productModel->getProductFromName($this->productName);
+        $product = $productModel->getProductByName($this->productName);
         if($product !== null){
 
             $this->result = new CreateProductResultVO(false,$product['id']);

@@ -11,6 +11,7 @@ namespace App\Models;
 
 use App\Constants\DefaultValues;
 use App\Lib\Util;
+use App\ValueObject\ProductAndCountDataVO;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
@@ -81,29 +82,44 @@ class Product extends Model
      * @param $productName
      * @return Model|null|static
      */
-    public function getProductFromName($productName){
+    public function getProductByName($productName){
         return $this->where('name',$productName)->first();
     }
 
     /**
+     * Todo : productのカテゴリが複数あった場合の改善
+     * Productのカテゴリが複数の場合はlimitが正しく動作しない。
+     * 改善が必要
      * aws elastic searchをつかうには、企画を満たすことが厳しいうえに
      * 検索対象が商品タイトルのみであれば Full Text Indexの活用で十分対応できる。
      * @param $keyword
      * @param int $page
      * @param int $limit
-     * @return mixed
+     * @return ProductAndCountDataVO
      */
-    public function searchKeyword($keyword, $page = 0, $limit = DefaultValues::QUERY_DEFAULT_LIMIT){
+    public function getProductAndCountByKeyword($keyword, $page = 0, $limit = DefaultValues::QUERY_DEFAULT_LIMIT):ProductAndCountDataVO{
         $nGramKeyword = Util::getNGram($keyword,DefaultValues::PRODUCT_N_GRAM_SIZE);
-        $query =
-            "
-            SELECT
-              *
-            FROM react_new.products
-            WHERE match(`search_text`) against('+\"{$nGramKeyword}\"' IN BOOLEAN MODE)
-            ORDER BY id DESC
-            LIMIT ?
-            OFFSET ? ";
-        return DB::select($query,[$limit,$limit * $page]);
+        $where = "match(`search_text`) against('+{$nGramKeyword}' IN BOOLEAN MODE)";
+        $countResult =
+            $this->selectRaw('count(id) as count')
+            ->whereRaw($where)
+            ->first();
+        $count = ($countResult['count']);
+        if($count == 0){
+            return new ProductAndCountDataVO(0,[]);
+        }
+
+        $products =
+                $this
+                ->select(['display_name','products.feed_count','products.positive_feed_count','products.negative_feed_count','product_categories.unique_name as breadcrumb','images.s3_key'])
+                    ->leftJoin('products_product_categories','products.id','=','products_product_categories.product_id')
+                    ->leftJoin('product_categories','products_product_categories.product_category_id','=','product_categories.id')
+                    ->leftJoin('images','images.id','=','products.image_id')
+                    ->whereRaw($where)
+                ->orderBy('products.feed_count','desc')
+                ->limit($limit)
+                ->offset($page*$limit)
+                ->get();
+        return new ProductAndCountDataVO($countResult['count'],$products->toArray());
     }
 }

@@ -110,6 +110,8 @@ abstract class JsonResponseView
 
     //Must override this method for making body
 
+
+    //todo change createBody to getBody
     /**
      *
      */
