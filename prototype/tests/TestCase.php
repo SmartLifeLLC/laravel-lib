@@ -42,7 +42,7 @@ abstract class TestCase extends BaseTestCase
      * @param $httpMethod
      * @param $uri
      * @param $data
-     * @return string
+     * @return Array
      */
     protected function getJsonRequestContent($httpMethod, $uri, $data = []){
         return json_decode($this->json(

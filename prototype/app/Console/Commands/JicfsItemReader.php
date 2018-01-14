@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Lib\Logger;
+use App\Lib\Util;
 use App\Services\ProductService;
 use App\ValueObject\JicfsObject\JANProductBaseInfoVO;
 use App\ValueObject\JicfsObject\JicfsManufacturerInfoVO;
@@ -43,20 +44,28 @@ class JicfsItemReader extends Command
     {
 
         $productService = new ProductService();
-        $filePath = storage_path('app/rawdata/product_item_sample.csv');
+        //$filePath = storage_path('app/rawdata/manufacturer_sample.csv');
+        $filePath = storage_path('app/rawdata/product_item_sample_2.csv');
         $counters = ['total'=>0,'jicfs'=>0,'product'=>0,'total_manufacturer'=>0,'manufacturer'=>0];
-
+        $maxCreateProductData = 5000;
         if(($handler = fopen($filePath,"r"))!==false) {
             while($csvData = fgetcsv($handler,0,"\t")) {
+                //skip data randomly.
+                if(rand(0,1) == 0 )continue;
+                if($counters['product'] >= $maxCreateProductData)break;
                 $csvData = mb_convert_encoding($csvData,'utf-8','sjis-win');
                 $recordType = $csvData[1];
 
                 switch ($recordType){
                     case "A1" : {
 
-
                         $janProductBaseInfoVO = new JANProductBaseInfoVO($csvData);
                         $serviceResult  = $productService->createProductAndJicfsProduct($janProductBaseInfoVO);
+                        //Exception occur
+                        if($serviceResult->getResult() == null){
+                            print_r($csvData);
+                            exit;
+                        }
                         if($serviceResult == null) exit(-1);
                         $counters['total'] += 1;
                         $counters['jicfs'] += (int)($serviceResult->getResult()->isJicfsProductCreated());

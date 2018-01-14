@@ -56,6 +56,16 @@ Route::group(['prefix'=>'featured','namespace'=>'Featured'],
         Route::get('/users/onInit','FeaturedUsersController@getListOnAppInit');
     });
 
+Route::group(['prefix'=>'category'],
+    function(){
+        Route::get('list/{ancestorId?}','CategoryController@getList');
+    });
+
+Route::group(['prefix'=>'product'],
+    function(){
+        Route::get('list','ProductController@getList');
+    });
+
 
 //Old apis
 Route::group(['prefix' => 'block'], function(){
@@ -74,6 +84,16 @@ Route::group(['prefix' => 'recommend_users'], function () {
     Route::post('/', 'Featured\FeaturedUsersController@getListOnAppInit');
 });
 
+
+//// 検索
+//Route::group(['prefix' => 'search'], function () {
+//    Route::get('/', 'SearchController@index');
+//    Route::get('/category/large', 'SearchController@searchForLargeCategory'); //Done - Category::getList
+//    Route::get('/category/medium/{section_id}', 'SearchController@searchForMediumCategory'); // Done - Category::getList
+//    Route::get('/category/get/{category_id}/{offset?}/{limit?}', 'SearchController@getFromCategoryId');
+////    Route::get('/category/get/{section_id}/{offset?}/{limit?}', 'SearchController@getFromCategoryId');
+//});
+//
 
 
 

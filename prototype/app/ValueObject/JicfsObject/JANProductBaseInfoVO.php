@@ -43,8 +43,6 @@ class JANProductBaseInfoVO extends JFBaseObject
             ];
 
         for($n = 1 ; $n < 56 ; $n ++){
-
-
             $varName = $this->getVarNameForNth($n);
             if(array_key_exists($n,$iterationInfosForNthValue)){
                 $iteration = $iterationInfosForNthValue[$n];

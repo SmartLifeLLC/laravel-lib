@@ -144,4 +144,28 @@ class ProductCategory extends Model
             ";
         DB::update($updateQuery,[$categoryId]);
     }
+
+
+    /**
+     * @param $ancestorId
+     * @param $depth
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public function getList($ancestorId,$depth){
+        $queryBuilder = self::select([
+            'product_categories.id',
+            'product_categories.name',
+            'product_categories.feed_count',
+            'product_categories.positive_feed_count',
+            'product_categories.negative_feed_count',
+            'unique_name'])
+            ->join('product_category_hierarchies',function($join){
+                $join->on('product_category_hierarchies.descendant_id','=','product_categories.id');
+            });
+            if($ancestorId > 0){
+                $queryBuilder = $queryBuilder->where('product_category_hierarchies.ancestor_id',$ancestorId);
+            }
+            $queryBuilder = $queryBuilder->where('product_category_hierarchies.depth',$depth);
+            return $queryBuilder->get();
+    }
 }

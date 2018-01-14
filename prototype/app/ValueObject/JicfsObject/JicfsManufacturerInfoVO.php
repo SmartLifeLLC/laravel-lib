@@ -62,7 +62,7 @@ class JicfsManufacturerInfoVO extends JFBaseObject{
         for($n = 1 ; $n < 15 ; $n ++){
             $value = $data[$arrayKey++];
             $varName = $this->getVarNameForNth($n);
-            //Change zenkaku for alphabet and numeric data.
+            //Change from zenkaku  to hankaku for alphabet and numeric data.
             if($n == 7)  $value =  Util::convertToHankakuAlphaNum($value)  ;
             $this->{$varName} = $value;
         }

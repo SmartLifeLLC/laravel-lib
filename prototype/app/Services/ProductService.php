@@ -39,8 +39,8 @@ class ProductService extends BaseService
                 $price = $janProductBaseInfoVO->_30_price;
                 $voucherProductNameKanji = $janProductBaseInfoVO->_18_voucherProductNameKanji;
                 $displayUnit = $janProductBaseInfoVO->_16_displayUnitKanji;
-                $totalQuantity = $janProductBaseInfoVO->_31_totalQuantity;
-                $quantityUnitCode = $janProductBaseInfoVO->_32_quantityUnitCode;
+                $totalQuantity = (int) $janProductBaseInfoVO->_31_totalQuantity;
+                $quantityUnitCode = (int) $janProductBaseInfoVO->_32_quantityUnitCode;
                 $productManufacturerId = $janProductBaseInfoVO->_9_representativeManufacturerCode;
 
                 //productの名前はjicfsのproduct名がない場合があるので
@@ -133,7 +133,7 @@ class ProductService extends BaseService
             }else{
                 //Check data
                 if($manufacturer['name']!=$name){
-                    throw new Exception("Manufacturer name does not matched {$name} and ".$manufacturer['name']);
+                    throw new Exception("Manufacturer name does not matched {$name} and {$id} with ".  $manufacturer['name']." and "."id ".$manufacturer['id']);
                 }
             }
             return ServiceResult::withResult(new CreateProductManufacturerResultVO($id,$isCreated));
