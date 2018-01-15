@@ -5,7 +5,7 @@ namespace App\Models;
 use App\ValueObject\SwitchFollowerResultVO;
 use Illuminate\Database\Eloquent\Model;
 
-class Follower extends Model
+class Follower extends DBModel
 {
 
     protected $guarded = [];

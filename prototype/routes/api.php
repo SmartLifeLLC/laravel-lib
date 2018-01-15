@@ -85,12 +85,12 @@ Route::group(['prefix' => 'recommend_users'], function () {
 });
 
 
-//// 検索
+//// 検索 - category controller および product controllerで統一
 //Route::group(['prefix' => 'search'], function () {
-//    Route::get('/', 'SearchController@index');
+//    Route::get('/', 'SearchController@index'); //Done
 //    Route::get('/category/large', 'SearchController@searchForLargeCategory'); //Done - Category::getList
 //    Route::get('/category/medium/{section_id}', 'SearchController@searchForMediumCategory'); // Done - Category::getList
-//    Route::get('/category/get/{category_id}/{offset?}/{limit?}', 'SearchController@getFromCategoryId');
+//    Route::get('/category/get/{category_id}/{offset?}/{limit?}', 'SearchController@getFromCategoryId'); //Done
 //});
 //
 
@@ -101,7 +101,7 @@ Route::group(['prefix' => 'recommend_users'], function () {
 
 //    Route::post('/get', 'LoginUserController@get'); => OK
 //    Route::post('/regist', 'UserController@regist'); => 廃止
-//    Route::get('/setting/show/{user_id}', 'UserSettingController@show');
+//    Route::get('/setting/show/{user_id}', 'UserSettingController@show'); => done
 
 //    Route::post('/edit', 'UserController@edit');
 //    Route::get('/setting/show/block/{user_id}/{offset?}', 'UserSettingController@blockList');

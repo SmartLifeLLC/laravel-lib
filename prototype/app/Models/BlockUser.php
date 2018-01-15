@@ -5,7 +5,7 @@ namespace App\Models;
 use App\Constants\ConfigConstants;
 use Illuminate\Database\Eloquent\Model;
 use DB;
-class BlockUser extends Model
+class BlockUser extends DBModel
 {
     protected $guarded = [];
 

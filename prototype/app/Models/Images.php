@@ -7,7 +7,7 @@ use App\Lib\Util;
 use Aws\S3\S3Client;
 use Illuminate\Database\Eloquent\Model;
 
-class Images extends Model
+class Images extends DBModel
 {
     protected $fillable = ['id', 'type', 'user_id', 's3_key', 'created_at'];
     protected $table = 'contents';

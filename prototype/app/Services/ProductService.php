@@ -31,9 +31,15 @@ use \Exception;
 
 class ProductService extends BaseService
 {
+    /**
+     * @param JANProductBaseInfoVO $janProductBaseInfoVO
+     * @return ServiceResult
+     */
     public function createProductAndJicfsProduct(JANProductBaseInfoVO $janProductBaseInfoVO):ServiceResult{
         return $this->executeTasks(
             function() use ($janProductBaseInfoVO){
+
+
                 $jicfsProductName = $janProductBaseInfoVO->_14_productNameKanji;
                 $janCode = $janProductBaseInfoVO->_4_janCode;
                 $jicfsCategoryCode = $janProductBaseInfoVO->_21_categoryCode;
@@ -59,7 +65,7 @@ class ProductService extends BaseService
 
                 //Check jicfs product exists
                 $jicfsProductModel = new JicfsProduct();
-                //jicfs product nameは　ない場合があるので jicfsの商品のユニーク性確認は pos レジnameで行う.
+                //jicfs product nameは　ない場合があるので jicfsの商品のユニーク性確認は voucher nameで行う.
                 $jicfsProduct = $jicfsProductModel->getProduct($janCode,$voucherProductNameKanji);
                 if($jicfsProduct != null){
                     $createProductResult =
@@ -73,7 +79,7 @@ class ProductService extends BaseService
                 }
 
                 //Get category id for jicfs category code
-                $jicfsCategoryInfo = (new JicfsCategory())->getCategoryInfo($jicfsCategoryCode);
+                    $jicfsCategoryInfo = (new JicfsCategory())->getCategoryInfo($jicfsCategoryCode);
                 if(empty($jicfsCategoryInfo))
                     throw new \Exception("Can't find category from category code {$jicfsCategoryCode}");
                 $productCategoryId = $jicfsCategoryInfo['product_category_id'];
@@ -167,12 +173,17 @@ class ProductService extends BaseService
     public function getProductListByKeyword($keyword,$categoryId,$limit,$page){
         return $this->executeTasks(function() use ($keyword,$categoryId,$limit,$page){
             $productModel = new Product();
-            $result = $productModel->getProductAndCountByKeyword($keyword,$page,$limit);
+            $result = $productModel->getProductsAndCountByKeyword($keyword,$limit,$page);
             return ServiceResult::withResult($result);
         });
     }
 
-    public function getProductListByCategory($categoryId,$limit,$page){
 
+    public function getProductListByCategory($categoryId,$limit,$page){
+        return $this->executeTasks(function() use ($categoryId,$limit,$page){
+            $count = (new ProductCategory())->getProductsCount($categoryId);
+            $result = (new Product())->getProductsByCategoryId($categoryId,$count,$limit,$page);
+            return ServiceResult::withResult($result);
+        });
     }
 }

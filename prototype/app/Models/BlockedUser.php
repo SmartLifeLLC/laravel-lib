@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class BlockedUser extends Model
+class BlockedUser extends DBModel
 {
     protected $guarded = [];
 

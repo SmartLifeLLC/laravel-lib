@@ -12,7 +12,7 @@ namespace App\Models;
 use App\Constants\DateTimeFormat;
 use Illuminate\Database\Eloquent\Model;
 use DB;
-class ProductCategory extends Model
+class ProductCategory extends DBModel
 {
     /**
      * @param $categoryName
@@ -72,6 +72,7 @@ class ProductCategory extends Model
                     'product_categories.id',
                      'product_categories.name',
                      'unique_name',
+                     'product_count',
                      'product_category_hierarchies.depth'])
             ->join('product_category_hierarchies',function($join){
                 $join->on('product_category_hierarchies.descendant_id','=','product_categories.id');
@@ -155,17 +156,33 @@ class ProductCategory extends Model
         $queryBuilder = self::select([
             'product_categories.id',
             'product_categories.name',
-            'product_categories.feed_count',
-            'product_categories.positive_feed_count',
-            'product_categories.negative_feed_count',
+            'product_category_feeling_counts.feed_count',
+            'product_category_feeling_counts.positive_count',
+            'product_category_feeling_counts.negative_count',
             'unique_name'])
             ->join('product_category_hierarchies',function($join){
                 $join->on('product_category_hierarchies.descendant_id','=','product_categories.id');
-            });
+            })
+            ->leftJoin('product_category_feeling_counts','product_category_feeling_counts.product_category_id','=','product_categories.id')
+            ;
             if($ancestorId > 0){
                 $queryBuilder = $queryBuilder->where('product_category_hierarchies.ancestor_id',$ancestorId);
             }
-            $queryBuilder = $queryBuilder->where('product_category_hierarchies.depth',$depth);
+
+            $queryBuilder =
+                $queryBuilder
+                    ->where('product_category_hierarchies.depth',$depth)
+                    //->orderBy('product_category_feeling_counts.feed_count','desc');
+                    ->orderByRaw('CAST(product_categories.name AS CHAR) asc');
             return $queryBuilder->get();
+    }
+
+    /**
+     * @param $categoryId
+     * @return mixed
+     */
+    public function getProductsCount($categoryId){
+        $result = $this->find($categoryId);
+        return $result['product_count'];
     }
 }

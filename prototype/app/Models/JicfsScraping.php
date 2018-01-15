@@ -12,7 +12,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class JicfsScraping extends Model
+class JicfsScraping extends DBModel
 {
     public $timestamps = false;
 

@@ -14,8 +14,14 @@ use Illuminate\Database\Eloquent\Model;
 class JicfsProduct extends Model
 {
     public $timestamps = false;
-    public function getProduct($janCode,$posName){
-        return $this->where('jan_code',$janCode)->where('voucher_name',$posName)->first();
+
+    /**
+     * @param $janCode
+     * @param $voucherName
+     * @return mixed
+     */
+    public function getProduct($janCode, $voucherName){
+        return $this->where('jan_code',$janCode)->where('voucher_name',$voucherName)->first();
     }
 
     /**

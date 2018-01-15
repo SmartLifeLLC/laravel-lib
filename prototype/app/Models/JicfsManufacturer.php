@@ -12,7 +12,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class JicfsManufacturer extends Model
+class JicfsManufacturer extends DBModel
 {
     /**
      * @param $id

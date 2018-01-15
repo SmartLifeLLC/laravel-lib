@@ -9,8 +9,13 @@
 namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
-class ProductsProductCategory extends Model
+class ProductsProductCategory extends DBModel
 {
+    /**
+     * @param $productId
+     * @param $productCategoryId
+     * @return mixed
+     */
     public function createGetId($productId,$productCategoryId){
         $data = [
             'product_id' => $productId,
@@ -18,4 +23,6 @@ class ProductsProductCategory extends Model
         ];
         return $this->insertGetId($data);
     }
+
+
 }

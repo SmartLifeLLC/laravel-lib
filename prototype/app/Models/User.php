@@ -9,7 +9,7 @@ use App\ValueObject\FacebookResponseVO;
 use App\ValueObject\UserAuthVO;
 use Illuminate\Database\Eloquent\Model;
 
-class User extends Model
+class User extends DBModel
 {
     protected $table = 'users';
     public $timestamps = true;

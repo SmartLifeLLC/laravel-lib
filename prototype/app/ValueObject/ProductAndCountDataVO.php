@@ -19,7 +19,7 @@ class ProductAndCountDataVO
     /**
      * @var Array
      */
-    private $data;
+    private $products;
 
     /**
      * @return int
@@ -32,15 +32,20 @@ class ProductAndCountDataVO
     /**
      * @return Array
      */
-    public function getData(): Array
+    public function getProducts(): Array
     {
-        return $this->data;
+        return $this->products;
     }
 
 
-    public function __construct($count,Array $data)
+    /**
+     * ProductAndCountDataVO constructor.
+     * @param $count
+     * @param array $products
+     */
+    public function __construct($count,Array $products)
     {
         $this->count = $count;
-        $this->data = $data;
+        $this->products = $products;
     }
 }

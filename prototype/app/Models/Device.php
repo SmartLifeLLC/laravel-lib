@@ -12,7 +12,7 @@ namespace App\Models;
 use App\Constants\DateTimeFormat;
 use Illuminate\Database\Eloquent\Model;
 
-class Device extends Model
+class Device extends DBModel
 {
 
     protected $guarded = [];

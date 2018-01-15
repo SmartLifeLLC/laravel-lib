@@ -14,7 +14,7 @@ use App\Constants\DefaultValues;
 use App\Constants\QueryOrderTypes;
 use Illuminate\Database\Eloquent\Model;
 
-class NotificationLog extends Model
+class NotificationLog extends DBModel
 {
     protected $guarded = [];
     public $timestamps = false;

@@ -20,7 +20,8 @@ class UserService extends BaseService
      * @return ServiceResult
      */
     public function getUserInfo($userId):ServiceResult{
-        return $this->executeTasks(function() use ($userId) : ServiceResult{
+        return $this->executeTasks(
+            function() use ($userId) : ServiceResult{
             $user = (new User())->getUserInfo($userId);
             $serviceResult = (empty($user))?
                 ServiceResult::withError(StatusCode::UNKNOWN_USER_ID,"user id : {$userId} is not found"):

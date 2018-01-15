@@ -6,7 +6,7 @@ use App\Constants\ConfigConstants;
 use App\Constants\URLs;
 use Illuminate\Database\Eloquent\Model;
 use DB;
-class FeaturedSchedule extends Model
+class FeaturedSchedule extends DBModel
 {
     protected $guarded = [];
 

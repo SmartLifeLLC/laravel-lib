@@ -9,6 +9,7 @@
 namespace App\Http\JsonView\Product;
 
 
+use App\Constants\ConfigConstants;
 use App\Http\JsonView\JsonResponseView;
 use App\ValueObject\ProductAndCountDataVO;
 
@@ -20,11 +21,21 @@ class ProductListJsonView extends JsonResponseView
      * @var ProductAndCountDataVO
      */
     protected $data;
+
+
     function createBody()
     {
+        $products = [];
+        foreach($this->data->getProducts() as $product){
+            $product['image_url'] =
+                (!empty($product['s3_key']))?ConfigConstants::getCdnHost().$product['s3_key']:"";
+            unset($product['s3_key']);
+            $products[] = $product;
+        }
+
         $this->body = [
             'count' =>$this->data->getCount(),
-            'data' => $this->data->getData()
+            'data' => $products
         ];
     }
 

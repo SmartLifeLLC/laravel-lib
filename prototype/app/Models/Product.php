@@ -15,7 +15,7 @@ use App\ValueObject\ProductAndCountDataVO;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-class Product extends Model
+class Product extends DBModel
 {
     public $timestamps = false;
     /**
@@ -97,7 +97,7 @@ class Product extends Model
      * @param int $limit
      * @return ProductAndCountDataVO
      */
-    public function getProductAndCountByKeyword($keyword, $page = 0, $limit = DefaultValues::QUERY_DEFAULT_LIMIT):ProductAndCountDataVO{
+    public function getProductsAndCountByKeyword($keyword, $limit = DefaultValues::QUERY_DEFAULT_LIMIT, $page = DefaultValues::QUERY_DEFAULT_PAGE ):ProductAndCountDataVO{
         $nGramKeyword = Util::getNGram($keyword,DefaultValues::PRODUCT_N_GRAM_SIZE);
         $where = "match(`search_text`) against('+{$nGramKeyword}' IN BOOLEAN MODE)";
         $countResult =
@@ -110,16 +110,76 @@ class Product extends Model
         }
 
         $products =
-                $this
-                ->select(['display_name','products.feed_count','products.positive_feed_count','products.negative_feed_count','product_categories.unique_name as breadcrumb','images.s3_key'])
-                    ->leftJoin('products_product_categories','products.id','=','products_product_categories.product_id')
-                    ->leftJoin('product_categories','products_product_categories.product_category_id','=','product_categories.id')
-                    ->leftJoin('images','images.id','=','products.image_id')
-                    ->whereRaw($where)
-                ->orderBy('products.feed_count','desc')
-                ->limit($limit)
-                ->offset($page*$limit)
+            $this
+                ->getQueryBuilderForProducts($limit,$page)
+                ->whereRaw($where)
                 ->get();
+//        $products =
+//                $this
+//                ->select([
+//                            'display_name',
+//                            'product_categories.unique_name as breadcrumb',
+//                            'images.s3_key',
+//                            'product_feeling_counts.feed_count',
+//                            'product_feeling_counts.positive_count',
+//                            'product_feeling_counts.negative_count'])
+//                    ->leftJoin('product_feeling_counts','products.id','=','product_feeling_counts.product_id')
+//                    ->leftJoin('products_product_categories','products.id','=','products_product_categories.product_id')
+//                    ->leftJoin('product_categories','products_product_categories.product_category_id','=','product_categories.id')
+//                    ->leftJoin('images','images.id','=','products.image_id')
+//                    ->
+//                ->orderBy('product_feeling_counts.feed_count','desc')
+//                ->limit($limit)
+//                ->offset($page*$limit)
+//                ->get();
         return new ProductAndCountDataVO($countResult['count'],$products->toArray());
+    }
+
+
+    /**
+     * @param $categoryId
+     * @param int $totalCount
+     * @param int $page
+     * @param int $limit
+     * @return ProductAndCountDataVO
+     */
+    public function getProductsByCategoryId($categoryId,$totalCount = 0,$limit = DefaultValues::QUERY_DEFAULT_LIMIT, $page = DefaultValues::QUERY_DEFAULT_PAGE ){
+
+        if($totalCount == 0){
+            return new ProductAndCountDataVO($totalCount,[]);
+        }
+        $products =
+            $this
+            ->getQueryBuilderForProducts($limit,$page)
+            ->whereIn('products_product_categories.product_category_id',function($query) use ($categoryId){
+               $query
+                   ->select('descendant_id')
+                   ->from(with(new ProductCategoryHierarchy())->getTable())
+                   ->where('ancestor_id',$categoryId);})
+            ->get();
+        return new ProductAndCountDataVO($totalCount,$products->toArray());
+    }
+
+    /**
+     * @param int $limit
+     * @param int $page
+     * @return mixed
+     */
+    private function getQueryBuilderForProducts($limit , $page ){
+            if($page < 1) $page = 1;
+            return  $this
+                ->select([
+                    'display_name',
+                    'product_categories.unique_name as breadcrumb',
+                    'images.s3_key',
+                    'product_feeling_counts.feed_count',
+                    'product_feeling_counts.positive_count',
+                    'product_feeling_counts.negative_count'])
+                ->leftJoin('products_product_categories','products.id','=','products_product_categories.product_id')
+                ->leftJoin('product_feeling_counts','products.id','=','product_feeling_counts.product_id')
+                ->leftJoin('product_categories','products_product_categories.product_category_id','=','product_categories.id')
+                ->leftJoin('images','images.id','=','products.image_id')
+                ->offset($this->getOffset($limit,$page))
+                ->limit($limit);
     }
 }

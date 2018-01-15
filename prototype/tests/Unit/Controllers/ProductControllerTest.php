@@ -22,13 +22,21 @@ class ProductControllerTest extends TestCase
         parent::prepareAuth();
     }
 
-    public function testGetList(){
+    public function testGetListByKeyword(){
         $httpMethod = HttpMethod::GET;
         $keyword = base64_encode("インペ");
-        $uri = "/product/list?keyword={$keyword}&category=1&sort=feed_count_desc,release_date_desc";
+        $uri = "/product/list?keyword={$keyword}&page=45";
         $content = $this->getJsonRequestContent($httpMethod,$uri);
         $this->printResponse($content);
         $this->assertEquals(StatusCode::SUCCESS,$content["code"]);
-
     }
+
+    public function testGetListByCategoryId(){
+        $httpMethod = HttpMethod::GET;
+        $uri = "/product/list?category=2&page=41";
+        $content = $this->getJsonRequestContent($httpMethod,$uri);
+        $this->printResponse($content);
+        $this->assertEquals(StatusCode::SUCCESS,$content["code"]);
+    }
+
 }

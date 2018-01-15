@@ -40,7 +40,7 @@ class ProductController extends Controller
         }
 
         if($keyword == null){
-            $serviceResult = (new ProductService())->getProductListByCategory($keyword,$categoryId,$limit,$page);
+            $serviceResult = (new ProductService())->getProductListByCategory($categoryId,$limit,$page);
         }else{
             $serviceResult = (new ProductService())->getProductListByKeyword($keyword,$categoryId,$limit,$page);
         }

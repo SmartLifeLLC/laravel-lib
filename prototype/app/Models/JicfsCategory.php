@@ -11,7 +11,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class JicfsCategory extends Model
+class JicfsCategory extends DBModel
 {
     /**
      * @param $categoryCode
