@@ -151,39 +151,50 @@ class ProductService extends BaseService
     /**
      * @param $keyword
      * @param $categoryId
-     * @param int $limit
-     * @param int $page
-     * @return ServiceResult
-     */
-    public function getProductList($keyword,$categoryId,$limit=DefaultValues::QUERY_DEFAULT_LIMIT,$page=0){
-        if($keyword != null){
-            return $this->getProductListByKeyword($keyword,$categoryId,$limit,$page);
-        }else{
-            return $this->categorySearch($categoryId,$limit,$page);
-        }
-    }
-
-    /**
-     * @param $keyword
-     * @param $categoryId
      * @param $limit
      * @param $page
      * @return ServiceResult
      */
     public function getProductListByKeyword($keyword,$categoryId,$limit,$page){
         return $this->executeTasks(function() use ($keyword,$categoryId,$limit,$page){
-            $productModel = new Product();
-            $result = $productModel->getProductsAndCountByKeyword($keyword,$limit,$page);
+            $result = (new Product())->getProductsAndCountByKeyword($keyword,$limit,$page);
             return ServiceResult::withResult($result);
         });
     }
 
 
+    /**
+     * @param $categoryId
+     * @param $limit
+     * @param $page
+     * @return ServiceResult
+     */
     public function getProductListByCategory($categoryId,$limit,$page){
         return $this->executeTasks(function() use ($categoryId,$limit,$page){
             $count = (new ProductCategory())->getProductsCount($categoryId);
             $result = (new Product())->getProductsByCategoryId($categoryId,$count,$limit,$page);
             return ServiceResult::withResult($result);
         });
+    }
+
+    /**
+     * @param $janCode
+     * @return ServiceResult
+     */
+    public function getProductListByJanCode($janCode){
+        return $this->executeTasks(function()use ($janCode){
+            $result = (new Product())->getProductsByJanCode($janCode);
+            return ServiceResult::withResult($result);
+        });
+    }
+
+
+    public function postFeed(){
+    	//1. 投稿が存在するかを確認
+
+	    //2.
+
+
+
     }
 }

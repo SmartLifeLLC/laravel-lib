@@ -24,5 +24,16 @@ class ProductsProductCategory extends DBModel
         return $this->insertGetId($data);
     }
 
-
+	/**
+	 * @param $productId
+	 * @return array
+	 */
+    public function getProductCategoryIds($productId){
+    	$productProductCategories = $this->where('product_id',$productId)->get();
+    	$ids = [];
+    	foreach ($productProductCategories as $productCategory){
+			$ids[] = $productCategory->product_category_id;
+	    }
+	    return $ids;
+    }
 }

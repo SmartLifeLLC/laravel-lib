@@ -114,29 +114,13 @@ class Product extends DBModel
                 ->getQueryBuilderForProducts($limit,$page)
                 ->whereRaw($where)
                 ->get();
-//        $products =
-//                $this
-//                ->select([
-//                            'display_name',
-//                            'product_categories.unique_name as breadcrumb',
-//                            'images.s3_key',
-//                            'product_feeling_counts.feed_count',
-//                            'product_feeling_counts.positive_count',
-//                            'product_feeling_counts.negative_count'])
-//                    ->leftJoin('product_feeling_counts','products.id','=','product_feeling_counts.product_id')
-//                    ->leftJoin('products_product_categories','products.id','=','products_product_categories.product_id')
-//                    ->leftJoin('product_categories','products_product_categories.product_category_id','=','product_categories.id')
-//                    ->leftJoin('images','images.id','=','products.image_id')
-//                    ->
-//                ->orderBy('product_feeling_counts.feed_count','desc')
-//                ->limit($limit)
-//                ->offset($page*$limit)
-//                ->get();
+
         return new ProductAndCountDataVO($countResult['count'],$products->toArray());
     }
 
 
     /**
+     * category total countは　product_categoryテーブルで簡単に取得できるのでそちらを利用
      * @param $categoryId
      * @param int $totalCount
      * @param int $page
@@ -149,8 +133,7 @@ class Product extends DBModel
             return new ProductAndCountDataVO($totalCount,[]);
         }
         $products =
-            $this
-            ->getQueryBuilderForProducts($limit,$page)
+            $this->getQueryBuilderForProducts($limit,$page)
             ->whereIn('products_product_categories.product_category_id',function($query) use ($categoryId){
                $query
                    ->select('descendant_id')
@@ -158,6 +141,22 @@ class Product extends DBModel
                    ->where('ancestor_id',$categoryId);})
             ->get();
         return new ProductAndCountDataVO($totalCount,$products->toArray());
+    }
+
+    /**
+     * @param $janCode
+     * @return ProductAndCountDataVO
+     */
+    public function getProductsByJanCode($janCode){
+        $products =
+            $this->getQueryBuilderForProducts(DefaultValues::QUERY_DEFAULT_LIMIT_FOR_JANCODE,DefaultValues::QUERY_DEFAULT_PAGE)
+            ->leftJoin('jicfs_products','jicfs_products.product_id','=','products.id')
+            ->where('jicfs_products.jan_code',$janCode)
+            ->get();
+
+        $resultArray = $products->toArray();
+        return new ProductAndCountDataVO(count($resultArray),$resultArray);
+
     }
 
     /**
@@ -172,14 +171,16 @@ class Product extends DBModel
                     'display_name',
                     'product_categories.unique_name as breadcrumb',
                     'images.s3_key',
-                    'product_feeling_counts.feed_count',
-                    'product_feeling_counts.positive_count',
-                    'product_feeling_counts.negative_count'])
+                    'product_feed_counts.feed_count',
+                    'product_feed_counts.positive_count',
+                    'product_feed_counts.negative_count'])
                 ->leftJoin('products_product_categories','products.id','=','products_product_categories.product_id')
-                ->leftJoin('product_feeling_counts','products.id','=','product_feeling_counts.product_id')
+                ->leftJoin('product_feed_counts','products.id','=','product_feed_counts.product_id')
                 ->leftJoin('product_categories','products_product_categories.product_category_id','=','product_categories.id')
                 ->leftJoin('images','images.id','=','products.image_id')
                 ->offset($this->getOffset($limit,$page))
                 ->limit($limit);
     }
+
+
 }

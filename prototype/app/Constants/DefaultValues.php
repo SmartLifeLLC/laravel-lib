@@ -23,6 +23,8 @@ final class DefaultValues extends Enum
         const USER_NAME_MAX = 10000;
         const USER_DESCRIPTION_MAX = 255;
         const QUERY_DEFAULT_LIMIT = 10;
+        //jancodeによる商品は基本１か２つのはずだが念の為大きめの数字を設定
+        const QUERY_DEFAULT_LIMIT_FOR_JANCODE = 100;
         const QUERY_DEFAULT_PAGE = 1;
         const PRODUCT_N_GRAM_SIZE = 2;
 

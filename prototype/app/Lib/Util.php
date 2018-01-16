@@ -22,18 +22,19 @@ final class Util
      * @param $imageUrl
      * @return String
      */
-    static function getImageNameFromUrl($imageUrl):String{
+    static function getImageNameWithExtensionFromUrl($imageUrl):String{
         $pathInfo = pathinfo(explode("?",$imageUrl)[0]);
         return $pathInfo['basename'];
     }
 
-    /**
-     * @param $imageName
-     * @param $imageType
-     * @return String
-     */
-    static function getS3KeyForImageName($imageName, $imageType):String{
-        $s3key = date('Y-m-d')."/".$imageType."/".$imageName;
+	/**
+	 * @param $userId
+	 * @param $imageNameWithExtension
+	 * @param $imageCategory
+	 * @return String
+	 */
+    static function getS3KeyForImageName($userId, $imageNameWithExtension, $imageCategory):String{
+        $s3key = $userId."/".$imageCategory."/".date('Y-m-d')."/".uniqid()."_".$imageNameWithExtension;
         return $s3key;
     }
 
@@ -41,7 +42,7 @@ final class Util
      * @param $s3key
      * @return String
      */
-    static function getS3SavePoint($s3key):String{
+    static function getS3SaveUrl($s3key):String{
         return "s3://".ConfigConstants::S3ImageBucket()."/" .$s3key;
     }
 
@@ -102,6 +103,7 @@ final class Util
     static function getS3ImageFullPath($s3key):String{
         return  ($s3key == null)?"":ConfigConstants::getCdnHost().$s3key;
     }
+
 
     /**
      * from : https://qiita.com/a_yasui/items/fc6e1c564b5b21482882

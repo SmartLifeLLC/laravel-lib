@@ -15,7 +15,8 @@ use App\Lib\Enum;
 final class AuthAllowedUrls
 {
     const LIST = [
-        'api/users/auth/',
-        'user/auth'
+        ['url'=>"api/users/auth/",'method'=>HttpMethod::GET],
+	    ['url'=>"user/auth",'method'=>HttpMethod::GET]
+
     ];
 }

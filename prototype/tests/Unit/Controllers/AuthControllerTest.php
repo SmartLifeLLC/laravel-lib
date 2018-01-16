@@ -22,22 +22,14 @@ class AuthControllerTest extends TestCase
     {
         parent::setUp();
         parent::prepareFacebookToken();
+        parent::prepareAuth();
     }
 
-
     public function testGetIdAndAuth(){
-        $response = $this->json(
-            HttpMethod::GET,
-            '/user/auth/'.$this->facebookId,
-            [],
-            [
-                HeaderKeys::FB_TOKEN=>$this->facebookToken,
-                HeaderKeys::REACT_VERSION=>1
-            ]
-        );
-        $content = $response->getContent();
-        $result = json_decode($content,true);
-        $this->assertEquals(StatusCode::SUCCESS,$result["code"]);
-
+	    $httpMethod = HttpMethod::POST;
+	    $uri = '/user/auth/'.$this->facebookId;
+	    $content = $this->getJsonRequestContent($httpMethod,$uri);
+	    $this->printResponse($content);
+	    $this->assertEquals(StatusCode::SUCCESS,$content["code"]);
     }
 }

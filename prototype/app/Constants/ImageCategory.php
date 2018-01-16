@@ -14,7 +14,7 @@ final class ImageCategory
 {
         const PROFILE = "profile";
         const COVER = "cover";
-        const REVIEW_POST ="review_post";
+        const FEED ="feed";
 
 
 

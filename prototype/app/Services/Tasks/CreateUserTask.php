@@ -17,12 +17,12 @@ use App\Constants\ImageCategory;
 use App\Lib\JSYService\ServiceTask;
 use App\Lib\Logger;
 use App\Lib\Util;
-use App\Models\Images;
+use App\Models\Image;
 use App\Models\User;
 use App\ValueObject\FacebookResponseVO;
 use DateTime;
 use Exception;
-use App\ValueObject\UserAuthVO;
+use App\ValueObject\UserValidationVO;
 
 class CreateUserTask implements ServiceTask
 {
@@ -45,7 +45,7 @@ class CreateUserTask implements ServiceTask
     private $userId;
 
     /**
-     * @var UserAuthVO
+     * @var UserValidationVO
      */
     private $result;
     public function getResult()
@@ -57,16 +57,16 @@ class CreateUserTask implements ServiceTask
      * CreateUserTask constructor.
      * @param $facebookUserData
      * @param User $userModel
-     * @param Images $imagesModel
+     * @param Image $imagesModel
      */
-    public function __construct(FacebookResponseVO $facebookUserData, User $userModel, Images $imagesModel)
+    public function __construct(FacebookResponseVO $facebookUserData, User $userModel, Image $imagesModel)
     {
         $this->facebookUserData = $facebookUserData;
         $this->userModel = $userModel;
         $this->imagesModel = $imagesModel;
     }
 
-    public function run():UserAuthVO
+    public function run():?UserValidationVO
     {
         // TODO: Implement getTask() method.
             $fbData = $this->facebookUserData;
@@ -75,30 +75,29 @@ class CreateUserTask implements ServiceTask
 
             $this->auth = $auth;
             $this->userId = $userId;
-            $userVO = new UserAuthVO();
+	        $limitationLevel = 0;
+
             try {
                 //Image URL
                 $profileId = 0;
                 $coverId = 0;
                 if (!empty($fbData->getProfileUrl())) {
                     $profileUrl = $fbData->getProfileUrl();
-                    $profileId = $this->imagesModel->copyImageUrlToS3AndGetId($userId, ImageCategory::PROFILE, $profileUrl);
+                    $profileId = $this->imagesModel->saveImageToS3FromUrlGetId($userId, ImageCategory::PROFILE, $profileUrl);
                 }
 
                 if (!empty($fbData->getCoverUrl())) {
                     $coverUrl = $fbData->getCoverUrl();
-                    $coverId = $this->imagesModel->copyImageUrlToS3AndGetId($userId, ImageCategory::COVER, $coverUrl);
+                    $coverId = $this->imagesModel->saveImageToS3FromUrlGetId($userId, ImageCategory::COVER, $coverUrl);
                 }
 
                 //Update User Data
                 $this->userModel->updateUserImageData($userId, $profileId, $coverId);
-                $userVO->setAuth($this->auth);
-                $userVO->setUserId($this->userId);
             }catch (exception $e){
                 Logger::serverError($e);
             }finally{
-                $this->result = $userVO;
-                return $userVO;
+                $this->result = new UserValidationVO($this->userId,$this->auth,$limitationLevel);
+                return $this->result;
             }
     }
 }

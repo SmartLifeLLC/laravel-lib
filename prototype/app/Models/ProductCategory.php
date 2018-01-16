@@ -108,22 +108,6 @@ class ProductCategory extends DBModel
     /**
      * @param $categoryId
      */
-    public function decreaseProductCount($categoryId){
-        $set = "product_count = product_count - 1";
-        $this->_updateCount($categoryId,$set);
-    }
-
-    /**
-     * @param $categoryId
-     */
-    public function increaseFeedCount($categoryId){
-        $set = "feed_count = feed_count + 1";
-        $this->_updateCount($categoryId,$set);
-    }
-
-    /**
-     * @param $categoryId
-     */
     public function decreaseFeedCount($categoryId){
         $set = "feed_count = feed_count - 1";
         $this->_updateCount($categoryId,$set);
@@ -152,18 +136,18 @@ class ProductCategory extends DBModel
      * @param $depth
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function getList($ancestorId,$depth){
+    public function getListAtDepth($ancestorId, $depth){
         $queryBuilder = self::select([
             'product_categories.id',
             'product_categories.name',
-            'product_category_feeling_counts.feed_count',
-            'product_category_feeling_counts.positive_count',
-            'product_category_feeling_counts.negative_count',
+            'product_category_feed_counts.feed_count',
+            'product_category_feed_counts.positive_count',
+            'product_category_feed_counts.negative_count',
             'unique_name'])
             ->join('product_category_hierarchies',function($join){
                 $join->on('product_category_hierarchies.descendant_id','=','product_categories.id');
             })
-            ->leftJoin('product_category_feeling_counts','product_category_feeling_counts.product_category_id','=','product_categories.id')
+            ->leftJoin('product_category_feed_counts','product_category_feed_counts.product_category_id','=','product_categories.id')
             ;
             if($ancestorId > 0){
                 $queryBuilder = $queryBuilder->where('product_category_hierarchies.ancestor_id',$ancestorId);
@@ -172,7 +156,7 @@ class ProductCategory extends DBModel
             $queryBuilder =
                 $queryBuilder
                     ->where('product_category_hierarchies.depth',$depth)
-                    //->orderBy('product_category_feeling_counts.feed_count','desc');
+                    //->orderBy('product_category_feed_counts.feed_count','desc');
                     ->orderByRaw('CAST(product_categories.name AS CHAR) asc');
             return $queryBuilder->get();
     }
@@ -185,4 +169,24 @@ class ProductCategory extends DBModel
         $result = $this->find($categoryId);
         return $result['product_count'];
     }
+
+	/**
+	 * @param array $descendantIds
+	 * @return array
+	 */
+
+	public function getAncestorIdList(Array $descendantIds){
+		$productCategories = self::select([
+			'product_categories.id'])
+			->join('product_category_hierarchies',function($join){
+				$join->on('product_category_hierarchies.ancestor_id','=','product_categories.id');
+			})->whereIn('product_category_hierarchies.descendant_id',$descendantIds)
+			->groupBy('product_categories.id')->get();
+
+		$ids = [];
+		foreach ($productCategories as $productCategory){
+			$ids [] = $productCategory->id;
+		}
+		return $ids;
+	}
 }

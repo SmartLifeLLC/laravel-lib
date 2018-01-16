@@ -46,7 +46,7 @@ class CategoryService extends BaseService
                 $depth = $ancestorCategory['depth'] + 1;
             }
 
-            $categoryList = $categoryModel->getList($ancestorId,$depth);
+            $categoryList = $categoryModel->getListAtDepth($ancestorId,$depth);
             $serviceResult = ServiceResult::withResult($categoryList);
             return $serviceResult;
         };

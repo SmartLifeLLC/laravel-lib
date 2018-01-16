@@ -11,6 +11,7 @@ namespace App\Http\Controllers;
 
 
 use App\Constants\DefaultValues;
+use App\Constants\PostParametersValidationRule;
 use App\Constants\StatusCode;
 use App\Http\JsonView\JsonResponseErrorView;
 use App\Http\JsonView\Product\ProductListJsonView;
@@ -20,31 +21,46 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    public function getList(Request $request){
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getList(Request $request)
+    {
 
         $keyword = $request->get('keyword');
-        if($keyword != null){ $keyword = base64_decode($keyword);}
-        $limit = Util::getValueForKeyOnGetRequest($request,'limit',DefaultValues::QUERY_DEFAULT_LIMIT);
-        $page = Util::getValueForKeyOnGetRequest($request,'page',DefaultValues::QUERY_DEFAULT_PAGE);
+        if ($keyword != null) {
+            $keyword = base64_decode($keyword);
+        }
+        $limit = Util::getValueForKeyOnGetRequest($request, 'limit', DefaultValues::QUERY_DEFAULT_LIMIT);
+        $page = Util::getValueForKeyOnGetRequest($request, 'page', DefaultValues::QUERY_DEFAULT_PAGE);
         $categoryId = $request->get('category');
+        $janCode = $request->get('jan_code');
 
-        /**
-         * Parameter error
-         */
-        if($keyword == null && $categoryId == null){
+        //Keyword Search
+        if ($keyword != null){
+            $serviceResult = (new ProductService())->getProductListByKeyword($keyword, $categoryId, $limit, $page);
+
+        //Jan Code Search
+        }else if ($janCode != null){
+            $serviceResult = (new ProductService())->getProductListByJanCode($janCode);
+
+        //Category Search
+        }else if (!empty($categoryId)){
+            $serviceResult = (new ProductService())->getProductListByCategory($categoryId,$limit,$page);
+
+        //Error return
+        }else{
             $jsonResponseView = new JsonResponseErrorView(
                 StatusCode::REQUEST_PARAMETER_ERROR,
-                "At least 1 keyword or category id is necessary for getting product list"
+                "At least 1 keyword or category id or jan code is necessary for getting product list"
             );
             return $this->responseJson($jsonResponseView);
         }
 
-        if($keyword == null){
-            $serviceResult = (new ProductService())->getProductListByCategory($categoryId,$limit,$page);
-        }else{
-            $serviceResult = (new ProductService())->getProductListByKeyword($keyword,$categoryId,$limit,$page);
-        }
-
         return $this->responseJson(new ProductListJsonView($serviceResult));
     }
+
+
+
 }

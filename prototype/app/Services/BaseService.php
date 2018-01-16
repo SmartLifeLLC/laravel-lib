@@ -13,7 +13,7 @@ use App\Lib\JSYService\Service;
 use App\Lib\JSYService\ServiceManagerFactory;
 use App\Lib\JSYService\ServiceResult;
 
-
+use Symfony\Component\HttpFoundation\File\File;
 class BaseService implements Service
 {
 

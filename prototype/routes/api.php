@@ -25,7 +25,7 @@ Route::group(
     'namespace'=> 'User'],
     function () {
         //Get ID and Auth
-        Route::get('/auth/{facebookId}', 'AuthController@getIdAndAuth');
+        Route::get('/auth/{facebookId}', 'AuthController@getUserAuth');
 
         //Get user notification logs
         Route::get('/notificationLogs/{boundaryId?}/{limit?}/{orderTypeString?}','NotificationLogController@getLogs');
@@ -61,10 +61,13 @@ Route::group(['prefix'=>'category'],
         Route::get('list/{ancestorId?}','CategoryController@getList');
     });
 
-Route::group(['prefix'=>'product'],
-    function(){
-        Route::get('list','ProductController@getList');
-    });
+Route::group(['prefix'=>'product'], function(){
+    Route::get('list','ProductController@getList');
+});
+
+Route::group(['prefix'=>'feed','namespace'=>'Feed'],function(){
+	Route::post('contribution/create','ContributionController@create');
+});
 
 
 //Old apis
@@ -73,7 +76,7 @@ Route::group(['prefix' => 'block'], function(){
     Route::post('/cancel', 'User\BlockController@cancelBlock');
 });
 
-// フォロー
+// フォロー0
 Route::group(['prefix' => 'follow'], function () {
     Route::post('/user', 'User\FollowController@followUser');
     Route::post('/cancel', 'User\FollowController@followCancel');
@@ -94,6 +97,16 @@ Route::group(['prefix' => 'recommend_users'], function () {
 //});
 //
 
+
+//// 商品
+//Route::group(['prefix' => 'product_item'], function () {
+//    Route::get('/jan_code', 'ProductItemController@jan_code'); // Done - Product::getList
+//    Route::get('/{product_item_id}', 'ProductItemController@get')->where('product_item_id', '[0-9]+');
+//    Route::post('/{product_item_id}/{offset?}/{limit?}', 'ProductItemController@_tmp_get')->where('product_item_id', '[0-9]+');
+//    Route::post('/consent/{product_item_id}/{offset?}/{limit?}', 'ProductItemController@getConsentList');
+//    Route::post('/refusal/{product_item_id}/{offset?}/{limit?}', 'ProductItemController@getRefusalList');
+//});
+//
 
 
 //// ユーザー
@@ -116,15 +129,6 @@ Route::group(['prefix' => 'recommend_users'], function () {
 
 
 
-//// 商品
-//Route::group(['prefix' => 'product_item'], function () {
-//    Route::get('/jan_code', 'ProductItemController@jan_code');
-//    Route::get('/{product_item_id}', 'ProductItemController@get')->where('product_item_id', '[0-9]+');
-//    Route::post('/{product_item_id}/{offset?}/{limit?}', 'ProductItemController@_tmp_get')->where('product_item_id', '[0-9]+');
-//    Route::post('/consent/{product_item_id}/{offset?}/{limit?}', 'ProductItemController@getConsentList');
-//    Route::post('/refusal/{product_item_id}/{offset?}/{limit?}', 'ProductItemController@getRefusalList');
-//});
-//
 
 
 //// 投稿

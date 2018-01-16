@@ -2,7 +2,7 @@
 namespace App\Lib\JSYService;
 use App\Constants\StatusCode;
 use App\Constants\StatusMessage;
-use App\ValueObject\UserAuthVO;
+use App\ValueObject\UserValidationVO;
 use PhpParser\Node\Scalar\String_;
 
 /**
@@ -28,7 +28,7 @@ class ServiceResult
     private $statusCode;
 
     /**
-     * @var String
+     * @var ?String
      */
     private $debugMessage;
 
@@ -49,10 +49,10 @@ class ServiceResult
         return $this->statusCode;
     }
 
-    /**
-     * @return String
-     */
-    public function getDebugMessage(): String
+	/**
+	 * @return null|String
+	 */
+    public function getDebugMessage():?String
     {
         return $this->debugMessage;
     }
@@ -83,7 +83,7 @@ class ServiceResult
      * @param String|null $debugMessage
      * @return ServiceResult
      */
-    public static function withError($statusCode,String $debugMessage = null):ServiceResult
+    public static function withError($statusCode,String $debugMessage = ""):ServiceResult
     {
         $instance = new self(null,$statusCode,$debugMessage);
         return $instance;

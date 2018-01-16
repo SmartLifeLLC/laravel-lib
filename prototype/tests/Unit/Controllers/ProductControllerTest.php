@@ -22,21 +22,32 @@ class ProductControllerTest extends TestCase
         parent::prepareAuth();
     }
 
-    public function testGetListByKeyword(){
+//    public function testGetListByKeyword(){
+//        $httpMethod = HttpMethod::GET;
+//        $keyword = base64_encode("インペ");
+//        $uri = "/product/list?keyword={$keyword}&page=45";
+//        $content = $this->getJsonRequestContent($httpMethod,$uri);
+//        $this->printResponse($content);
+//        $this->assertEquals(StatusCode::SUCCESS,$content["code"]);
+//    }
+//
+//    public function testGetListByCategoryId(){
+//        $httpMethod = HttpMethod::GET;
+//        $uri = "/product/list?category=2&page=41";
+//        $content = $this->getJsonRequestContent($httpMethod,$uri);
+//        $this->printResponse($content);
+//        $this->assertEquals(StatusCode::SUCCESS,$content["code"]);
+//    }
+
+
+    public function testGetListByJanCode(){
         $httpMethod = HttpMethod::GET;
-        $keyword = base64_encode("インペ");
-        $uri = "/product/list?keyword={$keyword}&page=45";
+        $uri = "/product/list?jan_code=0000100990942";
         $content = $this->getJsonRequestContent($httpMethod,$uri);
+        var_dump($content);
         $this->printResponse($content);
         $this->assertEquals(StatusCode::SUCCESS,$content["code"]);
     }
 
-    public function testGetListByCategoryId(){
-        $httpMethod = HttpMethod::GET;
-        $uri = "/product/list?category=2&page=41";
-        $content = $this->getJsonRequestContent($httpMethod,$uri);
-        $this->printResponse($content);
-        $this->assertEquals(StatusCode::SUCCESS,$content["code"]);
-    }
 
 }

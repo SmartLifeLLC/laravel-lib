@@ -6,7 +6,7 @@ use App\Constants\DateTimeFormat;
 use App\Constants\DefaultValues;
 use App\Lib\Util;
 use App\ValueObject\FacebookResponseVO;
-use App\ValueObject\UserAuthVO;
+use App\ValueObject\UserValidationVO;
 use Illuminate\Database\Eloquent\Model;
 
 class User extends DBModel
@@ -16,12 +16,12 @@ class User extends DBModel
 
     /**
      * @param String $facebookId
-     * @return UserAuthVO|null
+     * @return UserValidationVO|null
      */
-    public function getAuthByFacebookId(String $facebookId):?UserAuthVO{
-        $userData = $this->where("facebook_id",$facebookId)->select(["id","auth"])->first();
+    public function getUserValidationByFacebookId(String $facebookId):?UserValidationVO{
+        $userData = $this->where("facebook_id",$facebookId)->select(["id","auth","limitation_level"])->first();
         if($userData == null) return null;
-        return (new UserAuthVO())->setUserId($userData->id)->setAuth($userData->auth);
+        return (new UserValidationVO($userData->id,$userData->auth,$userData->limitation_level));
     }
 
     /**
@@ -138,11 +138,11 @@ class User extends DBModel
 
     /**
      * @param $userId
-     * @return UserAuthVO|null
+     * @return UserValidationVO|null
      */
-    public function getAuthByUserId($userId):?UserAuthVO{
-        $userData = $this->where("id",$userId)->select(["id","auth"])->first();
+    public function getUserValidationByUserId($userId):?UserValidationVO{
+        $userData = $this->select(["id","auth","limitation_level"])->find($userId);
         if($userData == null) return null;
-        return (new UserAuthVO())->setUserId($userData->id)->setAuth($userData->auth);
+        return (new UserValidationVO($userData['id'],$userData->auth,$userData->limitation_level));
     }
 }

@@ -34,11 +34,12 @@ final class StatusCode
         */
         const FACEBOOK_TOKEN_FAILED = "0300" ;
         const AUTH_FAILED  = "0301" ;
+		const LIMITED_USER = "302" ;
 
         const FEED_FAILED_TO_GET_DATA = "0400";
 
         const UNKNOWN_USER_ID = "9300"; //User id によるユーザ確認失敗
-
+		const CONTRIBUTION_ALREADY_EXISTS = "9301";
 
         /**
          * 異常系

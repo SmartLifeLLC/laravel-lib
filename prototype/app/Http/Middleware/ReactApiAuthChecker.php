@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Constants\AuthAllowedUrls;
+use App\Http\JsonView\User\Auth\UserValidationJsonView;
 use App\Models\CurrentUser;
 use App\Constants\HeaderKeys;
 use App\Constants\StatusCode;
@@ -39,21 +40,21 @@ class ReactApiAuthChecker
 
         $path = $request->path();
         $authAllowedUrls = AuthAllowedUrls::LIST;
-        foreach ($authAllowedUrls as $url){
+        $currentMethod = mb_strtoupper($request->method());
+        foreach ($authAllowedUrls as $urlInfo){
             //Pass the url.
-            if(strpos($path,$url)!==false) {
+
+            if(strpos($path,$urlInfo['url'])!==false && $urlInfo['method'] == $currentMethod ) {
                 return $next($request);
             }
         }
         $userId = $request->header(HeaderKeys::REACT_USER_ID);
         $auth = $request->header(HeaderKeys::REACT_AUTH);
-        $serviceResult = (new AuthService())->isValidAuth($userId,$auth);
-
-        if($serviceResult->getResult() == false){
-            $debugMessage = "ID : {$userId}  and Auth : {$auth}  does not match";
-            $jsonResponse = new JsonResponseErrorView(StatusCode::AUTH_FAILED,$debugMessage);
-            Logger::requestError($request,StatusCode::AUTH_FAILED,$debugMessage);
-            return response()->json($jsonResponse->getResponse());
+        //Check auth and user limitation for the current http method.
+        $serviceResult = (new AuthService())->isValidUser($userId,$auth,$request->method());
+        if(empty($serviceResult->getResult())){
+	        $jsonResponseView = new UserValidationJsonView($serviceResult);
+	        return response()->json($jsonResponseView->getResponse());
         }
 
         $currentUser = CurrentUser::shared();

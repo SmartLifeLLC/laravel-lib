@@ -44,8 +44,9 @@ final class StatusMessage
 
             case StatusCode::FACEBOOK_TOKEN_FAILED : return "Facebook Token認証に失敗しました。";
             case StatusCode::AUTH_FAILED : return "認証に失敗しました。";
+		    case StatusCode::LIMITED_USER : return "該当サービスは利用が制限されています。";
             case StatusCode::FEED_FAILED_TO_GET_DATA : return "投稿詳細を取得できませんでした。";
-
+		    case StatusCode::CONTRIBUTION_ALREADY_EXISTS : return "商品レビューがすでに投稿されています。";
             /**
              * 異常系
              */
