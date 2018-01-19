@@ -52,7 +52,6 @@ class AuthService extends BaseService
         return
             function () use ($userId, $auth, $requestType) {
                 $userValidationVO = (new User())->getUserValidationByUserId($userId);
-				var_dump($userValidationVO->getUserId());
                 if($userValidationVO == null || $userValidationVO->getAuth() != $auth) {
 	                $debugMessage = ($userValidationVO == null) ? "User for {$userId} does not exist. " : "Auth does not matched :  {$userValidationVO->getAuth()} vs {$auth} ";
 	                $statusCode = StatusCode::AUTH_FAILED;

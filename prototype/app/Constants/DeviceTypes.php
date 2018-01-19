@@ -11,7 +11,7 @@ namespace App\Constants;
 
 use App\Lib\Enum;
 
-class DeviceTypes extends Enum
+final class DeviceTypes
 {
     const iPhone = "iPhone";
     const iPad = "iPad";

@@ -8,10 +8,7 @@
 
 namespace App\Constants;
 
-
-use App\Lib\Enum;
-
-class S3Buckets extends Enum
+class S3Buckets
 {
     const IMG_LOCAL = "local-react-contents";
     const IMG_DEV = "dev-react-contents";

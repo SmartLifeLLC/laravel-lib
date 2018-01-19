@@ -10,9 +10,7 @@
 namespace App\Constants;
 
 
-use App\Lib\Enum;
-
-final class DefaultValues extends Enum
+final class DefaultValues
 {
         const SETTING_USER_AGE_PERMISSION = 1;
         const SETTING_USER_GENDER_PERMISSION = 1;

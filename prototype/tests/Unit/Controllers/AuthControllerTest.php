@@ -21,8 +21,9 @@ class AuthControllerTest extends TestCase
     public function setUp()
     {
         parent::setUp();
+        parent::httpTestSetup();
         parent::prepareFacebookToken();
-        parent::prepareAuth();
+        parent::prepareUser();
     }
 
     public function testGetIdAndAuth(){

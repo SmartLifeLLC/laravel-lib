@@ -38,4 +38,12 @@ class Feed extends DBModel
 		return $this->where('user_id',$userId)->where('product_id',$productId)->first();
 	}
 
+	/**
+	 * @param $userId
+	 * @return int
+	 */
+	public function getCountForUser($userId):int{
+		return $this->where('user_id',$userId)->count();
+	}
+
 }

@@ -13,10 +13,13 @@ use App\Constants\StatusCode;
 use App\Lib\JSYService\ServiceManagerFactory;
 use App\Lib\JSYService\ServiceResult;
 use App\Lib\JSYService\TransactionServiceManager;
+use App\Models\Feed;
+use App\Models\FeedInterestReaction;
 use App\Models\Follow;
 use App\Models\Follower;
 use App\Models\BlockUser;
 use App\Models\BlockedUser;
+use App\ValueObject\FollowOrFollowerGetListResultVO;
 use App\ValueObject\SwitchFollowResultVO;
 
 class FollowService extends BaseService
@@ -54,6 +57,60 @@ class FollowService extends BaseService
 
             return  ServiceResult::withResult($switchFollowResultVO,SwitchFollowResultVO::class);
         };
-
     }
+
+	/**
+	 * @param $userId
+	 * @param $page
+	 * @param $limit
+	 * @return ServiceResult
+	 */
+    public function getFollowList($userId,$page,$limit):ServiceResult{
+    	return $this->executeTasks(function ()use ($userId,$page,$limit){
+    		$follow = new Follow();
+    		$followCount = $follow->getCountForUser($userId);
+		    $feedCount = (new Feed())->getCountForUser($userId);
+		    $followerCount = (new Follower())->getCountForUser($userId);
+			$interestCount = (new FeedInterestReaction())->getCountForUser($userId);
+		    $followList = [];
+		    $hasNext = 0;
+
+			if($followCount > 0 ) {
+				$followList = $follow->getList($userId,$page,$limit);
+				$hasNext = $follow->getHasNext($limit,$page,$followCount);
+			}
+
+			$result = new FollowOrFollowerGetListResultVO($feedCount,$interestCount,$followCount,$followerCount,$followList,$hasNext);
+			return ServiceResult::withResult($result);
+	    });
+    }
+
+
+
+	/**
+	 * @param $userId
+	 * @param $page
+	 * @param $limit
+	 * @return ServiceResult
+	 */
+	public function getFollowerList($userId,$page,$limit):ServiceResult{
+		return $this->executeTasks(function ()use ($userId,$page,$limit){
+
+			$followCount = (new Follow())->getCountForUser($userId);
+			$feedCount = (new Feed())->getCountForUser($userId);
+			$follower = new Follower();
+			$followerCount = $follower->getCountForUser($userId);
+			$interestCount = (new FeedInterestReaction())->getCountForUser($userId);
+			$followerList = [];
+			$hasNext = 0;
+
+			if($followerCount > 0 ) {
+				$followerList = $follower->getList($userId,$page,$limit);
+				$hasNext = $follower->getHasNext($limit,$page,$followerCount);
+			}
+
+			$result = new FollowOrFollowerGetListResultVO($feedCount,$interestCount,$followCount,$followerCount,$followerList,$hasNext);
+			return ServiceResult::withResult($result);
+		});
+	}
 }

@@ -12,7 +12,7 @@ namespace App\Constants;
 
 use App\Lib\Enum;
 
-final class HttpMethod extends Enum
+final class HttpMethod
 {
         const GET = "GET";
         const POST = "POST";

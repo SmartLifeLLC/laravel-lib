@@ -54,9 +54,6 @@ class ProductCategoryFeedCount extends DBModel
 		foreach ( $productCategoryFeedCounts as $productCategoryFeedCount){
 			$updateIds[] = $productCategoryFeedCount->product_category_id;
 		}
-
-		var_dump($productCategoryIds);
-		var_dump($updateIds);
 		$createIds = array_diff($productCategoryIds,$updateIds);
 
 		//run update
@@ -64,7 +61,6 @@ class ProductCategoryFeedCount extends DBModel
 			$this->whereIn('product_category_id',$updateIds)->update([$column => DB::raw("{$column} {$operator} 1"),"feed_count"=> DB::raw("feed_count {$operator}  1")]);
 
 		//run create
-
 		if(count($createIds)>0) {
 			$createData = [];
 			foreach ($createIds as $id) {

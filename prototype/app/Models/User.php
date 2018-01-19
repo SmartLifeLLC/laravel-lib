@@ -145,4 +145,11 @@ class User extends DBModel
         if($userData == null) return null;
         return (new UserValidationVO($userData['id'],$userData->auth,$userData->limitation_level));
     }
+
+	/**
+	 * @return mixed
+	 */
+    public function getRandomUser(){
+    	return $this->inRandomOrder()->first();
+    }
 }

@@ -9,8 +9,10 @@
 namespace App\Http\Controllers\User;
 
 
+use App\Constants\DefaultValues;
 use App\Http\Controllers\Controller;
 use App\Constants\PostParametersValidationRule;
+use App\Http\JsonView\User\FollowOrFollowerGetListJsonView;
 use App\Models\CurrentUser;
 use App\Lib\Logger;
 use App\Services\FollowService;
@@ -79,16 +81,31 @@ class FollowController extends Controller
         return $this->responseJson($jsonView);
     }
 
-
-    /**
-     * @param $boundaryId
-     */
-    public function getFollowList($boundaryId){
+	/**
+	 * @param Request $request
+	 * @return \Illuminate\Http\JsonResponse
+	 */
+    public function getFollowList(Request $request){
+		$userId = CurrentUser::shared()->getUserId();
+		$page = $request->get('page',DefaultValues::QUERY_DEFAULT_PAGE);
+		$limit = $request->get('limit',DefaultValues::QUERY_DEFAULT_LIMIT);
+		$serviceResult = (new FollowService())->getFollowList($userId,$page,$limit);
+		return $this->responseJson(new FollowOrFollowerGetListJsonView($serviceResult));
 
     }
 
+	/**
+	 * @param Request $request
+	 * @return \Illuminate\Http\JsonResponse
+	 */
+	public function getFollowerList(Request $request){
+		$userId = CurrentUser::shared()->getUserId();
+		$page = $request->get('page',DefaultValues::QUERY_DEFAULT_PAGE);
+		$limit = $request->get('limit',DefaultValues::QUERY_DEFAULT_LIMIT);
+		$serviceResult = (new FollowService())->getFollowerList($userId,$page,$limit);
+		return $this->responseJson(new FollowOrFollowerGetListJsonView($serviceResult));
 
-    public function getFollowerList($boundaryId){
+	}
 
-    }
+
 }

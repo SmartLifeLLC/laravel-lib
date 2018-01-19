@@ -17,6 +17,5 @@ final class AuthAllowedUrls
     const LIST = [
         ['url'=>"api/users/auth/",'method'=>HttpMethod::GET],
 	    ['url'=>"user/auth",'method'=>HttpMethod::GET]
-
     ];
 }

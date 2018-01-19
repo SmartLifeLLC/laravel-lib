@@ -46,6 +46,17 @@ final class Util
         return "s3://".ConfigConstants::S3ImageBucket()."/" .$s3key;
     }
 
+
+	/**
+	 * @param $s3key
+	 * @return String
+	 */
+    static function getS3CdnUrl($s3key):String{
+    	if(empty($s3key )) return "";
+		return ConfigConstants::getCdnHost()."/" .$s3key;
+	}
+
+
     /**
      * @param $data
      * @param $key
