@@ -81,13 +81,48 @@ class ContributionControllerTest extends TestCase
 
 	public function testGetDetail(){
 		$httpMethod = HttpMethod::GET;
-		$feedId = 39;
+		$feedId = 31;
 		$uri = "/feed/contribution/detail/{$feedId}";
 		$content = $this->getJsonRequestContent($httpMethod,$uri);
-
 		if(!isset($content['code']))  var_dump($content);
 		$this->printResponse($content);
 		//$this->printSQLLog();
+		$this->assertEquals(StatusCode::SUCCESS,$content["code"]);
+	}
+
+	public function testGetList(){
+		$httpMethod = HttpMethod::GET;
+		$productId = 101;
+		$uri = "/feed/contribution/list/product/{$productId}?page=1&feeling=positive";
+
+		$content = $this->getJsonRequestContent($httpMethod,$uri);
+		if(!isset($content['code']))  var_dump($content);
+		$this->printResponse($content);
+		//$this->printSQLLog();
+		$this->assertEquals(StatusCode::SUCCESS,$content["code"]);
+	}
+
+	public function testGetInterestList(){
+		$httpMethod = HttpMethod::GET;
+		$ownerId = 6577;
+		$uri = "/feed/contribution/list/interest/{$ownerId}?page=1";
+
+		$content = $this->getJsonRequestContent($httpMethod,$uri);
+		if(!isset($content['code']))  var_dump($content);
+		$this->printResponse($content);
+		//$this->printSQLLog();
+		$this->assertEquals(StatusCode::SUCCESS,$content["code"]);
+	}
+
+	public function testGetListForOwner(){
+		$httpMethod = HttpMethod::GET;
+		$ownerId = 48;
+		$uri = "/feed/contribution/list/owner/{$ownerId}?page=1";
+		$content = $this->getJsonRequestContent($httpMethod,$uri);
+		//var_dump($content);
+		if(!isset($content['code']))  var_dump($content);
+		$this->printResponse($content);
+		$this->printSQLLog();
 		$this->assertEquals(StatusCode::SUCCESS,$content["code"]);
 	}
 
@@ -96,12 +131,12 @@ class ContributionControllerTest extends TestCase
 		$auth = "5a4ca9c659465";
 		$this->prepareUserWithIdAndAuth($userId,$auth);
 		$httpMethod = HttpMethod::DELETE;
-		$feedId = 30;
+		$feedId = 33;
 		$uri = "/feed/contribution/delete/{$feedId}";
 		$content = $this->getJsonRequestContent($httpMethod,$uri);
 		if(!isset($content['code']))  var_dump($content);
 		$this->printResponse($content);
-		$this->printSQLLog();
+		//$this->printSQLLog();
 		$this->assertEquals(StatusCode::SUCCESS,$content["code"]);
 	}
 

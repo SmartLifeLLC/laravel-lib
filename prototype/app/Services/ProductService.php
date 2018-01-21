@@ -189,12 +189,4 @@ class ProductService extends BaseService
     }
 
 
-    public function postFeed(){
-    	//1. 投稿が存在するかを確認
-
-	    //2.
-
-
-
-    }
 }

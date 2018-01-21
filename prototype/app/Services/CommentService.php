@@ -14,6 +14,8 @@ use App\Constants\StatusCode;
 use App\Lib\JSYService\ServiceResult;
 use App\Models\Feed;
 use App\Models\FeedComment;
+use App\Models\FeedCommentCount;
+use App\Models\FeedReactionCount;
 use App\Services\Tasks\SendNotificationTask;
 use MongoDB\Driver\Query;
 
@@ -29,6 +31,7 @@ class CommentService extends BaseService
 		return $this->executeTasks(function()use($userId,$feedId,$content){
 			//Create comment Data
 			$commentId = (new FeedComment())->createGetId($userId,$feedId,$content);
+			(new FeedCommentCount())->increaseCommentCount($feedId);
 			//Send notification
 			$feed = (new Feed())->find($feedId);
 			(new SendNotificationTask())->sendCommentNotification($userId,$feed['user_id'],$commentId,$content);
@@ -51,6 +54,8 @@ class CommentService extends BaseService
 
 			if($commentEntity['user_id'] != $userId )
 				return ServiceResult::withError(StatusCode::USER_IS_NOT_OWNER,"user id {$userId} does not matched with comment owner id {$commentEntity['user_id']}");
+
+			(new FeedCommentCount())->decreaseCommentCount($commentEntity->feed_id);
 
 			//todo -> move deleted data to deleted contents.
 			$commentEntity->delete();

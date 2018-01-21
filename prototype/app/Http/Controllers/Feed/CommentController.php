@@ -34,7 +34,7 @@ class CommentController extends Controller
 		$productId = $request->get('product_item_id');
 
 		//parameters
-		$userId = (CurrentUser::shared())->getUserId();
+		$userId = ($this)->getUserId();
 		$feedId = $request->get('review_post_id');
 		$content = $request->get('text');
 		$serviceResult = (new CommentService())->create($userId,$feedId,$content);
@@ -50,7 +50,7 @@ class CommentController extends Controller
 			return $this->responseParameterErrorJsonViewWithDebugMessage("Comment id cannot be empty.");
 		}
 
-		$userId = (CurrentUser::shared())->getUserId();
+		$userId = ($this)->getUserId();
 		$serviceResult = (new CommentService())->delete($userId,$commentId);
 		return $this->responseJson(new CommentDeleteJsonView($serviceResult));
 	}

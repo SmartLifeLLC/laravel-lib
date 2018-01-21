@@ -37,11 +37,26 @@ class ProductsProductCategory extends DBModel
 	    return $ids;
     }
 
-    public function getProductCategories($productId){
+	/**
+	 * @param int $productId
+	 * @return mixed
+	 */
+    public function getProductCategories(int $productId){
     	return $this
 		    ->where('product_id',$productId)
 		    ->leftJoin('product_categories','product_categories.id','=','product_category_id')
 		    ->get();
 
+    }
+
+	/**
+	 * @param array $productIds
+	 * @return mixed
+	 */
+    public function getProductsCategories(array $productIds){
+		return $this
+			->whereIn('product_id',$productIds)
+			->leftJoin('product_categories','product_categories.id','=','product_category_id')
+			->get();
     }
 }

@@ -25,19 +25,17 @@ class CommentControllerTest extends TestCase
 
 	public function testCreate(){
 		$httpMethod = HttpMethod::POST;
-
 		$uri = "/feed/comment/create";
 		$data =
 			[
-				'product_item_id'=>58,
-				'review_post_id'=>39,
+				'product_item_id'=>51,
+				'review_post_id'=>31,
 				'user_id'=>$this->userId,
 				'is_consent'=>1,
-				'text'=>'商品評価',
+				'text'=>'商品評価2',
 
 			];
 		$content = $this->getJsonRequestContent($httpMethod,$uri,$data);
-
 		if(!isset($content['code']))  var_dump($content);
 		$this->printResponse($content);
 		//$this->printSQLLog();

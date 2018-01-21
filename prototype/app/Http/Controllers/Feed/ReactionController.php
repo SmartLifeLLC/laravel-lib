@@ -53,7 +53,7 @@ class ReactionController extends Controller
 			PostParametersValidationRule::FEED_ID
 		) ;
 		if($validator->fails()) return  $this->responseParameterErrorJsonViewWithValidator($validator);
-		$userId = (CurrentUser::shared())->getUserId();
+		$userId = $this->getCurrentUserId();
 		$feedId = $request->get('review_post_id');
 		$reactionType = $request->get('review_post_reaction_type');
 
@@ -71,7 +71,7 @@ class ReactionController extends Controller
 	 * @return JsonResponse
 	 */
 	public function getList(Request $request,$feedId):JsonResponse{
-		$userId = CurrentUser::shared()->getUserId();
+		$userId = $this->getCurrentUserId();
 		$type = $request->get('type',FeedReactionType::ALL);
 		$page = $request->get('page',DefaultValues::QUERY_DEFAULT_PAGE);
 		$limit = $request->get('limit',DefaultValues::QUERY_DEFAULT_LIMIT);

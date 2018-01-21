@@ -11,6 +11,7 @@ namespace App\Constants;
 
 class FeedFeelingType
 {
+	const ALL = "all";
 	const NEGATIVE = "negative";
 	const POSITIVE = "positive";
 

@@ -20,6 +20,7 @@ use App\Models\DeletedContent;
 use App\Models\Feed;
 use App\Models\FeedAllReaction;
 use App\Models\FeedComment;
+use App\Models\FeedCommentCount;
 use App\Models\FeedHaveReaction;
 use App\Models\FeedInterestReaction;
 use App\Models\FeedLikeReaction;
@@ -33,9 +34,11 @@ use App\Models\ProductCategory;
 use App\Models\ProductCategoryFeedCount;
 use App\Models\ProductFeedCount;
 use App\Models\ProductsProductCategory;
+use App\Models\User;
 use App\Services\Tasks\UpdateFeedCountTask;
 use App\Services\Tasks\UpdateReactionCountTask;
-use App\ValueObject\ContributionGetDetailResultVO;
+use App\ValueObject\ContributionDetailResultVO;
+use App\ValueObject\ContributionListResultVO;
 
 class ContributionService extends BaseService
 {
@@ -62,7 +65,7 @@ class ContributionService extends BaseService
 			$feedId = (new Feed())->createGetId($userId,$productId,$feedFeelingType,$content,$imageIds);
 
 			//Update last post date
-			(new User())->
+			(new User())->updateLastPostDate($userId);
 
 			//Increase count.
 			$isCreated = true;
@@ -136,10 +139,12 @@ class ContributionService extends BaseService
 			function () use ($userId,$feedId){
 				//Get Feed Detail
 				$feedDetail = (new Feed())->getDetail($userId,$feedId);
+				if($feedDetail == null)
+					return ServiceResult::withError(StatusCode::FAILED_TO_FIND_FEED);
+
 				$product = (new Product())->getProductDetail($feedDetail->product_id);
 				$productCategories = (new ProductsProductCategory())->getProductCategories($feedDetail->product_id);
-				$commentCount =(new FeedComment())->getCountForFeed($feedId);
-				$resultVo = new ContributionGetDetailResultVO($feedDetail,$product,$productCategories,$commentCount);
+				$resultVo = new ContributionDetailResultVO($feedDetail,$product,$productCategories);
 
 				return ServiceResult::withResult($resultVo);
 			}
@@ -203,15 +208,77 @@ class ContributionService extends BaseService
 				(new FeedReactionNotificationDelivery())->deleteAllForFeed($feedId);
 				(new FeedAllReaction())->deleteAllForFeed($feedId);
 				(new FeedLikeReaction())->deleteAllForFeed($feedId);
+				(new FeedCommentCount())->deleteAllForFeed($feedId);
 				(new FeedInterestReaction())->deleteAllForFeed($feedId);
 				(new FeedHaveReaction())->deleteAllForFeed($feedId);
 				(new PositiveProductFeed())->deleteAllForFeed($feedId);
 				(new NegativeProductFeed())->deleteAllForFeed($feedId);
+
+
 				$commentModel->deleteAllForFeed($feedId);
 				$feedEntity->delete();
 				return ServiceResult::withResult($deletedContentId);
 			}
 			,true
 		);
+	}
+
+	/**
+	 * @param $userId
+	 * @param $productId
+	 * @param $type
+	 * @param $page
+	 * @param $limit
+	 * @return ServiceResult
+	 */
+	public function getListForProduct($userId,$productId,$type,$page,$limit):ServiceResult{
+		return $this->executeTasks(function() use ($userId,$productId,$type,$page,$limit){
+			$feeds = (new Feed())->getListForProduct($userId,$productId,$type,$page,$limit);
+			$productCategories = (new ProductsProductCategory())->getProductCategories($productId);
+			$result = new ContributionListResultVO($feeds,$productCategories);
+			return ServiceResult::withResult($result);
+		});
+	}
+
+	/**
+	 * @param $userId
+	 * @param $ownerId
+	 * @param $page
+	 * @param $limit
+	 * @return ServiceResult
+	 */
+	public function getListForOwnerInterest($userId,$ownerId,$page,$limit):ServiceResult{
+		return $this->executeTasks(function () use ($userId,$ownerId,$page,$limit){
+			$feeds = (new Feed())->getListForOwnerInterest($userId,$ownerId,$page,$limit);
+			$productIds = [];
+			foreach($feeds as $feed){
+				$productIds[] = $feed->product_id;
+			}
+			$productsCategories = (new ProductsProductCategory())->getProductsCategories($productIds);
+			$result = new ContributionListResultVO($feeds,$productsCategories);
+			return ServiceResult::withResult($result);
+		});
+
+	}
+
+	/**
+	 * @param $userId
+	 * @param $ownerId
+	 * @param $page
+	 * @param $limit
+	 * @return ServiceResult
+	 */
+	public function getListForOwner($userId,$ownerId,$page,$limit):ServiceResult{
+		return $this->executeTasks(function () use ($userId,$ownerId,$page,$limit){
+			$feeds = (new Feed())->getListForOwner($userId,$ownerId,$page,$limit);
+			$productIds = [];
+			foreach($feeds as $feed){
+				$productIds[] = $feed->product_id;
+			}
+			$productsCategories = (new ProductsProductCategory())->getProductsCategories($productIds);
+			$result = new ContributionListResultVO($feeds,$productsCategories);
+			return ServiceResult::withResult($result);
+		});
+
 	}
 }

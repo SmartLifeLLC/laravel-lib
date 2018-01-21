@@ -13,8 +13,13 @@ use App\Constants\DateTimeFormat;
 use App\Constants\StatusCode;
 use App\Lib\JSYService\ServiceResult;
 use App\Models\BlockUser;
+use App\Models\Feed;
+use App\Models\FeedAllReaction;
+use App\Models\FeedReactionCount;
 use App\Models\User;
+use App\ValueObject\PageInfoResultVO;
 use App\ValueObject\UserEditVO;
+use App\ValueObject\UserNotifyPropertiesVO;
 
 class UserService extends BaseService
 {
@@ -62,5 +67,33 @@ class UserService extends BaseService
 	    },true);
     }
 
+	/**
+	 * @param $userId
+	 * @param $ownerId
+	 * @return ServiceResult
+	 */
+    public function getPageInfo($userId,$ownerId){
+		return $this->executeTasks(function() use ($userId,$ownerId){
+			$userModel = new User();
+			$userInfoForPage = $userModel->getUserInfoForPage($userId,$ownerId);
+			$friendsCount = $userModel->getFriendCount($ownerId);
+			$allReactionCount = (new FeedAllReaction())->getReactionCountsForUser($ownerId);
+			$feedCount = (new Feed())->getCountForUser($userId);
+			$result = new PageInfoResultVO($userInfoForPage,$feedCount,$friendsCount,$allReactionCount);
+			return ServiceResult::withResult($result);
+		});
+    }
 
+
+	/**
+	 * @param $userId
+	 * @param UserNotifyPropertiesVO $userNotifyPropertiesVO
+	 * @return ServiceResult
+	 */
+    public function updateNotifyProperties($userId, UserNotifyPropertiesVO $userNotifyPropertiesVO):ServiceResult{
+    	return $this->executeTasks(function() use ($userId,$userNotifyPropertiesVO){
+		    (new User())->updateUserNotifyProperties($userId,$userNotifyPropertiesVO);
+		    return ServiceResult::withResult(true);
+	    },true);
+    }
 }

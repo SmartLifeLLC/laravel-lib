@@ -62,7 +62,7 @@ class BlockController extends Controller
             return $this->responseParameterErrorJsonViewWithDebugMessage("Block on off value {$isBlockOn}  is not valid value ");
         }
 
-        $userId = CurrentUser::shared()->getUserId();
+        $userId = $this->getCurrentUserId();
         $serviceResult = (new BlockService())->switchBlockStatus($userId,$targetUserId,$isBlockOn);
 
         $jsonView = new SwitchUserBlockStatusJsonView($serviceResult);
@@ -76,7 +76,7 @@ class BlockController extends Controller
 	public function getList(Request $request){
 		$page = $request->get('page',DefaultValues::QUERY_DEFAULT_PAGE);
 		$limit = $request->get('limit',DefaultValues::QUERY_DEFAULT_LIMIT);
-		$userId = CurrentUser::shared()->getUserId();
+		$userId = $this->getCurrentUserId();
 		$serviceResult = (new BlockService())->getList($userId,$page,$limit);
 		return $this->responseJson(new BlockListJsonView($serviceResult));
 

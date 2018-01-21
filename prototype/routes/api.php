@@ -54,11 +54,20 @@ Route::group(
 
         //User setting
         Route::get('/setting/notification/list','UserController@getNotificationSettings');
-        //Old User Setting
-        Route::get('/setting/show/{user_id?}'   ,'UserController@getNotificationSettings');
+	    //Old User Setting
+	    Route::get('/setting/show/{user_id?}'   ,'UserController@getNotificationSettings');
+	    Route::put('/setting/notification/edit','UserController@editNotifyProperties');
+
 
         //Edit
-		Route::post('/setting/edit','UserController@edit');
+		Route::post('/edit','UserController@edit');
+
+
+
+		//Page - base
+	    Route::get('/page/base/{ownerId?}','UserController@pageInfo');
+
+
 
 
     });
@@ -82,6 +91,9 @@ Route::group(['prefix'=>'feed','namespace'=>'Feed'],function(){
 	Route::put('contribution/edit{feedId}','ContributionController@edit');
 	Route::get('contribution/find/{productId}','ContributionController@find');
 	Route::get('contribution/detail/{feedId}','ContributionController@detail');
+	Route::get('contribution/list/product/{productId}','ContributionController@listForProduct');
+	Route::get('contribution/list/interest/{ownerId}','ContributionController@listForOwnerInterest');
+	Route::get('contribution/list/owner/{ownerId}','ContributionController@listForOwner');
 	Route::delete('contribution/delete/{feedId}','ContributionController@delete');
 
 
@@ -158,10 +170,10 @@ Route::group(['prefix' => 'recommend_users'], function () {
 //// 商品
 //Route::group(['prefix' => 'product_item'], function () {
 //    Route::get('/jan_code', 'ProductItemController@jan_code'); // Done - Product::getList
-//    Route::get('/{product_item_id}', 'ProductItemController@get')->where('product_item_id', '[0-9]+');
-//    Route::post('/{product_item_id}/{offset?}/{limit?}', 'ProductItemController@_tmp_get')->where('product_item_id', '[0-9]+');
-//    Route::post('/consent/{product_item_id}/{offset?}/{limit?}', 'ProductItemController@getConsentList');
-//    Route::post('/refusal/{product_item_id}/{offset?}/{limit?}', 'ProductItemController@getRefusalList');
+//    Route::get('/{product_item_id}', 'ProductItemController@get')->where('product_item_id', '[0-9]+'); // Done
+//    Route::post('/{product_item_id}/{offset?}/{limit?}', 'ProductItemController@_tmp_get')->where('product_item_id', '[0-9]+'); // Done
+//    Route::post('/consent/{product_item_id}/{offset?}/{limit?}', 'ProductItemController@getConsentList'); //Done
+//    Route::post('/refusal/{product_item_id}/{offset?}/{limit?}', 'ProductItemController@getRefusalList'); //Done
 //});
 //
 
@@ -175,7 +187,7 @@ Route::group(['prefix' => 'recommend_users'], function () {
 
 //    Route::post('/edit', 'UserController@edit'); //Done
 //    Route::get('/setting/show/block/{user_id}/{offset?}', 'UserSettingController@blockList'); //Done
-//    Route::post('/setting', 'UserSettingController@update');
+//    Route::post('/setting', 'UserSettingController@update'); //Done
 //});
 
 
@@ -195,12 +207,13 @@ Route::group(['prefix' => 'recommend_users'], function () {
 //
 //Route::group(['prefix' => 'page'], function(){
 
-//    Route::post('/', 'UserPageController@myPage');
-//    Route::post('/user', 'UserPageController@userPage');
-//    Route::post('/user/interest/{offset?}/{limit?}', 'UserPageController@userInterest');
-//    Route::post('/user/review/{offset?}/{limit?}', 'UserPageController@reviewListUser');
-//    Route::post('/review/{offset?}/{limit?}', 'UserPageController@review');
-//    Route::post('/interest/{offset?}/{limit?}', 'UserPageController@interest');
+//    Route::post('/', 'UserPageController@myPage'); //Done
+//    Route::post('/user', 'UserPageController@userPage'); //Done
+//    Route::post('/user/review/{offset?}/{limit?}', 'UserPageController@reviewListUser'); //Done
+//    Route::post('/review/{offset?}/{limit?}', 'UserPageController@review'); //Done
+
+//    Route::post('/interest/{offset?}/{limit?}', 'UserPageController@interest'); //Done
+//    Route::post('/user/interest/{offset?}/{limit?}', 'UserPageController@userInterest');//Done
 
 
 

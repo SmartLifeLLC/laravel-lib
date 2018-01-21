@@ -9,6 +9,7 @@
 namespace App\Http\Controllers\Feed;
 
 
+use App\Constants\DefaultValues;
 use App\Constants\FeedFeelingType;
 use App\Constants\PostParametersValidationRule;
 use App\Http\Controllers\Controller;
@@ -16,7 +17,8 @@ use App\Http\JsonView\Feed\ContributionCreateJsonView;
 use App\Http\JsonView\Feed\ContributionDeleteJsonView;
 use App\Http\JsonView\Feed\ContributionEditJsonView;
 use App\Http\JsonView\Feed\ContributionFindJsonView;
-use App\Http\JsonView\Feed\ContributionGetDetailJsonView;
+use App\Http\JsonView\Feed\ContributionDetailJsonView;
+use App\Http\JsonView\Feed\ContributionListJsonView;
 use App\Models\CurrentUser;
 use App\Services\ContributionService;
 use Illuminate\Http\Request;
@@ -47,7 +49,7 @@ class ContributionController extends Controller
 				$images[] = $image;
 			}
 		}
-		$userId = CurrentUser::shared()->getUserId();
+		$userId = $this->getCurrentUserId();
 		$productId = $request->get('product_item_id');
 		$feedFeelingType = ($request->get('is_consent') == 0)?FeedFeelingType::NEGATIVE:FeedFeelingType::POSITIVE;
 		$content =  $request->get('text');
@@ -62,7 +64,7 @@ class ContributionController extends Controller
 	 * @return \Illuminate\Http\JsonResponse
 	 */
 	public function edit(Request $request,$feedId){
-		$userId = CurrentUser::shared()->getUserId();
+		$userId = $this->getCurrentUserId();
 		$content =  $request->get('text');
 		$serviceResult = (new ContributionService())->edit($userId,$feedId,$content);
 		return $this->responseJson(new ContributionEditJsonView($serviceResult));
@@ -74,7 +76,7 @@ class ContributionController extends Controller
 	 * @return \Illuminate\Http\JsonResponse
 	 */
 	public function find($productId){
-		$userId = CurrentUser::shared()->getUserId();
+		$userId = $this->getCurrentUserId();
 		$serviceResult = (new ContributionService())->find($userId,$productId);
 		return $this->responseJson(new ContributionFindJsonView($serviceResult));
 
@@ -85,9 +87,9 @@ class ContributionController extends Controller
 	 * @return \Illuminate\Http\JsonResponse
 	 */
 	public function detail($feedId){
-		$userId = CurrentUser::shared()->getUserId();
+		$userId = $this->getCurrentUserId();
 		$serviceResult = (new ContributionService())->detail($userId,$feedId);
-		return $this->responseJson(new  ContributionGetDetailJsonView($serviceResult));
+		return $this->responseJson(new  ContributionDetailJsonView($serviceResult));
 	}
 
 	/**
@@ -95,8 +97,49 @@ class ContributionController extends Controller
 	 * @return \Illuminate\Http\JsonResponse
 	 */
 	public function delete($feedId){
-		$userId = CurrentUser::shared()->getUserId();
+		$userId = $this->getCurrentUserId();
 		$serviceResult = (new ContributionService())->delete($userId,$feedId);
 		return $this->responseJson(new ContributionDeleteJsonView($serviceResult));
+	}
+
+	/**
+	 * @param Request $request
+	 * @param $productId
+	 * @return \Illuminate\Http\JsonResponse
+	 */
+	public function listForProduct(Request $request,$productId){
+		$userId = $this->getCurrentUserId();
+		$page = $request->get('page',DefaultValues::QUERY_DEFAULT_PAGE);
+		$limit = $request->get('limit',DefaultValues::QUERY_DEFAULT_LIMIT);
+		$type = $request->get('type',FeedFeelingType::ALL);
+		$serviceResult = (new ContributionService())->getListForProduct($userId,$productId,$type,$page,$limit);
+		return $this->responseJson(new ContributionListJsonView($serviceResult));
+	}
+
+
+	/**
+	 * @param Request $request
+	 * @param $ownerId
+	 * @return \Illuminate\Http\JsonResponse
+	 */
+	public function listForOwnerInterest(Request $request,$ownerId){
+		$userId = $this->getCurrentUserId();
+		$page = $request->get('page',DefaultValues::QUERY_DEFAULT_PAGE);
+		$limit = $request->get('limit',DefaultValues::QUERY_DEFAULT_LIMIT);
+		$serviceResult = (new ContributionService())->getListForOwnerInterest($userId,$ownerId,$page,$limit);
+		return $this->responseJson(new ContributionListJsonView($serviceResult));
+	}
+
+	/**
+	 * @param Request $request
+	 * @param $ownerId
+	 * @return \Illuminate\Http\JsonResponse
+	 */
+	public function listForOwner(Request $request,$ownerId){
+		$userId = $this->getCurrentUserId();
+		$page = $request->get('page',DefaultValues::QUERY_DEFAULT_PAGE);
+		$limit = $request->get('limit',DefaultValues::QUERY_DEFAULT_LIMIT);
+		$serviceResult = (new ContributionService())->getListForOwner($userId,$ownerId,$page,$limit);
+		return $this->responseJson(new ContributionListJsonView($serviceResult));
 	}
 }

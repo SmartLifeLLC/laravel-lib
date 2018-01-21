@@ -64,7 +64,7 @@ class FollowController extends Controller
             return $this->responseParameterErrorJsonViewWithDebugMessage("Block on off value {$isFollowOn}  is not valid value.");
         }
 
-        $userId = CurrentUser::shared()->getUserId();
+        $userId = $this->getCurrentUserId();
         if($userId == $targetUserId){
             return $this->responseParameterErrorJsonViewWithDebugMessage("User id {$userId} is same with target user id {$targetUserId}");
         }
@@ -87,7 +87,7 @@ class FollowController extends Controller
 	 * @return \Illuminate\Http\JsonResponse
 	 */
     public function getFollowList(Request $request,$ownerId = null){
-		$userId = CurrentUser::shared()->getUserId();
+		$userId = $this->getCurrentUserId();
 		if($ownerId == null) $ownerId = $userId;
 
 		$page = $request->get('page',DefaultValues::QUERY_DEFAULT_PAGE);
@@ -103,7 +103,7 @@ class FollowController extends Controller
 	 * @return \Illuminate\Http\JsonResponse
 	 */
 	public function getFollowerList(Request $request,$ownerId = null){
-		$userId = CurrentUser::shared()->getUserId();
+		$userId = $this->getCurrentUserId();
 		if($ownerId == null) $ownerId = $userId;
 
 		$page = $request->get('page',DefaultValues::QUERY_DEFAULT_PAGE);

@@ -30,7 +30,7 @@ class NotificationLogController extends Controller
         if(!is_numeric($limit)) return $this->responseParameterErrorJsonViewWithDebugMessage("Limit {$limit} is not numeric. ");
         if($orderTypeString != QueryOrderTypes::DESCENDING && $orderTypeString != QueryOrderTypes::ASCENDING)
             return $this->responseParameterErrorJsonViewWithDebugMessage("Order type {$orderTypeString} is not valid value. ");
-        $userId = CurrentUser::shared()->getUserId();
+        $userId = $this->getCurrentUserId();
         $serviceResult = (new NotificationLogService())->getLogs($userId,$boundaryId,$limit,$orderTypeString);
         return $this->responseJson(new GetLogsJsonView($serviceResult));
     }
