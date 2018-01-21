@@ -13,4 +13,9 @@ class FeedFeelingType
 {
 	const NEGATIVE = "negative";
 	const POSITIVE = "positive";
+
+	static function getBinaryValue($stringValue){
+		return ($stringValue == self::NEGATIVE)?0:1;
+
+	}
 }

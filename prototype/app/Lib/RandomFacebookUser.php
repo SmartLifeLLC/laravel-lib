@@ -61,6 +61,9 @@ class RandomFacebookUser
         return json_encode($this->facebookData);
     }
 
+    public function getData(){
+    	return $this->facebookData;
+    }
 
     public function generateFacebookId(){
         $facebookId = Util::getUniqueNumber(); // Facebook ID

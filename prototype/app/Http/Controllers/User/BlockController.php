@@ -9,10 +9,13 @@
 namespace App\Http\Controllers\User;
 
 
+use App\Constants\DefaultValues;
+use App\Http\JsonView\User\Block\BlockListJsonView;
 use App\Models\CurrentUser;
 use App\Constants\PostParametersValidationRule;
 use App\Http\Controllers\Controller;
 use App\Services\BlockService;
+use App\Services\UserService;
 use Illuminate\Http\Request;
 use Validator;
 use App\Http\JsonView\User\Block\SwitchUserBlockStatusJsonView;
@@ -65,4 +68,17 @@ class BlockController extends Controller
         $jsonView = new SwitchUserBlockStatusJsonView($serviceResult);
         return $this->responseJson($jsonView);
     }
+
+	/**
+	 * @param Request $request
+	 * @return \Illuminate\Http\JsonResponse
+	 */
+	public function getList(Request $request){
+		$page = $request->get('page',DefaultValues::QUERY_DEFAULT_PAGE);
+		$limit = $request->get('limit',DefaultValues::QUERY_DEFAULT_LIMIT);
+		$userId = CurrentUser::shared()->getUserId();
+		$serviceResult = (new BlockService())->getList($userId,$page,$limit);
+		return $this->responseJson(new BlockListJsonView($serviceResult));
+
+	}
 }

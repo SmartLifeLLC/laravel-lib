@@ -10,7 +10,7 @@
 namespace App\Constants;
 
 
-final class ConfigConstants
+final class SystemConstants
 {
     const ENV_PRODUCTION = "prd";
     const ENV_DEVELOPMENT = "dev";
@@ -18,12 +18,8 @@ final class ConfigConstants
     const ENV_LOCAL = "local";
 
 
-    static function getImageUrl($s3key){
-        return ($s3key == null)?"":self::getCdnHost().$s3key;
-    }
-
     static function getCdnHost(){
-        if(config("app.env") == ConfigConstants::ENV_DEVELOPMENT){
+        if(config("app.env") == SystemConstants::ENV_DEVELOPMENT){
             return URLs::IMG_HOST_DEVP;
         }else{
             return URLs::IMG_HOST;
@@ -34,13 +30,13 @@ final class ConfigConstants
     static function S3ImageBucket(){
         $env = config("app.env");
         switch ($env){
-            case ConfigConstants::ENV_LOCAL:
+            case SystemConstants::ENV_LOCAL:
                 return S3Buckets::IMG_LOCAL;
-            case ConfigConstants::ENV_DEVELOPMENT:
+            case SystemConstants::ENV_DEVELOPMENT:
                 return S3Buckets::IMG_DEV;
-            case ConfigConstants::ENV_STAGING:
+            case SystemConstants::ENV_STAGING:
                 return S3Buckets::IMG_STG;
-            case ConfigConstants::ENV_PRODUCTION:
+            case SystemConstants::ENV_PRODUCTION:
                 return S3Buckets::IMG_PRD;
         }
     }

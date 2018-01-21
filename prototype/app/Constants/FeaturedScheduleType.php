@@ -9,7 +9,7 @@
 namespace App\Constants;
 
 
-class FeaturedScheduleType
+final class FeaturedScheduleType
 {
     const   INIT_START = 1;
     const   FEEDS = 2;

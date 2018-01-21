@@ -9,9 +9,13 @@
 namespace App\Models;
 
 
-class NegativeProductFeed extends DBModel
+use App\Models\Common\DeleteAllForFeedImplements;
+use App\Models\Common\DeleteAllForFeedInterface;
+
+class NegativeProductFeed extends DBModel implements DeleteAllForFeedInterface
 {
 
+	use DeleteAllForFeedImplements;
 	/**
 	 * @param $feedId
 	 * @param $productId

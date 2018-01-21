@@ -189,4 +189,5 @@ class ProductCategory extends DBModel
 		}
 		return $ids;
 	}
+
 }

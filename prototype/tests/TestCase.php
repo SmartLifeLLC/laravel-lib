@@ -4,6 +4,7 @@ namespace Tests;
 
 use App\Constants\HeaderKeys;
 use App\Constants\Versions;
+use App\Models\User;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use DB;
 abstract class TestCase extends BaseTestCase
@@ -14,12 +15,14 @@ abstract class TestCase extends BaseTestCase
     protected $userId;
     protected $auth;
     protected $headers;
+
+    public function httpTestSetup(){
+	    $this->headers[HeaderKeys::REACT_VERSION] = Versions::CURRENT;
+
+    }
     public function setUp(){
         parent::setUp();
         $this->createApplication();
-        $this->userId = 48;
-        $this->headers[HeaderKeys::REACT_VERSION] = Versions::CURRENT;
-        $this->headers[HeaderKeys::REACT_USER_ID] = $this->userId;
         DB::enableQueryLog();
 
         // Artisan::call('migrate');
@@ -32,8 +35,18 @@ abstract class TestCase extends BaseTestCase
         $this->headers[HeaderKeys::FB_TOKEN] = $this->facebookToken;
     }
 
-    protected function prepareAuth(){
-        $this->auth = "5a4ca9c659465";
+    protected function prepareUserWithIdAndAuth($userId,$auth){
+	    $this->userId = $userId;
+	    $this->auth = $auth;
+	    $this->headers[HeaderKeys::REACT_USER_ID] = $this->userId;
+	    $this->headers[HeaderKeys::REACT_AUTH] = $this->auth;
+    }
+
+    protected function prepareUser(){
+		$userEntity = (new User())->getRandomUser();
+		$this->userId = $userEntity->id;
+		$this->auth = $userEntity->auth;
+	    $this->headers[HeaderKeys::REACT_USER_ID] = $this->userId;
         $this->headers[HeaderKeys::REACT_AUTH] = $this->auth;
     }
 

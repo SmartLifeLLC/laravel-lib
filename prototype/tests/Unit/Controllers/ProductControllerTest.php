@@ -19,7 +19,8 @@ class ProductControllerTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        parent::prepareAuth();
+	    parent::httpTestSetup();
+        parent::prepareUser();
     }
 
 //    public function testGetListByKeyword(){

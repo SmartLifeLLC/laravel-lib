@@ -18,7 +18,8 @@ class FollowControllerTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        parent::prepareAuth();
+	    parent::httpTestSetup();
+	    parent::prepareUser();
     }
 
 //    public function testOldBlockUser(){
@@ -40,14 +41,56 @@ class FollowControllerTest extends TestCase
 //        $this->assertEquals(StatusCode::SUCCESS,$content["code"]);
 //    }
 //
-    public function testSwitchBlockStatus(){
-        $httpMethod = HttpMethod::PUT;
-        $targetUserId = 49;
-        $isOn = "1";
-        $uri = "/user/follow/{$targetUserId}/{$isOn}";
-        $content = $this->getJsonRequestContent($httpMethod,$uri);
-        $this->printResponse($content);
-        $this->assertEquals(StatusCode::SUCCESS,$content["code"]);
+
+    //101 -> 103
+	//102 -> 103
+	//102 -> 104
+	//105 -> 102
+
+    public function testSwitchFollowStatus(){
+    	    $userId = 101;
+    	    $userAuth = "AUTH_5a61c3b9d87ca"; //101 : AUTH_5a61c3b9d87ca //102 : AUTH_5a61c3b9d8a25 // 105 : AUTH_5a61c3b9d9480
+
+			parent::prepareUserWithIdAndAuth($userId,$userAuth);
+
+		    $httpMethod = HttpMethod::PUT;
+		    $targetUserId = 105;
+		    $isOn = "1";
+		    $uri = "/user/follow/{$targetUserId}/{$isOn}";
+		    $content = $this->getJsonRequestContent($httpMethod, $uri);
+			$this->printResponse($content);
+            $this->assertEquals(StatusCode::SUCCESS,$content["code"]);
 
     }
+	public function testGetFollowList(){
+		$userId = 101;
+		$ownerId = 102;
+		$userAuth = "AUTH_5a61c3b9d87ca"; //101 : AUTH_5a61c3b9d87ca //102 : AUTH_5a61c3b9d8a25 // 105 : AUTH_5a61c3b9d9480
+
+		parent::prepareUserWithIdAndAuth($userId,$userAuth);
+		$httpMethod = HttpMethod::GET;
+		$page = 1;
+		$uri = "/user/follow/list/{$ownerId}?page={$page}";
+		$content = $this->getJsonRequestContent($httpMethod,$uri);
+		if(!isset($content['code']))  var_dump($content);
+		$this->printResponse($content);
+		//$this->printSQLLog();
+		$this->assertEquals(StatusCode::SUCCESS,$content["code"]);
+	}
+
+	public function testGetFollowerList(){
+		$userId = 101;
+		$ownerId = 102;
+		$userAuth = "AUTH_5a61c3b9d87ca"; //101 : AUTH_5a61c3b9d87ca //102 : AUTH_5a61c3b9d8a25 // 105 : AUTH_5a61c3b9d9480
+
+		parent::prepareUserWithIdAndAuth($userId,$userAuth);
+		$httpMethod = HttpMethod::GET;
+		$page = 1;
+		$uri = "/user/follower/list/{$ownerId}?page={$page}";
+		$content = $this->getJsonRequestContent($httpMethod,$uri);
+		if(!isset($content['code']))  var_dump($content);
+		$this->printResponse($content);
+		//$this->printSQLLog();
+		$this->assertEquals(StatusCode::SUCCESS,$content["code"]);
+	}
 }

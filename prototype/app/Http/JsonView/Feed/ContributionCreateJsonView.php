@@ -12,13 +12,8 @@ namespace App\Http\JsonView\Feed;
 use App\Constants\StatusMessage;
 use App\Http\JsonView\JsonResponseView;
 
-class CreateJsonView extends JsonResponseView
+class ContributionCreateJsonView extends JsonResponseView
 {
-
-	/**
-	 * @var
-	 */
-	protected $data;
 
 
 	function createBody()

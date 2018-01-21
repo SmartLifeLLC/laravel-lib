@@ -15,7 +15,8 @@ class DeviceControllerTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        parent::prepareAuth();
+	    parent::httpTestSetup();
+        parent::prepareUser();
     }
 
 

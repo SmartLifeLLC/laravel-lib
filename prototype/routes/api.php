@@ -33,9 +33,17 @@ Route::group(
         //Switch user block status.
         //isBlockOn : {0/1}
         Route::put('/block/{targetUserId}/{isBlockOn}','BlockController@switchUserBlockStatus');
+        Route::get('/block/list','BlockController@getList');
+
+
 
         //Switch user Follow status
         Route::put('/follow/{targetUserId}/{isFollowOn}','FollowController@switchUserFollowStatus');
+
+	    //Follow and follower list
+	    Route::get('/follow/list/{ownerId?}','FollowController@getFollowList');
+	    Route::get('/follower/list/{ownerId?}','FollowController@getFollowerList');
+
 
         Route::post('/device/register','DeviceController@register');
 
@@ -46,8 +54,16 @@ Route::group(
 
         //User setting
         Route::get('/setting/notification/list','UserController@getNotificationSettings');
-        //Old
+        //Old User Setting
         Route::get('/setting/show/{user_id?}'   ,'UserController@getNotificationSettings');
+<<<<<<< HEAD
+=======
+
+        //Edit
+		Route::post('/setting/edit','UserController@edit');
+
+
+>>>>>>> master
     });
 
 Route::group(['prefix'=>'featured','namespace'=>'Featured'],
@@ -66,6 +82,22 @@ Route::group(['prefix'=>'product'], function(){
 
 Route::group(['prefix'=>'feed','namespace'=>'Feed'],function(){
 	Route::post('contribution/create','ContributionController@create');
+	Route::put('contribution/edit{feedId}','ContributionController@edit');
+	Route::get('contribution/find/{productId}','ContributionController@find');
+	Route::get('contribution/detail/{feedId}','ContributionController@detail');
+	Route::delete('contribution/delete/{feedId}','ContributionController@delete');
+
+
+	Route::post('comment/create','CommentController@create');
+	Route::delete('comment/delete/{commentId}','CommentController@delete');
+	Route::get('comment/list/{feedId}/{boundaryId}','CommentController@getList');
+
+	//Route::post('/review_post/add', 'ReactionController@addToReviewPost');
+	Route::post('reaction/do','ReactionController@doReaction');
+	//Route::post('/review_post/cancel', 'ReactionController@cancelToReviewPost');
+	Route::post('reaction/cancel','ReactionController@cancelReaction');
+	Route::get('reaction/list/{feedId}','ReactionController@getList');
+
 });
 
 
@@ -90,6 +122,35 @@ Route::group(['prefix' => 'translate', 'namespace' => 'Translate'], function(){
    Route::get('/user', 'TranslateUserController@getPreviousData');
    Route::get('/feed_comment', 'TranslateFeedCommentController@getPreviousData');
 });
+
+
+//// リアクション
+//Route::group(['prefix' => 'reaction'], function () {
+
+
+//    Route::post('/review_post/all/{offset?}/{limit?}', 'ReactionController@getReactionListForAll'); //Done 2018 - 01 - 20
+//    Route::post('/review_post/like/{offset?}/{limit?}', 'ReactionController@getReactionListForLike'); //Done 2018 - 01 - 20
+//    Route::post('/review_post/interest/{offset?}/{limit?}', 'ReactionController@getReactionListForInterest'); //Done 2018 - 01 - 20
+//    Route::post('/review_post/having/{offset?}/{limit?}', 'ReactionController@getReactionListForHaving'); //No 対応 2018 - 01 - 20
+
+
+//2017-01-18
+//    Route::post('/review_post/add', 'ReactionController@addToReviewPost'); //Done.
+//    Route::post('/review_post/cancel', 'ReactionController@cancelToReviewPost'); //Done.
+//});
+//
+
+//// 投稿
+//Route::group(['prefix' => 'post'], function () {
+//    Route::post('/product_item_review', 'PostController@createProductItemReviewPost'); //Done
+
+//2017-01-18
+//    Route::post('/product_item_review_with_having_reaction', 'PostController@createProductItemReviewPostWithHavingReaction'); //Done
+//    Route::post('/comment', "PostController@createCommentToReviewPost"); //Done
+//    Route::post('/delete_comment', "PostController@deleteCommentToReviewPost"); // Done
+//});
+//
+
 
 //// 検索 - category controller および product controllerで統一
 //Route::group(['prefix' => 'search'], function () {
@@ -119,8 +180,8 @@ Route::group(['prefix' => 'translate', 'namespace' => 'Translate'], function(){
 //    Route::post('/regist', 'UserController@regist'); => 廃止
 //    Route::get('/setting/show/{user_id}', 'UserSettingController@show'); => done
 
-//    Route::post('/edit', 'UserController@edit');
-//    Route::get('/setting/show/block/{user_id}/{offset?}', 'UserSettingController@blockList');
+//    Route::post('/edit', 'UserController@edit'); //Done
+//    Route::get('/setting/show/block/{user_id}/{offset?}', 'UserSettingController@blockList'); //Done
 //    Route::post('/setting', 'UserSettingController@update');
 //});
 
@@ -134,30 +195,27 @@ Route::group(['prefix' => 'translate', 'namespace' => 'Translate'], function(){
 
 
 
-//// 投稿
-//Route::group(['prefix' => 'post'], function () {
-//    Route::post('/product_item_review', 'PostController@createProductItemReviewPost');
-//    Route::post('/product_item_review_with_having_reaction', 'PostController@createProductItemReviewPostWithHavingReaction');
-//    Route::post('/comment', "PostController@createCommentToReviewPost");
-//    Route::post('/delete_comment', "PostController@deleteCommentToReviewPost");
-//});
-//
 
 
 //
 //
 //
 //Route::group(['prefix' => 'page'], function(){
+
 //    Route::post('/', 'UserPageController@myPage');
 //    Route::post('/user', 'UserPageController@userPage');
-//    Route::post('/user/review/{offset?}/{limit?}', 'UserPageController@reviewListUser');
-//    Route::post('/user/following/{offset?}/{limit?}', 'UserPageController@userFollowing');
-//    Route::post('/user/followers/{offset?}/{limit?}', 'UserPageController@userFollowers');
 //    Route::post('/user/interest/{offset?}/{limit?}', 'UserPageController@userInterest');
-//    Route::post('/following/{offset?}/{limit?}', 'UserPageController@following');
-//    Route::post('/followers/{offset?}/{limit?}', 'UserPageController@followers');
+//    Route::post('/user/review/{offset?}/{limit?}', 'UserPageController@reviewListUser');
 //    Route::post('/review/{offset?}/{limit?}', 'UserPageController@review');
 //    Route::post('/interest/{offset?}/{limit?}', 'UserPageController@interest');
+
+
+
+//    Route::post('/user/following/{offset?}/{limit?}', 'UserPageController@userFollowing'); //1.20 done
+//    Route::post('/user/followers/{offset?}/{limit?}', 'UserPageController@userFollowers'); //1.20 done
+//    Route::post('/following/{offset?}/{limit?}', 'UserPageController@following');//1.20 done
+//    Route::post('/followers/{offset?}/{limit?}', 'UserPageController@followers'); //1.20 done
+
 //});
 //
 
@@ -168,24 +226,14 @@ Route::group(['prefix' => 'translate', 'namespace' => 'Translate'], function(){
 //    Route::post('/my/{offset?}/{limit?}', 'TimelineController@getMyTimeLine');
 //});
 //
-//// リアクション
-//Route::group(['prefix' => 'reaction'], function () {
-//    Route::post('/review_post/all/{offset?}/{limit?}', 'ReactionController@getReactionListForAll');
-//    Route::post('/review_post/like/{offset?}/{limit?}', 'ReactionController@getReactionListForLike');
-//    Route::post('/review_post/interest/{offset?}/{limit?}', 'ReactionController@getReactionListForInterest');
-//    Route::post('/review_post/having/{offset?}/{limit?}', 'ReactionController@getReactionListForHaving');
-//    Route::post('/review_post/add', 'ReactionController@addToReviewPost');
-//    Route::post('/review_post/cancel', 'ReactionController@cancelToReviewPost');
-//});
-//
 
 //
 //// レビュー投稿
 //Route::group(['prefix' => 'review_post'], function () {
-//    Route::post('/check', 'PostController@isReviewPosted');
-//    Route::post('/edit', 'PostController@edit');
-//    Route::post('/delete', 'PostController@delete');
-//    Route::post('/{reviewPostId}', 'PostController@getReviewPostDetail');
+//    Route::post('/check', 'PostController@isReviewPosted'); //Done - 2018 01 20
+//    Route::post('/edit', 'PostController@edit'); //Done
+//    Route::post('/delete', 'PostController@delete'); //Done
+//    Route::post('/{reviewPostId}', 'PostController@getReviewPostDetail'); //Done
 //});
 //
 
@@ -193,6 +241,6 @@ Route::group(['prefix' => 'translate', 'namespace' => 'Translate'], function(){
 //
 
 //Route::group(['prefix'=> 'feeds'],function(){
-//    Route::get('/detail/{feedId}','FeedsController@detail');
-//    Route::get('/comments/{feedId}/{boundaryId}','FeedsController@comments');
+//    Route::get('/detail/{feedId}','FeedsController@detail'); //Done
+//    Route::get('/comments/{feedId}/{boundaryId}','FeedsController@comments'); //Done - 2018 01 20
 //});

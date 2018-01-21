@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
+use App\Constants\DateTimeFormat;
 use App\ValueObject\SwitchFollowerResultVO;
 use Illuminate\Database\Eloquent\Model;
-
+use DB;
 class Follower extends DBModel
 {
 
@@ -31,7 +32,38 @@ class Follower extends DBModel
         }
     }
 
-    /**
+	/**
+	 * @param $userId
+	 * @param $ownerId
+	 * @param $page
+	 * @param $limit
+	 * @return mixed
+	 */
+	public function getList($userId,$ownerId,$page,$limit){
+		$offset = $this->getOffset($limit,$page);
+		$follows =
+			$this->select([
+				's3_key',
+				'user_name',
+				'users.id as user_id',
+				'users.description as introduction',
+				'follows.is_on as is_follow'])
+				->where('followers.user_id',$ownerId)
+				->leftJoin('users','users.id','=','followers.target_user_id')
+				->leftJoin('images','users.profile_image_id','=','images.id')
+				->leftJoin('follows',function($join) use ($userId){
+					$join->on('follows.target_user_id','=','followers.target_user_id');
+					$join->on('follows.user_id','=',DB::raw($userId));
+					$join->on('follows.is_on','=',DB::raw("1"));
+				})
+				->limit($limit)
+				->offset($offset)
+				->get();
+		return $follows;
+	}
+
+
+	/**
      * @param $userId
      * @return array
      */
@@ -40,14 +72,14 @@ class Follower extends DBModel
         return $followers;
     }
 
-    /**
-     * @param $userId
-     * @return int
-     */
-    public function numFollowers($userId){
-        return self::where('user_id',$userId)->where('is_on',true)->count();
-    }
 
+	/**
+	 * @param $userId
+	 * @return int
+	 */
+	public function getCountForUser($userId):int{
+		return self::where('user_id',$userId)->where('is_on',true)->count();
+	}
     /**
      * @param $userId
      * @param $targetUserId
@@ -62,7 +94,9 @@ class Follower extends DBModel
             //Update value
             ['user_id'=>$userId,
                 'target_user_id'=>$targetUserId,
-                'is_on' => $onOrOff]
+                'is_on' => $onOrOff,
+	            'updated_at' => date(DateTimeFormat::General)
+	            ]
         );
         $switchFollowerResultVO = new SwitchFollowerResultVO($result->wasRecentlyCreated);
         return $switchFollowerResultVO;

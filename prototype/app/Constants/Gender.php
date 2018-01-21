@@ -10,7 +10,7 @@
 namespace App\Constants;
 
 
-class Gender
+final class Gender
 {
     static function getString(int $codeId){
         switch ($codeId){

@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Constants\ConfigConstants;
+use App\Constants\SystemConstants;
 use App\Constants\URLs;
 use Illuminate\Database\Eloquent\Model;
 use DB;
@@ -17,7 +17,7 @@ class FeaturedSchedule extends DBModel
      * @return mixed
      */
     public function getFeaturedUsers($userId, $currentDate, $featuredScheduleTypeId){
-        $imageHost = ConfigConstants::getCdnHost();
+        $imageHost = SystemConstants::getCdnHost();
         $query =
             "
                 SELECT

@@ -28,12 +28,20 @@ class ProductsProductCategory extends DBModel
 	 * @param $productId
 	 * @return array
 	 */
-    public function getProductCategoryIds($productId){
+    public function getLeafProductCategoryIds($productId){
     	$productProductCategories = $this->where('product_id',$productId)->get();
     	$ids = [];
     	foreach ($productProductCategories as $productCategory){
 			$ids[] = $productCategory->product_category_id;
 	    }
 	    return $ids;
+    }
+
+    public function getProductCategories($productId){
+    	return $this
+		    ->where('product_id',$productId)
+		    ->leftJoin('product_categories','product_categories.id','=','product_category_id')
+		    ->get();
+
     }
 }

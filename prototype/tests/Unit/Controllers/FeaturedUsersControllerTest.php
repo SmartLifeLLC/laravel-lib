@@ -17,7 +17,8 @@ class FeaturedUsersControllerTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        parent::prepareAuth();
+	    parent::httpTestSetup();
+        parent::prepareUser();
     }
 
     public function testGetFeatureUserListOld(){

@@ -66,4 +66,17 @@ class BlockService extends BaseService
         };
 
     }
+
+	/**
+	 * @param $userId
+	 * @param $page
+	 * @param $limit
+	 * @return ServiceResult
+	 */
+	public function getList($userId, $page, $limit){
+		return $this->executeTasks(function() use ($userId,$page,$limit){
+			$blockUsers = (new BlockUser())->getBlockUsers($userId,$page,$limit);
+			return ServiceResult::withResult($blockUsers);
+		});
+	}
 }

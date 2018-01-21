@@ -9,6 +9,7 @@
 namespace App\Models;
 
 
+use App\Constants\DateTimeFormat;
 use App\Constants\DefaultValues;
 use App\Lib\Util;
 use App\ValueObject\ProductAndCountDataVO;
@@ -35,7 +36,8 @@ class Product extends DBModel
             'price' => $price,
             'image_id' => $imageId,
             'display_name' => $name,
-            'search_text' => $searchText
+            'search_text' => $searchText,
+	        'created_date' => date(DateTimeFormat::DateShort)
         ];
 
         if($releaseDate != null)
@@ -74,7 +76,6 @@ class Product extends DBModel
             $product->image_id = $imageId;
         }
         $product->save();
-
     }
 
 
@@ -156,7 +157,6 @@ class Product extends DBModel
 
         $resultArray = $products->toArray();
         return new ProductAndCountDataVO(count($resultArray),$resultArray);
-
     }
 
     /**
@@ -182,5 +182,16 @@ class Product extends DBModel
                 ->limit($limit);
     }
 
+	/**
+	 * @param $productId
+	 * @return mixed
+	 */
+    public function getProductDetail($productId){
+    	return
+		    $this
+			    ->where('products.id',$productId)
+		        ->leftJoin('product_feed_counts','product_feed_counts.product_id','=','products.id')
+		        ->first();
 
+    }
 }
