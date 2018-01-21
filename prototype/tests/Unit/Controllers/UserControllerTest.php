@@ -44,4 +44,27 @@ class UserControllerTest extends TestCase
         $this->printResponse($content);
         $this->assertEquals(StatusCode::SUCCESS,$content["code"]);
     }
+
+    public function testEdit(){
+	    $httpMethod = HttpMethod::POST;
+	    $uri = "/user/setting/edit";
+	    $data =
+		    [
+			    'birthday_published_flag'=>0,
+			    'gender_published_flag'=>0,
+			    'gender'=>0,
+			    'birthday'=>"2017-01-01 10:10:10",
+			    'description'=>'NEW description 2 ',
+			    'user_name'=>"NEW USER NAME 2  ",
+			    'mail_address' => "jung@smt-life.biz",
+
+		    ];
+	    $content = $this->getJsonRequestContent($httpMethod,$uri,$data);
+	    if(!isset($content['code']))  var_dump($content);
+	    $this->printResponse($content);
+	    //$this->printSQLLog();
+	    $this->assertEquals(StatusCode::SUCCESS,$content["code"]);
+
+    }
+
 }

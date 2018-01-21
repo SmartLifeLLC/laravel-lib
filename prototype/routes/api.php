@@ -33,13 +33,16 @@ Route::group(
         //Switch user block status.
         //isBlockOn : {0/1}
         Route::put('/block/{targetUserId}/{isBlockOn}','BlockController@switchUserBlockStatus');
+        Route::get('/block/list','BlockController@getList');
+
+
 
         //Switch user Follow status
         Route::put('/follow/{targetUserId}/{isFollowOn}','FollowController@switchUserFollowStatus');
 
 	    //Follow and follower list
-	    Route::get('/follow/list','FollowController@getFollowList');
-	    Route::get('/follower/list','FollowController@getFollowerList');
+	    Route::get('/follow/list/{ownerId?}','FollowController@getFollowList');
+	    Route::get('/follower/list/{ownerId?}','FollowController@getFollowerList');
 
 
         Route::post('/device/register','DeviceController@register');
@@ -54,7 +57,8 @@ Route::group(
         //Old User Setting
         Route::get('/setting/show/{user_id?}'   ,'UserController@getNotificationSettings');
 
-
+        //Edit
+		Route::post('/setting/edit','UserController@edit');
 
 
     });
@@ -75,8 +79,11 @@ Route::group(['prefix'=>'product'], function(){
 
 Route::group(['prefix'=>'feed','namespace'=>'Feed'],function(){
 	Route::post('contribution/create','ContributionController@create');
-	Route::post('contribution/edit','ContributionController@edit');
-	Route::post('contribution/find','ContributionController@find');
+	Route::put('contribution/edit{feedId}','ContributionController@edit');
+	Route::get('contribution/find/{productId}','ContributionController@find');
+	Route::get('contribution/detail/{feedId}','ContributionController@detail');
+	Route::delete('contribution/delete/{feedId}','ContributionController@delete');
+
 
 	Route::post('comment/create','CommentController@create');
 	Route::delete('comment/delete/{commentId}','CommentController@delete');
@@ -86,7 +93,6 @@ Route::group(['prefix'=>'feed','namespace'=>'Feed'],function(){
 	Route::post('reaction/do','ReactionController@doReaction');
 	//Route::post('/review_post/cancel', 'ReactionController@cancelToReviewPost');
 	Route::post('reaction/cancel','ReactionController@cancelReaction');
-
 	Route::get('reaction/list/{feedId}','ReactionController@getList');
 
 });
@@ -167,8 +173,8 @@ Route::group(['prefix' => 'recommend_users'], function () {
 //    Route::post('/regist', 'UserController@regist'); => 廃止
 //    Route::get('/setting/show/{user_id}', 'UserSettingController@show'); => done
 
-//    Route::post('/edit', 'UserController@edit');
-//    Route::get('/setting/show/block/{user_id}/{offset?}', 'UserSettingController@blockList');
+//    Route::post('/edit', 'UserController@edit'); //Done
+//    Route::get('/setting/show/block/{user_id}/{offset?}', 'UserSettingController@blockList'); //Done
 //    Route::post('/setting', 'UserSettingController@update');
 //});
 
@@ -188,16 +194,21 @@ Route::group(['prefix' => 'recommend_users'], function () {
 //
 //
 //Route::group(['prefix' => 'page'], function(){
+
 //    Route::post('/', 'UserPageController@myPage');
 //    Route::post('/user', 'UserPageController@userPage');
-//    Route::post('/user/review/{offset?}/{limit?}', 'UserPageController@reviewListUser');
-//    Route::post('/user/following/{offset?}/{limit?}', 'UserPageController@userFollowing');
-//    Route::post('/user/followers/{offset?}/{limit?}', 'UserPageController@userFollowers');
 //    Route::post('/user/interest/{offset?}/{limit?}', 'UserPageController@userInterest');
-//    Route::post('/following/{offset?}/{limit?}', 'UserPageController@following');//1.20 done
-//    Route::post('/followers/{offset?}/{limit?}', 'UserPageController@followers'); //1.20 done
+//    Route::post('/user/review/{offset?}/{limit?}', 'UserPageController@reviewListUser');
 //    Route::post('/review/{offset?}/{limit?}', 'UserPageController@review');
 //    Route::post('/interest/{offset?}/{limit?}', 'UserPageController@interest');
+
+
+
+//    Route::post('/user/following/{offset?}/{limit?}', 'UserPageController@userFollowing'); //1.20 done
+//    Route::post('/user/followers/{offset?}/{limit?}', 'UserPageController@userFollowers'); //1.20 done
+//    Route::post('/following/{offset?}/{limit?}', 'UserPageController@following');//1.20 done
+//    Route::post('/followers/{offset?}/{limit?}', 'UserPageController@followers'); //1.20 done
+
 //});
 //
 
@@ -214,8 +225,8 @@ Route::group(['prefix' => 'recommend_users'], function () {
 //Route::group(['prefix' => 'review_post'], function () {
 //    Route::post('/check', 'PostController@isReviewPosted'); //Done - 2018 01 20
 //    Route::post('/edit', 'PostController@edit'); //Done
-//    Route::post('/delete', 'PostController@delete');
-//    Route::post('/{reviewPostId}', 'PostController@getReviewPostDetail');
+//    Route::post('/delete', 'PostController@delete'); //Done
+//    Route::post('/{reviewPostId}', 'PostController@getReviewPostDetail'); //Done
 //});
 //
 
@@ -223,6 +234,6 @@ Route::group(['prefix' => 'recommend_users'], function () {
 //
 
 //Route::group(['prefix'=> 'feeds'],function(){
-//    Route::get('/detail/{feedId}','FeedsController@detail');
+//    Route::get('/detail/{feedId}','FeedsController@detail'); //Done
 //    Route::get('/comments/{feedId}/{boundaryId}','FeedsController@comments'); //Done - 2018 01 20
 //});

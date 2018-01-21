@@ -45,13 +45,18 @@ class ReactionControllerTest extends TestCase
 
 
 	public function testLeaveReaction(){
-		$httpMethod = HttpMethod::POST;
+		//$userId = 48;
+		//$userAuth = "5a4ca9c659465";
+		//parent::prepareUserWithIdAndAuth($userId,$userAuth);
+		$feedId = 39;
 
+
+		$httpMethod = HttpMethod::POST;
 		$uri = "/feed/reaction/do";
 		$data =
 			[
-				'review_post_id'=>28,
-				'review_post_reaction_type'=>FeedReactionType::HAVE,
+				'review_post_id'=>$feedId,
+				'review_post_reaction_type'=>FeedReactionType::LIKE,
 			];
 		$content = $this->getJsonRequestContent($httpMethod,$uri,$data);
 

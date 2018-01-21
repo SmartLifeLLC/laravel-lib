@@ -46,4 +46,15 @@ class BlockControllerTest extends TestCase
         $content = $this->getJsonRequestContent($httpMethod,$uri);
         $this->assertEquals(StatusCode::SUCCESS,$content["code"]);
     }
+
+    public function testList(){
+	    $httpMethod = HttpMethod::GET;
+	    $userId = 6155;
+	    $auth = "AUTH_5a61c3bd4fbdd";
+	    $this->prepareUserWithIdAndAuth($userId,$auth);
+	    $uri = "/user/block/list";
+	    $content = $this->getJsonRequestContent($httpMethod,$uri);
+	    $this->printResponse($content);
+	    $this->assertEquals(StatusCode::SUCCESS,$content["code"]);
+    }
 }

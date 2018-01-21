@@ -56,6 +56,11 @@ class ReactionController extends Controller
 		$userId = (CurrentUser::shared())->getUserId();
 		$feedId = $request->get('review_post_id');
 		$reactionType = $request->get('review_post_reaction_type');
+
+		if($reactionType == FeedReactionType::HAVE)
+			return $this->responseParameterErrorJsonViewWithDebugMessage("Have reaction no more permitted");
+
+
 		$serviceResult = (new ReactionService())->updateReaction($userId,$feedId,$reactionType,$isIncrease);
 		return $this->responseJson(new ReactionUpdateJsonView($serviceResult));
 	}

@@ -83,26 +83,32 @@ class FollowController extends Controller
 
 	/**
 	 * @param Request $request
+	 * @param null $ownerId
 	 * @return \Illuminate\Http\JsonResponse
 	 */
-    public function getFollowList(Request $request){
+    public function getFollowList(Request $request,$ownerId = null){
 		$userId = CurrentUser::shared()->getUserId();
+		if($ownerId == null) $ownerId = $userId;
+
 		$page = $request->get('page',DefaultValues::QUERY_DEFAULT_PAGE);
 		$limit = $request->get('limit',DefaultValues::QUERY_DEFAULT_LIMIT);
-		$serviceResult = (new FollowService())->getFollowList($userId,$page,$limit);
+		$serviceResult = (new FollowService())->getFollowList($userId,$ownerId,$page,$limit);
 		return $this->responseJson(new FollowOrFollowerGetListJsonView($serviceResult));
 
     }
 
 	/**
 	 * @param Request $request
+	 * @param null $ownerId
 	 * @return \Illuminate\Http\JsonResponse
 	 */
-	public function getFollowerList(Request $request){
+	public function getFollowerList(Request $request,$ownerId = null){
 		$userId = CurrentUser::shared()->getUserId();
+		if($ownerId == null) $ownerId = $userId;
+
 		$page = $request->get('page',DefaultValues::QUERY_DEFAULT_PAGE);
 		$limit = $request->get('limit',DefaultValues::QUERY_DEFAULT_LIMIT);
-		$serviceResult = (new FollowService())->getFollowerList($userId,$page,$limit);
+		$serviceResult = (new FollowService())->getFollowerList($userId,$ownerId,$page,$limit);
 		return $this->responseJson(new FollowOrFollowerGetListJsonView($serviceResult));
 
 	}

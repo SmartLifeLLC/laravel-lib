@@ -12,12 +12,15 @@ namespace App\Models;
 
 use App\Constants\DateTimeFormat;
 use App\Constants\FeedReactionType;
+use App\Models\Common\DeleteAllForFeedImplements;
+use App\Models\Common\DeleteAllForFeedInterface;
 use App\Models\Common\FeedReactionImplements;
 use App\Models\Common\FeedReactionInterface;
 
-class FeedAllReaction extends DBModel implements FeedReactionInterface
+class FeedAllReaction extends DBModel implements FeedReactionInterface, DeleteAllForFeedInterface
 {
 	use FeedReactionImplements;
+	use DeleteAllForFeedImplements;
 
 	public function getReactionType()
 	{

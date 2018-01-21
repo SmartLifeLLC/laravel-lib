@@ -10,11 +10,16 @@ namespace App\Models;
 
 
 use App\Constants\DateTimeFormat;
+use App\Constants\DefaultValues;
 use App\Constants\QueryOrderTypes;
 use App\Lib\Util;
+use App\Models\Common\DeleteAllForFeedImplements;
+use App\Models\Common\DeleteAllForFeedInterface;
 
-class FeedComment extends DBModel
+class FeedComment extends DBModel implements DeleteAllForFeedInterface
 {
+	use DeleteAllForFeedImplements;
+
 	/**
 	 * @param $userId
 	 * @param $feedId
@@ -80,5 +85,22 @@ class FeedComment extends DBModel
 		else
 			return $result;
 
+	}
+
+	/**
+	 * @param $feedId
+	 * @return mixed
+	 */
+	public function getCountForFeed($feedId){
+		return $this->where('feed_id',$feedId)->count();
+	}
+
+	/**
+	 * @param $feedId
+	 * @param int $limit
+	 * @return mixed
+	 */
+	public function getPureListForFeed($feedId,$limit = DefaultValues::QUERY_DEFAULT_LIMIT){
+		return $this->where('feed_id',$feedId)->limit($limit)->get();
 	}
 }

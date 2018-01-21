@@ -9,7 +9,7 @@
 namespace App\Lib;
 
 
-use App\Constants\ConfigConstants;
+use App\Constants\SystemConstants;
 use Illuminate\Http\Request;
 
 final class Util
@@ -43,7 +43,7 @@ final class Util
      * @return String
      */
     static function getS3SaveUrl($s3key):String{
-        return "s3://".ConfigConstants::S3ImageBucket()."/" .$s3key;
+        return "s3://".SystemConstants::S3ImageBucket()."/" .$s3key;
     }
 
 
@@ -53,7 +53,7 @@ final class Util
 	 */
     static function getS3CdnUrl($s3key):String{
     	if(empty($s3key )) return "";
-		return ConfigConstants::getCdnHost()."/" .$s3key;
+		return SystemConstants::getCdnHost()."/" .$s3key;
 	}
 
 
@@ -112,7 +112,7 @@ final class Util
      * @return string
      */
     static function getS3ImageFullPath($s3key):String{
-        return  ($s3key == null)?"":ConfigConstants::getCdnHost().$s3key;
+        return  ($s3key == null)?"":SystemConstants::getCdnHost().$s3key;
     }
 
 

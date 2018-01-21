@@ -152,4 +152,12 @@ class User extends DBModel
     public function getRandomUser(){
     	return $this->inRandomOrder()->first();
     }
+
+	/**
+	 * @param $userId
+	 * @return mixed
+	 */
+    public function updateLastPostDate($userId){
+    	return $this->where('id',$userId)->update(['last_posted_at'=>date(DateTimeFormat::General)]);
+    }
 }

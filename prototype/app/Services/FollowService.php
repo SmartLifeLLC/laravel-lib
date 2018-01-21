@@ -61,12 +61,13 @@ class FollowService extends BaseService
 
 	/**
 	 * @param $userId
+	 * @param $ownerId
 	 * @param $page
 	 * @param $limit
 	 * @return ServiceResult
 	 */
-    public function getFollowList($userId,$page,$limit):ServiceResult{
-    	return $this->executeTasks(function ()use ($userId,$page,$limit){
+    public function getFollowList($userId,$ownerId,$page,$limit):ServiceResult{
+    	return $this->executeTasks(function ()use ($userId,$ownerId,$page,$limit){
     		$follow = new Follow();
     		$followCount = $follow->getCountForUser($userId);
 		    $feedCount = (new Feed())->getCountForUser($userId);
@@ -76,7 +77,7 @@ class FollowService extends BaseService
 		    $hasNext = 0;
 
 			if($followCount > 0 ) {
-				$followList = $follow->getList($userId,$page,$limit);
+				$followList = $follow->getList($userId,$ownerId,$page,$limit);
 				$hasNext = $follow->getHasNext($limit,$page,$followCount);
 			}
 
@@ -86,26 +87,26 @@ class FollowService extends BaseService
     }
 
 
-
 	/**
 	 * @param $userId
+	 * @param $ownerId
 	 * @param $page
 	 * @param $limit
 	 * @return ServiceResult
 	 */
-	public function getFollowerList($userId,$page,$limit):ServiceResult{
-		return $this->executeTasks(function ()use ($userId,$page,$limit){
+	public function getFollowerList($userId,$ownerId,$page,$limit):ServiceResult{
+		return $this->executeTasks(function ()use ($userId,$ownerId,$page,$limit){
 
-			$followCount = (new Follow())->getCountForUser($userId);
-			$feedCount = (new Feed())->getCountForUser($userId);
+			$followCount = (new Follow())->getCountForUser($ownerId);
+			$feedCount = (new Feed())->getCountForUser($ownerId);
 			$follower = new Follower();
-			$followerCount = $follower->getCountForUser($userId);
-			$interestCount = (new FeedInterestReaction())->getCountForUser($userId);
+			$followerCount = $follower->getCountForUser($ownerId);
+			$interestCount = (new FeedInterestReaction())->getCountForUser($ownerId);
 			$followerList = [];
 			$hasNext = 0;
 
 			if($followerCount > 0 ) {
-				$followerList = $follower->getList($userId,$page,$limit);
+				$followerList = $follower->getList($userId,$ownerId,$page,$limit);
 				$hasNext = $follower->getHasNext($limit,$page,$followerCount);
 			}
 

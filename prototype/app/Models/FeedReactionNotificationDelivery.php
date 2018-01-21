@@ -10,9 +10,12 @@ namespace App\Models;
 
 
 use App\Constants\DateTimeFormat;
+use App\Models\Common\DeleteAllForFeedImplements;
+use App\Models\Common\DeleteAllForFeedInterface;
 
-class FeedReactionNotificationDelivery extends DBModel
+class FeedReactionNotificationDelivery extends DBModel implements DeleteAllForFeedInterface
 {
+	use DeleteAllForFeedImplements;
 
 	/**
 	 * @param $userId
@@ -42,4 +45,5 @@ class FeedReactionNotificationDelivery extends DBModel
 		}
 
 	}
+
 }

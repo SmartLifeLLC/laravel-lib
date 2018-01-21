@@ -13,8 +13,10 @@ use App\Constants\FeedFeelingType;
 use App\Constants\PostParametersValidationRule;
 use App\Http\Controllers\Controller;
 use App\Http\JsonView\Feed\ContributionCreateJsonView;
+use App\Http\JsonView\Feed\ContributionDeleteJsonView;
 use App\Http\JsonView\Feed\ContributionEditJsonView;
 use App\Http\JsonView\Feed\ContributionFindJsonView;
+use App\Http\JsonView\Feed\ContributionGetDetailJsonView;
 use App\Models\CurrentUser;
 use App\Services\ContributionService;
 use Illuminate\Http\Request;
@@ -56,17 +58,11 @@ class ContributionController extends Controller
 
 	/**
 	 * @param Request $request
+	 * @param $feedId
 	 * @return \Illuminate\Http\JsonResponse
 	 */
-	public function edit(Request $request){
-		$validator = $this->createValidator( $request->all(),
-			PostParametersValidationRule::FEED_ID,
-			PostParametersValidationRule::FEED_CONTENT
-		) ;
-
-		if($validator->fails()) return  $this->responseParameterErrorJsonViewWithValidator($validator);
+	public function edit(Request $request,$feedId){
 		$userId = CurrentUser::shared()->getUserId();
-		$feedId  = $request->get('review_post_id');
 		$content =  $request->get('text');
 		$serviceResult = (new ContributionService())->edit($userId,$feedId,$content);
 		return $this->responseJson(new ContributionEditJsonView($serviceResult));
@@ -74,19 +70,33 @@ class ContributionController extends Controller
 
 
 	/**
-	 * @param Request $request
+	 * @param $productId
 	 * @return \Illuminate\Http\JsonResponse
 	 */
-	public function find(Request $request){
-		$validator = $this->createValidator( $request->all(),
-			PostParametersValidationRule::PRODUCT_ID
-		);
-		if($validator->fails()) return  $this->responseParameterErrorJsonViewWithValidator($validator);
+	public function find($productId){
 		$userId = CurrentUser::shared()->getUserId();
-		$productId = $request->get('product_item_id');
 		$serviceResult = (new ContributionService())->find($userId,$productId);
 		return $this->responseJson(new ContributionFindJsonView($serviceResult));
 
 	}
 
+	/**
+	 * @param $feedId
+	 * @return \Illuminate\Http\JsonResponse
+	 */
+	public function detail($feedId){
+		$userId = CurrentUser::shared()->getUserId();
+		$serviceResult = (new ContributionService())->detail($userId,$feedId);
+		return $this->responseJson(new  ContributionGetDetailJsonView($serviceResult));
+	}
+
+	/**
+	 * @param $feedId
+	 * @return \Illuminate\Http\JsonResponse
+	 */
+	public function delete($feedId){
+		$userId = CurrentUser::shared()->getUserId();
+		$serviceResult = (new ContributionService())->delete($userId,$feedId);
+		return $this->responseJson(new ContributionDeleteJsonView($serviceResult));
+	}
 }

@@ -15,7 +15,4 @@ class DateTimeFormat
     const General = "Y-m-d H:i:s";
     const DateShort = "Y-m-d";
 
-    static function getBirthdayFromFullDate($fullDate){
-	    return explode(' ' , $fullDate)[0];
-    }
 }

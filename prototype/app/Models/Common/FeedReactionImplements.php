@@ -9,7 +9,7 @@
 namespace App\Models\Common;
 
 
-use App\Constants\ConfigConstants;
+use App\Constants\SystemConstants;
 use App\Constants\DateTimeFormat;
 use App\Constants\DefaultValues;
 use App\Constants\FeedReactionType;
@@ -42,6 +42,7 @@ trait FeedReactionImplements
 
 		$queryBuilder->delete();
 	}
+
 
 	/**
 	 * @param $userId
@@ -97,7 +98,7 @@ trait FeedReactionImplements
 		";
 
 		$offset = $this->getOffset($limit,$page);
-		return DB::select($query,[ConfigConstants::getCdnHost(),$userId,$feedId,$limit,$offset]);
+		return DB::select($query,[SystemConstants::getCdnHost(),$userId,$feedId,$limit,$offset]);
 	}
 
 }

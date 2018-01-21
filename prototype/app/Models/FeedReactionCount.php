@@ -10,9 +10,12 @@ namespace App\Models;
 
 
 use App\Constants\FeedReactionType;
+use App\Models\Common\DeleteAllForFeedImplements;
+use App\Models\Common\DeleteAllForFeedInterface;
 
-class FeedReactionCount extends DBModel
+class FeedReactionCount extends DBModel implements DeleteAllForFeedInterface
 {
+	use DeleteAllForFeedImplements;
 	/**
 	 * @param $productId
 	 * @param $feedId
@@ -102,6 +105,5 @@ class FeedReactionCount extends DBModel
 	public function getCountsForFeed($feedId){
 		return $this->where('feed_id',$feedId)->first();
 	}
-
 
 }

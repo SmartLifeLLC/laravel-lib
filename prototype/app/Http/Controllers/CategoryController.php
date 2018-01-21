@@ -25,4 +25,6 @@ class CategoryController extends Controller
         $jsonView = new CategoryListJsonView($serviceResult);
         return $this->responseJson($jsonView);
     }
+
+
 }

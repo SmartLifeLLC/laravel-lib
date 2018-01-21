@@ -74,7 +74,7 @@ class UpdateFeedCountTask implements ServiceTask
 	}
 
 	private function getAllProductCategoryIds(){
-		$productCategoryDescendantIds = (new ProductsProductCategory())->getProductCategoryIds($this->productId);
+		$productCategoryDescendantIds = (new ProductsProductCategory())->getLeafProductCategoryIds($this->productId);
 		return (new ProductCategory())->getAncestorIdList($productCategoryDescendantIds);
 	}
 

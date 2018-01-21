@@ -10,6 +10,9 @@
 namespace App\Http\JsonView;
 
 
+use App\Constants\FeedFeelingType;
+use App\Constants\SystemConstants;
+use App\Constants\Gender;
 use App\Constants\StatusCode;
 use App\Constants\StatusMessage;
 use App\Constants\Versions;
@@ -140,5 +143,78 @@ abstract class JsonResponseView
                 'body'=>base64_encode(json_encode($this->body))
             ];
         return $response;
+    }
+
+	/**
+	 * @param $birthday
+	 * @param $isPermitted
+	 * @return string
+	 */
+
+    public function getBirthdayString($birthday,$isPermitted){
+	    if(!$isPermitted)
+		    return "非公開";
+	    else {
+	    	if(strpos($birthday,' ')!==false)
+		        return explode(' ', $birthday)[0];
+	    	return $birthday;
+	    }
+	}
+
+
+	/**
+	 * @param $genderType
+	 * @param $isPermitted
+	 * @return string
+	 */
+    public function getGenderString($genderType,$isPermitted){
+    	if(!$isPermitted)
+    		return "非公開";
+    	else
+
+    		return Gender::getString($genderType);
+    }
+
+	/**
+	 * @param $s3key
+	 * @return string
+	 */
+    public function getImageURLForS3Key($s3key){
+    	return  (empty($s3key)) ? "" : SystemConstants::getCdnHost().$s3key;
+    }
+
+	/**
+	 * @param $value
+	 * @return int
+	 */
+    public function getBinaryValue($value){
+    	if(empty($value))
+    		return 0;
+    	else
+    		return 1;
+    }
+
+	/**
+	 * @param $stringValue
+	 * @return int
+	 */
+    public function getFeelingBinaryValue($stringValue){
+    	return FeedFeelingType::getBinaryValue($stringValue);
+    }
+
+
+	/**
+	 * @param array ...$s3Keys
+	 * @return array
+	 */
+    public function getImageURLs(...$s3Keys){
+    	$imageURLs = [];
+    	foreach ($s3Keys as $s3Key){
+    		if(!empty($s3Key)){
+    			$imageURLs[] = $this->getImageURLForS3Key($s3Key);
+		    }
+	    }
+	    return $imageURLs;
+
     }
 }

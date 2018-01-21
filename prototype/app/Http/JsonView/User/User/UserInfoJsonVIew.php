@@ -7,7 +7,8 @@
  */
 namespace App\Http\JsonView\User\User;
 
-use App\Constants\ConfigConstants;
+use App\Constants\DateTimeFormat;
+use App\Constants\SystemConstants;
 use App\Constants\Gender;
 use App\Constants\S3Buckets;
 use App\Http\JsonView\JsonResponseView;
@@ -33,15 +34,15 @@ class UserInfoJsonVIew extends JsonResponseView
                 "user_name" => $user->user_name,
                 "description" => $user->description,
                 "address" => $user->address,
-                "gender" => Gender::getString($user->gender),
-                "birthday" => $user->birthday,
+                "gender" => $this->getGenderString($user->gender,$user->gender_published_flag),
+                "birthday" => $this->getBirthdayString($user->birthday,$user->birthday_published_flag),
                 "worked_history" => $user->worked_history,
-                "profile_image_url" => Util::getS3ImageFullPath($user->profile_image_url),
-                "cover_image_url" => Util::getS3ImageFullPath($user->cover_image_url),
+                "profile_image_url" => $this->getImageURLForS3Key($user->profile_image_url),
+                "cover_image_url" => $this->getImageURLForS3Key($user->cover_image_url),
                 "gender_published_flag" => $user->gender_published_flag,
                 "birthday_published_flag" => $user->birthday_published_flag,
-                "created_at" => $user->created_at->format('Y-m-d H:i:s'),
-                "updated_at" => $user->updated_at->format('Y-m-d H:i:s')
+                "created_at" => $user->created_at->format(DateTimeFormat::General),
+                "updated_at" => $user->updated_at->format(DateTimeFormat::General)
             ];
     }
 }

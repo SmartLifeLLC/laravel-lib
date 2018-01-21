@@ -182,5 +182,16 @@ class Product extends DBModel
                 ->limit($limit);
     }
 
+	/**
+	 * @param $productId
+	 * @return mixed
+	 */
+    public function getProductDetail($productId){
+    	return
+		    $this
+			    ->where('products.id',$productId)
+		        ->leftJoin('product_feed_counts','product_feed_counts.product_id','=','products.id')
+		        ->first();
 
+    }
 }

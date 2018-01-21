@@ -28,6 +28,7 @@ interface FeedReactionInterface
 	 */
 	public function deleteReaction($userId,$feedId,$type = null);
 
+
 	/**
 	 * @param $userId
 	 * @param $feedId

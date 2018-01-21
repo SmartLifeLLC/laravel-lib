@@ -79,4 +79,30 @@ class ContributionControllerTest extends TestCase
 		$this->assertEquals(StatusCode::SUCCESS,$content["code"]);
 	}
 
+	public function testGetDetail(){
+		$httpMethod = HttpMethod::GET;
+		$feedId = 39;
+		$uri = "/feed/contribution/detail/{$feedId}";
+		$content = $this->getJsonRequestContent($httpMethod,$uri);
+
+		if(!isset($content['code']))  var_dump($content);
+		$this->printResponse($content);
+		//$this->printSQLLog();
+		$this->assertEquals(StatusCode::SUCCESS,$content["code"]);
+	}
+
+	public function testDelete(){
+		$userId = 48;
+		$auth = "5a4ca9c659465";
+		$this->prepareUserWithIdAndAuth($userId,$auth);
+		$httpMethod = HttpMethod::DELETE;
+		$feedId = 30;
+		$uri = "/feed/contribution/delete/{$feedId}";
+		$content = $this->getJsonRequestContent($httpMethod,$uri);
+		if(!isset($content['code']))  var_dump($content);
+		$this->printResponse($content);
+		$this->printSQLLog();
+		$this->assertEquals(StatusCode::SUCCESS,$content["code"]);
+	}
+
 }

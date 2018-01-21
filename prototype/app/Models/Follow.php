@@ -22,28 +22,28 @@ class Follow extends DBModel
 
 	/**
 	 * @param $userId
-	 * @param $limit
+	 * @param $ownerId
 	 * @param $page
+	 * @param $limit
 	 * @return mixed
 	 */
-    public function getList($userId,$page,$limit){
+    public function getList($userId,$ownerId,$page,$limit){
 	    $offset = $this->getOffset($limit,$page);
         $follows =
 	        $this->select([
 	        	's3_key',
+		        'follows.id',
 		        'user_name',
 		        'users.id as user_id',
-		        'follows.id',
 		        'users.description as introduction',
-		        'followers.is_on as is_follower',
-		        'follows.is_on as is_follow'])
-	            ->where('follows.user_id',$userId)
+		        'my_follows.is_on as is_follow'])
+	            ->where('follows.user_id',$ownerId)
 	            ->leftJoin('users','users.id','=','follows.target_user_id')
 		        ->leftJoin('images','users.profile_image_id','=','images.id')
-		        ->leftJoin('followers',function($join) use ($userId){
-			        $join->on('follows.target_user_id','=','followers.target_user_id');
-			        $join->on('follows.user_id','=','follows.user_id');
-			        $join->on('followers.is_on','=',DB::raw("1"));
+		        ->leftJoin('follows as my_follows',function($join) use ($userId){
+			        $join->on('follows.target_user_id','=','my_follows.target_user_id');
+			        $join->on('my_follows.user_id','=',DB::raw($userId));
+			        $join->on('my_follows.is_on','=',DB::raw("1"));
 		        })
 	            ->limit($limit)
 	            ->offset($offset)

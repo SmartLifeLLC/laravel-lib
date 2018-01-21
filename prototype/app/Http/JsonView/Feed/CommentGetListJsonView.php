@@ -9,7 +9,7 @@
 namespace App\Http\JsonView\Feed;
 
 
-use App\Constants\ConfigConstants;
+use App\Constants\SystemConstants;
 use App\Constants\DateTimeFormat;
 use App\Constants\Gender;
 use App\Http\JsonView\JsonResponseView;
@@ -25,8 +25,8 @@ class CommentGetListJsonView extends JsonResponseView
 	{
 		$body = [] ;
 		foreach ($this->data as $entity){
-			$gender = ($entity->gender_published_flag)?Gender::getString($entity->gender):"";
-			$birthday = ($entity->birthday_published_flag)?DateTimeFormat::getBirthdayFromFullDate($entity->birthday):"";
+			$gender =   $this->getGenderString($entity->gender,$entity->gender_published_flag);
+			$birthday = $this->getBirthdayString($entity->birthday,$entity->birthday_published_flag);
 			$comment =
 				[
 					'id'                    => $entity->id,
@@ -40,8 +40,8 @@ class CommentGetListJsonView extends JsonResponseView
 							[
 								'user_id'           => $entity->user_id,
 								'user_name'         => $entity->user_name,
-								'profile_image_url' => (empty($entity->profile_image_s3_key))?"":ConfigConstants::getCdnHost().$entity->profile_image_s3_key,
-								'cover_image_url'   => (empty($entity->cover_image_s3_key))  ?"":ConfigConstants::getCdnHost().$entity->cover_image_s3_key,
+								'profile_image_url' => $this->getImageURLForS3Key($entity->profile_image_s3_key),
+								'cover_image_url'   => $this->getImageURLForS3Key($entity->cover_image_s3_key),
 								'introduction'      => $entity->introduction,
 								'gender'            => $gender,
 								'birthday'          => $birthday

@@ -13,5 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProductCategoryHierarchy extends DBModel
 {
+	public function getAllCategoryIdsForLeafCategoryIds($leafCategoryIds){
 
+	}
 }

@@ -9,7 +9,7 @@
 namespace App\Manager;
 
 
-use App\Constants\ConfigConstants;
+use App\Constants\SystemConstants;
 use App\Constants\S3Buckets;
 use App\Lib\Util;
 use Aws\S3\S3Client;
@@ -64,7 +64,7 @@ class AwsManager
 		$s3key = Util::getS3KeyForImageName($userId,$file->getBasename(),$imageCategory);
 
 		$client->putObject(array(
-			'Bucket'       => ConfigConstants::S3ImageBucket(),
+			'Bucket'       => SystemConstants::S3ImageBucket(),
 			'Key'          => $s3key,
 			'SourceFile'   => $file,
 			'ContentType'  => $file->getMimeType(),

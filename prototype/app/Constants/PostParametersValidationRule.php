@@ -32,11 +32,15 @@ class PostParametersValidationRule
     const IMAGE2 = "image2";
     const IMAGE3 = "image3";
     const IMAGE4 = "image4";
+    const EMAIL = "mail_address";
+	const USER_EDIT_IMAGE_1 = "image1";
+
+
     const RULE_REQUIRED = 'required';
     const RULE_NUMERIC = 'numeric';
     const RULE_OR = '|';
     const RULE_IMAGE = "image|mimes:jpeg,png,jpg,gif|max:2048";
-
+	const RULE_EMAIL = "email";
 
 
     static $ALL_RULES=
@@ -79,6 +83,9 @@ class PostParametersValidationRule
         PostParametersValidationRule::IMAGE4=>
             PostParametersValidationRule::RULE_IMAGE,
 
+	    PostParametersValidationRule::USER_EDIT_IMAGE_1=>
+		    PostParametersValidationRule::RULE_IMAGE,
+
         PostParametersValidationRule::PRODUCT_ID=>
            PostParametersValidationRule::RULE_REQUIRED
             .PostParametersValidationRule::RULE_OR
@@ -110,6 +117,9 @@ class PostParametersValidationRule
 		    PostParametersValidationRule::RULE_REQUIRED
 		    .PostParametersValidationRule::RULE_OR
 		    .PostParametersValidationRule::RULE_NUMERIC,
+
+	    PostParametersValidationRule::EMAIL =>
+	        PostParametersValidationRule::RULE_EMAIL
 
     ];
 

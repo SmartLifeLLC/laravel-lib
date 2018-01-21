@@ -2,7 +2,8 @@
 
 namespace App\Models;
 
-use App\Constants\ConfigConstants;
+use App\Constants\DefaultValues;
+use App\Constants\SystemConstants;
 use Illuminate\Database\Eloquent\Model;
 use DB;
 class BlockUser extends DBModel
@@ -100,30 +101,27 @@ class BlockUser extends DBModel
 
     /**
      * @param $userId
-     * @param int $offset
+     * @param int $page
      * @param int $limit
      * @return array
      */
-    public function getBlockUsers($userId,$offset=0,$limit=10){
-        $imgHost = ConfigConstants::getCdnHost();
+    public function getBlockUsers($userId, $page = DefaultValues::QUERY_DEFAULT_PAGE, $limit = DefaultValues::QUERY_DEFAULT_LIMIT){
 
-        $query =
-        "
-        SELECT
-          users.id,
-          users.description AS introduction,
-          concat(?, s3_key) AS profile_image_url,
-          user_name
-        FROM block_users
-          LEFT JOIN users ON block_users.target_user_id = users.id
-          LEFT JOIN contents ON users.profile_image_id = contents.id
-        WHERE block_users.user_id = ?
-        LIMIT ?, ?;        
-        ";
-
-        $params = [$imgHost,$userId,$offset,$limit];
-        $blockUsers = DB::select($query,$params);
-        return $blockUsers;
+		$offset = $this->getOffset($limit,$page);
+		return
+			$this
+			->select(
+				'users.id as user_id',
+				'users.description as introduction',
+				'images.s3_key as profile_image_s3_key',
+				'users.user_name'
+			)
+			->where('block_users.user_id',$userId)
+			->leftJoin('users','users.id','=','block_users.target_user_id')
+			->leftJoin('images','images.id','=','users.profile_image_id')
+			->offset($offset)
+		    ->limit($limit)
+			->get();
     }
 
 
