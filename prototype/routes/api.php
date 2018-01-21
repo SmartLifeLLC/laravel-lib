@@ -48,7 +48,6 @@ Route::group(
         Route::get('/setting/notification/list','UserController@getNotificationSettings');
         //Old
         Route::get('/setting/show/{user_id?}'   ,'UserController@getNotificationSettings');
-
     });
 
 Route::group(['prefix'=>'featured','namespace'=>'Featured'],
@@ -87,6 +86,10 @@ Route::group(['prefix' => 'recommend_users'], function () {
     Route::post('/', 'Featured\FeaturedUsersController@getListOnAppInit');
 });
 
+Route::group(['prefix' => 'translate', 'namespace' => 'Translate'], function(){
+   Route::get('/user', 'TranslateUserController@getPreviousData');
+   Route::get('/feed_comment', 'TranslateFeedCommentController@getPreviousData');
+});
 
 //// 検索 - category controller および product controllerで統一
 //Route::group(['prefix' => 'search'], function () {
