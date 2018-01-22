@@ -24,7 +24,7 @@ class CommentController extends Controller
 	public function create(Request $request){
 		$validator = $this->createValidator( $request->all(),
 			PostParametersValidationRule::PRODUCT_ID,
-			PostParametersValidationRule::FEED_ID,
+			PostParametersValidationRule::CONTRIBUTION_ID,
 			PostParametersValidationRule::COMMENT_CONTENT
 		);
 
@@ -35,9 +35,9 @@ class CommentController extends Controller
 
 		//parameters
 		$userId = $this->getCurrentUserId();
-		$feedId = $request->get('review_post_id');
+		$contributionId = $request->get('review_post_id');
 		$content = $request->get('text');
-		$serviceResult = (new CommentService())->create($userId,$feedId,$content);
+		$serviceResult = (new CommentService())->create($userId,$contributionId,$content);
 		return $this->responseJson(new CommentCreateJsonView($serviceResult));
 	}
 
@@ -56,18 +56,18 @@ class CommentController extends Controller
 	}
 
 	/**
-	 * @param $feedId
+	 * @param $contributionId
 	 * @param $boundaryId
 	 * @return \Illuminate\Http\JsonResponse
 	 */
-	public function getList($feedId,$boundaryId = 0){
-		if(empty($feedId)){
-			return $this->responseParameterErrorJsonViewWithDebugMessage("Feed id cannot be empty.");
+	public function getList($contributionId, $boundaryId = 0){
+		if(empty($contributionId)){
+			return $this->responseParameterErrorJsonViewWithDebugMessage("Contribution id cannot be empty.");
 		}
 
 		$limit = DefaultValues::QUERY_DEFAULT_LIMIT;
 		$isAsc = true;
-		$serviceResult = (new CommentService())->getList($feedId,$boundaryId,$isAsc,$limit);
+		$serviceResult = (new CommentService())->getList($contributionId,$boundaryId,$isAsc,$limit);
 		return $this->responseJson(new CommentGetListJsonView($serviceResult));
 	}
 }

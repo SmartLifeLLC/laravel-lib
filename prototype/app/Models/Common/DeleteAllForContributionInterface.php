@@ -9,11 +9,11 @@
 namespace App\Models\Common;
 
 
-interface DeleteAllForFeedInterface
+interface DeleteAllForContributionInterface
 {
 	/**
-	 * @param $feedId
+	 * @param $contributionId
 	 * @return mixed
 	 */
-	public function deleteAllForFeed($feedId);
+	public function deleteAllForContribution($contributionId);
 }

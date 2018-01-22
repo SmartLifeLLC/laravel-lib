@@ -12,21 +12,21 @@ namespace App\ValueObject;
 class PageInfoResultVO
 {
 	private $userInfoForPage ;
-	private $feedCount;
+	private $contributionCount;
 	private $friendsCount;
 	private $allReactionCounts;
 
 	/**
 	 * PageInfoResultVO constructor.
 	 * @param $userInfoForPage
-	 * @param $feedCount
+	 * @param $contributionCount
 	 * @param $friendsCount
 	 * @param $allReactionCounts
 	 */
-	public function __construct($userInfoForPage, $feedCount, $friendsCount, $allReactionCounts)
+	public function __construct($userInfoForPage, $contributionCount, $friendsCount, $allReactionCounts)
 	{
 		$this->userInfoForPage = $userInfoForPage;
-		$this->feedCount = $feedCount;
+		$this->contributionCount = $contributionCount;
 		$this->friendsCount = $friendsCount;
 		$this->allReactionCounts = $allReactionCounts;
 	}
@@ -42,9 +42,9 @@ class PageInfoResultVO
 	/**
 	 * @return mixed
 	 */
-	public function getFeedCount()
+	public function getContributionCount()
 	{
-		return $this->feedCount;
+		return $this->contributionCount;
 	}
 
 	/**

@@ -9,7 +9,7 @@
 namespace Tests\Unit\Models;
 
 
-use App\Models\FeedAllReaction;
+use App\Models\ContributionAllReaction;
 use Tests\TestCase;
 
 class FeedAllReactionTest extends TestCase
@@ -22,7 +22,7 @@ class FeedAllReactionTest extends TestCase
 	}
 
 	public function testGetList(){
-		$model = new FeedAllReaction();
+		$model = new ContributionAllReaction();
 		$feedId = 26;
 		$page = 2;
 		$limit = 2;

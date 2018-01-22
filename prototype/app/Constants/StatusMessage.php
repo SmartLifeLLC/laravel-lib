@@ -45,9 +45,9 @@ final class StatusMessage
             case StatusCode::FACEBOOK_TOKEN_FAILED : return "Facebook Token認証に失敗しました。";
             case StatusCode::AUTH_FAILED : return "認証に失敗しました。";
 		    case StatusCode::LIMITED_USER : return "該当サービスは利用が制限されています。";
-            case StatusCode::FAILED_TO_FIND_FEED : return "投稿詳細を取得できませんでした。";
+            case StatusCode::FAILED_TO_FIND_CONTRIBUTION : return "投稿詳細を取得できませんでした。";
 		    case StatusCode::CONTRIBUTION_ALREADY_EXISTS : return "商品レビューがすでに投稿されています。";
-		    case StatusCode::FAILED_TO_FIND_FEED_COMMENT : return "該当コメントが見つかりません。";
+		    case StatusCode::FAILED_TO_FIND_CONTRIBUTION_COMMENT : return "該当コメントが見つかりません。";
 		    case StatusCode::USER_IS_NOT_OWNER : return "失敗しました。";
 		    case StatusCode::BLOCK_STATUS_WITH_TARGET_USER : return "ブロック状態です。";
             /**

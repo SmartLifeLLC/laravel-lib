@@ -22,7 +22,7 @@ class PageInfoJsonView extends JsonResponseView
 	function createBody()
 	{
 		$user = $this->data->getUserInfoForPage();
-		$feedCount = $this->data->getFeedCount();
+		$contributionCount = $this->data->getContributionCount();
 		$friendsCount = $this->data->getFriendsCount();
 		$allReactionCounts = $this->data->getAllReactionCounts();
 
@@ -35,7 +35,8 @@ class PageInfoJsonView extends JsonResponseView
 				'introduction' => $user['description'],
 				'birthday' => $this->getBirthdayString($user['birthday'],$user['birthday_published_flag']),
 				'gender' => $this->getGenderString($user['gender'],$user['gender_published_flag']),
-				'review' => $feedCount,
+				'gender' => $this->getGenderString($user['gender'],$user['gender_published_flag']),
+				'review' => $contributionCount,
 				'like' => $allReactionCounts['like'],
 				'interest' => $allReactionCounts['interest'],
 				'having' => $allReactionCounts['have'],

@@ -9,42 +9,42 @@
 namespace App\Models\Common;
 
 
-interface FeedReactionInterface
+interface ContributionReactionInterface
 {
 
 	/**
 	 * @param $userId
-	 * @param $feedId
+	 * @param $contributionId
 	 * @param null $type
 	 * @return mixed
 	 */
-	public function createReaction($userId,$feedId,$type = null);
+	public function createReaction($userId, $contributionId, $type = null);
 
 	/**
 	 * @param $userId
-	 * @param $feedId
+	 * @param $contributionId
 	 * @param null $type
 	 * @return mixed
 	 */
-	public function deleteReaction($userId,$feedId,$type = null);
+	public function deleteReaction($userId, $contributionId, $type = null);
 
 
 	/**
 	 * @param $userId
-	 * @param $feedId
+	 * @param $contributionId
 	 * @param null $type
 	 * @return mixed
 	 */
-	public function findReaction($userId,$feedId,$type = null);
+	public function findReaction($userId, $contributionId, $type = null);
 
 	/**
 	 * @param $userId
-	 * @param $feedId
+	 * @param $contributionId
 	 * @param $page
 	 * @param $limit
 	 * @return mixed
 	 */
-	public function getList($userId,$feedId,$page,$limit);
+	public function getList($userId, $contributionId, $page, $limit);
 
 	/**
 	 * @return mixed

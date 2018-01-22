@@ -10,7 +10,7 @@
 namespace App\Http\JsonView;
 
 
-use App\Constants\FeedFeelingType;
+use App\Constants\ContributionFeelingType;
 use App\Constants\SystemConstants;
 use App\Constants\Gender;
 use App\Constants\StatusCode;
@@ -199,7 +199,7 @@ abstract class JsonResponseView
 	 * @return int
 	 */
     public function getFeelingBinaryValue($stringValue){
-    	return FeedFeelingType::getBinaryValue($stringValue);
+    	return ContributionFeelingType::getBinaryValue($stringValue);
     }
 
 

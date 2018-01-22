@@ -12,10 +12,10 @@ namespace App\Services;
 use App\Constants\QueryOrderTypes;
 use App\Constants\StatusCode;
 use App\Lib\JSYService\ServiceResult;
-use App\Models\Feed;
-use App\Models\FeedComment;
-use App\Models\FeedCommentCount;
-use App\Models\FeedReactionCount;
+use App\Models\Contribution;
+use App\Models\ContributionComment;
+use App\Models\ContributionCommentCount;
+use App\Models\ContributionReactionCount;
 use App\Services\Tasks\SendNotificationTask;
 use MongoDB\Driver\Query;
 
@@ -23,18 +23,18 @@ class CommentService extends BaseService
 {
 	/**
 	 * @param $userId
-	 * @param $feedId
+	 * @param $contributionId
 	 * @param $content
 	 * @return ServiceResult
 	 */
-	public function create($userId,$feedId,$content):ServiceResult{
-		return $this->executeTasks(function()use($userId,$feedId,$content){
+	public function create($userId, $contributionId, $content):ServiceResult{
+		return $this->executeTasks(function()use($userId,$contributionId,$content){
 			//Create comment Data
-			$commentId = (new FeedComment())->createGetId($userId,$feedId,$content);
-			(new FeedCommentCount())->increaseCommentCount($feedId);
+			$commentId = (new ContributionComment())->createGetId($userId,$contributionId,$content);
+			(new ContributionCommentCount())->increaseCommentCount($contributionId);
 			//Send notification
-			$feed = (new Feed())->find($feedId);
-			(new SendNotificationTask())->sendCommentNotification($userId,$feed['user_id'],$commentId,$content);
+			$contribution = (new Contribution())->find($contributionId);
+			(new SendNotificationTask())->sendCommentNotification($userId,$contribution['user_id'],$commentId,$content);
 			return ServiceResult::withResult($commentId);
 		},true);
 	}
@@ -48,14 +48,14 @@ class CommentService extends BaseService
 	public function delete($userId,$commentId):ServiceResult{
 		return $this->executeTasks(function()use($userId,$commentId){
 			//Check user is comment owner
-			$commentEntity = (new FeedComment())->find($commentId);
+			$commentEntity = (new ContributionComment())->find($commentId);
 			if(empty($commentEntity))
-				return ServiceResult::withError(StatusCode::FAILED_TO_FIND_FEED_COMMENT);
+				return ServiceResult::withError(StatusCode::FAILED_TO_FIND_CONTRIBUTION_COMMENT);
 
 			if($commentEntity['user_id'] != $userId )
 				return ServiceResult::withError(StatusCode::USER_IS_NOT_OWNER,"user id {$userId} does not matched with comment owner id {$commentEntity['user_id']}");
 
-			(new FeedCommentCount())->decreaseCommentCount($commentEntity->feed_id);
+			(new ContributionCommentCount())->decreaseCommentCount($commentEntity->contribution_id);
 
 			//todo -> move deleted data to deleted contents.
 			$commentEntity->delete();
@@ -66,17 +66,17 @@ class CommentService extends BaseService
 	}
 
 	/**
-	 * @param $feedId
+	 * @param $contributionId
 	 * @param $boundaryId
 	 * @param $isAsc
 	 * @param $limit
 	 * @return ServiceResult
 	 */
-	public function getList($feedId,$boundaryId,$isAsc,$limit){
-		return $this->executeTasks(function() use ($feedId,$boundaryId,$isAsc,$limit){
+	public function getList($contributionId, $boundaryId, $isAsc, $limit){
+		return $this->executeTasks(function() use ($contributionId,$boundaryId,$isAsc,$limit){
 			$type = ($isAsc)?QueryOrderTypes::ASCENDING:QueryOrderTypes::DESCENDING;
 			$queryOrderType = new QueryOrderTypes($type);
-			$commentList = (new FeedComment())->getList($feedId,$boundaryId,$limit,$queryOrderType);
+			$commentList = (new ContributionComment())->getList($contributionId,$boundaryId,$limit,$queryOrderType);
 			return ServiceResult::withResult($commentList);
 		});
 	}

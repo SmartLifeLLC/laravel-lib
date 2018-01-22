@@ -13,9 +13,9 @@ use App\Constants\DateTimeFormat;
 use App\Constants\StatusCode;
 use App\Lib\JSYService\ServiceResult;
 use App\Models\BlockUser;
-use App\Models\Feed;
-use App\Models\FeedAllReaction;
-use App\Models\FeedReactionCount;
+use App\Models\Contribution;
+use App\Models\ContributionAllReaction;
+use App\Models\ContributionReactionCount;
 use App\Models\User;
 use App\ValueObject\PageInfoResultVO;
 use App\ValueObject\UserEditVO;
@@ -77,9 +77,9 @@ class UserService extends BaseService
 			$userModel = new User();
 			$userInfoForPage = $userModel->getUserInfoForPage($userId,$ownerId);
 			$friendsCount = $userModel->getFriendCount($ownerId);
-			$allReactionCount = (new FeedAllReaction())->getReactionCountsForUser($ownerId);
-			$feedCount = (new Feed())->getCountForUser($userId);
-			$result = new PageInfoResultVO($userInfoForPage,$feedCount,$friendsCount,$allReactionCount);
+			$allReactionCount = (new ContributionAllReaction())->getReactionCountsForUser($ownerId);
+			$contributionCount = (new Contribution())->getCountForUser($userId);
+			$result = new PageInfoResultVO($userInfoForPage,$contributionCount,$friendsCount,$allReactionCount);
 			return ServiceResult::withResult($result);
 		});
     }

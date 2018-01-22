@@ -9,7 +9,7 @@
 namespace App\Models;
 
 
-class ProductFeedCount extends DBModel
+class ProductContributionCount extends DBModel
 {
 	protected $guarded = [];
 
@@ -47,14 +47,14 @@ class ProductFeedCount extends DBModel
 	 * @param $operator
 	 */
 	private function updateCount($productId,$feelingColumn,$operator){
-		$productFeedCount = $this->where('product_id',$productId)->first();
-		if($productFeedCount == null){
-			$this->insert(['product_id'=>$productId,$feelingColumn=>1,'feed_count'=>1]);
+		$productContributionCount = $this->where('product_id',$productId)->first();
+		if($productContributionCount == null){
+			$this->insert(['product_id'=>$productId,$feelingColumn=>1,'contribution_count'=>1]);
 		}else{
 			$amount = ($operator == "+")?1:-1;
-			$productFeedCount->{$feelingColumn} += $amount;
-			$productFeedCount->feed_count += $amount ;
-			$productFeedCount->save();
+			$productContributionCount->{$feelingColumn} += $amount;
+			$productContributionCount->contribution_count += $amount ;
+			$productContributionCount->save();
 		}
 	}
 }

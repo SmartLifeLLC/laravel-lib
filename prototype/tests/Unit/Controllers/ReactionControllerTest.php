@@ -9,7 +9,7 @@
 namespace Tests\Unit\Controllers;
 
 
-use App\Constants\FeedReactionType;
+use App\Constants\ContributionReactionType;
 use App\Constants\HttpMethod;
 use App\Constants\StatusCode;
 use Tests\TestCase;
@@ -57,7 +57,7 @@ class ReactionControllerTest extends TestCase
 		$data =
 			[
 				'review_post_id'=>$feedId,
-				'review_post_reaction_type'=>FeedReactionType::LIKE,
+				'review_post_reaction_type'=>ContributionReactionType::LIKE,
 			];
 		$content = $this->getJsonRequestContent($httpMethod,$uri,$data);
 
@@ -77,7 +77,7 @@ class ReactionControllerTest extends TestCase
 		$data =
 			[
 				'review_post_id'=>15,
-				'review_post_reaction_type'=>FeedReactionType::INTEREST,
+				'review_post_reaction_type'=>ContributionReactionType::INTEREST,
 			];
 		$content = $this->getJsonRequestContent($httpMethod,$uri,$data);
 
@@ -91,7 +91,7 @@ class ReactionControllerTest extends TestCase
 	public function testGetList(){
 		$httpMethod = HttpMethod::GET;
 		$feedId = 25;
-		$type = FeedReactionType::ALL;
+		$type = ContributionReactionType::ALL;
 		$page = 1;
 		$uri = "/feed/reaction/list/".$feedId."?type={$type}&page={$page}";
 		$content = $this->getJsonRequestContent($httpMethod,$uri);

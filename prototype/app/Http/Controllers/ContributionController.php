@@ -10,7 +10,7 @@ namespace App\Http\Controllers;
 
 
 use App\Constants\DefaultValues;
-use App\Constants\FeedFeelingType;
+use App\Constants\ContributionFeelingType;
 use App\Constants\PostParametersValidationRule;
 use App\Http\Controllers\Controller;
 use App\Http\JsonView\Feed\ContributionCreateJsonView;
@@ -33,7 +33,7 @@ class ContributionController extends Controller
 	public function create(Request $request){
 		$validator = $this->createValidator( $request->all(),
 			PostParametersValidationRule::PRODUCT_ID,
-			PostParametersValidationRule::PRODUCT_FEED_TYPE,
+			PostParametersValidationRule::CONTRIBUTION_FEELING_TYPE,
 			PostParametersValidationRule::IMAGE1,
 			PostParametersValidationRule::IMAGE2,
 			PostParametersValidationRule::IMAGE3,
@@ -51,7 +51,7 @@ class ContributionController extends Controller
 		}
 		$userId = $this->getCurrentUserId();
 		$productId = $request->get('product_item_id');
-		$feedFeelingType = ($request->get('is_consent') == 0)?FeedFeelingType::NEGATIVE:FeedFeelingType::POSITIVE;
+		$feedFeelingType = ($request->get('is_consent') == 0)?ContributionFeelingType::NEGATIVE:ContributionFeelingType::POSITIVE;
 		$content =  $request->get('text');
 		$haveReactionTargetFeedId = $request->get('to_having_reaction_review_post_id',null);
 		$serviceResult = (new ContributionService())->create($userId,$productId,$feedFeelingType,$content,$images,$haveReactionTargetFeedId);
@@ -111,7 +111,7 @@ class ContributionController extends Controller
 		$userId = $this->getCurrentUserId();
 		$page = $request->get('page',DefaultValues::QUERY_DEFAULT_PAGE);
 		$limit = $request->get('limit',DefaultValues::QUERY_DEFAULT_LIMIT);
-		$type = $request->get('type',FeedFeelingType::ALL);
+		$type = $request->get('type',ContributionFeelingType::ALL);
 		$serviceResult = (new ContributionService())->getListForProduct($userId,$productId,$type,$page,$limit);
 		return $this->responseJson(new ContributionListJsonView($serviceResult));
 	}

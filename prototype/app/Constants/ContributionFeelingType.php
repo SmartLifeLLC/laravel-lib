@@ -9,7 +9,7 @@
 namespace App\Constants;
 
 
-class FeedFeelingType
+class ContributionFeelingType
 {
 	const ALL = "all";
 	const NEGATIVE = "negative";

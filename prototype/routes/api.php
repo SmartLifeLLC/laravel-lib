@@ -88,7 +88,7 @@ Route::group(['prefix'=>'product'], function(){
 
 Route::group(['prefix'=>'reaction'],function(){
 	Route::post('reaction/cancel','ReactionController@cancelReaction');
-	Route::get('reaction/list/{feedId}','ReactionController@getList');
+	Route::get('reaction/list/{contributionId}','ReactionController@getList');
 	Route::post('reaction/do','ReactionController@doReaction');
 
 
@@ -102,15 +102,15 @@ Route::group(['prefix'=>'reaction'],function(){
 Route::group(['prefix'=>'comment'],function(){
 	Route::post('create','CommentController@create');
 	Route::delete('delete/{commentId}','CommentController@delete');
-	Route::get('list/{feedId}/{boundaryId}','CommentController@getList');
+	Route::get('list/{contributionId}/{boundaryId}','CommentController@getList');
 });
 
 
 Route::group(['prefix'=>'contribution'],function(){
 	Route::post('create','ContributionController@create');
-	Route::put('edit{feedId}','ContributionController@edit');
+	Route::put('edit/{contributionId}','ContributionController@edit');
 	Route::get('find/{productId}','ContributionController@find');
-	Route::get('detail/{feedId}','ContributionController@detail');
+	Route::get('detail/{contributionId}','ContributionController@detail');
 	Route::get('list/product/{productId}','ContributionController@listForProduct');
 	Route::get('list/interest/{ownerId}','ContributionController@listForOwnerInterest');
 	Route::get('list/owner/{ownerId}','ContributionController@listForOwner');

@@ -13,8 +13,8 @@ use App\Constants\StatusCode;
 use App\Lib\JSYService\ServiceManagerFactory;
 use App\Lib\JSYService\ServiceResult;
 use App\Lib\JSYService\TransactionServiceManager;
-use App\Models\Feed;
-use App\Models\FeedInterestReaction;
+use App\Models\Contribution;
+use App\Models\ContributionInterestReaction;
 use App\Models\Follow;
 use App\Models\Follower;
 use App\Models\BlockUser;
@@ -70,9 +70,9 @@ class FollowService extends BaseService
     	return $this->executeTasks(function ()use ($userId,$ownerId,$page,$limit){
     		$follow = new Follow();
     		$followCount = $follow->getCountForUser($userId);
-		    $feedCount = (new Feed())->getCountForUser($userId);
+		    $contributionCount = (new Contribution())->getCountForUser($userId);
 		    $followerCount = (new Follower())->getCountForUser($userId);
-			$interestCount = (new FeedInterestReaction())->getCountForUser($userId);
+			$interestCount = (new ContributionInterestReaction())->getCountForUser($userId);
 		    $followList = [];
 		    $hasNext = 0;
 
@@ -81,7 +81,7 @@ class FollowService extends BaseService
 				$hasNext = $follow->getHasNext($limit,$page,$followCount);
 			}
 
-			$result = new FollowOrFollowerGetListResultVO($feedCount,$interestCount,$followCount,$followerCount,$followList,$hasNext);
+			$result = new FollowOrFollowerGetListResultVO($contributionCount,$interestCount,$followCount,$followerCount,$followList,$hasNext);
 			return ServiceResult::withResult($result);
 	    });
     }
@@ -98,10 +98,10 @@ class FollowService extends BaseService
 		return $this->executeTasks(function ()use ($userId,$ownerId,$page,$limit){
 
 			$followCount = (new Follow())->getCountForUser($ownerId);
-			$feedCount = (new Feed())->getCountForUser($ownerId);
+			$contributionCount = (new Contribution())->getCountForUser($ownerId);
 			$follower = new Follower();
 			$followerCount = $follower->getCountForUser($ownerId);
-			$interestCount = (new FeedInterestReaction())->getCountForUser($ownerId);
+			$interestCount = (new ContributionInterestReaction())->getCountForUser($ownerId);
 			$followerList = [];
 			$hasNext = 0;
 
@@ -110,7 +110,7 @@ class FollowService extends BaseService
 				$hasNext = $follower->getHasNext($limit,$page,$followerCount);
 			}
 
-			$result = new FollowOrFollowerGetListResultVO($feedCount,$interestCount,$followCount,$followerCount,$followerList,$hasNext);
+			$result = new FollowOrFollowerGetListResultVO($contributionCount,$interestCount,$followCount,$followerCount,$followerList,$hasNext);
 			return ServiceResult::withResult($result);
 		});
 	}

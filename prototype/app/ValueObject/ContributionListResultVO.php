@@ -11,26 +11,26 @@ namespace App\ValueObject;
 
 class ContributionListResultVO
 {
-	private $feeds;
+	private $contributions;
 	private $productsCategories;
 
 	/**
 	 * ContributionListResultVO constructor.
-	 * @param $feeds
+	 * @param $contributions
 	 * @param $productCategories
 	 */
-	public function __construct($feeds, $productCategories)
+	public function __construct($contributions, $productCategories)
 	{
-		$this->feeds = $feeds;
+		$this->contributions = $contributions;
 		$this->productsCategories = $productCategories;
 	}
 
 	/**
 	 * @return mixed
 	 */
-	public function getFeeds()
+	public function getContributions()
 	{
-		return $this->feeds;
+		return $this->contributions;
 	}
 
 	/**
