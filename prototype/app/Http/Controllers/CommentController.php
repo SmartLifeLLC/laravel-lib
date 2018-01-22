@@ -6,7 +6,7 @@
  * Time: 12:39
  */
 
-namespace App\Http\Controllers\Feed;
+namespace App\Http\Controllers;
 
 
 use App\Constants\DefaultValues;
@@ -34,7 +34,7 @@ class CommentController extends Controller
 		$productId = $request->get('product_item_id');
 
 		//parameters
-		$userId = ($this)->getUserId();
+		$userId = $this->getCurrentUserId();
 		$feedId = $request->get('review_post_id');
 		$content = $request->get('text');
 		$serviceResult = (new CommentService())->create($userId,$feedId,$content);

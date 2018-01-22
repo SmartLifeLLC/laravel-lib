@@ -6,7 +6,7 @@
  * Time: 2:53
  */
 
-namespace App\Http\Controllers\Feed;
+namespace App\Http\Controllers;
 
 
 use App\Constants\DefaultValues;
@@ -141,5 +141,9 @@ class ContributionController extends Controller
 		$limit = $request->get('limit',DefaultValues::QUERY_DEFAULT_LIMIT);
 		$serviceResult = (new ContributionService())->getListForOwner($userId,$ownerId,$page,$limit);
 		return $this->responseJson(new ContributionListJsonView($serviceResult));
+	}
+
+	public function listForFeed(Request $request){
+
 	}
 }

@@ -86,40 +86,47 @@ Route::group(['prefix'=>'product'], function(){
     Route::get('list','ProductController@getList');
 });
 
-Route::group(['prefix'=>'feed','namespace'=>'Feed'],function(){
-	Route::post('contribution/create','ContributionController@create');
-	Route::put('contribution/edit{feedId}','ContributionController@edit');
-	Route::get('contribution/find/{productId}','ContributionController@find');
-	Route::get('contribution/detail/{feedId}','ContributionController@detail');
-	Route::get('contribution/list/product/{productId}','ContributionController@listForProduct');
-	Route::get('contribution/list/interest/{ownerId}','ContributionController@listForOwnerInterest');
-	Route::get('contribution/list/owner/{ownerId}','ContributionController@listForOwner');
-	Route::delete('contribution/delete/{feedId}','ContributionController@delete');
-
-
-	Route::post('comment/create','CommentController@create');
-	Route::delete('comment/delete/{commentId}','CommentController@delete');
-	Route::get('comment/list/{feedId}/{boundaryId}','CommentController@getList');
-
-	//Route::post('/review_post/add', 'ReactionController@addToReviewPost');
-	Route::post('reaction/do','ReactionController@doReaction');
-	//Route::post('/review_post/cancel', 'ReactionController@cancelToReviewPost');
+Route::group(['prefix'=>'reaction'],function(){
 	Route::post('reaction/cancel','ReactionController@cancelReaction');
 	Route::get('reaction/list/{feedId}','ReactionController@getList');
+	Route::post('reaction/do','ReactionController@doReaction');
+
+
+
+	//Route::post('/review_post/cancel', 'ReactionController@cancelToReviewPost');
+	//Route::post('/review_post/add', 'ReactionController@addToReviewPost');
 
 });
 
 
+Route::group(['prefix'=>'comment'],function(){
+	Route::post('create','CommentController@create');
+	Route::delete('delete/{commentId}','CommentController@delete');
+	Route::get('list/{feedId}/{boundaryId}','CommentController@getList');
+});
+
+
+Route::group(['prefix'=>'contribution'],function(){
+	Route::post('create','ContributionController@create');
+	Route::put('edit{feedId}','ContributionController@edit');
+	Route::get('find/{productId}','ContributionController@find');
+	Route::get('detail/{feedId}','ContributionController@detail');
+	Route::get('list/product/{productId}','ContributionController@listForProduct');
+	Route::get('list/interest/{ownerId}','ContributionController@listForOwnerInterest');
+	Route::get('list/owner/{ownerId}','ContributionController@listForOwner');
+	Route::delete('delete/{contributionId}','ContributionController@delete');
+});
+
 //Old apis
 Route::group(['prefix' => 'block'], function(){
-    Route::post('/user', 'User\BlockController@blockUser');
-    Route::post('/cancel', 'User\BlockController@cancelBlock');
+    Route::post('user', 'User\BlockController@blockUser');
+    Route::post('cancel', 'User\BlockController@cancelBlock');
 });
 
 // フォロー0
 Route::group(['prefix' => 'follow'], function () {
-    Route::post('/user', 'User\FollowController@followUser');
-    Route::post('/cancel', 'User\FollowController@followCancel');
+    Route::post('user', 'User\FollowController@followUser');
+    Route::post('cancel', 'User\FollowController@followCancel');
 });
 
 // レコメンド
