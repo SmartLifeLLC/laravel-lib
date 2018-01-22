@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Constants\DateTimeFormat;
+use App\Constants\FeaturedScheduleType;
 use App\Constants\SystemConstants;
 use App\Constants\URLs;
 use Illuminate\Database\Eloquent\Model;
@@ -39,5 +41,22 @@ class FeaturedSchedule extends DBModel
             ";
         $result = DB::select($query,[$imageHost,$currentDate,$currentDate,$featuredScheduleTypeId,$userId,$userId,$userId,$userId]);
         return $result;
+    }
+
+	/**
+	 * @return mixed
+	 */
+    public function getFeaturedUserIds($type){
+    	$currentDate = date(DateTimeFormat::General);
+    	var_dump($currentDate);
+    	$result =
+		    $this
+		    ->select('featured_users.user_id')
+		    ->leftJoin('featured_users','featured_users.featured_schedule_id','=','featured_schedules.id')
+		    ->where('start_at','<',$currentDate)
+		    ->where('end_at','>',$currentDate)
+		    ->where('featured_schedule_type_id',$type)
+		    ->get();
+	    return array_values($result->toArray());
     }
 }

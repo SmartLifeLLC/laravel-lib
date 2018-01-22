@@ -12,10 +12,12 @@ namespace App\Services;
 use App\Constants\DateTimeFormat;
 use App\Constants\ContributionFeelingType;
 use App\Constants\ContributionReactionType;
+use App\Constants\FeaturedScheduleType;
 use App\Constants\ImageCategory;
 use App\Constants\StatusCode;
 use App\Lib\JSYService\ServiceResult;
 use App\Manager\AwsManager;
+use App\Models\BlockUser;
 use App\Models\DeletedContent;
 use App\Models\Contribution;
 use App\Models\ContributionAllReaction;
@@ -26,6 +28,8 @@ use App\Models\ContributionInterestReaction;
 use App\Models\ContributionLikeReaction;
 use App\Models\ContributionReactionCount;
 use App\Models\ContributionReactionNotificationDelivery;
+use App\Models\FeaturedSchedule;
+use App\Models\Follow;
 use App\Models\Image;
 use App\Models\NegativeProductContribution;
 use App\Models\PositiveProductContribution;
@@ -280,5 +284,33 @@ class ContributionService extends BaseService
 			return ServiceResult::withResult($result);
 		});
 
+	}
+
+
+	/**
+	 * @param $userId
+	 * @param $page
+	 * @param $limit
+	 * @return ServiceResult
+	 */
+	public function getListForFeed($userId,$page,$limit){
+		return $this->executeTasks(function() use($userId,$page,$limit) {
+			//Get owner ids for feed user
+			$follows = (new Follow())->getFollowUserIds($userId);
+			//Get block list for feed user
+			$blockList = (new BlockUser())->getBlockAndBlockedUserIds($userId);
+			//Get Featured users
+			$featuredUsers = (new FeaturedSchedule())->getFeaturedUserIds(FeaturedScheduleType::FEEDS);
+			$feedUsers = array_merge($follows, $featuredUsers);
+			$feedUsers = array_diff($feedUsers, $blockList);
+			$contributions = (new Contribution())->getListForFeed($userId, $feedUsers, $page, $limit);
+			$productIds = [];
+			foreach ($contributions as $contribution) {
+				$productIds[] = $contribution->product_id;
+			}
+			$productsCategories = (new ProductsProductCategory())->getProductsCategories($productIds);
+			$result = new ContributionListResultVO($contributions, $productsCategories);
+			return ServiceResult::withResult($result);
+		});
 	}
 }

@@ -171,6 +171,25 @@ class Contribution extends DBModel
 				->get();
 	}
 
+	/**
+	 * @param $userId
+	 * @param $contributionOwnerIds
+	 * @param $page
+	 * @param $limit
+	 * @return mixed
+	 */
+	public function getListForFeed($userId,$contributionOwnerIds, $page, $limit){
+
+		$offset = $this->getOffset($limit,$page);
+		$queryBuilder = $this->setListSelectTargets($this);
+		$queryBuilder = $this->setListCommonLeftJoin($queryBuilder,$userId);
+		return $queryBuilder
+			->whereIn('contributions.user_id',$contributionOwnerIds)
+			->offset($offset)
+			->limit($limit)
+			->get();
+	}
+
 	private function setListSelectTargets($queryBuilder){
 		return
 			$queryBuilder->select(
@@ -194,6 +213,9 @@ class Contribution extends DBModel
 			'contribution_reaction_counts.have_reaction_count',
 			'contribution_reaction_counts.like_reaction_count',
 			'contribution_reaction_counts.interest_reaction_count',
+			'product_contribution_counts.contribution_count',
+			'product_contribution_counts.positive_count',
+			'product_contribution_counts.negative_count',
 			'my_contributions.id as my_contribution_id',
 			'contribution_comment_counts.comment_count',
 			'contribution_reaction_counts.contribution_id as contribution_id',

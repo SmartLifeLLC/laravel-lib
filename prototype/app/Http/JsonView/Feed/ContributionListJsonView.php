@@ -21,7 +21,10 @@ class ContributionListJsonView extends JsonResponseView
 	function createBody()
 	{
 
+
 		$contributions = $this->data->getContributions();
+
+
 		$categories = $this->data->getProductsCategories();
 
 		$productsCategories = [];
@@ -45,7 +48,7 @@ class ContributionListJsonView extends JsonResponseView
 						'text' => $contribution['content'],
 						'is_consent' => $this->getFeelingBinaryValue($contribution['feeling']),
 						'product_item_id' => $contribution['product_id'],
-						'created_at' => $contribution['created_at'],
+						'created_at' => $contribution['contribution_created_at'],
 						'total_reaction_count'=> (int) $contribution['total_reaction_count'],
 						'like_reaction_count'=> (int) $contribution['like_reaction_count'],
 						'interest_reaction_count'=> (int) $contribution['interest_reaction_count'],

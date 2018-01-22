@@ -143,7 +143,15 @@ class ContributionController extends Controller
 		return $this->responseJson(new ContributionListJsonView($serviceResult));
 	}
 
+	/**
+	 * @param Request $request
+	 * @return \Illuminate\Http\JsonResponse
+	 */
 	public function listForFeed(Request $request){
-
+		$userId = $this->getCurrentUserId();
+		$page = $request->get('page',DefaultValues::QUERY_DEFAULT_PAGE);
+		$limit = $request->get('limit',DefaultValues::QUERY_DEFAULT_LIMIT);
+		$serviceResult = (new ContributionService())->getListForFeed($userId,$page,$limit);
+		return $this->responseJson(new ContributionListJsonView($serviceResult));
 	}
 }

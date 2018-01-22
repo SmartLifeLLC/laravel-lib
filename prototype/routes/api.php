@@ -114,6 +114,7 @@ Route::group(['prefix'=>'contribution'],function(){
 	Route::get('list/product/{productId}','ContributionController@listForProduct');
 	Route::get('list/interest/{ownerId}','ContributionController@listForOwnerInterest');
 	Route::get('list/owner/{ownerId}','ContributionController@listForOwner');
+	Route::get('list/feed','ContributionController@listForFeed');
 	Route::delete('delete/{contributionId}','ContributionController@delete');
 });
 
