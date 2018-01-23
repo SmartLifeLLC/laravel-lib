@@ -22,12 +22,16 @@ class TranslateCommentController extends Controller
      */
     public function translatePreviousData(){
         $results = array();
+
         $comments = (new ReviewPostComments())->getData();
+
         foreach ($comments as $comment) {
             $userId = $comment->user_id;
             $contributionId = $comment->feed_id;
             $content = $comment->text;
+
             $serviceResult = (new PreviousCommentService())->getData($userId, $contributionId, $content);
+
             $jsonView = (new PreviousCommentJsonView($serviceResult));
             $results[] = $this->responseJson($jsonView);
         }
