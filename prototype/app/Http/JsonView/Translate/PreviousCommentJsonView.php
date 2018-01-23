@@ -9,7 +9,16 @@
 namespace App\Http\JsonView\Translate;
 
 
-class PreviousCommentJsonView
+use App\Http\JsonView\JsonResponseView;
+
+class PreviousCommentJsonView extends JsonResponseView
 {
 
+    function createBody()
+    {
+        $this->body = [
+            'review_post_comment_id'=>$this->data,
+            'message' => "コメントの移行に成功しました。"
+        ];
+    }
 }

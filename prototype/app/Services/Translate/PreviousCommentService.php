@@ -6,33 +6,30 @@
  * Time: 21:50
  */
 
+
 namespace App\Services\Translate;
 
 
-use App\Models\FeedComment;
+use App\Models\Contribution;
+use App\Models\ContributionComment;
+use App\Models\ContributionCommentCount;
 use App\Services\BaseService;
 use App\Lib\JSYService\ServiceResult;
+use DB;
 
 class PreviousCommentService extends BaseService
 {
     /**
-     * @param $userId
+     * @param int $userId
+     * @param int $contributionId
+     * @param string $content
      * @return ServiceResult
      */
-    public function getData():ServiceResult{
-        return $this->executeTasks(
-            function() : ServiceResult{
-                $comment = (new ReviewPostComment())->getData();
-                while(!empty($comment)){
-                    $feed_comment = new FeedComment();
-                    $feed_comment->create($comment);
-
-                }
-
-//                $serviceResult = (empty($comment))?
-//                    ServiceResult::withError(StatusCode::UNKNOWN_USER_ID," is not found"):
-//                    ServiceResult::withResult($comment);
-//                return $serviceResult;
-            });
+    public function getData($userId, $contributionId, $content):ServiceResult{
+        return $this->executeTasks(function() use($userId, $contributionId, $content) {
+            $commentId = (new ContributionComment())->createGetId($userId, $contributionId, $content);
+			(new ContributionCommentCount())->increaseCommentCount($contributionId);
+            return ServiceResult::withResult($commentId);
+        },true);
     }
 }

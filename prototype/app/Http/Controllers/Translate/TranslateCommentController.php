@@ -12,15 +12,24 @@ namespace App\Http\Controllers\Translate;
 use App\Http\Controllers\Controller;
 use App\Http\JsonView\Translate\PreviousCommentJsonView;
 use App\Services\Translate\PreviousCommentService;
+use DB;
 
 class TranslateCommentController extends Controller
 {
     /**
-     * @return \Illuminate\Http\JsonResponse
+     * @return array
      */
     public function translatePreviousData(){
-        $serviceResult = (new PreviousCommentService())->getData();
-        $jsonView = new PreviousCommentJsonView($serviceResult);
-        return $this->responseJson($jsonView);
+        $results = array();
+        $comments = DB::connection('mysql_old')->ReviewPostComments->all();
+        foreach ($comments as $comment) {
+            $userId = $comment->user_id;
+            $contributionId = $comment->feed_id;
+            $content = $comment->text;
+            $serviceResult = (new PreviousCommentService())->getData($userId, $contributionId, $content);
+            $jsonView = (new PreviousCommentJsonView($serviceResult));
+            $results[] = $this->responseJson($jsonView);
+        }
+        return $results;
     }
 }
