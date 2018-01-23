@@ -15,7 +15,7 @@ use App\Models\Product;
 class PostParametersValidationRule
 {
 
-	const FEED_COMMENT_ID = "review_post_comment_id";
+	const CONTRIBUTION_COMMENT_ID = "review_post_comment_id";
     const TARGET_USER_ID = "to";
     const USER_ID = "user_id";
     const FACEBOOK_ID = "facebook_id";
@@ -24,9 +24,9 @@ class PostParametersValidationRule
     const DEVICE_TYPE = "device_type";
     const PRODUCT_ID = "product_item_id";
 	const REACTION_TYPE = "review_post_reaction_type";
-    const PRODUCT_FEED_TYPE = "is_consent";
-    const FEED_ID = "review_post_id";
-    const FEED_CONTENT = "text";
+    const CONTRIBUTION_FEELING_TYPE = "is_consent";
+    const CONTRIBUTION_ID = "review_post_id";
+    const CONTRIBUTION_CONTENT = "text";
     const COMMENT_CONTENT = "text";
     const IMAGE1 = "image1";
     const IMAGE2 = "image2";
@@ -92,12 +92,12 @@ class PostParametersValidationRule
             .PostParametersValidationRule::RULE_NUMERIC,
 
 
-        PostParametersValidationRule::PRODUCT_FEED_TYPE=>
+        PostParametersValidationRule::CONTRIBUTION_FEELING_TYPE=>
             PostParametersValidationRule::RULE_REQUIRED
             .PostParametersValidationRule::RULE_OR
             .PostParametersValidationRule::RULE_NUMERIC,
 
-	    PostParametersValidationRule::FEED_ID =>
+	    PostParametersValidationRule::CONTRIBUTION_ID =>
 	        PostParametersValidationRule::RULE_REQUIRED
 	        .PostParametersValidationRule::RULE_OR
 	        .PostParametersValidationRule::RULE_NUMERIC,
@@ -105,10 +105,10 @@ class PostParametersValidationRule
 	    PostParametersValidationRule::COMMENT_CONTENT =>
 	        PostParametersValidationRule::RULE_REQUIRED,
 
-	    PostParametersValidationRule::FEED_CONTENT =>
+	    PostParametersValidationRule::CONTRIBUTION_CONTENT =>
 		    PostParametersValidationRule::RULE_REQUIRED,
 
-	    PostParametersValidationRule::FEED_COMMENT_ID =>
+	    PostParametersValidationRule::CONTRIBUTION_COMMENT_ID =>
 	        PostParametersValidationRule::RULE_REQUIRED
 	        .PostParametersValidationRule::RULE_OR
 	        .PostParametersValidationRule::RULE_NUMERIC,

@@ -37,10 +37,10 @@ final class StatusCode
 		const LIMITED_USER = "302" ;
 
 
-		const FAILED_TO_FIND_FEED = "0400";
+		const FAILED_TO_FIND_CONTRIBUTION = "0400";
         const UNKNOWN_USER_ID = "9300"; //User id によるユーザ確認失敗
 		const CONTRIBUTION_ALREADY_EXISTS = "9301";
-		const FAILED_TO_FIND_FEED_COMMENT = "9304";
+		const FAILED_TO_FIND_CONTRIBUTION_COMMENT = "9304";
 		const USER_IS_NOT_OWNER = "9305";
 		const BLOCK_STATUS_WITH_TARGET_USER = "9306";
 

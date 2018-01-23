@@ -10,16 +10,16 @@ namespace App\Services;
 
 
 use App\Constants\DefaultValues;
-use App\Constants\FeedReactionType;
+use App\Constants\ContributionReactionType;
 use App\Constants\StatusCode;
 use App\Lib\JSYService\ServiceResult;
 use App\Models\BlockUser;
-use App\Models\Feed;
-use App\Models\FeedAllReaction;
-use App\Models\FeedHaveReaction;
-use App\Models\FeedInterestReaction;
-use App\Models\FeedLikeReaction;
-use App\Models\FeedReactionCount;
+use App\Models\Contribution;
+use App\Models\ContributionAllReaction;
+use App\Models\ContributionHaveReaction;
+use App\Models\ContributionInterestReaction;
+use App\Models\ContributionLikeReaction;
+use App\Models\ContributionReactionCount;
 use App\Services\Tasks\UpdateReactionCountTask;
 use App\ValueObject\ReactionGetLIstResultVO;
 use function foo\func;
@@ -29,22 +29,22 @@ class ReactionService extends BaseService
 
 	/**
 	 * @param $userId
-	 * @param $feedId
+	 * @param $contributionId
 	 * @param $reactionType
 	 * @param $isIncrease
 	 * @return ServiceResult
 	 */
-	public function updateReaction($userId,$feedId,$reactionType,$isIncrease):ServiceResult{
-		return $this->executeTasks(function()use ($userId,$feedId,$reactionType,$isIncrease){
-			$feedEntity = (new Feed())->find($feedId);
-			if(empty($feedEntity))
-				return ServiceResult::withError(StatusCode::FAILED_TO_FIND_FEED,"Can't find feed id for ({$feedId})");
+	public function updateReaction($userId, $contributionId, $reactionType, $isIncrease):ServiceResult{
+		return $this->executeTasks(function()use ($userId,$contributionId,$reactionType,$isIncrease){
+			$contributionEntity = (new Contribution())->find($contributionId);
+			if(empty($contributionEntity))
+				return ServiceResult::withError(StatusCode::FAILED_TO_FIND_CONTRIBUTION,"Can't find contribution id for ({$contributionId})");
 
-			$isBlocked = (new BlockUser())->isBlockStatus($userId,$feedEntity['user_id']);
+			$isBlocked = (new BlockUser())->isBlockStatus($userId,$contributionEntity['user_id']);
 			if($isBlocked)
-				return ServiceResult::withError(StatusCode::BLOCK_STATUS_WITH_TARGET_USER,"user {$userId} and target user {$feedEntity['user_id']} is block status.");
+				return ServiceResult::withError(StatusCode::BLOCK_STATUS_WITH_TARGET_USER,"user {$userId} and target user {$contributionEntity['user_id']} is block status.");
 
-			(new UpdateReactionCountTask($userId,$feedId,$feedEntity['product_id'],$reactionType,$isIncrease))->run();
+			(new UpdateReactionCountTask($userId,$contributionId,$contributionEntity['product_id'],$reactionType,$isIncrease))->run();
 
 			return ServiceResult::withResult(true);
 		},true);
@@ -53,15 +53,15 @@ class ReactionService extends BaseService
 
 	/**
 	 * @param $userId
-	 * @param $feedId
+	 * @param $contributionId
 	 * @param $reactionType
 	 * @param $page
 	 * @param int $limit
 	 * @return ServiceResult
 	 */
-	public function getList($userId, $feedId, $reactionType, $page, $limit =  DefaultValues::QUERY_DEFAULT_LIMIT):ServiceResult{
-		return $this->executeTasks(function ()use($userId,$feedId,$reactionType,$page, $limit){
-			$counts = (new FeedReactionCount())->getCountsForFeed($feedId);
+	public function getList($userId, $contributionId, $reactionType, $page, $limit =  DefaultValues::QUERY_DEFAULT_LIMIT):ServiceResult{
+		return $this->executeTasks(function ()use($userId,$contributionId,$reactionType,$page, $limit){
+			$counts = (new ContributionReactionCount())->getCountsForContribution($contributionId);
 			if(empty($counts)) {
 				$reactionList = new ReactionGetLIstResultVO([],[],false);
 			}else {
@@ -69,34 +69,34 @@ class ReactionService extends BaseService
 				// TODO: Implement run() method.
 				//create model for reaction type
 				switch ($reactionType) {
-					case FeedReactionType::LIKE:
+					case ContributionReactionType::LIKE:
 						{
-							$feedReactionModel = new FeedLikeReaction();
+							$contributionReactionModel = new ContributionLikeReaction();
 							$totalCount = $counts->like_reaction_count;
 							break;
 						}
-					case FeedReactionType::INTEREST:
+					case ContributionReactionType::INTEREST:
 						{
-							$feedReactionModel = new FeedInterestReaction();
+							$contributionReactionModel = new ContributionInterestReaction();
 							$totalCount = $counts->interest_reaction_count;
 							break;
 						}
-					case FeedReactionType::HAVE:
+					case ContributionReactionType::HAVE:
 						{
-							$feedReactionModel = new FeedHaveReaction();
+							$contributionReactionModel = new ContributionHaveReaction();
 							$totalCount = $counts->have_reaction_count;
 							break;
 						}
 					default :
-						$feedReactionModel = new FeedAllReaction();
+						$contributionReactionModel = new ContributionAllReaction();
 						$totalCount = $counts->total_reaction_count;
 						break;
 				}
 				if($totalCount == 0){
 					$reactionList = new ReactionGetLIstResultVO($counts,[],false);
 				}else{
-					$reactionEntities = $feedReactionModel->getList($userId,$feedId,$page,$limit);
-					$hasNext = $feedReactionModel->getHasNext($limit,$page,$totalCount);
+					$reactionEntities = $contributionReactionModel->getList($userId,$contributionId,$page,$limit);
+					$hasNext = $contributionReactionModel->getHasNext($limit,$page,$totalCount);
 					$reactionList = new ReactionGetLIstResultVO($counts,$reactionEntities,$hasNext);
 				}
 			}

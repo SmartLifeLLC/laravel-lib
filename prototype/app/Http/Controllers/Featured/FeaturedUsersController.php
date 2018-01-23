@@ -17,7 +17,7 @@ class FeaturedUsersController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function getListOnAppInit(){
-        $userId = CurrentUser::shared()->getUserId();
+        $userId = $this->getCurrentUserId();
         $serviceResult = (new FeaturedService())->getFeaturedUsersForInitStart($userId);
         $jsonView = new GetListOnAppInitJsonView($serviceResult);
         return $this->responseJson($jsonView);

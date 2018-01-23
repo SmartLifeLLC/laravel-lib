@@ -7,6 +7,7 @@ use App\Constants\PostParametersValidationRule;
 use App\Http\JsonView\JsonResponseErrorView;
 use App\Http\JsonView\JsonResponseView;
 use App\Lib\Logger;
+use App\Models\CurrentUser;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller as BaseController;
@@ -57,5 +58,12 @@ class Controller extends BaseController
         );
         Logger::parameterError($debugMessage);
         return $this->responseJson($jsonResponseView);
+    }
+
+	/**
+	 * @return int
+	 */
+    protected function getCurrentUserId(){
+    	return CurrentUser::shared()->getUserId();
     }
 }

@@ -10,7 +10,7 @@ namespace App\Http\Controllers\Feed;
 
 
 use App\Constants\DefaultValues;
-use App\Constants\FeedReactionType;
+use App\Constants\ContributionReactionType;
 use App\Constants\PostParametersValidationRule;
 use App\Http\Controllers\Controller;
 use App\Http\JsonView\Feed\ReactionGetListJsonView;
@@ -50,14 +50,14 @@ class ReactionController extends Controller
 	private function updateReaction(Request $request,$isIncrease):JsonResponse{
 		$validator = $this->createValidator( $request->all(),
 			PostParametersValidationRule::REACTION_TYPE,
-			PostParametersValidationRule::FEED_ID
+			PostParametersValidationRule::CONTRIBUTION_ID
 		) ;
 		if($validator->fails()) return  $this->responseParameterErrorJsonViewWithValidator($validator);
-		$userId = (CurrentUser::shared())->getUserId();
+		$userId = $this->getCurrentUserId();
 		$feedId = $request->get('review_post_id');
 		$reactionType = $request->get('review_post_reaction_type');
 
-		if($reactionType == FeedReactionType::HAVE)
+		if($reactionType == ContributionReactionType::HAVE)
 			return $this->responseParameterErrorJsonViewWithDebugMessage("Have reaction no more permitted");
 
 
@@ -71,8 +71,8 @@ class ReactionController extends Controller
 	 * @return JsonResponse
 	 */
 	public function getList(Request $request,$feedId):JsonResponse{
-		$userId = CurrentUser::shared()->getUserId();
-		$type = $request->get('type',FeedReactionType::ALL);
+		$userId = $this->getCurrentUserId();
+		$type = $request->get('type',ContributionReactionType::ALL);
 		$page = $request->get('page',DefaultValues::QUERY_DEFAULT_PAGE);
 		$limit = $request->get('limit',DefaultValues::QUERY_DEFAULT_LIMIT);
 		$serviceResult = (new ReactionService())->getList($userId,$feedId,$type,$page,$limit);

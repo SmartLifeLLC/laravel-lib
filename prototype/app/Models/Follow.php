@@ -87,21 +87,32 @@ class Follow extends DBModel
      * @param $onOrOff
      * @return SwitchFollowResultVO
      */
-    public function switchFollow($userId, $targetUserId, $onOrOff):SwitchFollowResultVO{
-        $result = self::updateOrCreate(
-        //Conditions
-            [
-                'user_id'=>$userId,
-                'target_user_id'=>$targetUserId],
-            //Update value
-            [
-                'user_id'=>$userId,
-                'target_user_id'=>$targetUserId,
-                'is_on' => $onOrOff,
-	            'updated_at' => date(DateTimeFormat::General)
-	            ]
-        );
-        $makeFollowResultVO = new SwitchFollowResultVO($result->wasRecentlyCreated,$onOrOff);
-        return $makeFollowResultVO;
+    public function switchFollow($userId, $targetUserId, $onOrOff):SwitchFollowResultVO
+    {
+	    $result = self::updateOrCreate(
+	    //Conditions
+		    [
+			    'user_id' => $userId,
+			    'target_user_id' => $targetUserId],
+		    //Update value
+		    [
+			    'user_id' => $userId,
+			    'target_user_id' => $targetUserId,
+			    'is_on' => $onOrOff,
+			    'updated_at' => date(DateTimeFormat::General)
+		    ]
+	    );
+	    $makeFollowResultVO = new SwitchFollowResultVO($result->wasRecentlyCreated, $onOrOff);
+	    return $makeFollowResultVO;
+    }
+
+	/**
+	 * @param $userId
+	 * @return mixed
+	 */
+    public function getFollowUserIds($userId){
+    	$result =  $this->where('user_id',$userId)->select('target_user_id')->get();
+    	if(empty($result)) return [];
+    	return array_values($result->toArray());
     }
 }

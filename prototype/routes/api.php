@@ -54,11 +54,20 @@ Route::group(
 
         //User setting
         Route::get('/setting/notification/list','UserController@getNotificationSettings');
-        //Old User Setting
-        Route::get('/setting/show/{user_id?}'   ,'UserController@getNotificationSettings');
+	    //Old User Setting
+	    Route::get('/setting/show/{user_id?}'   ,'UserController@getNotificationSettings');
+	    Route::put('/setting/notification/edit','UserController@editNotifyProperties');
+
 
         //Edit
-		Route::post('/setting/edit','UserController@edit');
+		Route::post('/edit','UserController@edit');
+
+
+
+		//Page - base
+	    Route::get('/page/base/{ownerId?}','UserController@pageInfo');
+
+
 
 
     });
@@ -77,37 +86,48 @@ Route::group(['prefix'=>'product'], function(){
     Route::get('list','ProductController@getList');
 });
 
-Route::group(['prefix'=>'feed','namespace'=>'Feed'],function(){
-	Route::post('contribution/create','ContributionController@create');
-	Route::put('contribution/edit{feedId}','ContributionController@edit');
-	Route::get('contribution/find/{productId}','ContributionController@find');
-	Route::get('contribution/detail/{feedId}','ContributionController@detail');
-	Route::delete('contribution/delete/{feedId}','ContributionController@delete');
-
-
-	Route::post('comment/create','CommentController@create');
-	Route::delete('comment/delete/{commentId}','CommentController@delete');
-	Route::get('comment/list/{feedId}/{boundaryId}','CommentController@getList');
-
-	//Route::post('/review_post/add', 'ReactionController@addToReviewPost');
-	Route::post('reaction/do','ReactionController@doReaction');
-	//Route::post('/review_post/cancel', 'ReactionController@cancelToReviewPost');
+Route::group(['prefix'=>'reaction'],function(){
 	Route::post('reaction/cancel','ReactionController@cancelReaction');
-	Route::get('reaction/list/{feedId}','ReactionController@getList');
+	Route::get('reaction/list/{contributionId}','ReactionController@getList');
+	Route::post('reaction/do','ReactionController@doReaction');
+
+
+
+	//Route::post('/review_post/cancel', 'ReactionController@cancelToReviewPost');
+	//Route::post('/review_post/add', 'ReactionController@addToReviewPost');
 
 });
 
 
+Route::group(['prefix'=>'comment'],function(){
+	Route::post('create','CommentController@create');
+	Route::delete('delete/{commentId}','CommentController@delete');
+	Route::get('list/{contributionId}/{boundaryId}','CommentController@getList');
+});
+
+
+Route::group(['prefix'=>'contribution'],function(){
+	Route::post('create','ContributionController@create');
+	Route::put('edit/{contributionId}','ContributionController@edit');
+	Route::get('find/{productId}','ContributionController@find');
+	Route::get('detail/{contributionId}','ContributionController@detail');
+	Route::get('list/product/{productId}','ContributionController@listForProduct');
+	Route::get('list/interest/{ownerId}','ContributionController@listForOwnerInterest');
+	Route::get('list/owner/{ownerId}','ContributionController@listForOwner');
+	Route::get('list/feed','ContributionController@listForFeed');
+	Route::delete('delete/{contributionId}','ContributionController@delete');
+});
+
 //Old apis
 Route::group(['prefix' => 'block'], function(){
-    Route::post('/user', 'User\BlockController@blockUser');
-    Route::post('/cancel', 'User\BlockController@cancelBlock');
+    Route::post('user', 'User\BlockController@blockUser');
+    Route::post('cancel', 'User\BlockController@cancelBlock');
 });
 
 // フォロー0
 Route::group(['prefix' => 'follow'], function () {
-    Route::post('/user', 'User\FollowController@followUser');
-    Route::post('/cancel', 'User\FollowController@followCancel');
+    Route::post('user', 'User\FollowController@followUser');
+    Route::post('cancel', 'User\FollowController@followCancel');
 });
 
 // レコメンド
@@ -162,10 +182,10 @@ Route::group(['prefix' => 'translate', 'namespace' => 'Translate'], function(){
 //// 商品
 //Route::group(['prefix' => 'product_item'], function () {
 //    Route::get('/jan_code', 'ProductItemController@jan_code'); // Done - Product::getList
-//    Route::get('/{product_item_id}', 'ProductItemController@get')->where('product_item_id', '[0-9]+');
-//    Route::post('/{product_item_id}/{offset?}/{limit?}', 'ProductItemController@_tmp_get')->where('product_item_id', '[0-9]+');
-//    Route::post('/consent/{product_item_id}/{offset?}/{limit?}', 'ProductItemController@getConsentList');
-//    Route::post('/refusal/{product_item_id}/{offset?}/{limit?}', 'ProductItemController@getRefusalList');
+//    Route::get('/{product_item_id}', 'ProductItemController@get')->where('product_item_id', '[0-9]+'); // Done
+//    Route::post('/{product_item_id}/{offset?}/{limit?}', 'ProductItemController@_tmp_get')->where('product_item_id', '[0-9]+'); // Done
+//    Route::post('/consent/{product_item_id}/{offset?}/{limit?}', 'ProductItemController@getConsentList'); //Done
+//    Route::post('/refusal/{product_item_id}/{offset?}/{limit?}', 'ProductItemController@getRefusalList'); //Done
 //});
 //
 
@@ -179,7 +199,7 @@ Route::group(['prefix' => 'translate', 'namespace' => 'Translate'], function(){
 
 //    Route::post('/edit', 'UserController@edit'); //Done
 //    Route::get('/setting/show/block/{user_id}/{offset?}', 'UserSettingController@blockList'); //Done
-//    Route::post('/setting', 'UserSettingController@update');
+//    Route::post('/setting', 'UserSettingController@update'); //Done
 //});
 
 
@@ -199,12 +219,13 @@ Route::group(['prefix' => 'translate', 'namespace' => 'Translate'], function(){
 //
 //Route::group(['prefix' => 'page'], function(){
 
-//    Route::post('/', 'UserPageController@myPage');
-//    Route::post('/user', 'UserPageController@userPage');
-//    Route::post('/user/interest/{offset?}/{limit?}', 'UserPageController@userInterest');
-//    Route::post('/user/review/{offset?}/{limit?}', 'UserPageController@reviewListUser');
-//    Route::post('/review/{offset?}/{limit?}', 'UserPageController@review');
-//    Route::post('/interest/{offset?}/{limit?}', 'UserPageController@interest');
+//    Route::post('/', 'UserPageController@myPage'); //Done
+//    Route::post('/user', 'UserPageController@userPage'); //Done
+//    Route::post('/user/review/{offset?}/{limit?}', 'UserPageController@reviewListUser'); //Done
+//    Route::post('/review/{offset?}/{limit?}', 'UserPageController@review'); //Done
+
+//    Route::post('/interest/{offset?}/{limit?}', 'UserPageController@interest'); //Done
+//    Route::post('/user/interest/{offset?}/{limit?}', 'UserPageController@userInterest');//Done
 
 
 

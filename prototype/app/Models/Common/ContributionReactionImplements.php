@@ -12,33 +12,33 @@ namespace App\Models\Common;
 use App\Constants\SystemConstants;
 use App\Constants\DateTimeFormat;
 use App\Constants\DefaultValues;
-use App\Constants\FeedReactionType;
+use App\Constants\ContributionReactionType;
 use DB;
-trait FeedReactionImplements
+trait ContributionReactionImplements
 {
 	/**
 	 * @param $userId
-	 * @param $feedId
+	 * @param $contributionId
 	 * @param null $type
 	 */
-	public function createReaction($userId, $feedId, $type = null){
+	public function createReaction($userId, $contributionId, $type = null){
 
-		$data = ['user_id'=>$userId,'feed_id'=>$feedId,'created_at'=>date(DateTimeFormat::General)];
-		if($type != null) $data['feed_reaction_type'] = $type;
+		$data = ['user_id'=>$userId,'contribution_id'=>$contributionId,'created_at'=>date(DateTimeFormat::General)];
+		if($type != null) $data['contribution_reaction_type'] = $type;
 		$this->insert($data);
 	}
 
 	/**
 	 * @param $userId
-	 * @param $feedId
+	 * @param $contributionId
 	 * @param null $type
 	 */
-	public function deleteReaction($userId, $feedId, $type = null){
+	public function deleteReaction($userId, $contributionId, $type = null){
 		$queryBuilder =
 			$this->where('user_id',$userId)
-			 ->where('feed_id',$feedId);
+			 ->where('contribution_id',$contributionId);
 
-		if($type != null) $queryBuilder = $queryBuilder->where('feed_reaction_type',$type);
+		if($type != null) $queryBuilder = $queryBuilder->where('contribution_reaction_type',$type);
 
 		$queryBuilder->delete();
 	}
@@ -46,33 +46,33 @@ trait FeedReactionImplements
 
 	/**
 	 * @param $userId
-	 * @param $feedId
+	 * @param $contributionId
 	 * @param null $type
 	 * @return mixed
 	 */
-	public function findReaction($userId, $feedId, $type = null){
+	public function findReaction($userId, $contributionId, $type = null){
 		$queryBuilder =
 			$this->where('user_id',$userId)
-				->where('feed_id',$feedId);
-		if($type != null) $queryBuilder = $queryBuilder->where('feed_reaction_type',$type);
+				->where('contribution_id',$contributionId);
+		if($type != null) $queryBuilder = $queryBuilder->where('contribution_reaction_type',$type);
 
 		return $queryBuilder->first();
 	}
 
 	/**
 	 * @param $userId
-	 * @param $feedId
+	 * @param $contributionId
 	 * @param $page
 	 * @param $limit
 	 * @return mixed
 	 */
-	public function getList($userId,$feedId,$page,$limit){
+	public function getList($userId, $contributionId, $page, $limit){
 		$targetTableName = $this->getTable();
 		$type = $this->getReactionType();
-		if( $type == FeedReactionType::ALL){
-			$reactionTypeColumn = "feed_reaction_type";
+		if( $type == ContributionReactionType::ALL){
+			$reactionTypeColumn = "contribution_reaction_type";
 		}else{
-			$reactionTypeColumn = "{$type} as feed_reaction_type";
+			$reactionTypeColumn = "{$type} as contribution_reaction_type";
 		}
 
 
@@ -92,13 +92,13 @@ trait FeedReactionImplements
   		LEFT JOIN users ON {$targetTableName}.user_id = users.id
   		LEFT JOIN images ON users.id = images.user_id
   		LEFT JOIN follows ON users.id = follows.user_id AND follows.target_user_id = ?
-			WHERE feed_id = ?
+			WHERE contribution_id = ?
 		ORDER BY follows.is_on DESC, {$targetTableName}.created_at DESC
 		LIMIT ? OFFSET ?;
 		";
 
 		$offset = $this->getOffset($limit,$page);
-		return DB::select($query,[SystemConstants::getCdnHost(),$userId,$feedId,$limit,$offset]);
+		return DB::select($query,[SystemConstants::getCdnHost(),$userId,$contributionId,$limit,$offset]);
 	}
 
 }

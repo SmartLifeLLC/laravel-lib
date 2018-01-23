@@ -67,4 +67,14 @@ class UserControllerTest extends TestCase
 
     }
 
+    public function testGetPageInfo(){
+	    $httpMethod = HttpMethod::GET;
+	    $uri = "/user/page/";
+	    $content = $this->getJsonRequestContent($httpMethod,$uri);
+	    if(!isset($content['code']))  var_dump($content);
+	    $this->printResponse($content);
+	    //$this->printSQLLog();
+	    $this->assertEquals(StatusCode::SUCCESS,$content["code"]);
+    }
+
 }

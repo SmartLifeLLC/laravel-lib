@@ -6,9 +6,10 @@ use App\Constants\DateTimeFormat;
 use App\Constants\DefaultValues;
 use App\Lib\Util;
 use App\ValueObject\FacebookResponseVO;
+use App\ValueObject\UserNotifyPropertiesVO;
 use App\ValueObject\UserValidationVO;
 use Illuminate\Database\Eloquent\Model;
-
+use DB;
 class User extends DBModel
 {
     protected $table = 'users';
@@ -160,4 +161,62 @@ class User extends DBModel
     public function updateLastPostDate($userId){
     	return $this->where('id',$userId)->update(['last_posted_at'=>date(DateTimeFormat::General)]);
     }
+
+	/**
+	 * @param $userId
+	 * @param $ownerId
+	 * @return mixed
+	 */
+    public function getUserInfoForPage($userId, $ownerId){
+    	return
+		     $this
+			     ->select(
+			     	    'users.*',
+			            'follows.id as my_follow_id',
+			            'followers.id as my_follower_id',
+			            'profile_images.s3_key as profile_images_s3_key',
+			            'cover_images.s3_key as cover_images_s3_key'
+				     )
+			     ->where('users.id',$ownerId)
+			     ->leftJoin('images as profile_images','profile_images.id','=','users.profile_image_id')
+			     ->leftJoin('images as cover_images','cover_images.id','=','users.cover_image_id')
+			     ->leftJoin('follows',function($join) use ($userId,$ownerId){
+			     	$join->on('follows.user_id','=',DB::raw($userId));
+			     	$join->on('follows.target_user_id','=',DB::raw($ownerId));})
+			     ->leftJoin('followers',function($join) use ($userId,$ownerId){
+				     $join->on('followers.user_id','=',DB::raw($userId));
+				     $join->on('followers.target_user_id','=',DB::raw($ownerId));})
+		         ->first();
+
+    }
+
+
+	/**
+	 * @param $userId
+	 * @return mixed
+	 */
+    public function getFriendCount($userId){
+        return
+        $this
+	        ->select(DB::raw('count(follows.id) as follow_count'),DB::raw('count(followers.id) as follower_count'))
+	        ->where('users.id',$userId)
+	        ->leftJoin('follows','follows.user_id','=',DB::raw($userId))
+	        ->leftJoin('followers','followers.user_id','=',DB::raw($userId))
+	        ->groupBy('follows.user_id','followers.user_id')
+	        ->first();
+    }
+
+	/**
+	 * @param $userId
+	 * @param UserNotifyPropertiesVO $userNotifyPropertiesVO
+	 */
+    public function updateUserNotifyProperties($userId, UserNotifyPropertiesVO $userNotifyPropertiesVO){
+    	$data = $userNotifyPropertiesVO->getData();
+    	if(empty($data))
+    		return;
+
+    	return
+		    $this->where('id',$userId)->update($data);
+    }
 }
+

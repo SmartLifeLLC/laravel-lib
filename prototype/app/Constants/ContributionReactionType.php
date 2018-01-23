@@ -9,7 +9,7 @@
 namespace App\Constants;
 
 
-final class FeedReactionType
+final class ContributionReactionType
 {
 	//1:いいね　2:気になる　3:持ってる
 	const ALL = 0;

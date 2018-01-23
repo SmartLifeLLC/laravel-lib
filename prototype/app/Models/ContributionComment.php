@@ -13,24 +13,24 @@ use App\Constants\DateTimeFormat;
 use App\Constants\DefaultValues;
 use App\Constants\QueryOrderTypes;
 use App\Lib\Util;
-use App\Models\Common\DeleteAllForFeedImplements;
-use App\Models\Common\DeleteAllForFeedInterface;
+use App\Models\Common\DeleteAllForContributionImplements;
+use App\Models\Common\DeleteAllForContributionInterface;
 
-class FeedComment extends DBModel implements DeleteAllForFeedInterface
+class ContributionComment extends DBModel implements DeleteAllForContributionInterface
 {
-	use DeleteAllForFeedImplements;
+	use DeleteAllForContributionImplements;
 
 	/**
 	 * @param $userId
-	 * @param $feedId
+	 * @param $contributionId
 	 * @param $content
 	 * @return mixed
 	 */
-	function createGetId($userId,$feedId,$content){
+	function createGetId($userId, $contributionId, $content){
 		return $this->insertGetId(
 			[
 				'user_id'=>$userId,
-				'feed_id'=>$feedId,
+				'contribution_id'=>$contributionId,
 				'content'=>$content,
 				'created_at'=>date(DateTimeFormat::General),
 				'updated_at'=>date(DateTimeFormat::General)
@@ -40,23 +40,23 @@ class FeedComment extends DBModel implements DeleteAllForFeedInterface
 	}
 
 	/**
-	 * @param int $feedId
+	 * @param int $contributionId
 	 * @param int $boundaryId
 	 * @param int $limit
 	 * @param QueryOrderTypes|null $orderType
 	 * @return mixed
 	 */
-	public function getList(int $feedId, int $boundaryId, int $limit, ?QueryOrderTypes $orderType ) {
+	public function getList(int $contributionId, int $boundaryId, int $limit, ?QueryOrderTypes $orderType ) {
 		$compareSymbol = $orderType->getQueryCompareSymbol();
 		$queryBuilder =
 			$this
 				->select(
 					[
-						'feed_comments.id',
-						'feed_comments.content',
-						'feed_comments.created_at',
-						'feed_comments.updated_at',
-						'feed_comments.user_id',
+						'contribution_comments.id',
+						'contribution_comments.content',
+						'contribution_comments.created_at',
+						'contribution_comments.updated_at',
+						'contribution_comments.user_id',
 						'users.user_name',
 						'users.description as introduction',
 						'users.gender',
@@ -65,16 +65,16 @@ class FeedComment extends DBModel implements DeleteAllForFeedInterface
 						'users.birthday_published_flag',
 						'profile_image.s3_key as profile_image_s3_key',
 						'cover_image.s3_key as cover_image_s3_key',
-						'feeds.product_id'
+						'contributions.product_id'
 					])
-				->where('feed_id',$feedId);
+				->where('contribution_id',$contributionId);
 		if($boundaryId > 0){
 			$queryBuilder = $queryBuilder->where('id',$compareSymbol,$boundaryId);
 		}
 		$queryBuilder =
 			$queryBuilder
-			->leftJoin('feeds','feeds.id','=','feed_comments.feed_id')
-			->leftJoin('users','users.id','=','feed_comments.user_id')
+			->leftJoin('contributions','contributions.id','=','contribution_comments.contribution_id')
+			->leftJoin('users','users.id','=','contribution_comments.user_id')
 			->leftJoin('images as profile_image','profile_image.id','=','users.profile_image_id')
 			->leftJoin('images as cover_image','cover_image.id','=','users.cover_image_id');
 
@@ -88,19 +88,19 @@ class FeedComment extends DBModel implements DeleteAllForFeedInterface
 	}
 
 	/**
-	 * @param $feedId
+	 * @param $contributionId
 	 * @return mixed
 	 */
-	public function getCountForFeed($feedId){
-		return $this->where('feed_id',$feedId)->count();
+	public function getCountForContribution($contributionId){
+		return $this->where('contribution_id',$contributionId)->count();
 	}
 
 	/**
-	 * @param $feedId
+	 * @param $contributionId
 	 * @param int $limit
 	 * @return mixed
 	 */
-	public function getPureListForFeed($feedId,$limit = DefaultValues::QUERY_DEFAULT_LIMIT){
-		return $this->where('feed_id',$feedId)->limit($limit)->get();
+	public function getPureListForContribution($contributionId, $limit = DefaultValues::QUERY_DEFAULT_LIMIT){
+		return $this->where('contribution_id',$contributionId)->limit($limit)->get();
 	}
 }

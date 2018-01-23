@@ -50,7 +50,7 @@ class Image extends DBModel
 	    $awsManager = new AwsManager();
 	    $imageIds = [];
 	    foreach($images as $image){
-		    $s3Key= $awsManager->saveImageToS3FromFileGetS3Key($userId,ImageCategory::FEED,$image);
+		    $s3Key= $awsManager->saveImageToS3FromFileGetS3Key($userId,ImageCategory::CONTRIBUTION,$image);
 		    //Save image
 		    $imageIds[] = $this->createGetId($userId,$imageCategory,$s3Key);
 	    }

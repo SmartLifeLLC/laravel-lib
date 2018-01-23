@@ -124,5 +124,24 @@ class BlockUser extends DBModel
 			->get();
     }
 
+	/**
+	 * @param $userId
+	 * @return mixed
+	 */
+	public function getBlockAndBlockedUserIds($userId){
 
+		$blockUsers =
+			$this
+		    ->select('target_user_id')
+		    ->where('user_id',$userId);
+		$result =
+			DB::table('blocked_users')
+				->select('target_user_id')
+				->where('user_id',$userId)
+				->union($blockUsers)->get();
+
+		if(empty($result)) return [];
+		return array_values($result->toArray());
+
+	}
 }

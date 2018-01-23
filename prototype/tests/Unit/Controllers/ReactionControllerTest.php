@@ -9,7 +9,7 @@
 namespace Tests\Unit\Controllers;
 
 
-use App\Constants\FeedReactionType;
+use App\Constants\ContributionReactionType;
 use App\Constants\HttpMethod;
 use App\Constants\StatusCode;
 use Tests\TestCase;
@@ -25,11 +25,11 @@ class ReactionControllerTest extends TestCase
 
 	public function testCreateRandomReaction(){
 		$httpMethod = HttpMethod::POST;
+		parent::prepareUserWithIdAndAuth(62,"AUTH_5a61c3b9d2ef0");
 
 		for($i=0 ; $i < 100 ; $i++){
-			parent::prepareUser();
 			$reactionType = mt_rand(1,2);
-			$feedId = mt_rand(25,33);
+			$feedId = mt_rand(12,18);
 			$data =
 				[
 					'review_post_id'=>$feedId,
@@ -38,6 +38,7 @@ class ReactionControllerTest extends TestCase
 			$uri = "/feed/reaction/do";
 
 			$content = $this->getJsonRequestContent($httpMethod,$uri,$data);
+			var_dump($content);
 			$this->printResponse($content);
 			if(!isset($content['code']))  var_dump($content);
 		}
@@ -56,7 +57,7 @@ class ReactionControllerTest extends TestCase
 		$data =
 			[
 				'review_post_id'=>$feedId,
-				'review_post_reaction_type'=>FeedReactionType::LIKE,
+				'review_post_reaction_type'=>ContributionReactionType::LIKE,
 			];
 		$content = $this->getJsonRequestContent($httpMethod,$uri,$data);
 
@@ -68,13 +69,15 @@ class ReactionControllerTest extends TestCase
 
 	public function testCancelReaction(){
 
-		$this->prepareUserWithIdAndAuth(3436,"AUTH_5a61c3bbc2a3d");
+		//$this->prepareUserWithIdAndAuth(3436,"AUTH_5a61c3bbc2a3d");
+		parent::prepareUserWithIdAndAuth(62,"AUTH_5a61c3b9d2ef0");
+
 		$httpMethod = HttpMethod::POST;
 		$uri = "/feed/reaction/cancel";
 		$data =
 			[
-				'review_post_id'=>31,
-				'review_post_reaction_type'=>FeedReactionType::HAVE,
+				'review_post_id'=>15,
+				'review_post_reaction_type'=>ContributionReactionType::INTEREST,
 			];
 		$content = $this->getJsonRequestContent($httpMethod,$uri,$data);
 
@@ -88,7 +91,7 @@ class ReactionControllerTest extends TestCase
 	public function testGetList(){
 		$httpMethod = HttpMethod::GET;
 		$feedId = 25;
-		$type = FeedReactionType::ALL;
+		$type = ContributionReactionType::ALL;
 		$page = 1;
 		$uri = "/feed/reaction/list/".$feedId."?type={$type}&page={$page}";
 		$content = $this->getJsonRequestContent($httpMethod,$uri);

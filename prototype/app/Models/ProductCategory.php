@@ -108,8 +108,8 @@ class ProductCategory extends DBModel
     /**
      * @param $categoryId
      */
-    public function decreaseFeedCount($categoryId){
-        $set = "feed_count = feed_count - 1";
+    public function decreaseContributionCount($categoryId){
+        $set = "contribution_count = contribution_count - 1";
         $this->_updateCount($categoryId,$set);
     }
 
@@ -140,14 +140,14 @@ class ProductCategory extends DBModel
         $queryBuilder = self::select([
             'product_categories.id',
             'product_categories.name',
-            'product_category_feed_counts.feed_count',
-            'product_category_feed_counts.positive_count',
-            'product_category_feed_counts.negative_count',
+            'product_category_contribution_counts.contribution_count',
+            'product_category_contribution_counts.positive_count',
+            'product_category_contribution_counts.negative_count',
             'unique_name'])
             ->join('product_category_hierarchies',function($join){
                 $join->on('product_category_hierarchies.descendant_id','=','product_categories.id');
             })
-            ->leftJoin('product_category_feed_counts','product_category_feed_counts.product_category_id','=','product_categories.id')
+            ->leftJoin('product_category_contribution_counts','product_category_contribution_counts.product_category_id','=','product_categories.id')
             ;
             if($ancestorId > 0){
                 $queryBuilder = $queryBuilder->where('product_category_hierarchies.ancestor_id',$ancestorId);
@@ -156,7 +156,7 @@ class ProductCategory extends DBModel
             $queryBuilder =
                 $queryBuilder
                     ->where('product_category_hierarchies.depth',$depth)
-                    //->orderBy('product_category_feed_counts.feed_count','desc');
+                    //->orderBy('product_category_contribution_counts.contribution_count','desc');
                     ->orderByRaw('CAST(product_categories.name AS CHAR) asc');
             return $queryBuilder->get();
     }

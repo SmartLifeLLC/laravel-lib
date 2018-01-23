@@ -32,7 +32,7 @@ class CommentGetListJsonView extends JsonResponseView
 					'id'                    => $entity->id,
 					'product_item_id'       => $entity->product_id,
 					'user_id'               => $entity->user_id,
-					'review_post_id'        => $entity->feed_id,
+					'review_post_id'        => $entity->contribution_id,
 					'text'                  => $entity->content,
 					'created_at'            => $entity->created_at,
 					'updated_ad'            => $entity->updated_at,

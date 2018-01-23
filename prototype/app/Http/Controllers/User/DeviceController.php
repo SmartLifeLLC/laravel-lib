@@ -24,7 +24,7 @@ class DeviceController extends Controller
         $notificationToken = $request->notification_token;
         $deviceUuid = $request->device_uuid;
         $deviceType = $request->device_type;
-        $userId = CurrentUser::shared()->getUserId();
+        $userId = $this->getCurrentUserId();
         $serviceResult = (new DeviceService())->register($userId,$deviceUuid,$notificationToken,$deviceType);
         $jsonView = new DeviceRegisterJsonView($serviceResult);
         return $this->responseJson($jsonView);

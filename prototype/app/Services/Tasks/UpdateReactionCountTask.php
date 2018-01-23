@@ -9,45 +9,45 @@
 namespace App\Services\Tasks;
 
 
-use App\Constants\FeedReactionType;
+use App\Constants\ContributionReactionType;
 use App\Lib\JSYService\ServiceTask;
-use App\Models\Common\FeedReactionInterface;
-use App\Models\FeedAllReaction;
-use App\Models\FeedHaveReaction;
-use App\Models\FeedInterestReaction;
-use App\Models\FeedLikeReaction;
-use App\Models\FeedReactionCount;
-use App\Models\FeedReactionNotificationDelivery;
+use App\Models\Common\ContributionReactionInterface;
+use App\Models\ContributionAllReaction;
+use App\Models\ContributionHaveReaction;
+use App\Models\ContributionInterestReaction;
+use App\Models\ContributionLikeReaction;
+use App\Models\ContributionReactionCount;
+use App\Models\ContributionReactionNotificationDelivery;
 use App\Services\NotificationService;
 
 class UpdateReactionCountTask implements ServiceTask
 {
 	//Tables
-	// feed_reaction_counts
-	// feed_like_reactions
-	// feed_reaction_notification_deliveries
-	// feed_have_reactions
-	// feed_interest_reactions
+	// contribution_reaction_counts
+	// contribution_like_reactions
+	// contribution_reaction_notification_deliveries
+	// contribution_have_reactions
+	// contribution_interest_reactions
 
 	private $userId;
-	private $feedId;
+	private $contributionId;
 	private $productId;
-	private $feedReactionType;
+	private $contributionReactionType;
 	private $isIncrease;
 
 	/**
 	 * UpdateReactionCountTask constructor.
 	 * @param $userId
-	 * @param $feedId
+	 * @param $contributionId
 	 * @param $productId
-	 * @param $feedReactionType
+	 * @param $contributionReactionType
 	 * @param $isIncrease
 	 */
-	public function __construct($userId, $feedId, $productId, $feedReactionType, $isIncrease)
+	public function __construct($userId, $contributionId, $productId, $contributionReactionType, $isIncrease)
 	{
 		$this->userId = $userId;
-		$this->feedId = $feedId;
-		$this->feedReactionType = $feedReactionType;
+		$this->contributionId = $contributionId;
+		$this->contributionReactionType = $contributionReactionType;
 		$this->productId = $productId;
 		$this->isIncrease = $isIncrease;
 	}
@@ -59,59 +59,59 @@ class UpdateReactionCountTask implements ServiceTask
 	{
 		// TODO: Implement run() method.
 		//create model for reaction type
-		switch ($this->feedReactionType ){
-			case FeedReactionType::LIKE:{
-				$feedReactionModel = new FeedLikeReaction();
+		switch ($this->contributionReactionType ){
+			case ContributionReactionType::LIKE:{
+				$contributionReactionModel = new ContributionLikeReaction();
 				break;
 			}
-			case FeedReactionType::INTEREST:{
-				$feedReactionModel = new FeedInterestReaction();
+			case ContributionReactionType::INTEREST:{
+				$contributionReactionModel = new ContributionInterestReaction();
 				break;
 			}
-			case FeedReactionType::HAVE:{
-				$feedReactionModel = new FeedHaveReaction();
+			case ContributionReactionType::HAVE:{
+				$contributionReactionModel = new ContributionHaveReaction();
 				break;
 			}
 			default :
-				throw new \Exception("Failed to find reaction type for the ".$this->feedReactionType);
+				throw new \Exception("Failed to find reaction type for the ".$this->contributionReactionType);
 		}
 
 		if($this->isIncrease){
-			$this->incrementCount($feedReactionModel);
+			$this->incrementCount($contributionReactionModel);
 		}else{
-			$this->decrementCount($feedReactionModel);
+			$this->decrementCount($contributionReactionModel);
 		}
 
 	}
 
 	/**
-	 * @param FeedReactionInterface $feedReactionModel
+	 * @param ContributionReactionInterface $contributionReactionModel
 	 * @throws \Exception
 	 */
-	private function incrementCount(FeedReactionInterface $feedReactionModel){
-		$feedEntity = $feedReactionModel->findReaction($this->userId,$this->feedId);
-		if(!empty($feedEntity))
-			throw new \Exception("User {$this->userId} already leave a reaction on {$this->feedId} for reaction type : {$this->feedReactionType}");
+	private function incrementCount(ContributionReactionInterface $contributionReactionModel){
+		$contributionEntity = $contributionReactionModel->findReaction($this->userId,$this->contributionId);
+		if(!empty($contributionEntity))
+			throw new \Exception("User {$this->userId} already leave a reaction on {$this->contributionId} for reaction type : {$this->contributionReactionType}");
 
-		$feedReactionModel->createReaction($this->userId,$this->feedId);
-		(new FeedAllReaction())->createReaction($this->userId,$this->feedId,$this->feedReactionType);
-		(new FeedReactionCount())->incrementCount($this->productId,$this->feedId,$this->feedReactionType);
-		$isPreviousSent = (new FeedReactionNotificationDelivery())->isPreviousSent($this->userId,$this->feedId,$this->feedReactionType);
+		$contributionReactionModel->createReaction($this->userId,$this->contributionId);
+		(new ContributionAllReaction())->createReaction($this->userId,$this->contributionId,$this->contributionReactionType);
+		(new ContributionReactionCount())->incrementCount($this->productId,$this->contributionId,$this->contributionReactionType);
+		$isPreviousSent = (new ContributionReactionNotificationDelivery())->isPreviousSent($this->userId,$this->contributionId,$this->contributionReactionType);
 		if(!$isPreviousSent){ (new SendNotificationTask())->run(); }
 	}
 
 
 	/**
-	 * @param FeedReactionInterface $feedReactionModel
+	 * @param ContributionReactionInterface $contributionReactionModel
 	 * @throws \Exception
 	 */
-	private function decrementCount(FeedReactionInterface $feedReactionModel){
-		$reactionEntity = $feedReactionModel->findReaction($this->userId,$this->feedId);
+	private function decrementCount(ContributionReactionInterface $contributionReactionModel){
+		$reactionEntity = $contributionReactionModel->findReaction($this->userId,$this->contributionId);
 		if(empty($reactionEntity))
-			throw new \Exception("Failed to find reaction with user id {$this->userId} and feed id  {$this->feedId} for reaction type : {$this->feedReactionType} ");
+			throw new \Exception("Failed to find reaction with user id {$this->userId} and contribution id  {$this->contributionId} for reaction type : {$this->contributionReactionType} ");
 		$reactionEntity->delete();
-		(new FeedAllReaction())->deleteReaction($this->userId,$this->feedId,$this->feedReactionType);
-		(new FeedReactionCount())->decrementCount($this->productId,$this->feedId,$this->feedReactionType);
+		(new ContributionAllReaction())->deleteReaction($this->userId,$this->contributionId,$this->contributionReactionType);
+		(new ContributionReactionCount())->decrementCount($this->productId,$this->contributionId,$this->contributionReactionType);
 	}
 
 

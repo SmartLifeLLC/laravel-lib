@@ -25,19 +25,17 @@ class CommentControllerTest extends TestCase
 
 	public function testCreate(){
 		$httpMethod = HttpMethod::POST;
-
-		$uri = "/feed/comment/create";
+		$uri = "/comment/create";
 		$data =
 			[
-				'product_item_id'=>58,
-				'review_post_id'=>39,
+				'product_item_id'=>51,
+				'review_post_id'=>31,
 				'user_id'=>$this->userId,
 				'is_consent'=>1,
-				'text'=>'商品評価',
+				'text'=>'商品評価2',
 
 			];
 		$content = $this->getJsonRequestContent($httpMethod,$uri,$data);
-
 		if(!isset($content['code']))  var_dump($content);
 		$this->printResponse($content);
 		//$this->printSQLLog();
@@ -47,7 +45,7 @@ class CommentControllerTest extends TestCase
 	public function testDelete(){
 		$httpMethod = HttpMethod::DELETE;
 		$commentId = 2;
-		$uri = "/feed/comment/delete/".$commentId;
+		$uri = "/comment/delete/".$commentId;
 		$content = $this->getJsonRequestContent($httpMethod,$uri);
 
 		if(!isset($content['code']))  var_dump($content);
@@ -60,7 +58,7 @@ class CommentControllerTest extends TestCase
 		$httpMethod = HttpMethod::GET;
 		$feedId = 39;
 		$boundaryId = 0;
-		$uri = "/feed/comment/list/{$feedId}/{$boundaryId}";
+		$uri = "/comment/list/{$feedId}/{$boundaryId}";
 		$content = $this->getJsonRequestContent($httpMethod,$uri);
 
 		if(!isset($content['code']))  var_dump($content);

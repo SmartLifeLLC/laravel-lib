@@ -194,4 +194,6 @@ class Product extends DBModel
 		        ->first();
 
     }
+
+
 }
