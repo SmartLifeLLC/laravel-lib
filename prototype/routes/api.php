@@ -56,14 +56,11 @@ Route::group(
         Route::get('/setting/notification/list','UserController@getNotificationSettings');
         //Old User Setting
         Route::get('/setting/show/{user_id?}'   ,'UserController@getNotificationSettings');
-<<<<<<< HEAD
-=======
 
         //Edit
 		Route::post('/setting/edit','UserController@edit');
 
 
->>>>>>> master
     });
 
 Route::group(['prefix'=>'featured','namespace'=>'Featured'],
@@ -120,7 +117,7 @@ Route::group(['prefix' => 'recommend_users'], function () {
 
 Route::group(['prefix' => 'translate', 'namespace' => 'Translate'], function(){
    Route::get('/user', 'TranslateUserController@getPreviousData');
-   Route::get('/feed_comment', 'TranslateFeedCommentController@getPreviousData');
+   Route::get('/comment', 'TranslateCommentController@translatePreviousData');
 });
 
 
