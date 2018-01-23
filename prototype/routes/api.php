@@ -135,10 +135,6 @@ Route::group(['prefix' => 'recommend_users'], function () {
     Route::post('/', 'Featured\FeaturedUsersController@getListOnAppInit');
 });
 
-Route::group(['prefix' => 'translate', 'namespace' => 'Translate'], function(){
-   Route::get('/user', 'TranslateUserController@getPreviousData');
-   Route::get('/comment', 'TranslateCommentController@translatePreviousData');
-});
 
 
 //// リアクション
