@@ -125,6 +125,38 @@ class ContributionController extends Controller
 		}
 	}
 
+
+
+	/**
+	 * @SWG\Get(
+	 *     path="/list/{targetId}",
+	 *     description="投稿一覧を取得する",
+	 *     produces={"application/json"},
+	 *     tags={"hoge"},
+	 *     @SWG\Parameter(
+	 *         name="targetId",
+	 *         description="各リストタイプ別の検索ID",
+	 *         in="path",
+	 *         required=true,
+	 *         type="int"
+	 *     ),
+	 *     @SWG\Response(
+	 *         response=200,
+	 *         description="Success"
+	 *     ),
+	 *     @SWG\Response(
+	 *         response=404,
+	 *         description="Parameter error"
+	 *     ),
+	 *     @SWG\Response(
+	 *         response=403,
+	 *         description="Auth error",
+	 *     ),
+	 * )
+	 */
+
+
+
 	/**
 	 * @param Request $request
 	 * @param $productId

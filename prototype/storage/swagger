@@ -1,0 +1,46 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "xxx\u3000\u306eAPI\u30c9\u30ad\u30e5\u30e1\u30f3\u30c8",
+        "version": "1.0"
+    },
+    "host": "http://api.example.com",
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "paths": {
+        "/list/{targetId}": {
+            "get": {
+                "tags": [
+                    "hoge"
+                ],
+                "description": "\u6295\u7a3f\u4e00\u89a7\u3092\u53d6\u5f97\u3059\u308b",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "targetId",
+                        "in": "path",
+                        "description": "\u5404\u30ea\u30b9\u30c8\u30bf\u30a4\u30d7\u5225\u306e\u691c\u7d22ID",
+                        "required": true,
+                        "type": "int"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "404": {
+                        "description": "Parameter error"
+                    },
+                    "403": {
+                        "description": "Auth error"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {}
+}
