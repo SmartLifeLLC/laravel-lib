@@ -23,6 +23,7 @@ use App\Http\JsonView\Contribution\ContributionListJsonView;
 use App\Models\CurrentUser;
 use App\Services\ContributionService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Storage;
 
 class ContributionController extends Controller
@@ -122,6 +123,7 @@ class ContributionController extends Controller
 				return $this->listForProduct($request,$targetId);break;
 			default:
 				return $this->responseParameterErrorJsonViewWithDebugMessage("Failed to find list type for {$listType}");
+				Config::
 		}
 	}
 
@@ -129,10 +131,10 @@ class ContributionController extends Controller
 
 	/**
 	 * @SWG\Get(
-	 *     path="/list/{targetId}",
+	 *     path="/contribution/list/{targetId}",
 	 *     description="投稿一覧を取得する",
 	 *     produces={"application/json"},
-	 *     tags={"hoge"},
+	 *     tags={"contribution"},
 	 *     @SWG\Parameter(
 	 *         name="targetId",
 	 *         description="各リストタイプ別の検索ID",
