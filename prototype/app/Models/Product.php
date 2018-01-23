@@ -171,11 +171,11 @@ class Product extends DBModel
                     'display_name',
                     'product_categories.unique_name as breadcrumb',
                     'images.s3_key',
-                    'product_feed_counts.feed_count',
-                    'product_feed_counts.positive_count',
-                    'product_feed_counts.negative_count'])
+                    'product_contribution_counts.contribution_count',
+                    'product_contribution_counts.positive_count',
+                    'product_contribution_counts.negative_count'])
                 ->leftJoin('products_product_categories','products.id','=','products_product_categories.product_id')
-                ->leftJoin('product_feed_counts','products.id','=','product_feed_counts.product_id')
+                ->leftJoin('product_contribution_counts','products.id','=','product_contribution_counts.product_id')
                 ->leftJoin('product_categories','products_product_categories.product_category_id','=','product_categories.id')
                 ->leftJoin('images','images.id','=','products.image_id')
                 ->offset($this->getOffset($limit,$page))
@@ -190,7 +190,7 @@ class Product extends DBModel
     	return
 		    $this
 			    ->where('products.id',$productId)
-		        ->leftJoin('product_feed_counts','product_feed_counts.product_id','=','products.id')
+		        ->leftJoin('product_contribution_counts','product_contribution_counts.product_id','=','products.id')
 		        ->first();
 
     }

@@ -10,7 +10,7 @@ namespace App\Constants;
 
 class S3Buckets
 {
-    const IMG_LOCAL = "local-react-contents";
+    const IMG_LOCAL = "dev-react-contents";
     const IMG_DEV = "dev-react-contents";
     const IMG_STG = "stg-react-contents";
     const IMG_PRD = "prd-react-contents";

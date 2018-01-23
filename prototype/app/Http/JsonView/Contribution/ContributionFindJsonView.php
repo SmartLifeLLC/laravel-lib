@@ -6,7 +6,7 @@
  * Time: 23:38
  */
 
-namespace App\Http\JsonView\Feed;
+namespace App\Http\JsonView\Contribution;
 
 
 use App\Http\JsonView\JsonResponseView;
@@ -15,7 +15,7 @@ use App\Http\JsonView\JsonResponseView;
 class ContributionFindJsonView extends JsonResponseView
 {
 	/**
-	 * @var \stdClass || null (Feed)
+	 * @var \stdClass || null (Contribution)
 	 */
 	protected $data;
 	function createBody()

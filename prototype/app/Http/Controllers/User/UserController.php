@@ -37,18 +37,10 @@ class UserController extends Controller
         return $this->responseJson($jsonView);
     }
 
-    /**
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function getNotificationSettings(){
-        $userId = $this->getCurrentUserId();
-        $serviceResult = (new UserService())->getNotificationSettings($userId);
-        $jsonView = new NotificationSettingJsonView($serviceResult);
-        return $this->responseJson($jsonView);
-    }
 
 
-    public function edit(Request $request){
+
+    public function editProfile(Request $request){
 		$userId = $this->getCurrentUserId();
 	    $validator = $this->createValidator(
 	    	$request->all(),
@@ -81,17 +73,26 @@ class UserController extends Controller
 	 */
     public function pageInfo($ownerId = null){
 	    $userId = $this->getCurrentUserId();
-		if($ownerId == null)
-			$ownerId = $userId;
+		if($ownerId == null) $ownerId = $userId;
 	    $serviceResult = (new UserService())->getPageInfo($userId,$ownerId);
 	    return $this->responseJson(new PageInfoJsonView($serviceResult));
     }
 
 	/**
+	 * @return \Illuminate\Http\JsonResponse
+	 */
+	public function getNotificationSettings(){
+		$userId = $this->getCurrentUserId();
+		$serviceResult = (new UserService())->getNotificationSettings($userId);
+		$jsonView = new NotificationSettingJsonView($serviceResult);
+		return $this->responseJson($jsonView);
+	}
+
+	/**
 	 * @param Request $request
 	 * @return \Illuminate\Http\JsonResponse
 	 */
-    public function editNotifyProperties(Request $request)
+    public function editNotificationSettings(Request $request)
     {
 	    $userId = $this->getCurrentUserId();
 	    $saveData = new UserNotifyPropertiesVO();
@@ -103,16 +104,4 @@ class UserController extends Controller
 		$serviceResult = (new UserService())->updateNotifyProperties($userId,$saveData);
 		return $this->responseJson(new NotificationSettingJsonView($serviceResult));
     }
-
-    public function interestList(Request $request, $ownerId = null){
-    	$userId = $this->getCurrentUserId();
-    	if($ownerId == null)
-    	    $ownerId = $userId;
-
-
-
-
-    }
-
-
 }

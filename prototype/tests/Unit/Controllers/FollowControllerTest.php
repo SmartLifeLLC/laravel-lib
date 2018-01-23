@@ -55,8 +55,8 @@ class FollowControllerTest extends TestCase
 
 		    $httpMethod = HttpMethod::PUT;
 		    $targetUserId = 105;
-		    $isOn = "1";
-		    $uri = "/user/follow/{$targetUserId}/{$isOn}";
+		    $isOn = 0;
+		    $uri = "/user/follow/edit/{$targetUserId}/{$isOn}";
 		    $content = $this->getJsonRequestContent($httpMethod, $uri);
 			$this->printResponse($content);
             $this->assertEquals(StatusCode::SUCCESS,$content["code"]);

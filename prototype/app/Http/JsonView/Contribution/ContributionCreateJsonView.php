@@ -6,7 +6,7 @@
  * Time: 6:52
  */
 
-namespace App\Http\JsonView\Feed;
+namespace App\Http\JsonView\Contribution;
 
 
 use App\Constants\StatusMessage;

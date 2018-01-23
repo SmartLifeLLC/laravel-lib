@@ -6,7 +6,7 @@
  * Time: 18:11
  */
 
-namespace App\Http\JsonView\Feed;
+namespace App\Http\JsonView\Contribution;
 
 
 use App\Http\JsonView\JsonResponseView;

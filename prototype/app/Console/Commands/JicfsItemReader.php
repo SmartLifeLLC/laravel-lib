@@ -45,9 +45,9 @@ class JicfsItemReader extends Command
 
         $productService = new ProductService();
         //$filePath = storage_path('app/rawdata/manufacturer_sample.csv');
-        $filePath = storage_path('app/rawdata/product_item_sample_2.csv');
+        $filePath = storage_path('app/rawdata/A1.txt');
         $counters = ['total'=>0,'jicfs'=>0,'product'=>0,'total_manufacturer'=>0,'manufacturer'=>0];
-        $maxCreateProductData = 5000;
+        $maxCreateProductData = 1000;
         if(($handler = fopen($filePath,"r"))!==false) {
             while($csvData = fgetcsv($handler,0,"\t")) {
                 //skip data randomly.

@@ -60,7 +60,4 @@ class ProductController extends Controller
 
         return $this->responseJson(new ProductListJsonView($serviceResult));
     }
-
-
-
 }

@@ -23,15 +23,36 @@ class UserControllerTest extends TestCase
 
     public function testGetInfo(){
         $httpMethod = HttpMethod::GET;
-        $uri = "/user/info";
+        $uri = "/user/info/get";
         $content = $this->getJsonRequestContent($httpMethod,$uri);
         $this->printResponse($content);
         $this->assertEquals(StatusCode::SUCCESS,$content["code"]);
     }
 
+	public function testEdit(){
+		$httpMethod = HttpMethod::PUT;
+		$uri = "/user/info/edit";
+		$data =
+			[
+				'birthday_published_flag'=>0,
+				'gender_published_flag'=>0,
+				'gender'=>0,
+				'birthday'=>"2017-01-01 10:10:10",
+				'description'=>'NEW description 2 ',
+				'user_name'=>"NEW USER NAME 2  ",
+				'mail_address' => "jung@smt-life.biz",
+
+			];
+		$content = $this->getJsonRequestContent($httpMethod,$uri,$data);
+		if(!isset($content['code']))  var_dump($content);
+		$this->printResponse($content);
+		//$this->printSQLLog();
+		$this->assertEquals(StatusCode::SUCCESS,$content["code"]);
+	}
+
     public function testGetUserNotificationSettings(){
         $httpMethod = HttpMethod::GET;
-        $uri = "/user/setting/notification/list";
+        $uri = "/user/notification-setting/list";
         $content = $this->getJsonRequestContent($httpMethod,$uri);
         $this->printResponse($content);
         $this->assertEquals(StatusCode::SUCCESS,$content["code"]);
@@ -45,31 +66,11 @@ class UserControllerTest extends TestCase
         $this->assertEquals(StatusCode::SUCCESS,$content["code"]);
     }
 
-    public function testEdit(){
-	    $httpMethod = HttpMethod::POST;
-	    $uri = "/user/setting/edit";
-	    $data =
-		    [
-			    'birthday_published_flag'=>0,
-			    'gender_published_flag'=>0,
-			    'gender'=>0,
-			    'birthday'=>"2017-01-01 10:10:10",
-			    'description'=>'NEW description 2 ',
-			    'user_name'=>"NEW USER NAME 2  ",
-			    'mail_address' => "jung@smt-life.biz",
 
-		    ];
-	    $content = $this->getJsonRequestContent($httpMethod,$uri,$data);
-	    if(!isset($content['code']))  var_dump($content);
-	    $this->printResponse($content);
-	    //$this->printSQLLog();
-	    $this->assertEquals(StatusCode::SUCCESS,$content["code"]);
-
-    }
 
     public function testGetPageInfo(){
 	    $httpMethod = HttpMethod::GET;
-	    $uri = "/user/page/";
+	    $uri = "/user/page/get";
 	    $content = $this->getJsonRequestContent($httpMethod,$uri);
 	    if(!isset($content['code']))  var_dump($content);
 	    $this->printResponse($content);

@@ -18,8 +18,12 @@ use App\Constants\PostParametersValidationRule;
 class DeviceController extends Controller
 {
 
-    public function register(Request $request){
-        $validator = $this->createValidator( $request->all(), PostParametersValidationRule::NOTIFICATION_TOKEN,PostParametersValidationRule::DEVICE_UUID,PostParametersValidationRule::DEVICE_TYPE) ;
+    public function create(Request $request){
+        $validator = $this->createValidator(
+        	$request->all(),
+	        PostParametersValidationRule::NOTIFICATION_TOKEN,
+	        PostParametersValidationRule::DEVICE_UUID,
+	        PostParametersValidationRule::DEVICE_TYPE) ;
         if($validator->fails()) return  $this->responseParameterErrorJsonViewWithValidator($validator);
         $notificationToken = $request->notification_token;
         $deviceUuid = $request->device_uuid;

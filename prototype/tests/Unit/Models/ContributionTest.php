@@ -12,7 +12,7 @@ namespace Tests\Unit\Models;
 use App\Models\Contribution;
 use Tests\TestCase;
 
-class FeedTest extends TestCase
+class ContributionTest extends TestCase
 {
 	public function testGetDetail(){
 		$userId = 48;

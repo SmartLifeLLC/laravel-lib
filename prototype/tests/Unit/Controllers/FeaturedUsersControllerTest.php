@@ -31,7 +31,7 @@ class FeaturedUsersControllerTest extends TestCase
 
     public function testGetFeatureUserList(){
         $httpMethod = HttpMethod::GET;
-        $uri = "/featured/users/onInit";
+        $uri = "/featured/user/list";
         $content = $this->getJsonRequestContent($httpMethod,$uri);
         var_dump($content);
         $this->printResponse($content);

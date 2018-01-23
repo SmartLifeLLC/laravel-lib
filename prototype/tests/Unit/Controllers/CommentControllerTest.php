@@ -56,9 +56,9 @@ class CommentControllerTest extends TestCase
 
 	public function testCommentList(){
 		$httpMethod = HttpMethod::GET;
-		$feedId = 39;
+		$contributionId = 39;
 		$boundaryId = 0;
-		$uri = "/comment/list/{$feedId}/{$boundaryId}";
+		$uri = "/comment/list/{$contributionId}/{$boundaryId}";
 		$content = $this->getJsonRequestContent($httpMethod,$uri);
 
 		if(!isset($content['code']))  var_dump($content);

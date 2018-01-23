@@ -15,23 +15,22 @@ use App\Http\Controllers\Controller;
 use App\Models\CurrentUser;
 use App\Services\NotificationLogService;
 use App\Http\JsonView\User\NotificationLog\GetLogsJsonView;
+use Illuminate\Http\Request;
+
 class NotificationLogController extends Controller
 {
 
-    /**
-     * @param int $boundaryId
-     * @param int $limit
-     * @param string $orderTypeString
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function getLogs(int $boundaryId = 0, int $limit = DefaultValues::QUERY_DEFAULT_LIMIT, $orderTypeString = QueryOrderTypes::DESCENDING){
-
-        if(!is_numeric($boundaryId)) return $this->responseParameterErrorJsonViewWithDebugMessage("Boundary id {$boundaryId} is not numeric.");
-        if(!is_numeric($limit)) return $this->responseParameterErrorJsonViewWithDebugMessage("Limit {$limit} is not numeric. ");
-        if($orderTypeString != QueryOrderTypes::DESCENDING && $orderTypeString != QueryOrderTypes::ASCENDING)
-            return $this->responseParameterErrorJsonViewWithDebugMessage("Order type {$orderTypeString} is not valid value. ");
+	/**
+	 * @param Request $request
+	 * @param int $boundaryId
+	 * @return \Illuminate\Http\JsonResponse
+	 */
+    public function getList(Request $request,int $boundaryId = 0){
+	    $limit = $request->get('limit',DefaultValues::QUERY_DEFAULT_LIMIT);
+	    $orderTypeString = $request->get('order',QueryOrderTypes::DESCENDING);
+	    $listType = $request->get('listType','user');
         $userId = $this->getCurrentUserId();
-        $serviceResult = (new NotificationLogService())->getLogs($userId,$boundaryId,$limit,$orderTypeString);
+        $serviceResult = (new NotificationLogService())->getList($userId,$boundaryId,$listType,$limit,$orderTypeString);
         return $this->responseJson(new GetLogsJsonView($serviceResult));
     }
 }

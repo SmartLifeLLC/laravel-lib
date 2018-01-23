@@ -23,10 +23,10 @@ class FeedAllReactionTest extends TestCase
 
 	public function testGetList(){
 		$model = new ContributionAllReaction();
-		$feedId = 26;
+		$contributionId = 26;
 		$page = 2;
 		$limit = 2;
-		$result = $model->getList($this->userId,$feedId,$page,$limit);
+		$result = $model->getList($this->userId,$contributionId,$page,$limit);
 		var_dump($result);
 	}
 }

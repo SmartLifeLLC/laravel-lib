@@ -35,7 +35,7 @@ class ReactionControllerTest extends TestCase
 					'review_post_id'=>$feedId,
 					'review_post_reaction_type'=>$reactionType,
 				];
-			$uri = "/feed/reaction/do";
+			$uri = "/contribution/reaction/do";
 
 			$content = $this->getJsonRequestContent($httpMethod,$uri,$data);
 			var_dump($content);
@@ -52,8 +52,8 @@ class ReactionControllerTest extends TestCase
 		$feedId = 39;
 
 
-		$httpMethod = HttpMethod::POST;
-		$uri = "/feed/reaction/do";
+		$httpMethod = HttpMethod::PUT;
+		$uri = "/reaction/edit/1";
 		$data =
 			[
 				'review_post_id'=>$feedId,
@@ -73,7 +73,7 @@ class ReactionControllerTest extends TestCase
 		parent::prepareUserWithIdAndAuth(62,"AUTH_5a61c3b9d2ef0");
 
 		$httpMethod = HttpMethod::POST;
-		$uri = "/feed/reaction/cancel";
+		$uri = "/reaction/edit/0";
 		$data =
 			[
 				'review_post_id'=>15,
@@ -93,7 +93,7 @@ class ReactionControllerTest extends TestCase
 		$feedId = 25;
 		$type = ContributionReactionType::ALL;
 		$page = 1;
-		$uri = "/feed/reaction/list/".$feedId."?type={$type}&page={$page}";
+		$uri = "/contribution/reaction/list/".$feedId."?type={$type}&page={$page}";
 		$content = $this->getJsonRequestContent($httpMethod,$uri);
 		if(!isset($content['code']))  var_dump($content);
 		$this->printResponse($content);

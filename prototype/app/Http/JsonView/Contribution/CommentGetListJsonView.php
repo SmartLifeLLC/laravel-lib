@@ -6,7 +6,7 @@
  * Time: 20:17
  */
 
-namespace App\Http\JsonView\Feed;
+namespace App\Http\JsonView\Contribution;
 
 
 use App\Constants\SystemConstants;

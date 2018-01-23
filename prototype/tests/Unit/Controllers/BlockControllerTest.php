@@ -42,8 +42,9 @@ class BlockControllerTest extends TestCase
         $httpMethod = HttpMethod::PUT;
         $targetUserId = 49;
         $isOn = "1";
-        $uri = "/user/block/{$targetUserId}/{$isOn}";
+        $uri = "/user/block/edit/{$targetUserId}/{$isOn}";
         $content = $this->getJsonRequestContent($httpMethod,$uri);
+        $this->printResponse($content);
         $this->assertEquals(StatusCode::SUCCESS,$content["code"]);
     }
 

@@ -11,17 +11,19 @@ namespace App\Http\Controllers;
 
 use App\Constants\DefaultValues;
 use App\Constants\ContributionFeelingType;
+use App\Constants\ListType;
 use App\Constants\PostParametersValidationRule;
 use App\Http\Controllers\Controller;
-use App\Http\JsonView\Feed\ContributionCreateJsonView;
-use App\Http\JsonView\Feed\ContributionDeleteJsonView;
-use App\Http\JsonView\Feed\ContributionEditJsonView;
-use App\Http\JsonView\Feed\ContributionFindJsonView;
-use App\Http\JsonView\Feed\ContributionDetailJsonView;
-use App\Http\JsonView\Feed\ContributionListJsonView;
+use App\Http\JsonView\Contribution\ContributionCreateJsonView;
+use App\Http\JsonView\Contribution\ContributionDeleteJsonView;
+use App\Http\JsonView\Contribution\ContributionEditJsonView;
+use App\Http\JsonView\Contribution\ContributionFindJsonView;
+use App\Http\JsonView\Contribution\ContributionDetailJsonView;
+use App\Http\JsonView\Contribution\ContributionListJsonView;
 use App\Models\CurrentUser;
 use App\Services\ContributionService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ContributionController extends Controller
 {
@@ -44,29 +46,29 @@ class ContributionController extends Controller
 		$imageKeys = array("image1", "image2", "image3", "image4");
 		$images = [];
 		foreach($imageKeys as $key) {
-			$image = $request->get($key);
+			$image = $request->file($key);
 			if(!empty($image)){
 				$images[] = $image;
 			}
 		}
 		$userId = $this->getCurrentUserId();
 		$productId = $request->get('product_item_id');
-		$feedFeelingType = ($request->get('is_consent') == 0)?ContributionFeelingType::NEGATIVE:ContributionFeelingType::POSITIVE;
+		$contributionFeelingType = ($request->get('is_consent') == 0)?ContributionFeelingType::NEGATIVE:ContributionFeelingType::POSITIVE;
 		$content =  $request->get('text');
-		$haveReactionTargetFeedId = $request->get('to_having_reaction_review_post_id',null);
-		$serviceResult = (new ContributionService())->create($userId,$productId,$feedFeelingType,$content,$images,$haveReactionTargetFeedId);
+		$haveReactionTargetContributionId = $request->get('to_having_reaction_review_post_id',null);
+		$serviceResult = (new ContributionService())->create($userId,$productId,$contributionFeelingType,$content,$images,$haveReactionTargetContributionId);
 		return $this->responseJson(new ContributionCreateJsonView($serviceResult));
 	}
 
 	/**
 	 * @param Request $request
-	 * @param $feedId
+	 * @param $contributionId
 	 * @return \Illuminate\Http\JsonResponse
 	 */
-	public function edit(Request $request,$feedId){
+	public function edit(Request $request, $contributionId){
 		$userId = $this->getCurrentUserId();
 		$content =  $request->get('text');
-		$serviceResult = (new ContributionService())->edit($userId,$feedId,$content);
+		$serviceResult = (new ContributionService())->edit($userId,$contributionId,$content);
 		return $this->responseJson(new ContributionEditJsonView($serviceResult));
 	}
 
@@ -75,31 +77,52 @@ class ContributionController extends Controller
 	 * @param $productId
 	 * @return \Illuminate\Http\JsonResponse
 	 */
-	public function find($productId){
+	public function check($productId){
 		$userId = $this->getCurrentUserId();
 		$serviceResult = (new ContributionService())->find($userId,$productId);
 		return $this->responseJson(new ContributionFindJsonView($serviceResult));
-
 	}
 
 	/**
-	 * @param $feedId
+	 * @param $contributionId
 	 * @return \Illuminate\Http\JsonResponse
 	 */
-	public function detail($feedId){
+	public function get($contributionId){
 		$userId = $this->getCurrentUserId();
-		$serviceResult = (new ContributionService())->detail($userId,$feedId);
+		$serviceResult = (new ContributionService())->detail($userId,$contributionId);
 		return $this->responseJson(new  ContributionDetailJsonView($serviceResult));
 	}
 
 	/**
-	 * @param $feedId
+	 * @param $contributionId
 	 * @return \Illuminate\Http\JsonResponse
 	 */
-	public function delete($feedId){
+	public function delete($contributionId){
 		$userId = $this->getCurrentUserId();
-		$serviceResult = (new ContributionService())->delete($userId,$feedId);
+		$serviceResult = (new ContributionService())->delete($userId,$contributionId);
 		return $this->responseJson(new ContributionDeleteJsonView($serviceResult));
+	}
+
+
+	/**
+	 * @param Request $request
+	 * @param null $targetId
+	 * @return \Illuminate\Http\JsonResponse
+	 */
+	public function list(Request $request, $targetId = null){
+		$listType = $request->get('listType',ListType::CONTRIBUTION_LIST_FEED);
+		switch ($listType){
+			case ListType::CONTRIBUTION_LIST_FEED:
+				return $this->listForFeed($request);break;
+			case ListType::CONTRIBUTION_LIST_USER:
+				return $this->listForOwner($request,$targetId);break;
+			case ListType::CONTRIBUTION_LIST_FOR_USER_INTEREST:
+				return $this->listForOwnerInterest($request,$targetId);break;
+			case ListType::CONTRIBUTION_LIST_FOR_PRODUCT:
+				return $this->listForProduct($request,$targetId);break;
+			default:
+				return $this->responseParameterErrorJsonViewWithDebugMessage("Failed to find list type for {$listType}");
+		}
 	}
 
 	/**

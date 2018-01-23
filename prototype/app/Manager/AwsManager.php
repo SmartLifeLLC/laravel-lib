@@ -56,10 +56,10 @@ class AwsManager
 	/**
 	 * @param String $userId
 	 * @param String $imageCategory
-	 * @param File $file
+	 * @param $file
 	 * @return String
 	 */
-	public function saveImageToS3FromFileGetS3Key(String $userId, String $imageCategory, File $file){
+	public function saveImageToS3FromFileGetS3Key(String $userId, String $imageCategory, $file){
 		$client = $this->getS3Client();
 		$s3key = Util::getS3KeyForImageName($userId,$file->getBasename(),$imageCategory);
 
@@ -71,7 +71,6 @@ class AwsManager
 			'ACL'          => 'public-read',
 			'StorageClass' => 'STANDARD'
 		));
-
 		return $s3key;
 	}
 

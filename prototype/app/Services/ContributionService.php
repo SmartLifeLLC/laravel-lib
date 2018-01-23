@@ -65,7 +65,7 @@ class ContributionService extends BaseService
 			//Save images
 			$imageIds = (new Image())->saveImagesToS3FromFilesGetIds($userId,ImageCategory::CONTRIBUTION,$images);
 
-			//Save feed
+			//Save contribution
 			$contributionId = (new Contribution())->createGetId($userId,$productId,$contributionFeelingType,$content,$imageIds);
 
 			//Update last post date
@@ -82,7 +82,7 @@ class ContributionService extends BaseService
 				(new UpdateReactionCountTask($userId,$contributionId,$productId,ContributionReactionType::HAVE,$isIncrease ))->run();
 			}
 
-			//return service result with feed id
+			//return service result with contribution id
 			return ServiceResult::withResult($contributionId);
 
 		},true);
@@ -141,7 +141,7 @@ class ContributionService extends BaseService
 	public function detail($userId, $contributionId):ServiceResult{
 		return $this->executeTasks(
 			function () use ($userId,$contributionId){
-				//Get Feed Detail
+				//Get contribution detail
 				$contributionDetail = (new Contribution())->getDetail($userId,$contributionId);
 				if($contributionDetail == null)
 					return ServiceResult::withError(StatusCode::FAILED_TO_FIND_CONTRIBUTION);
@@ -295,12 +295,12 @@ class ContributionService extends BaseService
 	 */
 	public function getListForFeed($userId,$page,$limit){
 		return $this->executeTasks(function() use($userId,$page,$limit) {
-			//Get owner ids for feed user
+			//Get owner ids for contribution user
 			$follows = (new Follow())->getFollowUserIds($userId);
-			//Get block list for feed user
+			//Get block list for contribution user
 			$blockList = (new BlockUser())->getBlockAndBlockedUserIds($userId);
 			//Get Featured users
-			$featuredUsers = (new FeaturedSchedule())->getFeaturedUserIds(FeaturedScheduleType::FEEDS);
+			$featuredUsers = (new FeaturedSchedule())->getFeaturedUserIds(FeaturedScheduleType::FEED);
 			$feedUsers = array_merge($follows, $featuredUsers);
 			$feedUsers = array_diff($feedUsers, $blockList);
 			$contributions = (new Contribution())->getListForFeed($userId, $feedUsers, $page, $limit);

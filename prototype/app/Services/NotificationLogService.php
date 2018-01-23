@@ -9,7 +9,9 @@
 namespace App\Services;
 
 
+use App\Constants\ListType;
 use App\Constants\QueryOrderTypes;
+use App\Constants\StatusCode;
 use App\Lib\JSYService\ServiceResult;
 use App\Lib\JSYService\TransactionServiceManager;
 use App\Models\NotificationLog;
@@ -17,16 +19,22 @@ use App\ValueObject\NotificationLogListVO;
 
 class NotificationLogService extends BaseService
 {
-    /**
-     * @param $userId
-     * @param $boundaryId
-     * @param $limit
-     * @param $orderTypeString
-     * @return ServiceResult
-     */
-    public function getLogs($userId, $boundaryId, $limit, $orderTypeString){
+	/**
+	 * @param $userId
+	 * @param $boundaryId
+	 * @param $listType
+	 * @param $limit
+	 * @param $orderTypeString
+	 * @return ServiceResult
+	 */
+    public function getList($userId, $boundaryId, $listType,$limit, $orderTypeString){
         $orderType = new QueryOrderTypes($orderTypeString);
-        return $this->executeTasks($this->_getLogsTasks($userId,$boundaryId,$limit,$orderType),true);
+
+        if($listType == ListType::NOTIFICATION_LOG_USER)
+            return $this->executeTasks($this->_getUserLogsTasks($userId,$boundaryId,$limit,$orderType),true);
+        else
+        	return ServiceResult::withError(StatusCode::UNKNOWN,"Can't find method for list type {$listType}");
+
     }
 
     /**
@@ -36,12 +44,12 @@ class NotificationLogService extends BaseService
      * @param QueryOrderTypes $orderType
      * @return \Closure
      */
-    private function _getLogsTasks($userId,$boundaryId,$limit,QueryOrderTypes $orderType):\Closure{
+    private function _getUserLogsTasks($userId, $boundaryId, $limit, QueryOrderTypes $orderType):\Closure{
         /**
          * @return ServiceResult
          * @throws \TypeError
          */
-        return function() use ($userId,$boundaryId,$limit,$orderType){
+        return function() use ($userId,$boundaryId,$limit,$orderType):ServiceResult{
             $notificationModel = new NotificationLog();
             $count = $notificationModel->getUnreadCount($userId);
             $notificationLogs = $notificationModel->getLogs($userId,$boundaryId,$limit,$orderType);

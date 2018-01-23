@@ -10,7 +10,9 @@ namespace Tests\Unit\Controllers;
 
 
 use App\Constants\HttpMethod;
+use App\Constants\ListType;
 use App\Constants\StatusCode;
+use App\Lib\Util;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
@@ -29,28 +31,34 @@ class ContributionControllerTest extends TestCase
 	public function testCreate(){
 		$httpMethod = HttpMethod::POST;
 		Storage::fake('contribution');
-		$uri = "/feed/contribution/create";
-		$data =
-			[
-				'product_item_id'=>58,
-				'user_id'=>$this->userId,
-				'is_consent'=>1,
-				'text'=>'商品評価',
-				'to_having_reaction_review_post_id'=>null,
-				'image1'=>UploadedFile::fake()->image('test-image.jpg')->size(100)
+		$uri = "/contribution/create";
 
-			];
-		$content = $this->getJsonRequestContent($httpMethod,$uri,$data);
+		for($i = 0 ; $i < 100 ; $i++) {
+			$this->prepareUser();
+			$file = UploadedFile::fake()->image('test-image.png')->size(100);
+			$data =
+				[
+					'product_item_id' => 100,
+					'user_id' => $this->userId,
+					'is_consent' => mt_rand(0,1),
+					'text' => '商品評価 ' . Util::getRandomString(rand(10, 20)),
+					'to_having_reaction_review_post_id' => null,
+					'image1' => $file
 
-		if(!isset($content['code']))  var_dump($content);
-		$this->printResponse($content);
-		//$this->printSQLLog();
-		$this->assertEquals(StatusCode::SUCCESS,$content["code"]);
+				];
+			$content = $this->getJsonRequestContent($httpMethod, $uri, $data);
+			$this->printResponse($content);
+
+		}
+//		if(!isset($content['code']))  var_dump($content);
+//		$this->printResponse($content);
+//		//$this->printSQLLog();
+//		$this->assertEquals(StatusCode::SUCCESS,$content["code"]);
 	}
 
 	public function testEdit(){
 		$httpMethod = HttpMethod::POST;
-		$uri = "/feed/contribution/edit";
+		$uri = "/contribution/edit";
 		$data =
 			[
 
@@ -67,12 +75,10 @@ class ContributionControllerTest extends TestCase
 	}
 
 
-	public function testFind(){
-		$httpMethod = HttpMethod::POST;
-		$uri = "/feed/contribution/find";
-		$data =  ['product_item_id'=>57];
-		$content = $this->getJsonRequestContent($httpMethod,$uri,$data);
-
+	public function testCheck(){
+		$httpMethod = HttpMethod::GET;
+		$uri = "/contribution/check/57";
+		$content = $this->getJsonRequestContent($httpMethod,$uri);
 		if(!isset($content['code']))  var_dump($content);
 		$this->printResponse($content);
 		//$this->printSQLLog();
@@ -82,7 +88,7 @@ class ContributionControllerTest extends TestCase
 	public function testGetDetail(){
 		$httpMethod = HttpMethod::GET;
 		$feedId = 31;
-		$uri = "/feed/contribution/detail/{$feedId}";
+		$uri = "/contribution/get/{$feedId}";
 		$content = $this->getJsonRequestContent($httpMethod,$uri);
 		if(!isset($content['code']))  var_dump($content);
 		$this->printResponse($content);
@@ -93,7 +99,8 @@ class ContributionControllerTest extends TestCase
 	public function testGetListForProduct(){
 		$httpMethod = HttpMethod::GET;
 		$productId = 101;
-		$uri = "/contribution/list/product/{$productId}?page=1&feeling=positive";
+		$listType = ListType::CONTRIBUTION_LIST_FOR_PRODUCT;
+		$uri = "/contribution/list/{$productId}?page=1&feeling=positive&listType={$listType}";
 
 		$content = $this->getJsonRequestContent($httpMethod,$uri);
 		if(!isset($content['code']))  var_dump($content);
@@ -102,10 +109,12 @@ class ContributionControllerTest extends TestCase
 		$this->assertEquals(StatusCode::SUCCESS,$content["code"]);
 	}
 
-	public function testGetInterestList(){
+	public function testGetListForInterest(){
 		$httpMethod = HttpMethod::GET;
 		$ownerId = 6577;
-		$uri = "/contribution/list/interest/{$ownerId}?page=1";
+		$listType = ListType::CONTRIBUTION_LIST_FOR_USER_INTEREST;
+
+		$uri = "/contribution/list/{$ownerId}?page=1&listType={$listType}";
 
 		$content = $this->getJsonRequestContent($httpMethod,$uri);
 		if(!isset($content['code']))  var_dump($content);
@@ -114,10 +123,11 @@ class ContributionControllerTest extends TestCase
 		$this->assertEquals(StatusCode::SUCCESS,$content["code"]);
 	}
 
-	public function testGetListForOwner(){
+	public function testGetListForUser(){
 		$httpMethod = HttpMethod::GET;
 		$ownerId = 48;
-		$uri = "/contribution/list/owner/{$ownerId}?page=1";
+		$listType = ListType::CONTRIBUTION_LIST_USER;
+		$uri = "/contribution/list/{$ownerId}?page=1&listType={$listType}";
 		$content = $this->getJsonRequestContent($httpMethod,$uri);
 		//var_dump($content);
 		if(!isset($content['code']))  var_dump($content);
@@ -129,7 +139,8 @@ class ContributionControllerTest extends TestCase
 
 	public function testGetListForFeed(){
 		$httpMethod = HttpMethod::GET;
-		$uri = "/contribution/list/feed?page=1";
+		$listType = ListType::CONTRIBUTION_LIST_FEED;
+		$uri = "/contribution/list/page=1&listType={$listType}";
 		$content = $this->getJsonRequestContent($httpMethod,$uri);
 		if(!isset($content['code']))  var_dump($content);
 		$this->printResponse($content);
@@ -143,7 +154,7 @@ class ContributionControllerTest extends TestCase
 		$this->prepareUserWithIdAndAuth($userId,$auth);
 		$httpMethod = HttpMethod::DELETE;
 		$feedId = 33;
-		$uri = "/feed/contribution/delete/{$feedId}";
+		$uri = "/contribution/delete/{$feedId}";
 		$content = $this->getJsonRequestContent($httpMethod,$uri);
 		if(!isset($content['code']))  var_dump($content);
 		$this->printResponse($content);

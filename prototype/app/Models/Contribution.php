@@ -10,6 +10,7 @@ namespace App\Models;
 
 
 use App\Constants\ContributionFeelingType;
+use App\Constants\DateTimeFormat;
 use DB;
 class Contribution extends DBModel
 {
@@ -24,7 +25,13 @@ class Contribution extends DBModel
 	 * @return mixed
 	 */
 	public function createGetId($userId, $productId, $contributionFeelingType, $content, $imageIds){
-		$data = ['user_id'=>$userId,'product_id'=>$productId,'feeling'=>$contributionFeelingType,'content'=>$content];
+		$data = [
+					'user_id'=>$userId,
+					'product_id'=>$productId,
+					'feeling'=>$contributionFeelingType,
+					'content'=>$content,
+					'modified_at'=>date(DateTimeFormat::General)
+				];
 		for($i = 0 ; $i < count($imageIds) ; $i ++){
 			$data['image_id_'.$i] = $imageIds[$i];
 		}

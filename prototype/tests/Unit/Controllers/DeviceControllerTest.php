@@ -20,9 +20,9 @@ class DeviceControllerTest extends TestCase
     }
 
 
-    public function testRegisterDevice(){
+    public function testCreateDevice(){
         $httpMethod = HttpMethod::POST;
-        $uri = "/user/device/register";
+        $uri = "/user/device/create";
         $data = ['device_uuid'=>"TESTS_DEVICE_UUID",'notification_token'=>uniqid(),'device_type'=>'iPhone'];
         $content = $this->getJsonRequestContent($httpMethod,$uri,$data);
         $this->printResponse($content);
