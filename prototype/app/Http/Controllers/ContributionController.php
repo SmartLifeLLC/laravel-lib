@@ -123,41 +123,8 @@ class ContributionController extends Controller
 				return $this->listForProduct($request,$targetId);break;
 			default:
 				return $this->responseParameterErrorJsonViewWithDebugMessage("Failed to find list type for {$listType}");
-				Config::
 		}
 	}
-
-
-
-	/**
-	 * @SWG\Get(
-	 *     path="/contribution/list/{targetId}",
-	 *     description="投稿一覧を取得する",
-	 *     produces={"application/json"},
-	 *     tags={"contribution"},
-	 *     @SWG\Parameter(
-	 *         name="targetId",
-	 *         description="各リストタイプ別の検索ID",
-	 *         in="path",
-	 *         required=true,
-	 *         type="int"
-	 *     ),
-	 *     @SWG\Response(
-	 *         response=200,
-	 *         description="Success"
-	 *     ),
-	 *     @SWG\Response(
-	 *         response=404,
-	 *         description="Parameter error"
-	 *     ),
-	 *     @SWG\Response(
-	 *         response=403,
-	 *         description="Auth error",
-	 *     ),
-	 * )
-	 */
-
-
 
 	/**
 	 * @param Request $request

@@ -62,7 +62,7 @@ final class StatusMessage
             case StatusCode::REVIEW_DELETE_ERROR : return "9222";               // レビュー削除エラー
             case StatusCode::COMMENT_POST_ERROR : return "9230";                // コメント投稿エラー
             case StatusCode::COMMENT_DELETE_ERROR : return "9231";              // コメント削除エラー
-            case StatusCode::FOLLOW_ADD_ERROR : return "9240";                  // フォロー追加エラー
+            case StatusCode::FOLLOW_ADD_ERROR : return "フォロー追加エラー";                  // フォロー追加エラー
             case StatusCode::FOLLOW_REMOVE_ERROR : return "9241";               // フォロー解除エラー
             case StatusCode::FOLLOWER_ADD_ERROR : return "9242";                // フォロワー追加エラー
             case StatusCode::FOLLOWER_REMOVE_ERROR : return "9243";             // フォロワー解除エラー

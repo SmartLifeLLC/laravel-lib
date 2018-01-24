@@ -54,7 +54,6 @@ class FollowService extends BaseService
             }
             $switchFollowResultVO = $followModel->switchFollow($userId, $targetUserId,$isFollowOn);
             $switchFollowerResultVO = $followerModel->switchFollower($targetUserId,$userId,$isFollowOn);
-
             return  ServiceResult::withResult($switchFollowResultVO,SwitchFollowResultVO::class);
         };
     }

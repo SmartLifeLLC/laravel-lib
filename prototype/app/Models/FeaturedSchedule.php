@@ -48,7 +48,6 @@ class FeaturedSchedule extends DBModel
 	 */
     public function getFeaturedUserIds($type){
     	$currentDate = date(DateTimeFormat::General);
-    	var_dump($currentDate);
     	$result =
 		    $this
 		    ->select('featured_users.user_id')

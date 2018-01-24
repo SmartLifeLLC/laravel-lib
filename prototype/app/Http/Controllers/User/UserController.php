@@ -14,6 +14,7 @@ use App\Constants\PostParametersValidationRule;
 use App\Http\Controllers\Controller;
 use App\Http\JsonView\User\Block\BlockListJsonView;
 use App\Http\JsonView\User\Page\PageInfoJsonView;
+use App\Http\JsonView\User\User\NotificationSettingEditJsonView;
 use App\Http\JsonView\User\User\NotificationSettingJsonView;
 use App\Http\JsonView\User\User\UserEditJsonView;
 use App\Http\JsonView\User\User\UserInfoJsonVIew;
@@ -30,13 +31,26 @@ class UserController extends Controller
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function getInfo(){
+    public function getDetail(){
         $userId = $this->getCurrentUserId();
         $serviceResult = (new UserService())->getUserInfo($userId);
         $jsonView = new UserInfoJsonVIew($serviceResult);
         return $this->responseJson($jsonView);
     }
 
+	/**
+	 * @param Request $request
+	 * @param null $ownerId
+	 * @return \Illuminate\Http\JsonResponse
+	 */
+	public function getPageInfo(Request $request, $ownerId = null){
+		//Swagger send undefined when parameter is null
+		if($ownerId === "undefined" || $ownerId == 0) $ownerId = null;
+		$userId = $this->getCurrentUserId();
+		if($ownerId == null) $ownerId = $userId;
+		$serviceResult = (new UserService())->getPageInfo($userId,$ownerId);
+		return $this->responseJson(new PageInfoJsonView($serviceResult));
+	}
 
 
 
@@ -68,17 +82,6 @@ class UserController extends Controller
     }
 
 	/**
-	 * @param $ownerId
-	 * @return \Illuminate\Http\JsonResponse
-	 */
-    public function pageInfo($ownerId = null){
-	    $userId = $this->getCurrentUserId();
-		if($ownerId == null) $ownerId = $userId;
-	    $serviceResult = (new UserService())->getPageInfo($userId,$ownerId);
-	    return $this->responseJson(new PageInfoJsonView($serviceResult));
-    }
-
-	/**
 	 * @return \Illuminate\Http\JsonResponse
 	 */
 	public function getNotificationSettings(){
@@ -102,6 +105,6 @@ class UserController extends Controller
 	    $saveData->setIsPermittedInterest($request->can_notice_interest);
 	    $saveData->setIsPermittedLike($request->can_notice_like);
 		$serviceResult = (new UserService())->updateNotifyProperties($userId,$saveData);
-		return $this->responseJson(new NotificationSettingJsonView($serviceResult));
+		return $this->responseJson(new NotificationSettingEditJsonView($serviceResult));
     }
 }

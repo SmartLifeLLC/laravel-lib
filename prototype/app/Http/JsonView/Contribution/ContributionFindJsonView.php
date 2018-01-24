@@ -22,12 +22,12 @@ class ContributionFindJsonView extends JsonResponseView
 	{
 		if(empty($this->data['entity'])){
 			$this->body = [
-				'is_review_posted' => false,
+				'is_review_posted' => 0,
 				'review_post_id' => 0
 			];
 		}else{
 			$this->body = [
-				'is_review_posted' => true,
+				'is_review_posted' => 1,
 				'review_post_id' => $this->data['entity']->id
 			];
 		}

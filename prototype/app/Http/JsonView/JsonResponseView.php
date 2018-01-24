@@ -11,12 +11,15 @@ namespace App\Http\JsonView;
 
 
 use App\Constants\ContributionFeelingType;
+use App\Constants\DefaultValues;
+use App\Constants\HeaderKeys;
 use App\Constants\SystemConstants;
 use App\Constants\Gender;
 use App\Constants\StatusCode;
 use App\Constants\StatusMessage;
 use App\Constants\Versions;
 use App\Lib\JSYService\ServiceResult;
+use App\Models\CurrentHeaders;
 use Psy\Util\Json;
 
 /**
@@ -28,8 +31,7 @@ use Psy\Util\Json;
  */
 abstract class JsonResponseView
 {
-
-    /**
+	/**
      * @var
      */
     private $status;
@@ -92,11 +94,10 @@ abstract class JsonResponseView
     }
 
 
-
-    /**
-     * JsonResponseView constructor.
-     * @param ServiceResult $serviceResult
-     */
+	/**
+	 * JsonResponseView constructor.
+	 * @param ServiceResult $serviceResult
+	 */
     public function __construct(ServiceResult $serviceResult) {
         $this->code = $serviceResult->getStatusCode();
         if($serviceResult->getResult() === null){
@@ -128,19 +129,27 @@ abstract class JsonResponseView
         ];
     }
 
-    /**
-     * @return array
-     */
+	/**
+	 * @return array
+	 */
     public function getResponse(){
-        if($this->data !== null)  $this->createBody();
+	    $needEncode  = (CurrentHeaders::shared()->get(HeaderKeys::REACT_SWAGGER_KEY) == DefaultValues::SWAGGER_TOKEN)?false:true;
+
+
+	    if($this->data !== null)  $this->createBody();
         else $this->createErrorBody();
 
+        if($needEncode){
+        	$body = base64_encode(json_encode($this->body));
+        }else {
+        	$body = $this->body;
+        }
         $response =
             [
                 'version'=>Versions::CURRENT,
                 'status'=>$this->status,
                 'code'=>$this->code,
-                'body'=>base64_encode(json_encode($this->body))
+                'body'=>$body
             ];
         return $response;
     }
@@ -216,5 +225,13 @@ abstract class JsonResponseView
 	    }
 	    return $imageURLs;
 
+    }
+
+	/**
+	 * @param $text
+	 * @return string
+	 */
+    public function getNotNullString($text){
+    	return ($text === null)?"":$text;
     }
 }

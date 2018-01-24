@@ -10,8 +10,11 @@ namespace App\Http\Controllers\User;
 
 
 use App\Constants\DefaultValues;
+use App\Constants\ListType;
+use App\Constants\StatusCode;
 use App\Http\Controllers\Controller;
 use App\Constants\PostParametersValidationRule;
+use App\Http\JsonView\JsonResponseErrorView;
 use App\Http\JsonView\User\FollowOrFollowerGetListJsonView;
 use App\Models\CurrentUser;
 use App\Lib\Logger;
@@ -22,6 +25,7 @@ use Illuminate\Support\Facades\Log;
 
 class FollowController extends Controller
 {
+
 
 
     /**
@@ -70,6 +74,8 @@ class FollowController extends Controller
         }
 
         $serviceResult = (new FollowService())->switchFollowStatus($userId,$targetUserId,$isFollowOn);
+        if($serviceResult->getResult() == null)
+            return $this->responseJson(new JsonResponseErrorView(StatusCode::FOLLOW_ADD_ERROR,"Failed following check block status or user id exists"));
 
         $switchFollowStatusVO = $serviceResult->getResult();
 
@@ -80,6 +86,23 @@ class FollowController extends Controller
         $jsonView = new SwitchUserFollowStatusJsonView($serviceResult);
         return $this->responseJson($jsonView);
     }
+
+
+	/**
+	 * @param Request $request
+	 * @param null $ownerId
+	 * @return \Illuminate\Http\JsonResponse
+	 */
+	public function getFriendList(Request $request,$ownerId = null){
+		if($ownerId == 0 || $ownerId == 'undefined') $ownerId = null;
+		$type = $request->get('listType' ,ListType::FRIEND_LIST_FOLLOW);
+		if($type == ListType::FRIEND_LIST_FOLLOW){
+			return $this->getFollowList($request,$ownerId);
+		}else{
+			return $this->getFollowerList($request,$ownerId);
+		}
+	}
+
 
 	/**
 	 * @param Request $request

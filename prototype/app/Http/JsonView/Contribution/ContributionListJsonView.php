@@ -66,7 +66,7 @@ class ContributionListJsonView extends JsonResponseView
 								'user_name' => $contribution['user_name'],
 								'profile_image_url' => $this->getImageURLForS3Key($contribution['profile_image_s3_key']),
 								'cover_image_url' => $this->getImageURLForS3Key($contribution['cover_image_s3_key']),
-								'introduction' => $contribution['description'],
+								'introduction' => $this->getNotNullString($contribution['description']),
 								'gender' => $this->getGenderString($contribution['gender'],$contribution['gender_published_flag']),
 								'birthday' => $this->getBirthdayString($contribution['birthday'],$contribution['birthday_published_flag']),
 								"is_following" => $this->getBinaryValue($contribution['follow_id'])

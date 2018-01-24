@@ -25,5 +25,6 @@ final class DefaultValues
         const QUERY_DEFAULT_LIMIT_FOR_JANCODE = 100;
         const QUERY_DEFAULT_PAGE = 1;
         const PRODUCT_N_GRAM_SIZE = 2;
+        const SWAGGER_TOKEN = "rt";
 
 }

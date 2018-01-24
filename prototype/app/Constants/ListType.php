@@ -17,4 +17,6 @@ class ListType
 	const CONTRIBUTION_LIST_FOR_USER_INTEREST = "interest";
 	const CONTRIBUTION_LIST_USER = "user";
 	const CONTRIBUTION_LIST_FEED = "feed";
+	const FRIEND_LIST_FOLLOW = "follow";
+	const FRIEND_LIST_FOLLOWER = "follower";
 }

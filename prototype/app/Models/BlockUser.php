@@ -112,7 +112,7 @@ class BlockUser extends DBModel
 			$this
 			->select(
 				'users.id as user_id',
-				'users.description as introduction',
+				'users.description',
 				'images.s3_key as profile_image_s3_key',
 				'users.user_name'
 			)

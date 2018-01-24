@@ -24,11 +24,11 @@ class DeviceService extends BaseService
      * @param $deviceType
      * @return ServiceResult
      */
-    public function register($userId,$deviceUuid,$notificationToken,$deviceType):ServiceResult{
+    public function updateToken($userId, $deviceUuid, $notificationToken, $deviceType):ServiceResult{
         return $this->executeTasks(
             function() use ($userId,$deviceUuid,$notificationToken,$deviceType) {
                 $deviceModel = new Device();
-                $result = $deviceModel->register($userId,$deviceUuid,$notificationToken,$deviceType);
+                $result = $deviceModel->updateToken($userId,$deviceUuid,$notificationToken,$deviceType);
             return ServiceResult::withResult($result);
         });
     }
