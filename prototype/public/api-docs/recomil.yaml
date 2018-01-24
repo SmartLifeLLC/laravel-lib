@@ -288,7 +288,7 @@ paths:
     get:
       tags:
         - User
-      summary: "ユーザの通知設定リストを取得"
+      summary: "ユーザの通知設定を取得"
       produces:
         - application/json
       responses:
@@ -396,6 +396,15 @@ paths:
             - user
             - feed
           required: true
+        - in: query
+          name: feelingType
+          description: "商品ごとの投稿を取得する場合(listTypeが productの場合), 投稿のfeelingタイプ別の投稿取得"
+          format: string
+          enum:
+            - all
+            - positive
+            - negative
+          required: false
         - $ref: '#/parameters/Page'
         - $ref: '#/parameters/Limit'
       responses:
@@ -534,9 +543,23 @@ paths:
             format: int64
             required: true
             description: "投稿ID"
+          - in: query
+            name: type
+            type: integer
+            format: int32
+            enum:
+              - 0
+              - 1
+              - 2
+              - 3
+            required: true
+            description: "0:全て,1:いいね、2:気になる、3:持ってる"
+          - $ref: '#/parameters/Page'
+          - $ref: '#/parameters/Limit'
           responses:
             '200':
               description: Success
+
   '/reaction/edit/{isReactionOn}':
     put:
       tags:

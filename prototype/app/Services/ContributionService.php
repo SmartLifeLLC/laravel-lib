@@ -230,14 +230,14 @@ class ContributionService extends BaseService
 	/**
 	 * @param $userId
 	 * @param $productId
-	 * @param $type
+	 * @param $feelingType
 	 * @param $page
 	 * @param $limit
 	 * @return ServiceResult
 	 */
-	public function getListForProduct($userId,$productId,$type,$page,$limit):ServiceResult{
-		return $this->executeTasks(function() use ($userId,$productId,$type,$page,$limit){
-			$contributions = (new Contribution())->getListForProduct($userId,$productId,$type,$page,$limit);
+	public function getListForProduct($userId, $productId, $feelingType, $page, $limit):ServiceResult{
+		return $this->executeTasks(function() use ($userId,$productId,$feelingType,$page,$limit){
+			$contributions = (new Contribution())->getListForProduct($userId,$productId,$feelingType,$page,$limit);
 			$productCategories = (new ProductsProductCategory())->getProductCategories($productId);
 			$result = new ContributionListResultVO($contributions,$productCategories);
 			return ServiceResult::withResult($result);

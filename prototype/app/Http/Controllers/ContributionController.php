@@ -135,8 +135,8 @@ class ContributionController extends Controller
 		$userId = $this->getCurrentUserId();
 		$page = $request->get('page',DefaultValues::QUERY_DEFAULT_PAGE);
 		$limit = $request->get('limit',DefaultValues::QUERY_DEFAULT_LIMIT);
-		$type = $request->get('type',ContributionFeelingType::ALL);
-		$serviceResult = (new ContributionService())->getListForProduct($userId,$productId,$type,$page,$limit);
+		$feelingType = $request->get('feelingType',ContributionFeelingType::ALL);
+		$serviceResult = (new ContributionService())->getListForProduct($userId,$productId,$feelingType,$page,$limit);
 		return $this->responseJson(new ContributionListJsonView($serviceResult));
 	}
 
