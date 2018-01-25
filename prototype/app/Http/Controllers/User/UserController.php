@@ -31,30 +31,15 @@ class UserController extends Controller
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function getDetail(){
+    public function getInfo(){
         $userId = $this->getCurrentUserId();
         $serviceResult = (new UserService())->getUserInfo($userId);
         $jsonView = new UserInfoJsonVIew($serviceResult);
         return $this->responseJson($jsonView);
     }
 
-	/**
-	 * @param Request $request
-	 * @param null $ownerId
-	 * @return \Illuminate\Http\JsonResponse
-	 */
-	public function getPageInfo(Request $request, $ownerId = null){
-		//Swagger send undefined when parameter is null
-		if($ownerId === "undefined" || $ownerId == 0) $ownerId = null;
-		$userId = $this->getCurrentUserId();
-		if($ownerId == null) $ownerId = $userId;
-		$serviceResult = (new UserService())->getPageInfo($userId,$ownerId);
-		return $this->responseJson(new PageInfoJsonView($serviceResult));
-	}
 
-
-
-    public function editProfile(Request $request){
+    public function editInfo(Request $request){
 		$userId = $this->getCurrentUserId();
 	    $validator = $this->createValidator(
 	    	$request->all(),
@@ -80,6 +65,21 @@ class UserController extends Controller
 	    return $this->responseJson(new UserEditJsonView($serviceResult));
 
     }
+
+	/**
+	 * @param Request $request
+	 * @param null $ownerId
+	 * @return \Illuminate\Http\JsonResponse
+	 */
+	public function getPageInfo(Request $request, $ownerId = null){
+		//Swagger send undefined when parameter is null
+		if($ownerId === "undefined" || $ownerId == 0) $ownerId = null;
+		$userId = $this->getCurrentUserId();
+		if($ownerId == null) $ownerId = $userId;
+		$serviceResult = (new UserService())->getPageInfo($userId,$ownerId);
+		return $this->responseJson(new PageInfoJsonView($serviceResult));
+	}
+
 
 	/**
 	 * @return \Illuminate\Http\JsonResponse
