@@ -32,9 +32,11 @@ schemes:
   - http
   - https
 security:
-  - APIKeyHeaderSwagger: []
+  - APIKeyHeaderVersion: []
+    APIKeyHeaderSwagger: []
     APIKeyHeaderUserId: []
     APIKeyHeaderAuth: []
+
 paths:
   #user
   '/user/auth/get/{facebookId}':
@@ -726,6 +728,10 @@ securityDefinitions:
     type: apiKey
     in: header
     name: react-swagger
+  APIKeyHeaderVersion:
+      type: apiKey
+      in: header
+      name: x-react-api-version
   APIKeyHeaderUserId:
     type: apiKey
     in: header

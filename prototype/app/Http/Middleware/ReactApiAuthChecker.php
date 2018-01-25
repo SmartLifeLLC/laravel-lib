@@ -64,6 +64,9 @@ class ReactApiAuthChecker
         $currentUser->setUserId($userId);
         $currentUser->setAuth($auth);
 
-        return $next($request);
+	    return $next($request)
+		    ->header('Access-Control-Allow-Origin', '*')
+		    ->header('Access-Control-Allow-Headers','react-auth');
+
     }
 }
