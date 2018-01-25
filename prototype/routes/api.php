@@ -42,13 +42,13 @@ Route::group(
 
 	    //Follow and follower list
 	    Route::get('/friend/list/{ownerId?}','FollowController@getFriendList');
-	    
+
 		//device info for notification token
         Route::post('/device/create','DeviceController@create');
 
 
         //User setting
-        Route::get('/notification-setting/list','UserController@getNotificationSettings');
+        Route::get('/notification-setting/get','UserController@getNotificationSettings');
 	    Route::put('/notification-setting/edit','UserController@editNotificationSettings');
 
 	    //User detail
