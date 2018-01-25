@@ -59,7 +59,7 @@ Route::group(
 	    Route::put('/info/edit','UserController@editProfile');
 
 	    //Page - base
-	    Route::get('/page/get/{ownerId?}','UserController@pageInfo');
+	    Route::get('/page/get/{ownerId?}','UserController@getPageInfo');
 
     });
 
