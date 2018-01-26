@@ -237,6 +237,7 @@ class ContributionService extends BaseService
 	 */
 	public function getListForProduct($userId, $productId, $feelingType, $page, $limit):ServiceResult{
 		return $this->executeTasks(function() use ($userId,$productId,$feelingType,$page,$limit){
+			$blockList = (new BlockUser())->getBlockUsers($userId);
 			$contributions = (new Contribution())->getListForProduct($userId,$productId,$feelingType,$page,$limit);
 			$productCategories = (new ProductsProductCategory())->getProductCategories($productId);
 			$result = new ContributionListResultVO($contributions,$productCategories);
@@ -274,6 +275,12 @@ class ContributionService extends BaseService
 	 */
 	public function getListForOwner($userId,$ownerId,$page,$limit):ServiceResult{
 		return $this->executeTasks(function () use ($userId,$ownerId,$page,$limit){
+			if($userId != $ownerId) {
+				$isBlockStatus = (new BlockUser())->isBlockStatus($userId,$ownerId);
+				if($isBlockStatus)
+					return ServiceResult::withBlockStatusError($userId,$ownerId);
+			}
+
 			$contributions = (new Contribution())->getListForOwner($userId,$ownerId,$page,$limit);
 			$productIds = [];
 			foreach($contributions as $contribution){

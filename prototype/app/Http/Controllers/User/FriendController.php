@@ -19,11 +19,12 @@ use App\Http\JsonView\User\FollowOrFollowerGetListJsonView;
 use App\Models\CurrentUser;
 use App\Lib\Logger;
 use App\Services\FollowService;
+use App\Services\NotificationService;
 use Illuminate\Http\Request;
 use App\Http\JsonView\User\Follow\SwitchUserFollowStatusJsonView;
 use Illuminate\Support\Facades\Log;
 
-class FollowController extends Controller
+class FriendController extends Controller
 {
 
 
@@ -74,16 +75,17 @@ class FollowController extends Controller
         }
 
         $serviceResult = (new FollowService())->switchFollowStatus($userId,$targetUserId,$isFollowOn);
-        if($serviceResult->getResult() == null)
-            return $this->responseJson(new JsonResponseErrorView(StatusCode::FOLLOW_ADD_ERROR,"Failed following check block status or user id exists"));
-
+	    $jsonView = new SwitchUserFollowStatusJsonView($serviceResult);
+        if($serviceResult->getResult() == null){
+        	return $this->responseJson($jsonView);
+        }
         $switchFollowStatusVO = $serviceResult->getResult();
 
         //todo : send notification;
         if($switchFollowStatusVO->isFirstTime()){
-            Logger::warning("Implement follow notification system.");
+	        (new NotificationService())->sendNotification();
         }
-        $jsonView = new SwitchUserFollowStatusJsonView($serviceResult);
+
         return $this->responseJson($jsonView);
     }
 
@@ -133,7 +135,6 @@ class FollowController extends Controller
 		$limit = $request->get('limit',DefaultValues::QUERY_DEFAULT_LIMIT);
 		$serviceResult = (new FollowService())->getFollowerList($userId,$ownerId,$page,$limit);
 		return $this->responseJson(new FollowOrFollowerGetListJsonView($serviceResult));
-
 	}
 
 

@@ -39,8 +39,9 @@ class BlockControllerTest extends TestCase
     }
 
     public function testSwitchBlockStatus(){
+    	$this->prepareUserWithIdAndAuth(48,1);
         $httpMethod = HttpMethod::PUT;
-        $targetUserId = 49;
+        $targetUserId = 50;
         $isOn = "1";
         $uri = "/user/block/edit/{$targetUserId}/{$isOn}";
         $content = $this->getJsonRequestContent($httpMethod,$uri);

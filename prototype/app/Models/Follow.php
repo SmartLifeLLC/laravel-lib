@@ -3,21 +3,25 @@
 namespace App\Models;
 
 use App\Constants\DateTimeFormat;
+use App\Models\Common\UserContentsCountBuilderImplements;
+use App\Models\Common\UserContentsCountBuilderInterface;
 use App\ValueObject\SwitchFollowResultVO;
 use Illuminate\Database\Eloquent\Model;
 use DB;
-class Follow extends DBModel
+class Follow extends DBModel implements UserContentsCountBuilderInterface
 {
 
+	use UserContentsCountBuilderImplements;
     protected $guarded = [];
 
 
 	/**
 	 * @param $userId
+	 * @param array $blockList
 	 * @return int
 	 */
-	public function getCountForUser($userId):int{
-		return self::where('user_id',$userId)->where('is_on',true)->count();
+	public function getCountForUser($userId,$blockList = []):int{
+		return $this->getCountQueryForUser($userId,$blockList)->where('is_on',true)->count();
 	}
 
 	/**

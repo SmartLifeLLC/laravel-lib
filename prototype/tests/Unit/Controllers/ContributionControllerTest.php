@@ -140,7 +140,7 @@ class ContributionControllerTest extends TestCase
 	public function testGetListForFeed(){
 		$httpMethod = HttpMethod::GET;
 		$listType = ListType::CONTRIBUTION_LIST_FEED;
-		$uri = "/contribution/list/page=1&listType={$listType}";
+		$uri = "/contribution/list/62?listType={$listType}";
 		$content = $this->getJsonRequestContent($httpMethod,$uri);
 		if(!isset($content['code']))  var_dump($content);
 		$this->printResponse($content);

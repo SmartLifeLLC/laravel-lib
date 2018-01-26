@@ -69,8 +69,9 @@ class UserControllerTest extends TestCase
 
 
     public function testGetPageInfo(){
+    	$this->prepareUserWithIdAndAuth(50,"AUTH_5a61c35655e8e");
 	    $httpMethod = HttpMethod::GET;
-	    $uri = "/user/page/get";
+	    $uri = "/user/page/get/48";
 	    $content = $this->getJsonRequestContent($httpMethod,$uri);
 	    if(!isset($content['code']))  var_dump($content);
 	    $this->printResponse($content);

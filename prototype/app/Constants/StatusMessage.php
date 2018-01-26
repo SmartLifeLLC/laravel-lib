@@ -74,7 +74,7 @@ final class StatusMessage
             case StatusCode::REACTION_ADD_ERROR : return "9270";                // リアクション追加エラー
             case StatusCode::REACTION_REMOVE_ERROR : return "9271";             // リアクション解除エラー
             case StatusCode::DEVICE_TOKEN_CREATE_ERROR : return "9280";         // デバイストークン登録エラー
-            case StatusCode::USER_BLOCKED : return "認証されていないユーザです。";         // デバイストークン登録エラー
+            case StatusCode::NOT_ALLOWED_USER : return "認証されていないユーザです。";         // デバイストークン登録エラー
 
 
             case StatusCode::FACEBOOK_TOKEN_API_ERROR : return "Facebook ログインエラー";

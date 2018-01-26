@@ -38,10 +38,10 @@ Route::group(
 
 
         //Switch user Follow status
-        Route::put('/friend/edit/{targetUserId}/{isFollowOn}','FollowController@switchUserFollowStatus');
+        Route::put('/friend/edit/{targetUserId}/{isFollowOn}','FriendController@switchUserFollowStatus');
 
 	    //Follow and follower list
-	    Route::get('/friend/list/{ownerId?}','FollowController@getFriendList');
+	    Route::get('/friend/list/{ownerId?}','FriendController@getFriendList');
 
 		//device info for notification token
         Route::post('/device/create','DeviceController@create');

@@ -20,6 +20,7 @@ use App\Http\JsonView\Contribution\ContributionEditJsonView;
 use App\Http\JsonView\Contribution\ContributionFindJsonView;
 use App\Http\JsonView\Contribution\ContributionDetailJsonView;
 use App\Http\JsonView\Contribution\ContributionListJsonView;
+use App\Models\BlockUser;
 use App\Models\CurrentUser;
 use App\Services\ContributionService;
 use Illuminate\Http\Request;
