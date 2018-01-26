@@ -22,6 +22,7 @@ class GetListOnAppInitJsonView extends JsonResponseView
 
     	$result = [];
 	    foreach ($this->data as $data){
+	    	$data = (array) $data;
 	    	$user =
 			    [
 				    "id" => $data['id'],
