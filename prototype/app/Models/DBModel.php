@@ -37,4 +37,21 @@ class DBModel extends Model
     	$current = $offset + $limit;
 	    return ($current < $totalCount)?true:false;
     }
+
+	/**
+	 * @param $hashData
+	 * @param $key
+	 * @return array
+	 */
+    public function getArrayWithoutKey($hashData,$key):array {
+	    //Make id array
+	    $arrayData = array_map(function($item) use ($key) {
+	    	if(is_array($item))
+		        return  $item[$key];
+	    	else {
+			    return $item->{$key};
+		    }
+	    }, $hashData);
+	    return $arrayData;
+    }
 }

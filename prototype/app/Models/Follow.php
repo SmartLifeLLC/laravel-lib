@@ -117,6 +117,6 @@ class Follow extends DBModel implements UserContentsCountBuilderInterface
     public function getFollowUserIds($userId){
     	$result =  $this->where('user_id',$userId)->select('target_user_id')->get();
     	if(empty($result)) return [];
-    	return array_values($result->toArray());
+    	return array_values($this->getArrayWithoutKey($result->toArray(),'target_user_id'));
     }
 }

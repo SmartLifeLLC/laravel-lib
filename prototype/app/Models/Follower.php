@@ -48,7 +48,7 @@ class Follower extends DBModel implements UserContentsCountBuilderInterface
 				's3_key',
 				'user_name',
 				'users.id as user_id',
-				'users.description as introduction',
+				'users.description',
 				'follows.is_on as is_follow'])
 				->where('followers.user_id',$ownerId)
 				->leftJoin('users','users.id','=','followers.target_user_id')

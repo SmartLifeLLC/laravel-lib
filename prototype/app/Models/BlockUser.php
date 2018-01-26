@@ -148,9 +148,7 @@ class BlockUser extends DBModel
 		if(empty($blockUsers)) return [];
 
 		//Make id array
-		$arrayData = array_map(function($item) {
-			return  $item->user_id;
-		}, $blockUsers);
+		$arrayData = $this->getArrayWithoutKey($blockUsers,'user_id');
 		return $arrayData;
 
 	}

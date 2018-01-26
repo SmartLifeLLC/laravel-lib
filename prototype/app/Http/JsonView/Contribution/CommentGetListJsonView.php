@@ -32,7 +32,7 @@ class CommentGetListJsonView extends JsonResponseView
 					'id'                    => $entity->id,
 					'product_item_id'       => $entity->product_id,
 					'user_id'               => $entity->user_id,
-					'review_post_id'        => $entity->contribution_id,
+					'contribution_id'        => $entity->contribution_id,
 					'text'                  => $entity->content,
 					'created_at'            => $entity->created_at,
 					'updated_ad'            => $entity->updated_at,
@@ -42,7 +42,7 @@ class CommentGetListJsonView extends JsonResponseView
 								'user_name'         => $entity->user_name,
 								'profile_image_url' => $this->getImageURLForS3Key($entity->profile_image_s3_key),
 								'cover_image_url'   => $this->getImageURLForS3Key($entity->cover_image_s3_key),
-								'introduction'      => $entity->introduction,
+								'introduction'      => $entity->description,
 								'gender'            => $gender,
 								'birthday'          => $birthday
 							]

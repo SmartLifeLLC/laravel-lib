@@ -16,7 +16,7 @@ class CommentDeleteJsonView extends JsonResponseView
 	function createBody()
 	{
 		$this->body = [
-			'review_post_comment_id'=>$this->data['comment_id'],
+			'contribution_comment_id'=>$this->data['comment_id'],
 			'user_id' => $this->data['user_id'],
 			'message' => "レビュー投稿コメントの削除が正常に完了しました。"
 		];

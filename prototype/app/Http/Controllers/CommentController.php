@@ -34,7 +34,7 @@ class CommentController extends Controller
 
 		//parameters
 		$userId = $this->getCurrentUserId();
-		$contributionId = $request->get('review_post_id');
+		$contributionId = $request->get('contribution_id');
 		$content = $request->get('text');
 		$serviceResult = (new CommentService())->create($userId,$contributionId,$content);
 		return $this->responseJson(new CommentCreateJsonView($serviceResult));

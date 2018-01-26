@@ -109,7 +109,7 @@ class ContributionService extends BaseService
 			$contributionEntity->content = $content;
 			$contributionEntity->save();
 			$contributionEntity->modified_at = date(DateTimeFormat::General);
-			$result = ['user_id'=>$userId,'review_post_id'=>$contributionId,'message'=>"レビュー投稿の編集が正常に完了しました"];
+			$result = ['user_id'=>$userId,'contribution_id'=>$contributionId,'message'=>"レビュー投稿の編集が正常に完了しました"];
 			return ServiceResult::withResult($result);
 
 		},true);

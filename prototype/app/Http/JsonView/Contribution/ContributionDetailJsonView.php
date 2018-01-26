@@ -26,7 +26,7 @@ class ContributionDetailJsonView extends JsonResponseView
 		$imageUrls = $this->getImageURLs($contribution['image_id_0'],$contribution['image_id_1'],$contribution['image_id_2'],$contribution['image_id_3']);
 		$body =
 			[
-				"review_post" =>
+				"contribution" =>
 					[
 						'id' => $contribution['contribution_id'],
 						'text' => $contribution['content'],
@@ -39,11 +39,11 @@ class ContributionDetailJsonView extends JsonResponseView
 						'have_reaction_count'=> $contribution['have_reaction_count'],
 						'comment_num' => (int) $contribution['comment_count'],
 						'image_urls' => $imageUrls,
-						'review_post_id' => $contribution['id'],
+						'contribution_id' => $contribution['id'],
 						'is_like' => $this->getBinaryValue($contribution['contribution_like_reaction_id']),
 						'is_interest' => $this->getBinaryValue($contribution['contribution_interest_reaction_id']),
 						'is_having' => $this->getBinaryValue($contribution['contribution_have_reaction_id']),
-						"is_review_posted" => $this->getBinaryValue($contribution['my_contribution_id']),
+						"is_contributed" => $this->getBinaryValue($contribution['my_contribution_id']),
 						'post_user_info' =>
 							[
 								'user_id' => $contribution['user_id'],
@@ -63,7 +63,7 @@ class ContributionDetailJsonView extends JsonResponseView
 						"name" => $product['display_name'],
 						"text" => "",
 						"price" => $product['price'],
-						"review_post_num" => $product['contribution_count'],
+						"contribution_num" => $product['contribution_count'],
 						"consent_num" => $product['positive_count'],
 						"refusal_num" => $product['negative_count'],
 						"categories" => $categories,

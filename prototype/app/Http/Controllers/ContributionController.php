@@ -57,7 +57,6 @@ class ContributionController extends Controller
 		$productId = $request->get('product_item_id');
 		$contributionFeelingType = ($request->get('is_consent') == 0)?ContributionFeelingType::NEGATIVE:ContributionFeelingType::POSITIVE;
 		$content =  $request->get('text');
-		$haveReactionTargetContributionId = $request->get('to_having_reaction_review_post_id',null);
 		$serviceResult = (new ContributionService())->create($userId,$productId,$contributionFeelingType,$content,$images,$haveReactionTargetContributionId);
 		return $this->responseJson(new ContributionCreateJsonView($serviceResult));
 	}

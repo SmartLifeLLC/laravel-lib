@@ -29,7 +29,7 @@ class CommentControllerTest extends TestCase
 		$data =
 			[
 				'product_item_id'=>51,
-				'review_post_id'=>31,
+				'contribution_id'=>31,
 				'user_id'=>$this->userId,
 				'is_consent'=>1,
 				'text'=>'商品評価2',

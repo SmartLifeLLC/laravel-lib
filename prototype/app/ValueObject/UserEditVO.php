@@ -23,6 +23,8 @@ class UserEditVO
 	private $coverImage;
 	private $mailAddress;
 	private $saveData = [];
+	private $address;
+
 
 	/**
 	 * @return mixed
@@ -169,6 +171,18 @@ class UserEditVO
 			$this->saveData['description'] = $description;
 		$this->description = $description;
 	}
+
+	/**
+	 * @param mixed $address
+	 */
+	public function setAddress($address): void
+	{
+		if(!empty($address))
+			$this->saveData['address'] = $address;
+		$this->address = $address;
+	}
+
+
 
 	/**
 	 * @return mixed

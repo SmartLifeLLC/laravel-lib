@@ -19,6 +19,12 @@ class GetListOnAppInitJsonView extends JsonResponseView
     protected $data;
     function createBody()
     {
+
+	    foreach ($this->data as &$data){
+		    $data->profile_image_url = $this->getNotNullString($data->profile_image_s3_key);
+		    $data->is_following = false;
+		    $data->is_followered = false;
+	    }
         $this->body = ['recommend_users' => $this->data];
     }
 }

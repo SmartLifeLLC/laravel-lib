@@ -52,7 +52,7 @@ final class StatusCode
         const    READ_ERROR = "9200";                        // 各情報取得エラー
         const    USER_READ_ERROR = "9201";                   // 会員情報取得エラー（存在しない会員ID）
         const    LOGIN_ERROR = "9210";                       // ログインエラー
-        const    REVIEW_POST_ERROR = "9220";                 // レビュー投稿エラー
+        const    CONTRIBUTION_ERROR = "9220";                 // レビュー投稿エラー
         const    REVIEW_UPDATE_ERROR = "9221";               // レビュー編集エラー
         const    REVIEW_DELETE_ERROR = "9222";               // レビュー削除エラー
         const    COMMENT_POST_ERROR = "9230";                // コメント投稿エラー

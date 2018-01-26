@@ -31,11 +31,6 @@ class FeaturedService extends BaseService
     private function _getFeaturedUsersForInitStartTask(int $userId):\Closure{
         return function () use ($userId){
             $result = (new FeaturedSchedule())->getFeaturedUsers($userId,date(DateTimeFormat::General),FeaturedScheduleType::INIT_START);
-            foreach ($result as &$data){
-                $data->profile_image_url = (empty($data->profile_image_url))?"":$data->profile_image_url;
-                $data->is_following = false;
-                $data->is_followerd = false;
-            }
             $serviceResult = ServiceResult::withResult($result);
             return $serviceResult;
         };

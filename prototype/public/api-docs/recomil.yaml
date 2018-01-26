@@ -581,14 +581,14 @@ paths:
           - 1
 
       - in: formData
-        name: review_post_id
+        name: contribution_id
         type: integer
         format: int645
         required: true
         description: "投稿ID"
 
       - in: formData
-        name: review_post_reaction_type
+        name: contribution_reaction_type
         type: integer
         format: int64
         required: true
@@ -627,12 +627,12 @@ paths:
       post:
         tags:
           - Comment
-        summary: "投稿{review_post_id}に対する新規コメント投稿"
+        summary: "投稿{contribution_id}に対する新規コメント投稿"
         produces:
         - application/json
         parameters:
         - in: query
-          name: review_post_id
+          name: contribution_id
           type: integer
           format: int64
           required: true
@@ -649,7 +649,7 @@ paths:
       delete:
         tags:
           - Comment
-        summary: "投稿{review_post_id}に対する新規コメント投稿"
+        summary: "投稿{contribution_id}に対する新規コメント投稿"
         produces:
         - application/json
         parameters:

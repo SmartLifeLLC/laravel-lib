@@ -28,9 +28,8 @@ class FollowOrFollowerGetListJsonView extends JsonResponseView
 			$user['id'] = $entity->user_id;
 			$user['user_name'] = $entity->user_name;
 			$user['profile_image_url'] = Util::getS3CdnUrl($entity->s3_key);
-			$user['introduction'] = $entity->introduction;
+			$user['introduction'] = $entity->description;
 			$user['is_following'] = ($entity->is_follow == 1)?1:0;
-			$user['is_followerd'] = ($entity->is_follower == 1)?1:0;
 			$list [] = $user;
 		}
 

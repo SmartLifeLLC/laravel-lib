@@ -60,6 +60,8 @@ class UserController extends Controller
 		$userEditVo->setMailAddress($request->get('mail_address',null));
 		$userEditVo->setDescription($request->get('description',null));
 		$userEditVo->setCoverImage($request->get('cover_image',null));
+		$userEditVo->setDescription($request->get('description',null));
+		$userEditVo->setAddress($request->get('address',null));
 		$userEditVo->setProfileImage($request->get('profile_image',null));
 	    $serviceResult = (new UserService())->edit($userId,$userEditVo);
 	    return $this->responseJson(new UserEditJsonView($serviceResult));
@@ -99,11 +101,11 @@ class UserController extends Controller
     {
 	    $userId = $this->getCurrentUserId();
 	    $saveData = new UserNotifyPropertiesVO();
-	    $saveData->setIsPermittedComment($request->can_notice_comment);
-	    $saveData->setIsPermittedFollow($request->can_notice_follow);
-	    $saveData->setIsPermittedHave($request->can_notice_having);
-	    $saveData->setIsPermittedInterest($request->can_notice_interest);
-	    $saveData->setIsPermittedLike($request->can_notice_like);
+	    $saveData->setIsPermittedComment($request->is_comment_notification_allowed);
+	    $saveData->setIsPermittedFollow($request->is_follow_notification_allowed);
+	    //$saveData->setIsPermittedHave($request->is_interest_notification_allowed);
+	    $saveData->setIsPermittedInterest($request->is_interest_notification_allowed);
+	    $saveData->setIsPermittedLike($request->is_like_notification_allowed);
 		$serviceResult = (new UserService())->updateNotifyProperties($userId,$saveData);
 		return $this->responseJson(new NotificationSettingEditJsonView($serviceResult));
     }
