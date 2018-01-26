@@ -22,13 +22,13 @@ class GetListOnAppInitJsonView extends JsonResponseView
 
     	$result = [];
 	    foreach ($this->data as $data){
-	    	$data = (array) $data;
+
 	    	$user =
 			    [
-				    "id" => $data['id'],
-                    "user_name" => $data['user_name'],
-                    "introduction" => $data['description'],
-				    "profile_image_url" => $this->getNotNullString($data->profile_image_s3_key),
+				    "id" => $data->id,
+                    "user_name" => $data->user_name,
+                    "introduction" => $data->description,
+				    "profile_image_url" => $this->getImageURLForS3Key($data->profile_image_s3_key),
                     "is_following" => 0
 			    ];
 			$result[] = $user;
