@@ -55,7 +55,7 @@ class ContributionListJsonView extends JsonResponseView
 						'image_urls' => $imageUrls,
 						'is_like' => $this->getBinaryValue($contribution['contribution_like_reaction_id']),
 						'is_interest' => $this->getBinaryValue($contribution['contribution_interest_reaction_id']),
-						'is_having' => $this->getBinaryValue($contribution['contribution_have_reaction_id']),
+						//'is_having' => $this->getBinaryValue($contribution['contribution_have_reaction_id']),
 						"is_contributed" => $this->getBinaryValue($contribution['my_contribution_id']),
 						'user' =>
 							[
