@@ -23,7 +23,7 @@ class FeaturedSchedule extends DBModel
         $query =
             "
                 SELECT
-                  users.id,users.user_name,users.description as introduction, images.s3_key as profile_image_s3_key
+                  users.id,users.user_name,users.description, images.s3_key as profile_image_s3_key
                 FROM featured_schedules
                   LEFT JOIN featured_users ON featured_schedules.id = featured_users.featured_schedule_id
                   LEFT JOIN users on featured_users.user_id = users.id

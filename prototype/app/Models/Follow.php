@@ -39,7 +39,7 @@ class Follow extends DBModel implements UserContentsCountBuilderInterface
 		        'follows.id',
 		        'user_name',
 		        'users.id as user_id',
-		        'users.description as introduction',
+		        'users.description',
 		        'my_follows.is_on as is_follow'])
 	            ->where('follows.user_id',$ownerId)
 	            ->leftJoin('users','users.id','=','follows.target_user_id')
