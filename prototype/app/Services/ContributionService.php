@@ -146,9 +146,8 @@ class ContributionService extends BaseService
 				if($contributionDetail == null)
 					return ServiceResult::withError(StatusCode::FAILED_TO_FIND_CONTRIBUTION);
 
-				$product = (new Product())->getProductDetail($contributionDetail->product_id);
 				$productCategories = (new ProductsProductCategory())->getProductCategories($contributionDetail->product_id);
-				$resultVo = new ContributionDetailResultVO($contributionDetail,$product,$productCategories);
+				$resultVo = new ContributionDetailResultVO($contributionDetail,$productCategories);
 
 				return ServiceResult::withResult($resultVo);
 			}

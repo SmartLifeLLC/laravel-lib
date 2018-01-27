@@ -84,7 +84,7 @@ class ContributionControllerTest extends TestCase
 		$this->assertEquals(StatusCode::SUCCESS,$content["code"]);
 	}
 
-	public function testGetDetail(){
+	public function testGet(){
 		$httpMethod = HttpMethod::GET;
 		$feedId = 31;
 		$uri = "/contribution/get/{$feedId}";

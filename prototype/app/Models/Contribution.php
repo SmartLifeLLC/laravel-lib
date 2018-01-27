@@ -77,51 +77,56 @@ class Contribution extends DBModel implements UserContentsCountBuilderInterface
 	 * @return mixed
 	 */
 	public function getDetail($userId, $contributionId){
-		return $this
-			->select(
-					'contributions.*',
-					'contribution_users.*',
-					'my_contributions.id as my_contribution_id',
-					'contribution_comment_counts.comment_count',
-					'contribution_reaction_counts.contribution_id as contribution_id',
-					'contribution_reaction_counts.total_reaction_count',
-					'contribution_reaction_counts.like_reaction_count',
-					'contribution_reaction_counts.interest_reaction_count',
-					'contribution_reaction_counts.have_reaction_count',
-					'contribution_like_reactions.id as contribution_like_reaction_id',
-					'contribution_interest_reactions.id as contribution_interest_reaction_id ',
-					'contribution_have_reactions.id as contribution_have_reaction_id ',
-					'cover_images.s3_key as cover_image_s3_key',
-					'profile_images.s3_key as profile_image_s3_key',
-					'follows.id as follow_id')
-			->where('contributions.id',$contributionId)
-			->leftJoin('contribution_reaction_counts','contribution_reaction_counts.contribution_id','=','contributions.id')
-			->leftJoin('contribution_comment_counts','contribution_comment_counts.contribution_id','=','contributions.id')
+        $queryBuilder = $this->setListSelectTargets($this);
+        $queryBuilder = $this->setListCommonLeftJoin($queryBuilder,$userId);
+        return $queryBuilder->where('contributions.id',$contributionId)->first();
 
-			->leftJoin('images as image_0','image_0.id','=','contributions.image_id_0')
-			->leftJoin('images as image_1','image_1.id','=','contributions.image_id_1')
-			->leftJoin('images as image_2','image_2.id','=','contributions.image_id_2')
-			->leftJoin('images as image_3','image_3.id','=','contributions.image_id_3')
-			->leftJoin('users as contribution_users','contribution_users.id','=','contributions.user_id')
-			->leftJoin('images as cover_images','cover_images.id','=','contribution_users.cover_image_id')
-			->leftJoin('images as profile_images','profile_images.id','=','contribution_users.profile_image_id')
-			->leftJoin('contributions as my_contributions',function($join) use ($userId,$contributionId){
-				$join->on('my_contributions.user_id','=',DB::raw($userId));
-				$join->on('my_contributions.product_id','=','contributions.product_id');})
-			->leftJoin('follows',function($join) use ($userId){
-				$join->on('follows.user_id','=',DB::raw($userId));
-				$join->on('follows.target_user_id','=','contributions.user_id');})
-			->leftJoin('contribution_have_reactions',function($join) use ($userId,$contributionId){
-				$join->on('contribution_have_reactions.user_id','=',DB::raw($userId));
-				$join->on('contribution_have_reactions.contribution_id','=',DB::raw($contributionId));})
-			->leftJoin('contribution_like_reactions',function($join) use ($userId,$contributionId){
-				$join->on('contribution_like_reactions.user_id','=',DB::raw($userId));
-				$join->on('contribution_like_reactions.contribution_id','=',DB::raw($contributionId));})
-			->leftJoin('contribution_interest_reactions',function($join) use ($userId,$contributionId){
-				$join->on('contribution_interest_reactions.user_id','=',DB::raw($userId));
-				$join->on('contribution_interest_reactions.contribution_id','=',DB::raw($contributionId));
-			})
-			->first();
+//
+//        return $this
+//			->select(
+//					'contributions.*',
+//					'contribution_users.*',
+//					'my_contributions.id as my_contribution_id',
+//					'contribution_comment_counts.comment_count',
+//					'contribution_reaction_counts.contribution_id as contribution_id',
+//					'contribution_reaction_counts.total_reaction_count',
+//					'contribution_reaction_counts.like_reaction_count',
+//					'contribution_reaction_counts.interest_reaction_count',
+//					'contribution_reaction_counts.have_reaction_count',
+//					'contribution_like_reactions.id as contribution_like_reaction_id',
+//					'contribution_interest_reactions.id as contribution_interest_reaction_id ',
+//					'contribution_have_reactions.id as contribution_have_reaction_id ',
+//					'cover_images.s3_key as cover_image_s3_key',
+//					'profile_images.s3_key as profile_image_s3_key',
+//					'follows.id as follow_id')
+//			->where('contributions.id',$contributionId)
+//			->leftJoin('contribution_reaction_counts','contribution_reaction_counts.contribution_id','=','contributions.id')
+//			->leftJoin('contribution_comment_counts','contribution_comment_counts.contribution_id','=','contributions.id')
+//
+//			->leftJoin('images as image_0','image_0.id','=','contributions.image_id_0')
+//			->leftJoin('images as image_1','image_1.id','=','contributions.image_id_1')
+//			->leftJoin('images as image_2','image_2.id','=','contributions.image_id_2')
+//			->leftJoin('images as image_3','image_3.id','=','contributions.image_id_3')
+//			->leftJoin('users as contribution_users','contribution_users.id','=','contributions.user_id')
+//			->leftJoin('images as cover_images','cover_images.id','=','contribution_users.cover_image_id')
+//			->leftJoin('images as profile_images','profile_images.id','=','contribution_users.profile_image_id')
+//			->leftJoin('contributions as my_contributions',function($join) use ($userId,$contributionId){
+//				$join->on('my_contributions.user_id','=',DB::raw($userId));
+//				$join->on('my_contributions.product_id','=','contributions.product_id');})
+//			->leftJoin('follows',function($join) use ($userId){
+//				$join->on('follows.user_id','=',DB::raw($userId));
+//				$join->on('follows.target_user_id','=','contributions.user_id');})
+//			->leftJoin('contribution_have_reactions',function($join) use ($userId,$contributionId){
+//				$join->on('contribution_have_reactions.user_id','=',DB::raw($userId));
+//				$join->on('contribution_have_reactions.contribution_id','=',DB::raw($contributionId));})
+//			->leftJoin('contribution_like_reactions',function($join) use ($userId,$contributionId){
+//				$join->on('contribution_like_reactions.user_id','=',DB::raw($userId));
+//				$join->on('contribution_like_reactions.contribution_id','=',DB::raw($contributionId));})
+//			->leftJoin('contribution_interest_reactions',function($join) use ($userId,$contributionId){
+//				$join->on('contribution_interest_reactions.user_id','=',DB::raw($userId));
+//				$join->on('contribution_interest_reactions.contribution_id','=',DB::raw($contributionId));
+//			})
+//			->first();
 	}
 
 	/**
