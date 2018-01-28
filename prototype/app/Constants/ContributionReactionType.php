@@ -17,4 +17,5 @@ final class ContributionReactionType
 	const INTEREST = 2;
 	const HAVE = 3;
 
+
 }

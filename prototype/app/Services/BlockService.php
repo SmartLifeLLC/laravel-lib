@@ -56,7 +56,7 @@ class BlockService extends BaseService
             if($isBlockOn) {
                 $blockUserModel->createBlock($userId, $targetUserId);
                 $blockedUserModel->createBlocked($targetUserId,$userId);
-
+				//Delete reactions between block users.
             //Cancel block status.
             }else{
                 $blockUserModel->deleteBlock($userId, $targetUserId);

@@ -62,11 +62,12 @@ trait ContributionReactionImplements
 	/**
 	 * @param $userId
 	 * @param $contributionId
+	 * @param $blockUsers
 	 * @param $page
 	 * @param $limit
 	 * @return mixed
 	 */
-	public function getList($userId, $contributionId, $page, $limit){
+	public function getList($userId, $contributionId, $blockUsers, $page, $limit){
 		$targetTableName = $this->getTable();
 		$type = $this->getReactionType();
 		if( $type == ContributionReactionType::ALL){
@@ -74,28 +75,35 @@ trait ContributionReactionImplements
 		}else{
 			$reactionTypeColumn = "{$type} as contribution_reaction_type";
 		}
+		$query =
+			$this
+			->select(
+			"{$targetTableName}.id",
+			"users.id as user_id",
+			"users.user_name",
+			"images.s3_key as profile_image_s3_key",
+            DB::raw("{$reactionTypeColumn}") ,
+			DB::raw("IFNULL(follows.is_on, 0) AS is_following"),
+		    "users.description")
+			->leftJoin('users','users.id','=',"{$targetTableName}.user_id")
+			->leftJoin('images','users.id','=',"images.user_id")
+			->leftJoin('follows',function($join) use ($userId){
+				$join
+					->on('users.id','=','follows.user_id')
+					->where('follows.target_user_id',$userId);})
+			->where('contribution_id',$contributionId)
+			->orderBy('follows.is_on','DESC')
+			->orderBy("{$targetTableName}.created_at","DESC")
+			->offset($this->getOffset($limit,$page))
+			->limit($limit);
+
+		if(!empty($blockUsers)) {
+			$blockUsersString = implode(',',$blockUsers);
+			$query->whereRaw(DB::raw("NOT EXISTS(select * from users as block_users where block_users.id in ({$blockUsersString}) and users.id = block_users.id)"));
+		}
 
 
-		$query = "
-		SELECT
-  			users.id,
-  			users.user_name,
-  			images.s3_key as profile_image_s3_key,
-  			{$reactionTypeColumn} ,
-  			IFNULL(follows.is_on, 0) AS is_following,
-  			users.description
-		FROM
-  			{$targetTableName}
-  		LEFT JOIN users ON {$targetTableName}.user_id = users.id
-  		LEFT JOIN images ON users.id = images.user_id
-  		LEFT JOIN follows ON users.id = follows.user_id AND follows.target_user_id = ?
-			WHERE contribution_id = ?
-		ORDER BY follows.is_on DESC, {$targetTableName}.created_at DESC
-		LIMIT ? OFFSET ?;
-		";
-
-		$offset = $this->getOffset($limit,$page);
-		return DB::select($query,[$userId,$contributionId,$limit,$offset]);
+		return $query->get();
 	}
 
 }

@@ -246,7 +246,7 @@ abstract class JsonResponseView
                         'id' =>$category['product_category_id'],
                         'nm' =>$category['name'],
                         'bs' =>$category['unique_name'],
-                        'pn' =>$category['product_count'],
+                        'pn' =>(int) $category['product_count'],
                     ];
                 $welFormedCategories [] = $welFormedCategory;
             }

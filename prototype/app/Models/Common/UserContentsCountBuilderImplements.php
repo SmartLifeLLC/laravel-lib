@@ -23,6 +23,8 @@ trait UserContentsCountBuilderImplements
 		$tableName = $this->getTable();
 		if(empty($blockUserIds))
 			return self::where("{$tableName}.user_id",$userId);
+
+		//Todo : Change follow query with Not exists.
 		else
 			return  self::where("{$tableName}.user_id",$userId)->whereNotIn($blockColumn,$blockUserIds);
 

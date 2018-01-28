@@ -10,12 +10,12 @@ namespace App\Http\JsonView\Contribution;
 
 
 use App\Http\JsonView\JsonResponseView;
-use App\ValueObject\ReactionGetLIstResultVO;
+use App\ValueObject\ReactionGetListResultVO;
 
 class ReactionGetListJsonView extends JsonResponseView
 {
 	/**
-	 * @var ReactionGetLIstResultVO
+	 * @var ReactionGetListResultVO
 	 */
 	protected $data;
 	function createBody()

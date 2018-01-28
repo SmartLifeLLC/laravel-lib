@@ -63,10 +63,10 @@ class CommentController extends Controller
 		if(empty($contributionId)){
 			return $this->responseParameterErrorJsonViewWithDebugMessage("Contribution id cannot be empty.");
 		}
-
+		$userId = $this->getCurrentUserId();
 		$limit = DefaultValues::QUERY_DEFAULT_LIMIT;
 		$isAsc = true;
-		$serviceResult = (new CommentService())->getList($contributionId,$boundaryId,$isAsc,$limit);
+		$serviceResult = (new CommentService())->getList($userId,$contributionId,$boundaryId,$isAsc,$limit);
 		return $this->responseJson(new CommentGetListJsonView($serviceResult));
 	}
 }
