@@ -89,6 +89,17 @@ class ServiceResult
         return $instance;
     }
 
+	/**
+	 * @param $userId
+	 * @param $targetUserId
+	 * @return ServiceResult
+	 */
+    public static function withBlockStatusError($userId, $targetUserId):ServiceResult
+    {
+	    $instance = new self(null,StatusCode::BLOCK_STATUS_WITH_TARGET_USER,"User {$userId} and {$targetUserId} are in block status");
+	    return $instance;
+    }
+
     /**
      * @param $result
      * @param null $resultClassForCheckingType

@@ -38,28 +38,27 @@ Route::group(
 
 
         //Switch user Follow status
-        Route::put('/follow/edit/{targetUserId}/{isFollowOn}','FollowController@switchUserFollowStatus');
+        Route::put('/friend/edit/{targetUserId}/{isFollowOn}','FriendController@switchUserFollowStatus');
 
 	    //Follow and follower list
-	    Route::get('/follow/list/{ownerId?}','FollowController@getFollowList');
-	    Route::get('/follower/list/{ownerId?}','FollowController@getFollowerList');
+	    Route::get('/friend/list/{ownerId?}','FriendController@getFriendList');
 
 		//device info for notification token
         Route::post('/device/create','DeviceController@create');
 
 
         //User setting
-        Route::get('/notification-setting/list','UserController@getNotificationSettings');
+        Route::get('/notification-setting/get','UserController@getNotificationSettings');
 	    Route::put('/notification-setting/edit','UserController@editNotificationSettings');
 
 	    //User detail
 	    Route::get('/info/get','UserController@getInfo');
 
 	    //Edit
-	    Route::put('/info/edit','UserController@editProfile');
+	    Route::put('/info/edit','UserController@editInfo');
 
 	    //Page - base
-	    Route::get('/page/get/{ownerId?}','UserController@pageInfo');
+	    Route::get('/page/get/{ownerId?}','UserController@getPageInfo');
 
     });
 

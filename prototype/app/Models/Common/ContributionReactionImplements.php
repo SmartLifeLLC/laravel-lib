@@ -80,13 +80,10 @@ trait ContributionReactionImplements
 		SELECT
   			users.id,
   			users.user_name,
-  			(CASE
-    			  WHEN images.s3_key IS NULL THEN \"\"
-    				ELSE CONCAT(?,images.s3_key)
-  			END) AS profile_image_url,
+  			images.s3_key as profile_image_s3_key,
   			{$reactionTypeColumn} ,
   			IFNULL(follows.is_on, 0) AS is_following,
-  			users.description as introduction
+  			users.description
 		FROM
   			{$targetTableName}
   		LEFT JOIN users ON {$targetTableName}.user_id = users.id
@@ -98,7 +95,7 @@ trait ContributionReactionImplements
 		";
 
 		$offset = $this->getOffset($limit,$page);
-		return DB::select($query,[SystemConstants::getCdnHost(),$userId,$contributionId,$limit,$offset]);
+		return DB::select($query,[$userId,$contributionId,$limit,$offset]);
 	}
 
 }

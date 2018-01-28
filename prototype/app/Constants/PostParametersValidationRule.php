@@ -15,7 +15,7 @@ use App\Models\Product;
 class PostParametersValidationRule
 {
 
-	const CONTRIBUTION_COMMENT_ID = "review_post_comment_id";
+	const CONTRIBUTION_COMMENT_ID = "contribution_comment_id";
     const TARGET_USER_ID = "to";
     const USER_ID = "user_id";
     const FACEBOOK_ID = "facebook_id";
@@ -23,9 +23,9 @@ class PostParametersValidationRule
     const DEVICE_UUID = "device_uuid";
     const DEVICE_TYPE = "device_type";
     const PRODUCT_ID = "product_item_id";
-	const REACTION_TYPE = "review_post_reaction_type";
+	const REACTION_TYPE = "contribution_reaction_type";
     const CONTRIBUTION_FEELING_TYPE = "is_consent";
-    const CONTRIBUTION_ID = "review_post_id";
+    const CONTRIBUTION_ID = "contribution_id";
     const CONTRIBUTION_CONTENT = "text";
     const COMMENT_CONTENT = "text";
     const IMAGE1 = "image1";
@@ -70,8 +70,6 @@ class PostParametersValidationRule
             PostParametersValidationRule::RULE_REQUIRED,
 
         PostParametersValidationRule::IMAGE1=>
-            PostParametersValidationRule::RULE_REQUIRED.
-            PostParametersValidationRule::RULE_OR.
             PostParametersValidationRule::RULE_IMAGE,
 
         PostParametersValidationRule::IMAGE2=>

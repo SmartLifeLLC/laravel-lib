@@ -11,7 +11,8 @@ namespace App\Services;
 
 class NotificationService extends BaseService
 {
+	//Todo - Send Notification
+	public function sendNotification(){
 
-
-
+	}
 }

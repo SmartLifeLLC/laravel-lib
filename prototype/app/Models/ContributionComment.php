@@ -58,14 +58,15 @@ class ContributionComment extends DBModel implements DeleteAllForContributionInt
 						'contribution_comments.updated_at',
 						'contribution_comments.user_id',
 						'users.user_name',
-						'users.description as introduction',
+						'users.description',
 						'users.gender',
 						'users.birthday',
 						'users.gender_published_flag',
 						'users.birthday_published_flag',
 						'profile_image.s3_key as profile_image_s3_key',
 						'cover_image.s3_key as cover_image_s3_key',
-						'contributions.product_id'
+						'contributions.product_id',
+						'contributions.id as contribution_id',
 					])
 				->where('contribution_id',$contributionId);
 		if($boundaryId > 0){

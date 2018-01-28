@@ -20,6 +20,7 @@ use App\Http\JsonView\Contribution\ContributionEditJsonView;
 use App\Http\JsonView\Contribution\ContributionFindJsonView;
 use App\Http\JsonView\Contribution\ContributionDetailJsonView;
 use App\Http\JsonView\Contribution\ContributionListJsonView;
+use App\Models\BlockUser;
 use App\Models\CurrentUser;
 use App\Services\ContributionService;
 use Illuminate\Http\Request;
@@ -56,7 +57,6 @@ class ContributionController extends Controller
 		$productId = $request->get('product_item_id');
 		$contributionFeelingType = ($request->get('is_consent') == 0)?ContributionFeelingType::NEGATIVE:ContributionFeelingType::POSITIVE;
 		$content =  $request->get('text');
-		$haveReactionTargetContributionId = $request->get('to_having_reaction_review_post_id',null);
 		$serviceResult = (new ContributionService())->create($userId,$productId,$contributionFeelingType,$content,$images,$haveReactionTargetContributionId);
 		return $this->responseJson(new ContributionCreateJsonView($serviceResult));
 	}
@@ -123,41 +123,8 @@ class ContributionController extends Controller
 				return $this->listForProduct($request,$targetId);break;
 			default:
 				return $this->responseParameterErrorJsonViewWithDebugMessage("Failed to find list type for {$listType}");
-				Config::
 		}
 	}
-
-
-
-	/**
-	 * @SWG\Get(
-	 *     path="/contribution/list/{targetId}",
-	 *     description="投稿一覧を取得する",
-	 *     produces={"application/json"},
-	 *     tags={"contribution"},
-	 *     @SWG\Parameter(
-	 *         name="targetId",
-	 *         description="各リストタイプ別の検索ID",
-	 *         in="path",
-	 *         required=true,
-	 *         type="int"
-	 *     ),
-	 *     @SWG\Response(
-	 *         response=200,
-	 *         description="Success"
-	 *     ),
-	 *     @SWG\Response(
-	 *         response=404,
-	 *         description="Parameter error"
-	 *     ),
-	 *     @SWG\Response(
-	 *         response=403,
-	 *         description="Auth error",
-	 *     ),
-	 * )
-	 */
-
-
 
 	/**
 	 * @param Request $request
@@ -168,8 +135,8 @@ class ContributionController extends Controller
 		$userId = $this->getCurrentUserId();
 		$page = $request->get('page',DefaultValues::QUERY_DEFAULT_PAGE);
 		$limit = $request->get('limit',DefaultValues::QUERY_DEFAULT_LIMIT);
-		$type = $request->get('type',ContributionFeelingType::ALL);
-		$serviceResult = (new ContributionService())->getListForProduct($userId,$productId,$type,$page,$limit);
+		$feelingType = $request->get('feelingType',ContributionFeelingType::ALL);
+		$serviceResult = (new ContributionService())->getListForProduct($userId,$productId,$feelingType,$page,$limit);
 		return $this->responseJson(new ContributionListJsonView($serviceResult));
 	}
 

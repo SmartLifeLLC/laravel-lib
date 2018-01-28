@@ -23,7 +23,6 @@ class CommentController extends Controller
 {
 	public function create(Request $request){
 		$validator = $this->createValidator( $request->all(),
-			PostParametersValidationRule::PRODUCT_ID,
 			PostParametersValidationRule::CONTRIBUTION_ID,
 			PostParametersValidationRule::COMMENT_CONTENT
 		);
@@ -35,7 +34,7 @@ class CommentController extends Controller
 
 		//parameters
 		$userId = $this->getCurrentUserId();
-		$contributionId = $request->get('review_post_id');
+		$contributionId = $request->get('contribution_id');
 		$content = $request->get('text');
 		$serviceResult = (new CommentService())->create($userId,$contributionId,$content);
 		return $this->responseJson(new CommentCreateJsonView($serviceResult));
@@ -50,7 +49,7 @@ class CommentController extends Controller
 			return $this->responseParameterErrorJsonViewWithDebugMessage("Comment id cannot be empty.");
 		}
 
-		$userId = ($this)->getUserId();
+		$userId = $this->getCurrentUserId();
 		$serviceResult = (new CommentService())->delete($userId,$commentId);
 		return $this->responseJson(new CommentDeleteJsonView($serviceResult));
 	}

@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Constants\DefaultValues;
+use App\Constants\HeaderKeys;
 use App\Constants\StatusCode;
 use App\Constants\PostParametersValidationRule;
 use App\Http\JsonView\JsonResponseErrorView;
 use App\Http\JsonView\JsonResponseView;
 use App\Lib\Logger;
+use App\Models\CurrentHeaders;
 use App\Models\CurrentUser;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Http\JsonResponse;
@@ -25,7 +28,7 @@ class Controller extends BaseController
      * @return JsonResponse
      */
     protected function responseJson(JsonResponseView $jsonResponseView):JsonResponse{
-        return response()->json($jsonResponseView->getResponse());
+    	return response()->json($jsonResponseView->getResponse());
     }
 
 

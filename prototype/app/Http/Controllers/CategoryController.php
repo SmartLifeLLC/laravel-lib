@@ -16,6 +16,7 @@ use App\Services\CategoryService;
 class CategoryController extends Controller
 {
 
+
     /**
      * @param int $ancestorId
      * @return \Illuminate\Http\JsonResponse

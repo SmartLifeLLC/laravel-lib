@@ -157,6 +157,7 @@ class ProductService extends BaseService
      */
     public function getProductListByKeyword($keyword,$categoryId,$limit,$page){
         return $this->executeTasks(function() use ($keyword,$categoryId,$limit,$page){
+	        //$keyword = base64_decode($keyword);
             $result = (new Product())->getProductsAndCountByKeyword($keyword,$limit,$page);
             return ServiceResult::withResult($result);
         });

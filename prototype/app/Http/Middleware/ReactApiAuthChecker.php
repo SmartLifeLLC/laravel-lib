@@ -3,7 +3,9 @@
 namespace App\Http\Middleware;
 
 use App\Constants\AuthAllowedUrls;
+use App\Constants\DefaultValues;
 use App\Http\JsonView\User\Auth\UserValidationJsonView;
+use App\Models\CurrentHeaders;
 use App\Models\CurrentUser;
 use App\Constants\HeaderKeys;
 use App\Constants\StatusCode;
@@ -30,7 +32,8 @@ class ReactApiAuthChecker
     public function handle($request, Closure $next)
     {
 
-        $appVersion = $request->header(HeaderKeys::REACT_VERSION);
+    	CurrentHeaders::shared()->setHeaders($request->headers);
+        $appVersion = CurrentHeaders::shared()->get(HeaderKeys::REACT_VERSION);
 
         //旧バージョンではauth検査をしない
         //旧バージョンのユーザがなくなったらなくす。
@@ -43,11 +46,11 @@ class ReactApiAuthChecker
         $currentMethod = mb_strtoupper($request->method());
         foreach ($authAllowedUrls as $urlInfo){
             //Pass the url.
-
             if(strpos($path,$urlInfo['url'])!==false && $urlInfo['method'] == $currentMethod ) {
                 return $next($request);
             }
         }
+
         $userId = $request->header(HeaderKeys::REACT_USER_ID);
         $auth = $request->header(HeaderKeys::REACT_AUTH);
         //Check auth and user limitation for the current http method.
@@ -61,6 +64,9 @@ class ReactApiAuthChecker
         $currentUser->setUserId($userId);
         $currentUser->setAuth($auth);
 
-        return $next($request);
+	    return $next($request)
+		    ->header('Access-Control-Allow-Origin', '*')
+		    ->header('Access-Control-Allow-Headers','react-auth');
+
     }
 }

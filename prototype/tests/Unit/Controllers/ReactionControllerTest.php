@@ -32,8 +32,8 @@ class ReactionControllerTest extends TestCase
 			$feedId = mt_rand(12,18);
 			$data =
 				[
-					'review_post_id'=>$feedId,
-					'review_post_reaction_type'=>$reactionType,
+					'contribution_id'=>$feedId,
+					'contribution_reaction_type'=>$reactionType,
 				];
 			$uri = "/contribution/reaction/do";
 
@@ -56,8 +56,8 @@ class ReactionControllerTest extends TestCase
 		$uri = "/reaction/edit/1";
 		$data =
 			[
-				'review_post_id'=>$feedId,
-				'review_post_reaction_type'=>ContributionReactionType::LIKE,
+				'contribution_id'=>$feedId,
+				'contribution_reaction_type'=>ContributionReactionType::LIKE,
 			];
 		$content = $this->getJsonRequestContent($httpMethod,$uri,$data);
 
@@ -76,8 +76,8 @@ class ReactionControllerTest extends TestCase
 		$uri = "/reaction/edit/0";
 		$data =
 			[
-				'review_post_id'=>15,
-				'review_post_reaction_type'=>ContributionReactionType::INTEREST,
+				'contribution_id'=>15,
+				'contribution_reaction_type'=>ContributionReactionType::INTEREST,
 			];
 		$content = $this->getJsonRequestContent($httpMethod,$uri,$data);
 
@@ -93,7 +93,7 @@ class ReactionControllerTest extends TestCase
 		$feedId = 25;
 		$type = ContributionReactionType::ALL;
 		$page = 1;
-		$uri = "/contribution/reaction/list/".$feedId."?type={$type}&page={$page}";
+		$uri = "/reaction/list/".$feedId."?type={$type}&page={$page}";
 		$content = $this->getJsonRequestContent($httpMethod,$uri);
 		if(!isset($content['code']))  var_dump($content);
 		$this->printResponse($content);

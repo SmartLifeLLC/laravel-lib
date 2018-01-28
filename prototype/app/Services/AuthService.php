@@ -53,7 +53,7 @@ class AuthService extends BaseService
             function () use ($userId, $auth, $requestType) {
                 $userValidationVO = (new User())->getUserValidationByUserId($userId);
                 if($userValidationVO == null || $userValidationVO->getAuth() != $auth) {
-	                $debugMessage = ($userValidationVO == null) ? "User for {$userId} does not exist. " : "Auth does not matched :  {$userValidationVO->getAuth()} vs {$auth} ";
+	                $debugMessage = ($userValidationVO == null) ? "User for id : {{$userId} does not exist. " : "Auth does not matched :  {$userValidationVO->getAuth()} vs {$auth} ";
 	                $statusCode = StatusCode::AUTH_FAILED;
 	                $serviceResult = ServiceResult::withError($statusCode, $debugMessage);
                 }else if($this->_isLimitedUser($requestType,$userValidationVO->getLimitationLevel())){
@@ -121,8 +121,9 @@ class AuthService extends BaseService
 
             //Facebook API ERROR
             if(!empty($facebookResponseVO->getError())){
-                $serviceResult = ServiceResult::withError(StatusCode::FACEBOOK_TOKEN_API_ERROR, $facebookResponseVO->getError());
-                Logger::serviceError(compact('facebookId','facebookToken'),$facebookResponseVO->getError());
+            	$error = json_encode($facebookResponseVO->getError());
+                $serviceResult = ServiceResult::withError(StatusCode::FACEBOOK_TOKEN_API_ERROR, $error);
+                Logger::serviceError(compact('facebookId','facebookToken'),$error);
                 return $serviceResult;
 
                 //Facebook ID does not match

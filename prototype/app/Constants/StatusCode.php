@@ -52,7 +52,7 @@ final class StatusCode
         const    READ_ERROR = "9200";                        // 各情報取得エラー
         const    USER_READ_ERROR = "9201";                   // 会員情報取得エラー（存在しない会員ID）
         const    LOGIN_ERROR = "9210";                       // ログインエラー
-        const    REVIEW_POST_ERROR = "9220";                 // レビュー投稿エラー
+        const    CONTRIBUTION_ERROR = "9220";                 // レビュー投稿エラー
         const    REVIEW_UPDATE_ERROR = "9221";               // レビュー編集エラー
         const    REVIEW_DELETE_ERROR = "9222";               // レビュー削除エラー
         const    COMMENT_POST_ERROR = "9230";                // コメント投稿エラー
@@ -63,7 +63,7 @@ final class StatusCode
         const    FOLLOWER_REMOVE_ERROR = "9243";             // フォロワー解除エラー
         const    BLOCK_ADD_ERROR = "9250";                   // ブロック追加エラー
         const    BLOCK_REMOVE_ERROR = "9251";                // ブロック削除エラー
-        const    USER_BLOCKED = "9252";                      // ブロックされている => 管理者が
+        const    NOT_ALLOWED_USER = "9252";                      // ブロックされている => 管理者が
         const    USER_CREATE_ERROR = "9260";                 // 新規登録エラー
         const    USER_UPDATE_ERROR = "9261";                 // プロフィール編集エラー
         const    USER_SETTING_UPDATE_ERROR = "9262";         // 通知設定編集エラー

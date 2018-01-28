@@ -37,7 +37,7 @@ class UserInfoJsonVIew extends JsonResponseView
                 "gender" => $this->getGenderString($user->gender,$user->gender_published_flag),
                 "birthday" => $this->getBirthdayString($user->birthday,$user->birthday_published_flag),
                 "worked_history" => $user->worked_history,
-                "profile_image_url" => $this->getImageURLForS3Key($user->profile_image_url),
+                "profile_image_url" => $this->getImageURLForS3Key($user->profile_image_s3_key),
                 "cover_image_url" => $this->getImageURLForS3Key($user->cover_image_url),
                 "gender_published_flag" => $user->gender_published_flag,
                 "birthday_published_flag" => $user->birthday_published_flag,

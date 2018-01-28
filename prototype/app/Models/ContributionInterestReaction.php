@@ -14,11 +14,14 @@ use App\Models\Common\DeleteAllForContributionImplements;
 use App\Models\Common\DeleteAllForContributionInterface;
 use App\Models\Common\ContributionReactionImplements;
 use App\Models\Common\ContributionReactionInterface;
+use App\Models\Common\UserContentsCountBuilderImplements;
+use App\Models\Common\UserContentsCountBuilderInterface;
 
-class ContributionInterestReaction extends DBModel implements ContributionReactionInterface,DeleteAllForContributionInterface
+class ContributionInterestReaction extends DBModel implements ContributionReactionInterface,DeleteAllForContributionInterface,UserContentsCountBuilderInterface
 {
 	use ContributionReactionImplements;
 	use DeleteAllForContributionImplements;
+	use UserContentsCountBuilderImplements;
 
 	public function getReactionType()
 	{
@@ -27,9 +30,14 @@ class ContributionInterestReaction extends DBModel implements ContributionReacti
 
 	/**
 	 * @param $userId
+	 * @param $blockList
 	 * @return int
 	 */
-	public function getCountForUser($userId):int{
-		return self::where('user_id',$userId)->count();
+	public function getCountForUser($userId,$blockList):int{
+		$queryBuilder = $this->getCountQueryForUser($userId,$blockList,'contributions.user_id');
+		return
+			$queryBuilder
+			->leftJoin('contributions','contributions.id','=','contribution_interest_reactions.contribution_id')
+			->count('contribution_interest_reactions.id');
 	}
 }

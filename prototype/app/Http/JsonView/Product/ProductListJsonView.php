@@ -27,8 +27,10 @@ class ProductListJsonView extends JsonResponseView
     {
         $products = [];
         foreach($this->data->getProducts() as $product){
-            $product['image_url'] =
-                (!empty($product['s3_key']))?SystemConstants::getCdnHost().$product['s3_key']:"";
+            $product['image_url'] = $this->getImageURLForS3Key($product['s3_key']);
+            $product['contribution_count'] = (int) $product['contribution_count'] ;
+	        $product['positive_count'] = (int) $product['positive_count'] ;
+	        $product['negative_count'] = (int) $product['negative_count'] ;
             unset($product['s3_key']);
             $products[] = $product;
         }

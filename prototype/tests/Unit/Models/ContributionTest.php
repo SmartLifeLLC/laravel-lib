@@ -20,4 +20,22 @@ class ContributionTest extends TestCase
 		$result = (new Contribution())->getDetail($userId,$feedId);
 		var_dump($result);
 	}
+
+	public function testGetCountForUser(){
+		$userId = 48;
+		$blockList = [49,50,902];
+		$result = (new Contribution())->getCountForOwnerInterest($userId,$blockList);
+		$this->printSQLLog();
+		print_r($result);
+	}
+
+	public function testGetContributionListForOwnerInterest(){
+		$userId = 48;
+		$ownerId = 49;
+		$blockList = [];
+		$result = (new Contribution())->getListForOwnerInterest($userId,$ownerId,$blockList,1,10);
+		print_r($result);
+		$this->printSQLLog();
+	}
+
 }

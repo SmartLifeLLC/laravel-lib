@@ -19,6 +19,20 @@ class GetListOnAppInitJsonView extends JsonResponseView
     protected $data;
     function createBody()
     {
-        $this->body = ['recommend_users' => $this->data];
+
+    	$result = [];
+	    foreach ($this->data as $data){
+
+	    	$user =
+			    [
+				    "id" => $data->id,
+                    "user_name" => $data->user_name,
+                    "introduction" => $data->description,
+				    "profile_image_url" => $this->getImageURLForS3Key($data->profile_image_s3_key),
+                    "is_following" => 0
+			    ];
+			$result[] = $user;
+	    }
+        $this->body = ['featured_users' => $result];
     }
 }

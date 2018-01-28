@@ -68,8 +68,8 @@ class ReactionController extends Controller
 		) ;
 		if($validator->fails()) return  $this->responseParameterErrorJsonViewWithValidator($validator);
 		$userId = $this->getCurrentUserId();
-		$contributionId = $request->get('review_post_id');
-		$reactionType = $request->get('review_post_reaction_type');
+		$contributionId = $request->get('contribution_id');
+		$reactionType = $request->get('contribution_reaction_type');
 
 		if($reactionType == ContributionReactionType::HAVE)
 			return $this->responseParameterErrorJsonViewWithDebugMessage("Have reaction no more permitted");

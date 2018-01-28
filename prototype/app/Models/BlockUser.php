@@ -62,35 +62,47 @@ class BlockUser extends DBModel
         return !$result->isEmpty();
     }
 
-    /**
-     * @param $userId
-     * @return \Illuminate\Database\Eloquent\Collection|static[]
-     */
-    public function getBlockAndBockedUsers($userId){
-        $result = self::where('user_id',$userId)->
-                        orWhere('target_user_id',$userId)->get();
-        $blockList = [];
-        if($result->isEmpty())
-            return $blockList;
+	/**
+	 * @param $userId
+	 * @param null $ownerId
+	 * @return array
+	 */
+	public function getBlockAndBockedUsers($userId,$ownerId = null){
+		$query =
+			"SELECT `target_user_id` AS `user_id`
+				FROM `block_users`
+				WHERE `user_id` = {$userId}
+				UNION
+				SELECT `target_user_id` AS `user_id`
+				FROM `blocked_users`
+				WHERE `user_id` = {$userId}";
 
-        foreach($result as $row){
-            if($row->user_id!=$userId)
-                $blockList[]=$row->user_id;
-            if($row->target_user_id!=$userId)
-                $blockList[]=$row->target_user_id;
-        }
-        $blockList = array_unique($blockList);
-        return $blockList;
-    }
+		if($ownerId != null && $userId != $ownerId){
+			$query.= " UNION
+				SELECT `target_user_id` AS `user_id`
+				FROM `block_users`
+				WHERE `user_id` = {$ownerId}
+				UNION SELECT `target_user_id` AS `user_id`
+				      FROM `blocked_users`
+				      WHERE `user_id` = {$ownerId};";
 
-    //
-    /*
-     * QueryBuilderにブロックユーザーの情報を付与する
-     * 1. 自分がブロックしているユーザー(見たくない)
-     * 2. 自分をブロックしているユーザー(見せたくない)
-     */
-    public function setWhereNotInBlockUserIds($userId, $query,$column="user_id") {
-        $blockList = self::getBlockAndBockedUsers($userId);
+
+		}
+		$blockAndBlockedUsers = DB::select($query,[]);
+		if(empty($blockAndBlockedUsers))
+			return [];
+		return $blockAndBlockedUsers;
+	}
+
+	/**
+	 * @param $userId => 現在アプリ使用中のユーザ
+	 * @param $query
+	 * @param null $ownerId => アプリ上表示されているページのオナー（マイページなど
+	 * @param string $column
+	 * @return mixed
+	 */
+    public function setWhereNotInBlockUserIds($userId, $query,$ownerId = null,$column="user_id") {
+        $blockList = $this->getBlockAndBlockedUserIds($userId);
         if(empty($blockList))
             return $query;
 
@@ -100,6 +112,8 @@ class BlockUser extends DBModel
 
 
     /**
+     * このメッソドはユーザが自分のブロックユーザリストを見るためのもの。
+     * 他人のブロックリストをみることはできないので ownerIdの実装はない。
      * @param $userId
      * @param int $page
      * @param int $limit
@@ -112,7 +126,7 @@ class BlockUser extends DBModel
 			$this
 			->select(
 				'users.id as user_id',
-				'users.description as introduction',
+				'users.description',
 				'images.s3_key as profile_image_s3_key',
 				'users.user_name'
 			)
@@ -126,22 +140,16 @@ class BlockUser extends DBModel
 
 	/**
 	 * @param $userId
-	 * @return mixed
+	 * @param null $ownerId
+	 * @return array
 	 */
-	public function getBlockAndBlockedUserIds($userId){
+	public function getBlockAndBlockedUserIds($userId,$ownerId = null){
+		$blockUsers =  $this->getBlockAndBockedUsers($userId,$ownerId);
+		if(empty($blockUsers)) return [];
 
-		$blockUsers =
-			$this
-		    ->select('target_user_id')
-		    ->where('user_id',$userId);
-		$result =
-			DB::table('blocked_users')
-				->select('target_user_id')
-				->where('user_id',$userId)
-				->union($blockUsers)->get();
-
-		if(empty($result)) return [];
-		return array_values($result->toArray());
+		//Make id array
+		$arrayData = $this->getArrayWithoutKey($blockUsers,'user_id');
+		return $arrayData;
 
 	}
 }
