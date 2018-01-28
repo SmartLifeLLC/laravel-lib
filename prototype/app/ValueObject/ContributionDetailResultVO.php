@@ -12,7 +12,6 @@ namespace App\ValueObject;
 class ContributionDetailResultVO
 {
 	private $contribution;
-	private $product;
 	private $productCategories;
 	/**
 	 * @return mixed
@@ -25,38 +24,21 @@ class ContributionDetailResultVO
 	/**
 	 * @return mixed
 	 */
-	public function getProduct()
-	{
-		return $this->product;
-	}
-
-	/**
-	 * @return mixed
-	 */
 	public function getProductCategories()
 	{
 		return $this->productCategories;
 	}
 
-	/**
-	 * @return int
-	 */
-	public function getCommentCount()
-	{
-		return $this->commentCount;
-	}
 
 	/**
 	 * ContributionGetDetailResultVO constructor.
 	 * @param $contribution
-	 * @param $product
 	 * @param $productCategories
 
 	 */
-	public function __construct($contribution, $product, $productCategories)
+	public function __construct($contribution,$productCategories)
 	{
 		$this->contribution = $contribution;
-		$this->product = $product;
 		$this->productCategories = $productCategories;
 	}
 }

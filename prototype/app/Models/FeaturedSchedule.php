@@ -23,7 +23,7 @@ class FeaturedSchedule extends DBModel
         $query =
             "
                 SELECT
-                  users.id,users.user_name,users.description as introduction, concat(?,images.s3_key) as profile_image_url
+                  users.id,users.user_name,users.description, images.s3_key as profile_image_s3_key
                 FROM featured_schedules
                   LEFT JOIN featured_users ON featured_schedules.id = featured_users.featured_schedule_id
                   LEFT JOIN users on featured_users.user_id = users.id
@@ -39,7 +39,7 @@ class FeaturedSchedule extends DBModel
                 ORDER BY featured_users.weight DESC
                       ;
             ";
-        $result = DB::select($query,[$imageHost,$currentDate,$currentDate,$featuredScheduleTypeId,$userId,$userId,$userId,$userId]);
+        $result = DB::select($query,[$currentDate,$currentDate,$featuredScheduleTypeId,$userId,$userId,$userId,$userId]);
         return $result;
     }
 
@@ -48,7 +48,6 @@ class FeaturedSchedule extends DBModel
 	 */
     public function getFeaturedUserIds($type){
     	$currentDate = date(DateTimeFormat::General);
-    	var_dump($currentDate);
     	$result =
 		    $this
 		    ->select('featured_users.user_id')
@@ -57,6 +56,9 @@ class FeaturedSchedule extends DBModel
 		    ->where('end_at','>',$currentDate)
 		    ->where('featured_schedule_type_id',$type)
 		    ->get();
-	    return array_values($result->toArray());
+
+    	if(empty($result))
+    		return [];
+    	return $this->getArrayWithoutKey($result->toArray(),'user_id');
     }
 }

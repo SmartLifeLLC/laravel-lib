@@ -16,6 +16,21 @@ class CategoryListJsonView extends JsonResponseView
     protected $data;
     function createBody()
     {
-        $this->body = $this->data;
+    	$categories = [];
+    	foreach ($this->data as $categoryData){
+    		$category =
+			    [
+		      	    'id'=>$categoryData['id'],
+		            'name'=>$categoryData['name'],
+		            'contribution_count'=>(int) $categoryData['contribution_count'],
+				    'positive_count'=>(int) $categoryData['positive_count'],
+				    'negative_count'=>(int) $categoryData['negative_count'],
+				    'breadcrumb'=>(int) $categoryData['breadcrumb']
+		        ];
+		    $categories[] = $category;
+	    }
+        $this->body = $categories;
+
+
     }
 }

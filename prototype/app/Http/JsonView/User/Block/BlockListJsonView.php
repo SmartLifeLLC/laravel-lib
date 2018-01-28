@@ -22,11 +22,10 @@ class BlockListJsonView extends JsonResponseView
 		foreach ($this->data as $blockUser){
 			$user = [
 				'id' => $blockUser->user_id,
-				'introduction' => $blockUser->description,
-				'is_following' => 0,
-				'is_followerd' => 0,
+				'introduction' => $this->getNotNullString($blockUser->description),
 				'user_name' => $blockUser->user_name,
-				'profile_image_user' => $this->getImageURLForS3Key($blockUser->profile_image_s3_key)
+				'profile_image_user' => $this->getImageURLForS3Key($blockUser->profile_image_s3_key),
+				'is_following' => 0
 			];
 			$this->body[] = $user;
 		}

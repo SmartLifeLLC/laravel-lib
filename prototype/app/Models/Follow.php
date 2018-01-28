@@ -3,21 +3,25 @@
 namespace App\Models;
 
 use App\Constants\DateTimeFormat;
+use App\Models\Common\UserContentsCountBuilderImplements;
+use App\Models\Common\UserContentsCountBuilderInterface;
 use App\ValueObject\SwitchFollowResultVO;
 use Illuminate\Database\Eloquent\Model;
 use DB;
-class Follow extends DBModel
+class Follow extends DBModel implements UserContentsCountBuilderInterface
 {
 
+	use UserContentsCountBuilderImplements;
     protected $guarded = [];
 
 
 	/**
 	 * @param $userId
+	 * @param array $blockList
 	 * @return int
 	 */
-	public function getCountForUser($userId):int{
-		return self::where('user_id',$userId)->where('is_on',true)->count();
+	public function getCountForUser($userId,$blockList = []):int{
+		return $this->getCountQueryForUser($userId,$blockList)->where('is_on',true)->count();
 	}
 
 	/**
@@ -35,7 +39,7 @@ class Follow extends DBModel
 		        'follows.id',
 		        'user_name',
 		        'users.id as user_id',
-		        'users.description as introduction',
+		        'users.description',
 		        'my_follows.is_on as is_follow'])
 	            ->where('follows.user_id',$ownerId)
 	            ->leftJoin('users','users.id','=','follows.target_user_id')
@@ -113,6 +117,6 @@ class Follow extends DBModel
     public function getFollowUserIds($userId){
     	$result =  $this->where('user_id',$userId)->select('target_user_id')->get();
     	if(empty($result)) return [];
-    	return array_values($result->toArray());
+    	return array_values($this->getArrayWithoutKey($result->toArray(),'target_user_id'));
     }
 }

@@ -29,9 +29,6 @@ class ProductController extends Controller
     {
 
         $keyword = $request->get('keyword');
-        if ($keyword != null) {
-            $keyword = base64_decode($keyword);
-        }
         $limit = Util::getValueForKeyOnGetRequest($request, 'limit', DefaultValues::QUERY_DEFAULT_LIMIT);
         $page = Util::getValueForKeyOnGetRequest($request, 'page', DefaultValues::QUERY_DEFAULT_PAGE);
         $categoryId = $request->get('category');
@@ -59,5 +56,9 @@ class ProductController extends Controller
         }
 
         return $this->responseJson(new ProductListJsonView($serviceResult));
+    }
+
+    public function get(Request $request,$productId){
+
     }
 }

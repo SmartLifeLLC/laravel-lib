@@ -18,4 +18,5 @@ final class HeaderKeys
     const REACT_AUTH = "react-auth";
     const FB_TOKEN = "fb-token";
     const REACT_VERSION = "x-react-api-version";
+    const REACT_SWAGGER_KEY = "react-swagger";
 }

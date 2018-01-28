@@ -18,7 +18,7 @@ use App\Constants\PostParametersValidationRule;
 class DeviceController extends Controller
 {
 
-    public function create(Request $request){
+    public function updateToken(Request $request){
         $validator = $this->createValidator(
         	$request->all(),
 	        PostParametersValidationRule::NOTIFICATION_TOKEN,
@@ -29,7 +29,7 @@ class DeviceController extends Controller
         $deviceUuid = $request->device_uuid;
         $deviceType = $request->device_type;
         $userId = $this->getCurrentUserId();
-        $serviceResult = (new DeviceService())->register($userId,$deviceUuid,$notificationToken,$deviceType);
+        $serviceResult = (new DeviceService())->updateToken($userId,$deviceUuid,$notificationToken,$deviceType);
         $jsonView = new DeviceRegisterJsonView($serviceResult);
         return $this->responseJson($jsonView);
     }

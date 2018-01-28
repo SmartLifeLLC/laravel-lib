@@ -3,12 +3,14 @@
 namespace App\Models;
 
 use App\Constants\DateTimeFormat;
+use App\Models\Common\UserContentsCountBuilderImplements;
+use App\Models\Common\UserContentsCountBuilderInterface;
 use App\ValueObject\SwitchFollowerResultVO;
 use Illuminate\Database\Eloquent\Model;
 use DB;
-class Follower extends DBModel
+class Follower extends DBModel implements UserContentsCountBuilderInterface
 {
-
+	use UserContentsCountBuilderImplements;
     protected $guarded = [];
 
     /**
@@ -46,7 +48,7 @@ class Follower extends DBModel
 				's3_key',
 				'user_name',
 				'users.id as user_id',
-				'users.description as introduction',
+				'users.description',
 				'follows.is_on as is_follow'])
 				->where('followers.user_id',$ownerId)
 				->leftJoin('users','users.id','=','followers.target_user_id')
@@ -73,13 +75,17 @@ class Follower extends DBModel
     }
 
 
+
 	/**
 	 * @param $userId
+	 * @param array $blockList
 	 * @return int
 	 */
-	public function getCountForUser($userId):int{
-		return self::where('user_id',$userId)->where('is_on',true)->count();
+	public function getCountForUser($userId,$blockList = []):int{
+		return $this->getCountQueryForUser($userId,$blockList)->where('is_on',true)->count();
 	}
+
+
     /**
      * @param $userId
      * @param $targetUserId

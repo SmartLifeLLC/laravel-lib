@@ -22,7 +22,7 @@ final class StatusMessage
 //            case StatusCode::LOGIN_CONTINUE : return "0211";                    // ログイン継続
 //            case StatusCode::LOGOUT_SUCCESS : return "0212";                    // ログアウト
 //            case StatusCode::USER_LOGOUT : return "0213";                       // 強制ログアウト
-//            case StatusCode::REVIEW_POST_SUCCESS : return "0220";               // レビュー投稿
+//            case StatusCode::CONTRIBUTION_SUCCESS : return "0220";               // レビュー投稿
 //            case StatusCode::REVIEW_UPDATE_SUCCESS : return "0221";             // レビュー編集
 //            case StatusCode::REVIEW_DELETE_SUCCESS : return "0222";             // レビュー削除
 //            case StatusCode::COMMENT_POST_SUCCESS : return "0230";              // コメント投稿
@@ -57,12 +57,12 @@ final class StatusMessage
             case StatusCode::READ_ERROR : return "9200";                        // 各情報取得エラー
             case StatusCode::USER_READ_ERROR : return "9201";                   // 会員情報取得エラー（存在しない会員ID）
             case StatusCode::LOGIN_ERROR : return "9210";                       // ログインエラー
-            case StatusCode::REVIEW_POST_ERROR : return "9220";                 // レビュー投稿エラー
+            case StatusCode::CONTRIBUTION_ERROR : return "9220";                 // レビュー投稿エラー
             case StatusCode::REVIEW_UPDATE_ERROR : return "9221";               // レビュー編集エラー
             case StatusCode::REVIEW_DELETE_ERROR : return "9222";               // レビュー削除エラー
             case StatusCode::COMMENT_POST_ERROR : return "9230";                // コメント投稿エラー
             case StatusCode::COMMENT_DELETE_ERROR : return "9231";              // コメント削除エラー
-            case StatusCode::FOLLOW_ADD_ERROR : return "9240";                  // フォロー追加エラー
+            case StatusCode::FOLLOW_ADD_ERROR : return "フォロー追加エラー";                  // フォロー追加エラー
             case StatusCode::FOLLOW_REMOVE_ERROR : return "9241";               // フォロー解除エラー
             case StatusCode::FOLLOWER_ADD_ERROR : return "9242";                // フォロワー追加エラー
             case StatusCode::FOLLOWER_REMOVE_ERROR : return "9243";             // フォロワー解除エラー
@@ -74,7 +74,7 @@ final class StatusMessage
             case StatusCode::REACTION_ADD_ERROR : return "9270";                // リアクション追加エラー
             case StatusCode::REACTION_REMOVE_ERROR : return "9271";             // リアクション解除エラー
             case StatusCode::DEVICE_TOKEN_CREATE_ERROR : return "9280";         // デバイストークン登録エラー
-            case StatusCode::USER_BLOCKED : return "認証されていないユーザです。";         // デバイストークン登録エラー
+            case StatusCode::NOT_ALLOWED_USER : return "認証されていないユーザです。";         // デバイストークン登録エラー
 
 
             case StatusCode::FACEBOOK_TOKEN_API_ERROR : return "Facebook ログインエラー";

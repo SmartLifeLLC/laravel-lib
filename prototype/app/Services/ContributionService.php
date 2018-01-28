@@ -109,7 +109,7 @@ class ContributionService extends BaseService
 			$contributionEntity->content = $content;
 			$contributionEntity->save();
 			$contributionEntity->modified_at = date(DateTimeFormat::General);
-			$result = ['user_id'=>$userId,'review_post_id'=>$contributionId,'message'=>"レビュー投稿の編集が正常に完了しました"];
+			$result = ['user_id'=>$userId,'contribution_id'=>$contributionId,'message'=>"レビュー投稿の編集が正常に完了しました"];
 			return ServiceResult::withResult($result);
 
 		},true);
@@ -146,9 +146,8 @@ class ContributionService extends BaseService
 				if($contributionDetail == null)
 					return ServiceResult::withError(StatusCode::FAILED_TO_FIND_CONTRIBUTION);
 
-				$product = (new Product())->getProductDetail($contributionDetail->product_id);
 				$productCategories = (new ProductsProductCategory())->getProductCategories($contributionDetail->product_id);
-				$resultVo = new ContributionDetailResultVO($contributionDetail,$product,$productCategories);
+				$resultVo = new ContributionDetailResultVO($contributionDetail,$productCategories);
 
 				return ServiceResult::withResult($resultVo);
 			}
@@ -230,14 +229,15 @@ class ContributionService extends BaseService
 	/**
 	 * @param $userId
 	 * @param $productId
-	 * @param $type
+	 * @param $feelingType
 	 * @param $page
 	 * @param $limit
 	 * @return ServiceResult
 	 */
-	public function getListForProduct($userId,$productId,$type,$page,$limit):ServiceResult{
-		return $this->executeTasks(function() use ($userId,$productId,$type,$page,$limit){
-			$contributions = (new Contribution())->getListForProduct($userId,$productId,$type,$page,$limit);
+	public function getListForProduct($userId, $productId, $feelingType, $page, $limit):ServiceResult{
+		return $this->executeTasks(function() use ($userId,$productId,$feelingType,$page,$limit){
+			$blockList = (new BlockUser())->getBlockUsers($userId);
+			$contributions = (new Contribution())->getListForProduct($userId,$productId,$feelingType,$page,$limit);
 			$productCategories = (new ProductsProductCategory())->getProductCategories($productId);
 			$result = new ContributionListResultVO($contributions,$productCategories);
 			return ServiceResult::withResult($result);
@@ -274,6 +274,12 @@ class ContributionService extends BaseService
 	 */
 	public function getListForOwner($userId,$ownerId,$page,$limit):ServiceResult{
 		return $this->executeTasks(function () use ($userId,$ownerId,$page,$limit){
+			if($userId != $ownerId) {
+				$isBlockStatus = (new BlockUser())->isBlockStatus($userId,$ownerId);
+				if($isBlockStatus)
+					return ServiceResult::withBlockStatusError($userId,$ownerId);
+			}
+
 			$contributions = (new Contribution())->getListForOwner($userId,$ownerId,$page,$limit);
 			$productIds = [];
 			foreach($contributions as $contribution){

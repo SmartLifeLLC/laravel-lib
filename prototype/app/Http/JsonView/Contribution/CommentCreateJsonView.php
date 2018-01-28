@@ -18,7 +18,7 @@ class CommentCreateJsonView extends JsonResponseView
 	function createBody()
 	{
 		$this->body = [
-			'review_post_comment_id'=>$this->data,
+			'contribution_comment_id'=>$this->data,
 			'message' => "コメント投稿に成功しました。"
 		];
 	}

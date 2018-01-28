@@ -79,8 +79,8 @@ class User extends DBModel
                 'gender',
                 'birthday',
                 'worked_history',
-                'cover_images.s3_key as cover_image_url',
-                'profile_images.s3_key as profile_image_url',
+                'cover_images.s3_key as cover_image_s3_key',
+                'profile_images.s3_key as profile_image_s3_key',
                 'gender_published_flag',
                 'birthday_published_flag',
                 'users.created_at',
@@ -173,9 +173,8 @@ class User extends DBModel
 			     ->select(
 			     	    'users.*',
 			            'follows.id as my_follow_id',
-			            'followers.id as my_follower_id',
-			            'profile_images.s3_key as profile_images_s3_key',
-			            'cover_images.s3_key as cover_images_s3_key'
+			            'profile_images.s3_key as profile_image_s3_key',
+			            'cover_images.s3_key as cover_image_s3_key'
 				     )
 			     ->where('users.id',$ownerId)
 			     ->leftJoin('images as profile_images','profile_images.id','=','users.profile_image_id')
@@ -183,9 +182,9 @@ class User extends DBModel
 			     ->leftJoin('follows',function($join) use ($userId,$ownerId){
 			     	$join->on('follows.user_id','=',DB::raw($userId));
 			     	$join->on('follows.target_user_id','=',DB::raw($ownerId));})
-			     ->leftJoin('followers',function($join) use ($userId,$ownerId){
-				     $join->on('followers.user_id','=',DB::raw($userId));
-				     $join->on('followers.target_user_id','=',DB::raw($ownerId));})
+//			     ->leftJoin('followers',function($join) use ($userId,$ownerId){
+//				     $join->on('followers.user_id','=',DB::raw($userId));
+//				     $join->on('followers.target_user_id','=',DB::raw($ownerId));})
 		         ->first();
 
     }

@@ -30,20 +30,19 @@ class PageInfoJsonView extends JsonResponseView
 			[
 				'user_id' => $user['id'],
 				'user_name' => $user['user_name'],
-				'profile_image_url' => $this->getImageURLForS3Key($user['profile_images_s3_key']),
-				'cover_image_url' => $this->getImageURLForS3Key($user['cover_images_s3_key']),
+				'profile_image_url' => $this->getImageURLForS3Key($user['profile_image_s3_key']),
+				'cover_image_url' => $this->getImageURLForS3Key($user['cover_image_s3_key']),
 				'introduction' => $user['description'],
 				'birthday' => $this->getBirthdayString($user['birthday'],$user['birthday_published_flag']),
 				'gender' => $this->getGenderString($user['gender'],$user['gender_published_flag']),
 				'gender' => $this->getGenderString($user['gender'],$user['gender_published_flag']),
 				'review' => $contributionCount,
-				'like' => $allReactionCounts['like'],
+		//		'like' => $allReactionCounts['like'],
 				'interest' => $allReactionCounts['interest'],
-				'having' => $allReactionCounts['have'],
-				'following' => $friendsCount['follow_count'],
-				'followerd' => $friendsCount['follower_count'],
+		//		'having' => $allReactionCounts['have'],
+				'follow' => (int) $friendsCount['follow_count'],
+				'follower' => (int) $friendsCount['follower_count'],
 				'is_following' => $this->getBinaryValue($user['my_follow_id']),
-				'is_followerd' => $this->getBinaryValue($user['my_follower_id'])
 			];
 	}
 }

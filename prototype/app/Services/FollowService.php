@@ -54,7 +54,6 @@ class FollowService extends BaseService
             }
             $switchFollowResultVO = $followModel->switchFollow($userId, $targetUserId,$isFollowOn);
             $switchFollowerResultVO = $followerModel->switchFollower($targetUserId,$userId,$isFollowOn);
-
             return  ServiceResult::withResult($switchFollowResultVO,SwitchFollowResultVO::class);
         };
     }
@@ -68,11 +67,16 @@ class FollowService extends BaseService
 	 */
     public function getFollowList($userId,$ownerId,$page,$limit):ServiceResult{
     	return $this->executeTasks(function ()use ($userId,$ownerId,$page,$limit){
+    		$blockModel = new BlockUser();
+    		if($blockModel->isBlockStatus($userId,$ownerId))
+    			return ServiceResult::withBlockStatusError($userId,$ownerId);
+
+    		$blockList = $blockModel->getBlockAndBlockedUserIds($userId,$ownerId);
     		$follow = new Follow();
-    		$followCount = $follow->getCountForUser($userId);
-		    $contributionCount = (new Contribution())->getCountForUser($userId);
-		    $followerCount = (new Follower())->getCountForUser($userId);
-			$interestCount = (new ContributionInterestReaction())->getCountForUser($userId);
+    		$followCount = $follow->getCountForUser($ownerId,$blockList);
+		    $contributionCount = (new Contribution())->getCountForUser($ownerId);
+		    $followerCount = (new Follower())->getCountForUser($ownerId,$blockList);
+			$interestCount = (new ContributionInterestReaction())->getCountForUser($ownerId,$blockList);
 		    $followList = [];
 		    $hasNext = 0;
 
@@ -96,12 +100,12 @@ class FollowService extends BaseService
 	 */
 	public function getFollowerList($userId,$ownerId,$page,$limit):ServiceResult{
 		return $this->executeTasks(function ()use ($userId,$ownerId,$page,$limit){
-
-			$followCount = (new Follow())->getCountForUser($ownerId);
+			$blockList = (new BlockUser())->getBlockAndBlockedUserIds($userId,$ownerId);
+			$followCount = (new Follow())->getCountForUser($ownerId,$blockList);
 			$contributionCount = (new Contribution())->getCountForUser($ownerId);
 			$follower = new Follower();
-			$followerCount = $follower->getCountForUser($ownerId);
-			$interestCount = (new ContributionInterestReaction())->getCountForUser($ownerId);
+			$followerCount = $follower->getCountForUser($ownerId,$blockList);
+			$interestCount = (new ContributionInterestReaction())->getCountForUser($ownerId,$blockList);
 			$followerList = [];
 			$hasNext = 0;
 

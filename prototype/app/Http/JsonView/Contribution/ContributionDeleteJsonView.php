@@ -16,6 +16,10 @@ class ContributionDeleteJsonView extends JsonResponseView
 
 	function createBody()
 	{
-		$this->body = $this->data;
+		$this->body =
+			[
+				'message' =>"投稿が削除されました。",
+				'debug' => "Backup record id   : {$this->data}"
+			];
 	}
 }

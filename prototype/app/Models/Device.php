@@ -24,7 +24,7 @@ class Device extends DBModel
      * @param $deviceType
      * @return mixed
      */
-    public function register($userId,$deviceUuid,$notificationToken,$deviceType){
+    public function updateToken($userId, $deviceUuid, $notificationToken, $deviceType){
         $result = self::updateOrCreate(
             //Conditions
             [

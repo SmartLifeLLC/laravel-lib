@@ -14,6 +14,7 @@ use App\Constants\PostParametersValidationRule;
 use App\Http\Controllers\Controller;
 use App\Http\JsonView\User\Block\BlockListJsonView;
 use App\Http\JsonView\User\Page\PageInfoJsonView;
+use App\Http\JsonView\User\User\NotificationSettingEditJsonView;
 use App\Http\JsonView\User\User\NotificationSettingJsonView;
 use App\Http\JsonView\User\User\UserEditJsonView;
 use App\Http\JsonView\User\User\UserInfoJsonVIew;
@@ -38,9 +39,7 @@ class UserController extends Controller
     }
 
 
-
-
-    public function editProfile(Request $request){
+    public function editInfo(Request $request){
 		$userId = $this->getCurrentUserId();
 	    $validator = $this->createValidator(
 	    	$request->all(),
@@ -61,6 +60,8 @@ class UserController extends Controller
 		$userEditVo->setMailAddress($request->get('mail_address',null));
 		$userEditVo->setDescription($request->get('description',null));
 		$userEditVo->setCoverImage($request->get('cover_image',null));
+		$userEditVo->setDescription($request->get('description',null));
+		$userEditVo->setAddress($request->get('address',null));
 		$userEditVo->setProfileImage($request->get('profile_image',null));
 	    $serviceResult = (new UserService())->edit($userId,$userEditVo);
 	    return $this->responseJson(new UserEditJsonView($serviceResult));
@@ -68,15 +69,19 @@ class UserController extends Controller
     }
 
 	/**
-	 * @param $ownerId
+	 * @param Request $request
+	 * @param null $ownerId
 	 * @return \Illuminate\Http\JsonResponse
 	 */
-    public function pageInfo($ownerId = null){
-	    $userId = $this->getCurrentUserId();
+	public function getPageInfo(Request $request, $ownerId = null){
+		//Swagger send undefined when parameter is null
+		if($ownerId === "undefined" || $ownerId == 0) $ownerId = null;
+		$userId = $this->getCurrentUserId();
 		if($ownerId == null) $ownerId = $userId;
-	    $serviceResult = (new UserService())->getPageInfo($userId,$ownerId);
-	    return $this->responseJson(new PageInfoJsonView($serviceResult));
-    }
+		$serviceResult = (new UserService())->getPageInfo($userId,$ownerId);
+		return $this->responseJson(new PageInfoJsonView($serviceResult));
+	}
+
 
 	/**
 	 * @return \Illuminate\Http\JsonResponse
@@ -96,12 +101,12 @@ class UserController extends Controller
     {
 	    $userId = $this->getCurrentUserId();
 	    $saveData = new UserNotifyPropertiesVO();
-	    $saveData->setIsPermittedComment($request->can_notice_comment);
-	    $saveData->setIsPermittedFollow($request->can_notice_follow);
-	    $saveData->setIsPermittedHave($request->can_notice_having);
-	    $saveData->setIsPermittedInterest($request->can_notice_interest);
-	    $saveData->setIsPermittedLike($request->can_notice_like);
+	    $saveData->setIsPermittedComment($request->is_comment_notification_allowed);
+	    $saveData->setIsPermittedFollow($request->is_follow_notification_allowed);
+	    //$saveData->setIsPermittedHave($request->is_interest_notification_allowed);
+	    $saveData->setIsPermittedInterest($request->is_interest_notification_allowed);
+	    $saveData->setIsPermittedLike($request->is_like_notification_allowed);
 		$serviceResult = (new UserService())->updateNotifyProperties($userId,$saveData);
-		return $this->responseJson(new NotificationSettingJsonView($serviceResult));
+		return $this->responseJson(new NotificationSettingEditJsonView($serviceResult));
     }
 }

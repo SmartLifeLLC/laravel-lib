@@ -75,6 +75,15 @@ class UserService extends BaseService
     public function getPageInfo($userId,$ownerId){
 		return $this->executeTasks(function() use ($userId,$ownerId){
 			$userModel = new User();
+
+			//check block status
+			if($userId != $ownerId){
+				$isBlocked = (new BlockUser())->isBlockStatus($userId,$ownerId);
+				if($isBlocked){
+					return ServiceResult::withError(StatusCode::BLOCK_STATUS_WITH_TARGET_USER,"user {$userId} and {$ownerId} are in block status");
+				}
+			}
+
 			$userInfoForPage = $userModel->getUserInfoForPage($userId,$ownerId);
 			$friendsCount = $userModel->getFriendCount($ownerId);
 			$allReactionCount = (new ContributionAllReaction())->getReactionCountsForUser($ownerId);

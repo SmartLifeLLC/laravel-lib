@@ -171,6 +171,7 @@ class Product extends DBModel
                     'display_name',
                     'product_categories.unique_name as breadcrumb',
                     'images.s3_key',
+                    'products.price',
                     'product_contribution_counts.contribution_count',
                     'product_contribution_counts.positive_count',
                     'product_contribution_counts.negative_count'])

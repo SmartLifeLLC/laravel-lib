@@ -1,0 +1,46 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title":"REACT",
+        "version": "1.0"
+    },
+    "host": "api.recomil",
+    "schemes": [
+        "http"
+    ],
+    "security": [
+
+    ],
+    "paths": {
+        "/contribution/list/1": {
+            "get": {
+                "tags": [
+                    "contributions"
+                ],
+                "description": "contribution",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "react-swagger",
+                        "in": "header",
+                        ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "404": {
+                        "description": "Parameter error"
+                    },
+                    "403": {
+                        "description": "Auth error"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {}
+}

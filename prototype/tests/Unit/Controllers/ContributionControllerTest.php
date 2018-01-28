@@ -42,7 +42,6 @@ class ContributionControllerTest extends TestCase
 					'user_id' => $this->userId,
 					'is_consent' => mt_rand(0,1),
 					'text' => '商品評価 ' . Util::getRandomString(rand(10, 20)),
-					'to_having_reaction_review_post_id' => null,
 					'image1' => $file
 
 				];
@@ -63,7 +62,7 @@ class ContributionControllerTest extends TestCase
 			[
 
 				'user_id'=>$this->userId,
-				'review_post_id'=>39,
+				'contribution_id'=>39,
 				'text'=>'内容変更',
 			];
 		$content = $this->getJsonRequestContent($httpMethod,$uri,$data);
@@ -85,7 +84,7 @@ class ContributionControllerTest extends TestCase
 		$this->assertEquals(StatusCode::SUCCESS,$content["code"]);
 	}
 
-	public function testGetDetail(){
+	public function testGet(){
 		$httpMethod = HttpMethod::GET;
 		$feedId = 31;
 		$uri = "/contribution/get/{$feedId}";
@@ -140,11 +139,12 @@ class ContributionControllerTest extends TestCase
 	public function testGetListForFeed(){
 		$httpMethod = HttpMethod::GET;
 		$listType = ListType::CONTRIBUTION_LIST_FEED;
-		$uri = "/contribution/list/page=1&listType={$listType}";
+		$this->prepareUserWithIdAndAuth(48,1);
+		$uri = "/contribution/list/62?listType={$listType}&feelingType=all";
 		$content = $this->getJsonRequestContent($httpMethod,$uri);
 		if(!isset($content['code']))  var_dump($content);
 		$this->printResponse($content);
-		//$this->printSQLLog();
+		$this->printSQLLog();
 		$this->assertEquals(StatusCode::SUCCESS,$content["code"]);
 	}
 

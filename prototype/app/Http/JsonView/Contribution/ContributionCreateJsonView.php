@@ -19,7 +19,7 @@ class ContributionCreateJsonView extends JsonResponseView
 	function createBody()
 	{
 		$this->body = [
-			'review_post_id'=>$this->data,
+			'contribution_id'=>$this->data,
 			'message' => "レビュー投稿に成功しました。"
 		];
 	}
