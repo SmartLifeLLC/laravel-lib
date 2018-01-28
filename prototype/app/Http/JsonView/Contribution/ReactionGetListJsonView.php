@@ -38,7 +38,6 @@ class ReactionGetListJsonView extends JsonResponseView
 		$hasNext = (int) $this->data->getHasNext();
 		$reactions = [];
 		foreach($this->data->getReactions() as $userReaction){
-			$userReaction = (array) $userReaction;
 			$reactions[] =
 				[
 					'user'=> [
