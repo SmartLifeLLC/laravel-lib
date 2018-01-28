@@ -29,6 +29,7 @@ class FacebookResponseVO
     private $profileUrl;
     private $coverUrl;
     private $error = null;
+    private $fbToken;
     /**
      * @return mixed
      */
@@ -36,6 +37,14 @@ class FacebookResponseVO
     {
         return $this->facebookId;
     }
+
+	/**
+	 * @return mixed
+	 */
+	public function getFacebookToken()
+	{
+		return $this->fbToken;
+	}
 
     /**
      * @return mixed
@@ -125,14 +134,20 @@ class FacebookResponseVO
         return $this->error;
     }
 
-    public function __construct($fbData)
+	/**
+	 * FacebookResponseVO constructor.
+	 * @param $fbData
+	 * @param $fbToken
+	 */
+    public function __construct($fbData,$fbToken)
     {
+
 
         if(array_key_exists('error',$fbData)){
             $this->error = $fbData['error'];
             return;
         }
-
+	    $this->fbToken = $fbToken;
         $this->facebookId =  $fbData['id'];
         $this->email = Util::getValueForKey($fbData,"email","");
         $this->userName =  Util::getValueForKey($fbData,"name",null);

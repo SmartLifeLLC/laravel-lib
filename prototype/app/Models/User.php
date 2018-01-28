@@ -15,13 +15,16 @@ class User extends DBModel
     protected $table = 'users';
     public $timestamps = true;
 
-    /**
-     * @param String $facebookId
-     * @return UserValidationVO|null
-     */
-    public function getUserValidationByFacebookId(String $facebookId):?UserValidationVO{
+	/**
+	 * @param String $facebookId
+	 * @param String $facebookToken
+	 * @return UserValidationVO|null
+	 */
+    public function getUserValidationByFacebookId(String $facebookId, String $facebookToken):?UserValidationVO{
         $userData = $this->where("facebook_id",$facebookId)->select(["id","auth","limitation_level"])->first();
         if($userData == null) return null;
+        $userData->facebook_token = $facebookToken;
+        $userData->save();
         return (new UserValidationVO($userData->id,$userData->auth,$userData->limitation_level));
     }
 
@@ -52,7 +55,8 @@ class User extends DBModel
                 'auth' => $auth,
                 'created_at' => date(DateTimeFormat::General),
                 'updated_at' => date(DateTimeFormat::General),
-                'last_posted_at' => date(DateTimeFormat::General)
+                'last_posted_at' => date(DateTimeFormat::General),
+	            'facebook_token' => $fbData->getFacebookToken()
             ];
 
 
