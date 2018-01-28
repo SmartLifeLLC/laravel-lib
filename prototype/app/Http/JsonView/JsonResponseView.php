@@ -239,13 +239,11 @@ abstract class JsonResponseView
 
     public function getWellFormedContribution($contribution,$categories,$shops = []){
         $imageUrls = $this->getImageURLs($contribution['image_id_0'],$contribution['image_id_1'],$contribution['image_id_2'],$contribution['image_id_3']);
-
         $welFormedCategories = [];
             foreach($categories as $category){
                 $welFormedCategory =
                     [
-                        'id' =>$category['id'],
-                        'pi' =>$category['product_id'],
+                        'id' =>$category['product_category_id'],
                         'nm' =>$category['name'],
                         'bs' =>$category['unique_name'],
                         'pn' =>$category['product_count'],
@@ -267,11 +265,10 @@ abstract class JsonResponseView
                     'iu' => $imageUrls, //image_urls
                     'il' => $this->getBinaryValue($contribution['contribution_like_reaction_id']), //is_like
                     'ii' => $this->getBinaryValue($contribution['contribution_interest_reaction_id']), //is_interest
-                    //'is_having' => $this->getBinaryValue($contribution['contribution_have_reaction_id']),
                     "ic" => $this->getBinaryValue($contribution['my_contribution_id']), //is_contributed
                     'ur' => //user
                         [
-                            'id' => $contribution['user_id'], //id
+                            'id' => $contribution['contribution_user_id'], //id
                             'un' => $contribution['user_name'], //user_name
                             'pu' => $this->getImageURLForS3Key($contribution['profile_image_s3_key']), //profile_image_url
                             "if" => $this->getBinaryValue($contribution['follow_id'])//is_following

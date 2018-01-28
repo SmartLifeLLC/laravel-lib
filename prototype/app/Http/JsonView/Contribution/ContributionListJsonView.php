@@ -29,12 +29,7 @@ class ContributionListJsonView extends JsonResponseView
 
 		$productsCategories = [];
 		foreach($categories as $category){
-			$productsCategories[$category['product_id']][$category['product_category_id']] =
-				[
-					'product_category_id' => $category['product_category_id'],
-					'name' => $category['name'],
-					'breadcrumb' => $category['unique_name']
-				];
+			$productsCategories[$category['product_id']][$category['product_category_id']] =$category;
 
 		}
 
