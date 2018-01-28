@@ -65,4 +65,23 @@ class ContributionAllReaction extends DBModel implements ContributionReactionInt
 		return $counts;
 	}
 
+    /**
+     * @param $userId
+     * @param $contributionId
+     * @param $reactionType
+     * @param $created
+     * @return mixed
+     */
+    public function translateGetId($userId, $contributionId, $reactionType, $created){
+        return $this->insertGetId(
+            [
+                'user_id'=>$userId,
+                'contribution_id'=>$contributionId,
+                'contribution_reaction_type'=>$reactionType,
+                'created_at'=>$created,
+                'updated_at'=>date(DateTimeFormat::General)
+
+            ]
+        );
+    }
 }
