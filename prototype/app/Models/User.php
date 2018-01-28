@@ -33,10 +33,7 @@ class User extends DBModel
      * @param String $auth
      * @return int
      */
-    public function createUserDataAndGetId(
-        FacebookResponseVO $fbData,
-        String $auth
-    ){
+    public function createUserDataAndGetId( FacebookResponseVO $fbData, String $auth){
         $userData =
             [
                 'facebook_id' => $fbData->getFacebookId(),
