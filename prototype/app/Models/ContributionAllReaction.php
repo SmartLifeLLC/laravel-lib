@@ -65,6 +65,7 @@ class ContributionAllReaction extends DBModel implements ContributionReactionInt
 		return $counts;
 	}
 
+<<<<<<< HEAD
     /**
      * @param $userId
      * @param $contributionId
@@ -84,4 +85,20 @@ class ContributionAllReaction extends DBModel implements ContributionReactionInt
             ]
         );
     }
+=======
+	/**
+	 * @param $contributionIds
+	 * @param $userIds
+	 * @return mixed
+	 */
+	public function getAllReactionListForContributionsAndUsers($contributionIds,$userIds){
+		$result =
+			$this
+				->whereIn('contribution_id',$contributionIds)
+				->whereIn('user_id',$userIds)
+				->get();
+		return $result;
+	}
+
+>>>>>>> master
 }

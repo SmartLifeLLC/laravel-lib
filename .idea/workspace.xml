@@ -2,30 +2,31 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="32305396-a728-48bd-a2b9-2748e96dc899" name="Default" comment="">
+      <change beforePath="" afterPath="$PROJECT_DIR$/prototype/tests/Unit/Models/ContributionCommentTest.php" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/prototype/tests/Unit/Models/ContributionReactionCountTest.php" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Console/Commands/Translate/ContributionAllReactionTranslator.php" afterPath="$PROJECT_DIR$/prototype/app/Console/Commands/Translate/ContributionAllReactionTranslator.php" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Console/Commands/Translate/ContributionHaveReactionTranslator.php" afterPath="$PROJECT_DIR$/prototype/app/Console/Commands/Translate/ContributionHaveReactionTranslator.php" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Console/Commands/Translate/ContributionInterestReactionTranslator.php" afterPath="$PROJECT_DIR$/prototype/app/Console/Commands/Translate/ContributionInterestReactionTranslator.php" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Console/Commands/Translate/ContributionLikeReactionTranslator.php" afterPath="$PROJECT_DIR$/prototype/app/Console/Commands/Translate/ContributionLikeReactionTranslator.php" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Console/Commands/Translate/ContributionReactionNotificationDeliveryTranslator.php" afterPath="$PROJECT_DIR$/prototype/app/Console/Commands/Translate/ContributionReactionNotificationDeliveryTranslator.php" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Console/Commands/Translate/ContributionTranslator.php" afterPath="$PROJECT_DIR$/prototype/app/Console/Commands/Translate/ContributionTranslator.php" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Console/Commands/Translate/FeaturedScheduleTypeTranslator.php" afterPath="$PROJECT_DIR$/prototype/app/Console/Commands/Translate/FeaturedScheduleTypeTranslator.php" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Console/Commands/Translate/ImageTranslator.php" afterPath="$PROJECT_DIR$/prototype/app/Console/Commands/Translate/ImageTranslator.php" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Console/Commands/Translate/NegativeProductContributionTranslator.php" afterPath="$PROJECT_DIR$/prototype/app/Console/Commands/Translate/NegativeProductContributionTranslator.php" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Console/Commands/Translate/NotificationLogTranslator.php" afterPath="$PROJECT_DIR$/prototype/app/Console/Commands/Translate/NotificationLogTranslator.php" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Console/Commands/Translate/PositiveProductContributionTranslator.php" afterPath="$PROJECT_DIR$/prototype/app/Console/Commands/Translate/PositiveProductContributionTranslator.php" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Console/Commands/Translate/UserTranslator.php" afterPath="$PROJECT_DIR$/prototype/app/Console/Commands/Translate/UserTranslator.php" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/Controllers/Translate/TranslateContributionController.php" afterPath="$PROJECT_DIR$/prototype/app/Http/Controllers/Translate/TranslateContributionController.php" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/Controllers/Translate/TranslateUserController.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/JsonView/Translate/PreviousContributionJsonView.php" afterPath="$PROJECT_DIR$/prototype/app/Http/JsonView/Translate/PreviousContributionJsonView.php" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/JsonView/Translate/PreviousUserJsonView.php" afterPath="$PROJECT_DIR$/prototype/app/Http/JsonView/Translate/PreviousUserJsonView.php" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Models/Contribution.php" afterPath="$PROJECT_DIR$/prototype/app/Models/Contribution.php" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Models/Old/ReactionLog.php" afterPath="$PROJECT_DIR$/prototype/app/Models/Old/ReactionLog.php" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Models/Old/ReviewPostComment.php" afterPath="$PROJECT_DIR$/prototype/app/Models/Old/ReviewPostComment.php" />
+      <change beforePath="$PROJECT_DIR$/prototype/app/Constants/ContributionReactionType.php" afterPath="$PROJECT_DIR$/prototype/app/Constants/ContributionReactionType.php" />
+      <change beforePath="$PROJECT_DIR$/prototype/app/Constants/Versions.php" afterPath="$PROJECT_DIR$/prototype/app/Constants/Versions.php" />
+      <change beforePath="$PROJECT_DIR$/prototype/app/Http/Controllers/CommentController.php" afterPath="$PROJECT_DIR$/prototype/app/Http/Controllers/CommentController.php" />
+      <change beforePath="$PROJECT_DIR$/prototype/app/Http/JsonView/Contribution/ReactionGetListJsonView.php" afterPath="$PROJECT_DIR$/prototype/app/Http/JsonView/Contribution/ReactionGetListJsonView.php" />
+      <change beforePath="$PROJECT_DIR$/prototype/app/Http/JsonView/JsonResponseView.php" afterPath="$PROJECT_DIR$/prototype/app/Http/JsonView/JsonResponseView.php" />
+      <change beforePath="$PROJECT_DIR$/prototype/app/Models/Common/ContributionReactionImplements.php" afterPath="$PROJECT_DIR$/prototype/app/Models/Common/ContributionReactionImplements.php" />
+      <change beforePath="$PROJECT_DIR$/prototype/app/Models/Common/ContributionReactionInterface.php" afterPath="$PROJECT_DIR$/prototype/app/Models/Common/ContributionReactionInterface.php" />
+      <change beforePath="$PROJECT_DIR$/prototype/app/Models/Common/UserContentsCountBuilderImplements.php" afterPath="$PROJECT_DIR$/prototype/app/Models/Common/UserContentsCountBuilderImplements.php" />
+      <change beforePath="$PROJECT_DIR$/prototype/app/Models/ContributionAllReaction.php" afterPath="$PROJECT_DIR$/prototype/app/Models/ContributionAllReaction.php" />
+      <change beforePath="$PROJECT_DIR$/prototype/app/Models/ContributionComment.php" afterPath="$PROJECT_DIR$/prototype/app/Models/ContributionComment.php" />
+      <change beforePath="$PROJECT_DIR$/prototype/app/Models/ContributionReactionCount.php" afterPath="$PROJECT_DIR$/prototype/app/Models/ContributionReactionCount.php" />
       <change beforePath="$PROJECT_DIR$/prototype/app/Models/User.php" afterPath="$PROJECT_DIR$/prototype/app/Models/User.php" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Services/Translate/PreviousCommentService.php" afterPath="$PROJECT_DIR$/prototype/app/Services/Translate/PreviousCommentService.php" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Services/Translate/PreviousContributionService.php" afterPath="$PROJECT_DIR$/prototype/app/Services/Translate/PreviousContributionService.php" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Services/Translate/PreviousUserService.php" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/prototype/app/Services/AuthService.php" afterPath="$PROJECT_DIR$/prototype/app/Services/AuthService.php" />
+      <change beforePath="$PROJECT_DIR$/prototype/app/Services/BlockService.php" afterPath="$PROJECT_DIR$/prototype/app/Services/BlockService.php" />
+      <change beforePath="$PROJECT_DIR$/prototype/app/Services/CommentService.php" afterPath="$PROJECT_DIR$/prototype/app/Services/CommentService.php" />
+      <change beforePath="$PROJECT_DIR$/prototype/app/Services/ContributionService.php" afterPath="$PROJECT_DIR$/prototype/app/Services/ContributionService.php" />
+      <change beforePath="$PROJECT_DIR$/prototype/app/Services/ReactionService.php" afterPath="$PROJECT_DIR$/prototype/app/Services/ReactionService.php" />
+      <change beforePath="$PROJECT_DIR$/prototype/app/Services/Tasks/CheckFacebookTokenTask.php" afterPath="$PROJECT_DIR$/prototype/app/Services/Tasks/CheckFacebookTokenTask.php" />
+      <change beforePath="$PROJECT_DIR$/prototype/app/ValueObject/FacebookResponseVO.php" afterPath="$PROJECT_DIR$/prototype/app/ValueObject/FacebookResponseVO.php" />
+      <change beforePath="$PROJECT_DIR$/prototype/app/ValueObject/ReactionGetLIstResultVO.php" afterPath="$PROJECT_DIR$/prototype/app/ValueObject/ReactionGetLIstResultVO.php" />
+      <change beforePath="$PROJECT_DIR$/prototype/tests/Unit/Controllers/AuthControllerTest.php" afterPath="$PROJECT_DIR$/prototype/tests/Unit/Controllers/AuthControllerTest.php" />
+      <change beforePath="$PROJECT_DIR$/prototype/tests/Unit/Models/ContributionInterestReactionTest.php" afterPath="$PROJECT_DIR$/prototype/tests/Unit/Models/ContributionInterestReactionTest.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -39,7 +40,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="TranslateUserController.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="TranslateUserController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/prototype/app/Http/Controllers/Translate/TranslateUserController.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="765">
@@ -47,6 +48,16 @@
               <folding>
                 <element signature="e#130#166#0#PHP" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TranslateAllReactionController.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/prototype/app/Http/Controllers/Translate/TranslateAllReactionController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="450">
+              <caret line="39" column="1" lean-forward="true" selection-start-line="39" selection-start-column="1" selection-end-line="39" selection-end-column="1" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -95,7 +106,7 @@
         <entry file="file://$PROJECT_DIR$/prototype/app/Http/JsonView/Translate/PreviousCommentJsonView.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="270">
-              <caret line="23" column="1" lean-forward="true" selection-start-line="23" selection-start-column="1" selection-end-line="23" selection-end-column="1" />
+              <caret line="23" column="1" lean-forward="false" selection-start-line="23" selection-start-column="1" selection-end-line="23" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -105,7 +116,7 @@
         <entry file="file://$PROJECT_DIR$/prototype/app/Http/JsonView/Translate/PreviousContributionJsonView.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="240">
-              <caret line="21" column="1" lean-forward="true" selection-start-line="21" selection-start-column="1" selection-end-line="21" selection-end-column="1" />
+              <caret line="21" column="1" lean-forward="false" selection-start-line="21" selection-start-column="1" selection-end-line="21" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -127,19 +138,6 @@
             <state relative-caret-position="0">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PreviousUserService.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/prototype/app/Services/Translate/PreviousUserService.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-              <folding>
-                <element signature="e#6#85#0#PHP" expanded="true" />
-                <element signature="e#122#142#0#PHP" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -501,12 +499,12 @@
       <workItem from="1516341700450" duration="18405000" />
       <workItem from="1516523982643" duration="30109000" />
       <workItem from="1516968681688" duration="168000" />
-      <workItem from="1517054199350" duration="25657000" />
+      <workItem from="1517054199350" duration="25753000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="74339000" />
+    <option name="totallyTimeSpent" value="74435000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="797" extended-state="0" />
@@ -701,16 +699,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/prototype/app/Http/Controllers/Translate/TranslateAllReactionController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="39" column="1" lean-forward="true" selection-start-line="39" selection-start-column="1" selection-end-line="39" selection-end-column="1" />
-          <folding>
-            <element signature="e#131#167#0#PHP" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/prototype/app/Models/Old/ReviewPostComment.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="345">
@@ -805,7 +793,7 @@
         <state relative-caret-position="195">
           <caret line="18" column="6" lean-forward="false" selection-start-line="18" selection-start-column="6" selection-end-line="18" selection-end-column="6" />
           <folding>
-            <element signature="e#115#154#0#PHP" expanded="true" />
+            <element signature="e#115#154#0#PHP" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -825,7 +813,7 @@
         <state relative-caret-position="30">
           <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
           <folding>
-            <element signature="e#123#163#0#PHP" expanded="true" />
+            <element signature="e#123#163#0#PHP" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -887,7 +875,7 @@
         <state relative-caret-position="465">
           <caret line="59" column="5" lean-forward="true" selection-start-line="59" selection-start-column="5" selection-end-line="59" selection-end-column="5" />
           <folding>
-            <element signature="e#112#145#0#PHP" expanded="true" />
+            <element signature="e#112#145#0#PHP" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -913,7 +901,7 @@
         <state relative-caret-position="225">
           <caret line="20" column="19" lean-forward="true" selection-start-line="20" selection-start-column="19" selection-end-line="20" selection-end-column="19" />
           <folding>
-            <element signature="e#123#151#0#PHP" expanded="true" />
+            <element signature="e#123#151#0#PHP" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -937,7 +925,7 @@
     <entry file="file://$PROJECT_DIR$/prototype/app/Services/Translate/PreviousUserService.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
-          <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
           <folding>
             <element signature="e#6#85#0#PHP" expanded="true" />
             <element signature="e#122#142#0#PHP" expanded="true" />
@@ -956,7 +944,7 @@
     <entry file="file://$PROJECT_DIR$/prototype/app/Http/JsonView/Translate/PreviousCommentJsonView.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
-          <caret line="23" column="1" lean-forward="true" selection-start-line="23" selection-start-column="1" selection-end-line="23" selection-end-column="1" />
+          <caret line="23" column="1" lean-forward="false" selection-start-line="23" selection-start-column="1" selection-end-line="23" selection-end-column="1" />
           <folding />
         </state>
       </provider>
@@ -964,7 +952,7 @@
     <entry file="file://$PROJECT_DIR$/prototype/app/Http/JsonView/Translate/PreviousContributionJsonView.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
-          <caret line="21" column="1" lean-forward="true" selection-start-line="21" selection-start-column="1" selection-end-line="21" selection-end-column="1" />
+          <caret line="21" column="1" lean-forward="false" selection-start-line="21" selection-start-column="1" selection-end-line="21" selection-end-column="1" />
           <folding />
         </state>
       </provider>
@@ -1024,6 +1012,14 @@
           <folding>
             <element signature="e#130#166#0#PHP" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/prototype/app/Http/Controllers/Translate/TranslateAllReactionController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="39" column="1" lean-forward="true" selection-start-line="39" selection-start-column="1" selection-end-line="39" selection-end-column="1" />
+          <folding />
         </state>
       </provider>
     </entry>

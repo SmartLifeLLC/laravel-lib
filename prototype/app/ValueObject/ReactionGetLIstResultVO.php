@@ -9,7 +9,7 @@
 namespace App\ValueObject;
 
 
-class ReactionGetLIstResultVO
+class ReactionGetListResultVO
 {
 
 
