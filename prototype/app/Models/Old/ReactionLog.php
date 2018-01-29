@@ -23,7 +23,7 @@ class ReactionLog extends DBModel
     public function getData()
     {
         $data = DB::connection('mysql_old')
-            ->table('ReactionLog')
+            ->table('reaction_log')
             ->select('user_id', 'feed_id', 'review_post_reaction_type', 'created_at')
             ->get();
 
@@ -36,7 +36,7 @@ class ReactionLog extends DBModel
     public function getLikeData()
     {
         $likeData = DB::connection('mysql_old')
-            ->table('ReactionLog')
+            ->table('reaction_log')
             ->where('review_post_reaction_type', 1)
             ->select('user_id', 'feed_id', 'created_at')
             ->get();
@@ -50,7 +50,7 @@ class ReactionLog extends DBModel
     public function getInterestData()
     {
         $interestData = DB::connection('mysql_old')
-            ->table('ReactionLog')
+            ->table('reaction_log')
             ->where('review_post_reaction_type', 2)
             ->select('user_id', 'feed_id', 'created_at')
             ->get();
@@ -64,7 +64,7 @@ class ReactionLog extends DBModel
     public function getHaveData()
     {
         $haveData = DB::connection('mysql_old')
-            ->table('ReactionLog')
+            ->table('reaction_log')
             ->where('review_post_reaction_type', 3)
             ->select('user_id', 'feed_id', 'created_at')
             ->get();

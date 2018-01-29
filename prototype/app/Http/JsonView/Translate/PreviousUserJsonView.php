@@ -12,4 +12,11 @@ namespace App\Http\JsonView\Translate;
 class PreviousUserJsonView
 {
 
+    function createBody()
+    {
+        $this->body = [
+            'user_id'=>$this->data,
+            'message' => "ユーザーの移行に成功しました。"
+        ];
+    }
 }

@@ -237,6 +237,30 @@ class Contribution extends DBModel implements UserContentsCountBuilderInterface
 			->get();
 	}
 
+    /**
+     * @param $userId
+     * @param $productId
+     * @param $feeling
+     * @param $images
+     * @param $content
+     * @param $created
+     * @return mixed
+     */
+	public function translateGetId($userId, $productId, $feeling, $images, $content, $created){
+        $data = [
+            'user_id'=>$userId,
+            'product_id'=>$productId,
+            'feeling'=>$feeling,
+            'content'=>$content,
+            'created'=>$created,
+            'modified_at'=>date(DateTimeFormat::General)
+        ];
+        for($i = 0 ; $i < count($images) ; $i ++){
+            $data['image_id_'.$i] = $images[$i];
+        }
+        return $this->insertGetId($data);
+    }
+
 	private function setListSelectTargets($queryBuilder){
 		return
 			$queryBuilder->select(
