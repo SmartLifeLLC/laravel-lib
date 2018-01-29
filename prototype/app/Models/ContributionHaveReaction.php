@@ -9,6 +9,7 @@
 namespace App\Models;
 
 
+use App\Constants\DateTimeFormat;
 use App\Constants\ContributionReactionType;
 use App\Models\Common\DeleteAllForContributionImplements;
 use App\Models\Common\DeleteAllForContributionInterface;
@@ -24,5 +25,21 @@ class ContributionHaveReaction extends DBModel implements ContributionReactionIn
 	   return ContributionReactionType::HAVE;
 	}
 
+    /**
+     * @param $userId
+     * @param $contributionId
+     * @param $created
+     * @return mixed
+     */
+    public function translateGetId($userId, $contributionId, $created){
+        return $this->insertGetId(
+            [
+                'user_id'=>$userId,
+                'contribution_id'=>$contributionId,
+                'created_at'=>$created,
+                'updated_at'=>date(DateTimeFormat::General)
 
+            ]
+        );
+    }
 }
