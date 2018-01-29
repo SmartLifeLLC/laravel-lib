@@ -37,14 +37,16 @@ interface ContributionReactionInterface
 	 */
 	public function findReaction($userId, $contributionId, $type = null);
 
+
 	/**
-	 * @param $userId
-	 * @param $contributionId
-	 * @param $page
-	 * @param $limit
+	 * @param int $userId
+	 * @param int $contributionId
+	 * @param array $blockUsers
+	 * @param int $page
+	 * @param int $limit
 	 * @return mixed
 	 */
-	public function getList($userId, $contributionId, $page, $limit);
+	public function getList(int $userId, int $contributionId, array $blockUsers, int $page, int $limit);
 
 	/**
 	 * @return mixed

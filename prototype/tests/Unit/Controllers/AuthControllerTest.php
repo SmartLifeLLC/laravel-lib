@@ -29,9 +29,6 @@ class AuthControllerTest extends TestCase
     public function testGetIdAndAuth(){
 	    $httpMethod = HttpMethod::GET;
 	    $uri = '/user/auth/get/'.$this->facebookId;
-
-
-
 	    $content = $this->getJsonRequestContent($httpMethod,$uri);
 	    var_dump($content);
 	    $this->printResponse($content);

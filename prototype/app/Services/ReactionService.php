@@ -21,7 +21,7 @@ use App\Models\ContributionInterestReaction;
 use App\Models\ContributionLikeReaction;
 use App\Models\ContributionReactionCount;
 use App\Services\Tasks\UpdateReactionCountTask;
-use App\ValueObject\ReactionGetLIstResultVO;
+use App\ValueObject\ReactionGetListResultVO;
 use function foo\func;
 
 class ReactionService extends BaseService
@@ -61,9 +61,10 @@ class ReactionService extends BaseService
 	 */
 	public function getList($userId, $contributionId, $reactionType, $page, $limit =  DefaultValues::QUERY_DEFAULT_LIMIT):ServiceResult{
 		return $this->executeTasks(function ()use($userId,$contributionId,$reactionType,$page, $limit){
-			$counts = (new ContributionReactionCount())->getCountsForContribution($contributionId);
+			$blockUsers = (new BlockUser())->getBlockAndBlockedUserIds($userId);
+			$counts = (new ContributionReactionCount())->getCountsForContribution($contributionId,$blockUsers);
 			if(empty($counts)) {
-				$reactionList = new ReactionGetLIstResultVO([],[],false);
+				$reactionList = new ReactionGetListResultVO([],[],false);
 			}else {
 
 				// TODO: Implement run() method.
@@ -93,11 +94,11 @@ class ReactionService extends BaseService
 						break;
 				}
 				if($totalCount == 0){
-					$reactionList = new ReactionGetLIstResultVO($counts,[],false);
+					$reactionList = new ReactionGetListResultVO($counts,[],false);
 				}else{
-					$reactionEntities = $contributionReactionModel->getList($userId,$contributionId,$page,$limit);
+					$reactionEntities = $contributionReactionModel->getList($userId,$contributionId,$blockUsers,$page,$limit);
 					$hasNext = $contributionReactionModel->getHasNext($limit,$page,$totalCount);
-					$reactionList = new ReactionGetLIstResultVO($counts,$reactionEntities,$hasNext);
+					$reactionList = new ReactionGetListResultVO($counts,$reactionEntities,$hasNext);
 				}
 			}
 			return ServiceResult::withResult($reactionList);

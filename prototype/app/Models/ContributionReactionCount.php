@@ -12,6 +12,7 @@ namespace App\Models;
 use App\Constants\ContributionReactionType;
 use App\Models\Common\DeleteAllForContributionImplements;
 use App\Models\Common\DeleteAllForContributionInterface;
+use DB;
 
 class ContributionReactionCount extends DBModel implements DeleteAllForContributionInterface
 {
@@ -100,10 +101,57 @@ class ContributionReactionCount extends DBModel implements DeleteAllForContribut
 
 	/**
 	 * @param $contributionId
+	 * @param array $blockUsers
 	 * @return mixed
 	 */
-	public function getCountsForContribution($contributionId){
-		return $this->where('contribution_id',$contributionId)->first();
+	public function getCountsForContribution($contributionId,$blockUsers = []){
+
+		if(empty($blockUsers)) {
+			$result =
+				$this
+					->select(
+						'contribution_reaction_counts.contribution_id',
+						'contribution_reaction_counts.total_reaction_count',
+						'contribution_reaction_counts.like_reaction_count',
+						'contribution_reaction_counts.interest_reaction_count',
+						'contribution_reaction_counts.have_reaction_count',
+						DB::raw('0 as block_reaction_like_count'),
+						DB::raw('0 as block_reaction_interest_count')
+						)
+					->where('contribution_id', $contributionId)
+					->first();
+		}else{
+			$blockUserString = implode(',',$blockUsers);
+			$result =
+				$this
+					-> select(
+						'contribution_reaction_counts.contribution_id',
+						'contribution_reaction_counts.total_reaction_count',
+						'contribution_reaction_counts.like_reaction_count',
+						'contribution_reaction_counts.interest_reaction_count',
+						'contribution_reaction_counts.have_reaction_count',
+						DB::raw("(SELECT count(contribution_like_reactions.contribution_id) 
+									FROM `contribution_like_reactions` 
+									WHERE contribution_id = {$contributionId} and user_id in ({$blockUserString}) 
+									GROUP BY contribution_like_reactions.contribution_id limit 1)  as block_reaction_like_count"),
+
+					    DB::raw(
+					    	    "(SELECT count(contribution_interest_reactions.contribution_id)
+                                    FROM `contribution_interest_reactions`
+                                    WHERE contribution_id = {$contributionId} AND user_id IN ({$blockUserString})
+                                    GROUP BY contribution_interest_reactions.contribution_id
+                                    LIMIT 1)  AS block_reaction_interest_count"))
+					->where('contribution_reaction_counts.contribution_id',$contributionId)
+					->first();
+		}
+
+		if(empty($result))  return $result;
+		$result['total_reaction_count'] -= ($result['block_reaction_like_count'] + $result['block_reaction_interest_count'] );
+		$result['like_reaction_count'] -= $result['block_reaction_like_count'];
+		$result['interest_reaction_count'] -= $result['block_reaction_interest_count'];
+		unset($result['block_reaction_like_count']);
+		unset($result['block_reaction_interest_count']);
+		return $result;
 	}
 
 }

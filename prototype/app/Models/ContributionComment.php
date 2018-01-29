@@ -42,11 +42,12 @@ class ContributionComment extends DBModel implements DeleteAllForContributionInt
 	/**
 	 * @param int $contributionId
 	 * @param int $boundaryId
+	 * @param array $blockUsers
 	 * @param int $limit
 	 * @param QueryOrderTypes|null $orderType
-	 * @return mixed
+	 * @return array
 	 */
-	public function getList(int $contributionId, int $boundaryId, int $limit, ?QueryOrderTypes $orderType ) {
+	public function getList(int $contributionId, int $boundaryId, array $blockUsers, int $limit, ?QueryOrderTypes $orderType ) {
 		$compareSymbol = $orderType->getQueryCompareSymbol();
 		$queryBuilder =
 			$this
@@ -72,6 +73,14 @@ class ContributionComment extends DBModel implements DeleteAllForContributionInt
 		if($boundaryId > 0){
 			$queryBuilder = $queryBuilder->where('id',$compareSymbol,$boundaryId);
 		}
+
+		if(!empty($blockUsers)){
+			$blockUsersString = implode(',',$blockUsers);
+			$queryBuilder
+				->whereRaw(DB::raw("NOT EXISTS(select * from users as block_users where block_users.id in ({$blockUsersString}) and users.id = block_users.id)"));
+
+		}
+
 		$queryBuilder =
 			$queryBuilder
 			->leftJoin('contributions','contributions.id','=','contribution_comments.contribution_id')
@@ -103,5 +112,19 @@ class ContributionComment extends DBModel implements DeleteAllForContributionInt
 	 */
 	public function getPureListForContribution($contributionId, $limit = DefaultValues::QUERY_DEFAULT_LIMIT){
 		return $this->where('contribution_id',$contributionId)->limit($limit)->get();
+	}
+
+	/**
+	 * @param $contributionIds
+	 * @param $userIds
+	 * @return mixed
+	 */
+	public function getListForContributionsAndUsers($contributionIds,$userIds){
+		return
+			$this
+				->whereIn('contribution_id',$contributionIds)
+				->whereIn('user_id',$userIds)
+				->get();
+
 	}
 }

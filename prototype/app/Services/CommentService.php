@@ -12,6 +12,7 @@ namespace App\Services;
 use App\Constants\QueryOrderTypes;
 use App\Constants\StatusCode;
 use App\Lib\JSYService\ServiceResult;
+use App\Models\BlockUser;
 use App\Models\Contribution;
 use App\Models\ContributionComment;
 use App\Models\ContributionCommentCount;
@@ -66,17 +67,19 @@ class CommentService extends BaseService
 	}
 
 	/**
+	 * @param $userId
 	 * @param $contributionId
 	 * @param $boundaryId
 	 * @param $isAsc
 	 * @param $limit
 	 * @return ServiceResult
 	 */
-	public function getList($contributionId, $boundaryId, $isAsc, $limit){
-		return $this->executeTasks(function() use ($contributionId,$boundaryId,$isAsc,$limit){
+	public function getList($userId, $contributionId, $boundaryId, $isAsc, $limit){
+		return $this->executeTasks(function() use ($userId, $contributionId,$boundaryId,$isAsc,$limit){
+			$blockList =(new BlockUser())->getBlockAndBlockedUserIds($userId);
 			$type = ($isAsc)?QueryOrderTypes::ASCENDING:QueryOrderTypes::DESCENDING;
 			$queryOrderType = new QueryOrderTypes($type);
-			$commentList = (new ContributionComment())->getList($contributionId,$boundaryId,$limit,$queryOrderType);
+			$commentList = (new ContributionComment())->getList($contributionId,$boundaryId,$blockList,$limit,$queryOrderType);
 			return ServiceResult::withResult($commentList);
 		});
 	}

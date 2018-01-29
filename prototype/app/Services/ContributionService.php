@@ -236,8 +236,9 @@ class ContributionService extends BaseService
 	 */
 	public function getListForProduct($userId, $productId, $feelingType, $page, $limit):ServiceResult{
 		return $this->executeTasks(function() use ($userId,$productId,$feelingType,$page,$limit){
-			$blockList = (new BlockUser())->getBlockUsers($userId);
-			$contributions = (new Contribution())->getListForProduct($userId,$productId,$feelingType,$page,$limit);
+			$blockUsers = (new BlockUser())->getBlockAndBlockedUserIds($userId);
+			$contributions = (new Contribution())->getListForProduct($userId,$productId,$feelingType,$blockUsers,$page,$limit);
+			$contributions = $this->adjustReactionCountForEachContributionBlockUsers($contributions,$blockUsers);
 			$productCategories = (new ProductsProductCategory())->getProductCategories($productId);
 			$result = new ContributionListResultVO($contributions,$productCategories);
 			return ServiceResult::withResult($result);
@@ -258,6 +259,8 @@ class ContributionService extends BaseService
 			foreach($contributions as $contribution){
 				$productIds[] = $contribution->product_id;
 			}
+			$blockUsers = (new BlockUser())->getBlockAndBlockedUserIds($userId,$ownerId);
+			$contributions = $this->adjustReactionCountForEachContributionBlockUsers($contributions,$blockUsers);
 			$productsCategories = (new ProductsProductCategory())->getProductsCategories($productIds);
 			$result = new ContributionListResultVO($contributions,$productsCategories);
 			return ServiceResult::withResult($result);
@@ -286,6 +289,8 @@ class ContributionService extends BaseService
 				$productIds[] = $contribution->product_id;
 			}
 			$productsCategories = (new ProductsProductCategory())->getProductsCategories($productIds);
+			$blockUsers = (new BlockUser())->getBlockAndBlockedUserIds($userId,$ownerId);
+			$contributions = $this->adjustReactionCountForEachContributionBlockUsers($contributions,$blockUsers);
 			$result = new ContributionListResultVO($contributions,$productsCategories);
 			return ServiceResult::withResult($result);
 		});
@@ -304,19 +309,63 @@ class ContributionService extends BaseService
 			//Get owner ids for contribution user
 			$follows = (new Follow())->getFollowUserIds($userId);
 			//Get block list for contribution user
-			$blockList = (new BlockUser())->getBlockAndBlockedUserIds($userId);
+			$blockUsers = (new BlockUser())->getBlockAndBlockedUserIds($userId);
 			//Get Featured users
 			$featuredUsers = (new FeaturedSchedule())->getFeaturedUserIds(FeaturedScheduleType::FEED);
 			$feedUsers = array_merge($follows, $featuredUsers);
-			$feedUsers = array_diff($feedUsers, $blockList);
+			$feedUsers = array_diff($feedUsers, $blockUsers);
 			$contributions = (new Contribution())->getListForFeed($userId, $feedUsers, $page, $limit);
 			$productIds = [];
 			foreach ($contributions as $contribution) {
 				$productIds[] = $contribution->product_id;
 			}
 			$productsCategories = (new ProductsProductCategory())->getProductsCategories($productIds);
+
+			$contributions = $this->adjustReactionCountForEachContributionBlockUsers($contributions,$blockUsers);
 			$result = new ContributionListResultVO($contributions, $productsCategories);
 			return ServiceResult::withResult($result);
 		});
+	}
+
+	/**
+	 * @param $contributions
+	 * @param $blockUsers
+	 * @return array
+	 */
+	private function adjustReactionCountForEachContributionBlockUsers($contributions,$blockUsers){
+		if(empty($blockUsers))
+			return $contributions;
+
+		//Make contribution List
+		$contributionKeyValue = [];
+		$contributionIds = [];
+		foreach ($contributions as $contribution){
+			$contributionKeyValue[$contribution['id']] = $contribution;
+			$contributionIds[] = $contribution['id'];
+		}
+		$reactions = (new ContributionAllReaction())->getAllReactionListForContributionsAndUsers($contributionIds,$blockUsers);
+		$comments = (new ContributionComment())->getListForContributionsAndUsers($contributionIds,$blockUsers);
+
+
+		foreach($reactions as $reaction){
+			switch($reaction->contribution_reaction_type){
+				case ContributionReactionType::LIKE:
+					$contributionKeyValue[$reaction['contribution_id']]['total_reaction_count']--;
+					$contributionKeyValue[$reaction['contribution_id']]['like_reaction_count']--;
+					break;
+
+				case ContributionReactionType::INTEREST:
+					$contributionKeyValue[$reaction['contribution_id']]['total_reaction_count']--;
+					$contributionKeyValue[$reaction['contribution_id']]['interest_reaction_count']--;
+					break;
+			}
+
+		}
+
+		foreach ($comments as $comment){
+			$contributionKeyValue[$comment['contribution_id']]['comment_count']--;
+		}
+		return array_values($contributionKeyValue);
+
 	}
 }

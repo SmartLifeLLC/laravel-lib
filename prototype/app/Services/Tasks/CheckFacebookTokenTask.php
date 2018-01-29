@@ -66,7 +66,7 @@ class CheckFacebookTokenTask implements ServiceTask
         $result = json_decode($result,true);
         curl_close($curl);
         $this->result = $result;
-        return new FacebookResponseVO($result);
+        return new FacebookResponseVO($result,$this->facebookToken);
 
     }
 

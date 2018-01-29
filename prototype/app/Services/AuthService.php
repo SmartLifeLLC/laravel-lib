@@ -138,7 +138,7 @@ class AuthService extends BaseService
             //Get user auth from database.
             $userModel = new User();
             $imagesModel = new Image();
-            $userValidationVO = $userModel->getUserValidationByFacebookId($facebookId);
+            $userValidationVO = $userModel->getUserValidationByFacebookId($facebookId,$facebookToken);
             //Need to create user data
             if($userValidationVO == null){
                 $userValidationVO =  (new CreateUserTask($facebookResponseVO,$userModel,$imagesModel))->run();
