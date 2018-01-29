@@ -2,31 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="32305396-a728-48bd-a2b9-2748e96dc899" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/prototype/tests/Unit/Models/ContributionCommentTest.php" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/prototype/tests/Unit/Models/ContributionReactionCountTest.php" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Constants/ContributionReactionType.php" afterPath="$PROJECT_DIR$/prototype/app/Constants/ContributionReactionType.php" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Constants/Versions.php" afterPath="$PROJECT_DIR$/prototype/app/Constants/Versions.php" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/Controllers/CommentController.php" afterPath="$PROJECT_DIR$/prototype/app/Http/Controllers/CommentController.php" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/JsonView/Contribution/ReactionGetListJsonView.php" afterPath="$PROJECT_DIR$/prototype/app/Http/JsonView/Contribution/ReactionGetListJsonView.php" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/JsonView/JsonResponseView.php" afterPath="$PROJECT_DIR$/prototype/app/Http/JsonView/JsonResponseView.php" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Models/Common/ContributionReactionImplements.php" afterPath="$PROJECT_DIR$/prototype/app/Models/Common/ContributionReactionImplements.php" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Models/Common/ContributionReactionInterface.php" afterPath="$PROJECT_DIR$/prototype/app/Models/Common/ContributionReactionInterface.php" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Models/Common/UserContentsCountBuilderImplements.php" afterPath="$PROJECT_DIR$/prototype/app/Models/Common/UserContentsCountBuilderImplements.php" />
       <change beforePath="$PROJECT_DIR$/prototype/app/Models/ContributionAllReaction.php" afterPath="$PROJECT_DIR$/prototype/app/Models/ContributionAllReaction.php" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Models/ContributionComment.php" afterPath="$PROJECT_DIR$/prototype/app/Models/ContributionComment.php" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Models/ContributionReactionCount.php" afterPath="$PROJECT_DIR$/prototype/app/Models/ContributionReactionCount.php" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Models/User.php" afterPath="$PROJECT_DIR$/prototype/app/Models/User.php" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Services/AuthService.php" afterPath="$PROJECT_DIR$/prototype/app/Services/AuthService.php" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Services/BlockService.php" afterPath="$PROJECT_DIR$/prototype/app/Services/BlockService.php" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Services/CommentService.php" afterPath="$PROJECT_DIR$/prototype/app/Services/CommentService.php" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Services/ContributionService.php" afterPath="$PROJECT_DIR$/prototype/app/Services/ContributionService.php" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Services/ReactionService.php" afterPath="$PROJECT_DIR$/prototype/app/Services/ReactionService.php" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Services/Tasks/CheckFacebookTokenTask.php" afterPath="$PROJECT_DIR$/prototype/app/Services/Tasks/CheckFacebookTokenTask.php" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/ValueObject/FacebookResponseVO.php" afterPath="$PROJECT_DIR$/prototype/app/ValueObject/FacebookResponseVO.php" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/ValueObject/ReactionGetLIstResultVO.php" afterPath="$PROJECT_DIR$/prototype/app/ValueObject/ReactionGetLIstResultVO.php" />
-      <change beforePath="$PROJECT_DIR$/prototype/tests/Unit/Controllers/AuthControllerTest.php" afterPath="$PROJECT_DIR$/prototype/tests/Unit/Controllers/AuthControllerTest.php" />
-      <change beforePath="$PROJECT_DIR$/prototype/tests/Unit/Models/ContributionInterestReactionTest.php" afterPath="$PROJECT_DIR$/prototype/tests/Unit/Models/ContributionInterestReactionTest.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -40,6 +16,16 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="TranslateCommentController.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/prototype/app/Http/Controllers/Translate/TranslateCommentController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="11" column="4" lean-forward="true" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="4" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="TranslateUserController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/prototype/app/Http/Controllers/Translate/TranslateUserController.php">
           <provider selected="true" editor-type-id="text-editor">
@@ -52,11 +38,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TranslateAllReactionController.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="TranslateAllReactionController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/prototype/app/Http/Controllers/Translate/TranslateAllReactionController.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="450">
               <caret line="39" column="1" lean-forward="true" selection-start-line="39" selection-start-column="1" selection-end-line="39" selection-end-column="1" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ContributionAllReaction.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/prototype/app/Models/ContributionAllReaction.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="14">
+              <caret line="66" column="0" lean-forward="true" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -97,26 +93,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PreviousCommentJsonView.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/prototype/app/Http/JsonView/Translate/PreviousCommentJsonView.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="23" column="1" lean-forward="false" selection-start-line="23" selection-start-column="1" selection-end-line="23" selection-end-column="1" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PreviousContributionJsonView.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/prototype/app/Http/JsonView/Translate/PreviousContributionJsonView.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="21" column="1" lean-forward="false" selection-start-line="21" selection-start-column="1" selection-end-line="21" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -178,7 +154,6 @@
         <option value="$PROJECT_DIR$/prototype/app/Models/ContributionInterestReaction.php" />
         <option value="$PROJECT_DIR$/prototype/app/Models/ContributionHaveReaction.php" />
         <option value="$PROJECT_DIR$/prototype/app/Http/Controllers/Translate/TranslateAllReactionController.php" />
-        <option value="$PROJECT_DIR$/prototype/app/Models/ContributionAllReaction.php" />
         <option value="$PROJECT_DIR$/prototype/app/Console/Commands/Translate/ContributionHaveReactionTranslator.php" />
         <option value="$PROJECT_DIR$/prototype/app/Console/Commands/Translate/ContributionTranslator.php" />
         <option value="$PROJECT_DIR$/prototype/app/Console/Commands/Translate/ImageTranslator.php" />
@@ -208,6 +183,7 @@
         <option value="$PROJECT_DIR$/prototype/app/Http/Controllers/Translate/TranslateUserController.php" />
         <option value="$PROJECT_DIR$/prototype/app/Http/JsonView/Translate/PreviousContributionJsonView.php" />
         <option value="$PROJECT_DIR$/prototype/app/Http/JsonView/Translate/PreviousUserJsonView.php" />
+        <option value="$PROJECT_DIR$/prototype/app/Models/ContributionAllReaction.php" />
       </list>
     </option>
   </component>
@@ -499,18 +475,17 @@
       <workItem from="1516341700450" duration="18405000" />
       <workItem from="1516523982643" duration="30109000" />
       <workItem from="1516968681688" duration="168000" />
-      <workItem from="1517054199350" duration="25753000" />
+      <workItem from="1517054199350" duration="25894000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="74435000" />
+    <option name="totallyTimeSpent" value="74576000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="797" extended-state="0" />
-    <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.08583691" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19241774" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -689,16 +664,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/prototype/app/Http/Controllers/Translate/TranslateCommentController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="11" column="4" lean-forward="true" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="4" />
-          <folding>
-            <element signature="e#132#168#0#PHP" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/prototype/app/Models/Old/ReviewPostComment.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="345">
@@ -713,16 +678,6 @@
           <caret line="22" column="43" lean-forward="false" selection-start-line="22" selection-start-column="43" selection-end-line="22" selection-end-column="43" />
           <folding>
             <element signature="e#115#154#0#PHP" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/prototype/app/Models/ContributionAllReaction.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="692">
-          <caret line="85" column="5" lean-forward="true" selection-start-line="85" selection-start-column="5" selection-end-line="85" selection-end-column="5" />
-          <folding>
-            <element signature="e#113#146#0#PHP" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1015,10 +970,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/prototype/app/Http/Controllers/Translate/TranslateCommentController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="11" column="4" lean-forward="true" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/prototype/app/Http/Controllers/Translate/TranslateAllReactionController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="450">
           <caret line="39" column="1" lean-forward="true" selection-start-line="39" selection-start-column="1" selection-end-line="39" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/prototype/app/Models/ContributionAllReaction.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="14">
+          <caret line="66" column="0" lean-forward="true" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
           <folding />
         </state>
       </provider>

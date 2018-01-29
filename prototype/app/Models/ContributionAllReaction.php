@@ -65,7 +65,6 @@ class ContributionAllReaction extends DBModel implements ContributionReactionInt
 		return $counts;
 	}
 
-<<<<<<< HEAD
     /**
      * @param $userId
      * @param $contributionId
@@ -85,7 +84,7 @@ class ContributionAllReaction extends DBModel implements ContributionReactionInt
             ]
         );
     }
-=======
+
 	/**
 	 * @param $contributionIds
 	 * @param $userIds
@@ -100,5 +99,4 @@ class ContributionAllReaction extends DBModel implements ContributionReactionInt
 		return $result;
 	}
 
->>>>>>> master
 }
