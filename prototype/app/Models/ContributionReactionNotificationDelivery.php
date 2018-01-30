@@ -46,4 +46,22 @@ class ContributionReactionNotificationDelivery extends DBModel implements Delete
 
 	}
 
+    /**
+     * @param $userId
+     * @param $contributionId
+     * @param $type
+     * @param $created
+     * @return mixed
+     */
+    public function translateGetId($userId, $contributionId, $type, $created)
+    {
+        return $this->insertGetId(
+            [
+                'user_id' => $userId,
+                'contribution_id' => $contributionId,
+                'contribution_reaction_type' => $type,
+                'created_at' => $created
+            ]
+        );
+    }
 }

@@ -73,8 +73,6 @@ class Image extends DBModel
                 's3_key' => $s3Key,
                 'type' => $type,
                 'created_at' => $created,
-                'updated_at' => date(DateTimeFormat::General)
-
             ]
         );
     }
