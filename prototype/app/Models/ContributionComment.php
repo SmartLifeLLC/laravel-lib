@@ -39,6 +39,26 @@ class ContributionComment extends DBModel implements DeleteAllForContributionInt
 		);
 	}
 
+    /**
+     * @param $userId
+     * @param $contributionId
+     * @param $content
+     * @param $created
+     * @return mixed
+     */
+    function translateGetId($userId, $contributionId, $content, $created){
+        return $this->insertGetId(
+            [
+                'user_id'=>$userId,
+                'contribution_id'=>$contributionId,
+                'content'=>$content,
+                'created_at'=>$created,
+                'updated_at'=>date(DateTimeFormat::General)
+
+            ]
+        );
+    }
+
 	/**
 	 * @param int $contributionId
 	 * @param int $boundaryId

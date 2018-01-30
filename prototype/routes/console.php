@@ -16,9 +16,3 @@ use Illuminate\Foundation\Inspiring;
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->describe('Display an inspiring quote');
-
-
-Route::group(['prefix' => 'translate', 'namespace' => 'Translate'], function(){
-    Route::get('/user', 'TranslateUserController@getPreviousData');
-    Route::get('/comment', 'TranslateCommentController@translatePreviousData');
-});

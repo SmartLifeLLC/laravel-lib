@@ -9,8 +9,6 @@
 
 namespace App\Services\Translate;
 
-
-use App\Models\Contribution;
 use App\Models\ContributionComment;
 use App\Models\ContributionCommentCount;
 use App\Services\BaseService;
@@ -20,14 +18,15 @@ use DB;
 class PreviousCommentService extends BaseService
 {
     /**
-     * @param int $userId
-     * @param int $contributionId
-     * @param string $content
+     * @param $userId
+     * @param $contributionId
+     * @param $content
+     * @param $created
      * @return ServiceResult
      */
-    public function getData($userId, $contributionId, $content):ServiceResult{
-        return $this->executeTasks(function() use($userId, $contributionId, $content) {
-            $commentId = (new ContributionComment())->createGetId($userId, $contributionId, $content);
+    public function getData($userId, $contributionId, $content, $created):ServiceResult{
+        return $this->executeTasks(function() use($userId, $contributionId, $content, $created) {
+            $commentId = (new ContributionComment())->translateGetId($userId, $contributionId, $content, $created);
 			(new ContributionCommentCount())->increaseCommentCount($contributionId);
             return ServiceResult::withResult($commentId);
         },true);

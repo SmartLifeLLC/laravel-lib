@@ -9,6 +9,7 @@
 namespace App\Models;
 
 
+use App\Constants\DateTimeFormat;
 use App\Constants\ContributionReactionType;
 use App\Models\Common\DeleteAllForContributionImplements;
 use App\Models\Common\DeleteAllForContributionInterface;
@@ -40,4 +41,22 @@ class ContributionInterestReaction extends DBModel implements ContributionReacti
 			->leftJoin('contributions','contributions.id','=','contribution_interest_reactions.contribution_id')
 			->count('contribution_interest_reactions.id');
 	}
+
+    /**
+     * @param $userId
+     * @param $contributionId
+     * @param $created
+     * @return mixed
+     */
+    public function translateGetId($userId, $contributionId, $created){
+        return $this->insertGetId(
+            [
+                'user_id'=>$userId,
+                'contribution_id'=>$contributionId,
+                'created_at'=>$created,
+                'updated_at'=>date(DateTimeFormat::General)
+
+            ]
+        );
+    }
 }
