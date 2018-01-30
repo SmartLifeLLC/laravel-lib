@@ -9,6 +9,7 @@ use App\Models\JicfsCategory;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use App\Console\Commands\CategoryGenerator;
+//use App\Console\Commands\Translate\ContributionCommentTranslator;
 class Kernel extends ConsoleKernel
 {
     /**
@@ -19,7 +20,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         CategoryGenerator::class,
         JicfsItemReader::class,
-        Translate/ContributionCommentTranslator::class
+        ContributionCommentTranslator::class
     ];
 
     /**
