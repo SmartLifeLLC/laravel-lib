@@ -17,6 +17,11 @@ use App\Models\Contribution;
 use App\Models\ContributionComment;
 use App\Models\ContributionCommentCount;
 use App\Models\ContributionReactionCount;
+use App\Models\Device;
+use App\Models\NotificationLog;
+use App\Models\User;
+use App\Services\Tasks\NotificationTask\Factory\CommentNotificationFactory;
+use App\Services\Tasks\NotificationTask\Factory\CommentRelatedNotificationFactory;
 use App\Services\Tasks\SendNotificationTask;
 use MongoDB\Driver\Query;
 
@@ -30,12 +35,84 @@ class CommentService extends BaseService
 	 */
 	public function create($userId, $contributionId, $content):ServiceResult{
 		return $this->executeTasks(function()use($userId,$contributionId,$content){
-			//Create comment Data
-			$commentId = (new ContributionComment())->createGetId($userId,$contributionId,$content);
-			(new ContributionCommentCount())->increaseCommentCount($contributionId);
-			//Send notification
+
+			$blockModel = new BlockUser();
 			$contribution = (new Contribution())->find($contributionId);
-			(new SendNotificationTask())->sendCommentNotification($userId,$contribution['user_id'],$commentId,$content);
+			$contributionUserId = $contribution['user_id'];
+			if($blockModel->isBlockStatus($userId,$contributionUserId)){
+				return ServiceResult::withBlockStatusError($userId,$contributionUserId);
+			}
+
+
+			//Create comment Data
+			$contributionCommentModel = new ContributionComment();
+			$commentId = $contributionCommentModel->createGetId($userId,$contributionId,$content);
+			(new ContributionCommentCount())->increaseCommentCount($contributionId);
+
+
+			//Send notification to comment owner
+			$user = (new User())->getSimpleUserInfo($userId);
+			$notificationLogModel = new NotificationLog();
+			$notificationTargetUsers = (new Device())->getNotificationTargetUsers([$contribution['user_id']]);
+			$factory = new CommentNotificationFactory();
+			$notification =
+				$factory
+					->setProductName($contribution['display_name'])
+					->setUserName($user['user_name'])
+					->setFromUserId($userId)
+					->setTargetUsers($notificationTargetUsers)
+					->create();
+			//insert
+			$notificationLogModel->saveData($notification->saveData());
+			//Send
+			$notification->send();
+
+
+			//Send notification to comment related users
+			$relatedNotificationTargetUsersDirty = $contributionCommentModel->getNotificationTargetUsersDirty($userId,$contributionId);
+			if(!empty($relatedNotificationTargetUsers)){
+				//Send every 1000 data
+				$count = 0;
+				$notificationTargetUsers = [];
+				foreach($relatedNotificationTargetUsersDirty as $user){
+
+					//block 状態を確認
+					if(empty($user['block']) && empty($user['blocked'])){
+						if( !isset($notificationTargetUsers[$user['user_id']])){
+							$notificationTargetUsers[$user['user_id']] = [];
+						}
+						$notificationTargetUsers[$user['user_id']][] = $notificationTargetUsers['notification_token'];
+						$count++;
+						if($count > 1000){
+							$relatedFactory = new CommentRelatedNotificationFactory();
+							$notification =
+								$relatedFactory
+								->setProductName($contribution['display_name'])
+								->setUserName($user['user_name'])
+								->setFromUserId($userId)
+								->setTargetUsers($notificationTargetUsers)
+								->create();
+							$notificationLogModel->saveData($notification->saveData());
+							$notification->send();
+							$notificationTargetUsers = [];
+						}
+					}
+				}
+
+				//Send remained one.　
+				if(!empty($notificationTargetUsers)){
+					$relatedFactory = new CommentRelatedNotificationFactory();
+					$notification =
+						$relatedFactory
+							->setProductName($contribution['display_name'])
+							->setUserName($user['user_name'])
+							->setFromUserId($userId)
+							->setTargetUsers($notificationTargetUsers)
+							->create();
+					$notificationLogModel->saveData($notification->saveData());
+					$notification->send();
+				}
+			}
 			return ServiceResult::withResult($commentId);
 		},true);
 	}

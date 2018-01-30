@@ -40,6 +40,30 @@ class Device extends DBModel
             ]
         );
         return $result;
+    }
 
+
+	/**
+	 * @param array $userIds
+	 * @return array
+	 */
+    public function getNotificationTargetUsers(array $userIds){
+    	$result =
+		    $this
+			    ->select('notification_token','user_id')
+		        ->whereIn('user_id',$userIds)
+		        ->get();
+
+
+    	$data = [];
+    	foreach($userIds as $userId){
+    		$data[$userId] = [];
+	    }
+
+	    foreach($result as $deviceToken){
+			$data[$deviceToken['user_id']][] = $deviceToken;
+	    }
+
+	    return $data;
     }
 }
