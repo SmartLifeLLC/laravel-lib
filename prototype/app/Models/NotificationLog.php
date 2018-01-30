@@ -56,4 +56,22 @@ class NotificationLog extends DBModel
         return self::whereIn('id', $ids)
             ->update(['read_at'=>date(DateTimeFormat::General)]);
     }
+
+    /**
+     * @param $logData
+     * @return mixed
+     */
+    public function translateGetId($logData){
+        return $this->insertGetId(
+            [
+                'target_user_id'=>$logData['targetUserId'],
+                'from_user_id'=>$logData['fromUserId'],
+                'message'=>$logData['message'],
+                'delivered_at'=>$logData['deliveredAt'],
+                'contribution_id'=>$logData['contributionId'],
+                'contribution_comment_id'=>$logData['contributionCommentId'],
+                'notification_log_type_id'=>$logData['notificationLogTypeId']
+            ]
+        );
+    }
 }
