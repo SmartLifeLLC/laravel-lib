@@ -56,4 +56,11 @@ class NotificationLog extends DBModel
         return self::whereIn('id', $ids)
             ->update(['read_at'=>date(DateTimeFormat::General)]);
     }
+
+	/**
+	 * @param array $saveData
+	 */
+    public function saveData(array $saveData){
+		self::insert($saveData);
+    }
 }

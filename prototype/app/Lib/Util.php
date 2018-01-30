@@ -181,4 +181,12 @@ final class Util
         }
         return implode($strList, "\x20");
     }
+
+    static function getStringWithMaxLength($string,$maxLength = 16){
+	if(mb_strlen($string) > $maxLength){
+		$string = substr($string,0,16);
+		$string .= "...";
+	}
+	return $string;
+}
 }

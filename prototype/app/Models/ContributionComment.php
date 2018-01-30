@@ -147,4 +147,36 @@ class ContributionComment extends DBModel implements DeleteAllForContributionInt
 				->get();
 
 	}
+
+	/**
+	 * @param $commentUserId
+	 * @param $contributionId
+	 * @return array
+	 */
+	public function getNotificationTargetUsersDirty($commentUserId,$contributionId){
+		$result =
+			$this
+				->select(
+					'contribution_comments.user_id',
+					'block_users.target_user_id as block',
+					'blocked_users.target_user_id as blocked',
+					'devices.notification_token')
+				->leftJoin('block_users',function($join) use ($commentUserId){
+					$join->on('block_users.target_user_id','=','contribution_comments.user_id');
+					$join->on('block_users.user_id','=',$commentUserId);
+
+				})
+				->leftJoin('blocked_users',function($join) use ($commentUserId){
+					$join->on('blocked_users.target_user_id','=','contribution_comments.user_id');
+					$join->on('blocked_users.target_user_id','=',$commentUserId);
+				})
+				->leftJoin('devices','devices.user_id','=','contribution_comments.user_id')
+				->where('contribution_comments.contribution_id',$contributionId)
+				->groupBy('devices.notification_token')
+				->get();
+		return $result;
+
+	}
+
+
 }

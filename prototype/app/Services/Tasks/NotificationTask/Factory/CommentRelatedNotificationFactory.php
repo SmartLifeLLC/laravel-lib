@@ -2,24 +2,23 @@
 /**
  * Created by PhpStorm.
  * User: jung
- * Date: 2018/01/29
- * Time: 16:24
+ * Date: 2018/01/30
+ * Time: 10:18
  */
 
 namespace App\Services\Tasks\NotificationTask\Factory;
 
 
-use App\Constants\ContributionReactionType;
 use App\Constants\DefaultValues;
 use App\Constants\NotificationLogType;
 use App\Constants\NotificationString;
 use App\Lib\Util;
 use App\Services\Tasks\NotificationTask\Notification;
 
-class ReactionNotificationFactory extends NotificationFactory
+class CommentRelatedNotificationFactory extends NotificationFactory
 {
+
 	private $productName;
-	private $reactionType;
 
 	/**
 	 * @param mixed $productName
@@ -31,21 +30,14 @@ class ReactionNotificationFactory extends NotificationFactory
 		return $this;
 	}
 
-	public function setReactionType(int $reactionType):NotificationFactory
-	{
-		$this->reactionType = $reactionType;
-	}
-
-
 	function create(): Notification
 	{
 		//Comment
 		//1.$message
 		$name = Util::getStringWithMaxLength($this->userName,DefaultValues::MAX_LENGTH_NOTIFICATION_USERNAME);
 		$productName = Util::getStringWithMaxLength($this->productName, DefaultValues::MAX_LENGTH_NOTIFICATION_PRODUCT);
-		$message = NotificationString::getReaction($name,$productName,$this->reactionType);
-		$notificationType = ($this->reactionType == ContributionReactionType::LIKE)?NotificationLogType::LIKE:NotificationLogType::INTEREST;
+		$message = NotificationString::getCommentRelated($name,$productName);
 		return
-			new Notification($this->fromUserId,$this->targetUsers,$this->contributionId,$this->contributionCommentId,$notificationType,$message);
+			new Notification($this->fromUserId,$this->targetUsers,$this->contributionId,$this->contributionCommentId,NotificationLogType::COMMENT_RELATED,$message);
 	}
 }

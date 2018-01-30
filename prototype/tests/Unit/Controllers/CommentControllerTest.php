@@ -28,11 +28,10 @@ class CommentControllerTest extends TestCase
 		$uri = "/comment/create";
 		$data =
 			[
-				'product_item_id'=>51,
-				'contribution_id'=>31,
+				//'product_item_id'=>51,
+				'contribution_id'=>7,
 				'user_id'=>$this->userId,
-				'is_consent'=>1,
-				'text'=>'商品評価2',
+				'text'=>'コメントコメント',
 
 			];
 		$content = $this->getJsonRequestContent($httpMethod,$uri,$data);

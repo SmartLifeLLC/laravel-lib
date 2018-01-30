@@ -334,4 +334,14 @@ class Contribution extends DBModel implements UserContentsCountBuilderInterface
 			});
 
 	}
+
+
+	public function getContributionWithProductName($id){
+		return
+			$this
+				->select('contributions.user_id','products.display_name')
+				->where('contributions.id',$id)
+				->leftJoin('products','products.id','=','contributions.product_id')
+				->get();
+	}
 }

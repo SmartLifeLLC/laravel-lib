@@ -247,5 +247,13 @@ class User extends DBModel
             ]
         );
     }
+
+	/**
+	 * @param $userId
+	 * @return mixed
+	 */
+    public function getSimpleUserInfo($userId){
+    	return $this->find($userId);
+    }
 }
 
