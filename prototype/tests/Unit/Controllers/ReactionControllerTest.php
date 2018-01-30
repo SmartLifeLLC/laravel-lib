@@ -48,16 +48,16 @@ class ReactionControllerTest extends TestCase
 	public function testLeaveReaction(){
 		//$userId = 48;
 		//$userAuth = "5a4ca9c659465";
-		//parent::prepareUserWithIdAndAuth($userId,$userAuth);
-		$feedId = 39;
+		parent::prepareUserWithIdAndAuth(49,1);
+		$contributionId = 29;
 
 
 		$httpMethod = HttpMethod::PUT;
 		$uri = "/reaction/edit/1";
 		$data =
 			[
-				'contribution_id'=>$feedId,
-				'contribution_reaction_type'=>ContributionReactionType::LIKE,
+				'contribution_id'=>$contributionId,
+				'contribution_reaction_type'=>ContributionReactionType::INTEREST,
 			];
 		$content = $this->getJsonRequestContent($httpMethod,$uri,$data);
 

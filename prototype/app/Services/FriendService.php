@@ -62,8 +62,7 @@ class FriendService extends BaseService
             if($switchFollowResultVO->isFirstTime()){
             	$userModel = new User();
 	            $user = $userModel->getSimpleUserInfo($userId);
-				$notificationTargetUsers = $userModel->getNotificationTargetUsers([$targetUserId],FollowNotificationFactory::getNotificationAllowColumn());
-
+				$notificationTargetUsers = (new Device())->getNotificationTargetUsers([$targetUserId],FollowNotificationFactory::getNotificationAllowColumn());
 				$factory = new FollowNotificationFactory();
 				$notification =
 				$factory

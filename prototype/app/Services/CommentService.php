@@ -22,7 +22,7 @@ use App\Models\NotificationLog;
 use App\Models\User;
 use App\Factory\CommentNotificationFactory;
 use App\Factory\CommentRelatedNotificationFactory;
-use App\Services\Tasks\SendNotificationTask;
+use App\Services\Tasks\SendReactionNotificationTask;
 use MongoDB\Driver\Query;
 
 class CommentService extends BaseService

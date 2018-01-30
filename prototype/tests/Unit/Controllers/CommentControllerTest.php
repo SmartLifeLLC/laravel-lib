@@ -39,7 +39,7 @@ class CommentControllerTest extends TestCase
 		$content = $this->getJsonRequestContent($httpMethod,$uri,$data);
 		if(!isset($content['code']))  var_dump($content);
 		$this->printResponse($content);
-		$this->printSQLLog();
+		//$this->printSQLLog();
 		$this->assertEquals(StatusCode::SUCCESS,$content["code"]);
 	}
 
