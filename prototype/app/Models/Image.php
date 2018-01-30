@@ -58,5 +58,24 @@ class Image extends DBModel
 		return $imageIds;
     }
 
+    /**
+     * @param $userId
+     * @param $s3Key
+     * @param $type
+     * @param $created
+     * @return mixed
+     */
+    public function translateGetId($userId, $s3Key, $type, $created)
+    {
+        return $this->insertGetId(
+            [
+                'user_id' => $userId,
+                's3_key' => $s3Key,
+                'type' => $type,
+                'created_at' => $created,
+                'updated_at' => date(DateTimeFormat::General)
 
+            ]
+        );
+    }
 }
