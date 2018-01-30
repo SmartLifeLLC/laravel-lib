@@ -10,6 +10,7 @@ namespace App\Services;
 
 
 use App\Constants\StatusCode;
+use App\Factory\FollowNotificationFactory;
 use App\Lib\JSYService\ServiceManagerFactory;
 use App\Lib\JSYService\ServiceResult;
 use App\Lib\JSYService\TransactionServiceManager;
@@ -22,7 +23,6 @@ use App\Models\BlockUser;
 use App\Models\BlockedUser;
 use App\Models\NotificationLog;
 use App\Models\User;
-use App\Services\Tasks\NotificationTask\Factory\FollowNotificationFactory;
 use App\ValueObject\FollowOrFollowerGetListResultVO;
 use App\ValueObject\SwitchFollowResultVO;
 
@@ -60,8 +60,9 @@ class FriendService extends BaseService
 
             //Send Notification
             if($switchFollowResultVO->isFirstTime()){
-	            $user = (new User())->getSimpleUserInfo($userId);
-				$notificationTargetUsers = (new Device())->getNotificationTargetUsers([$targetUserId]);
+            	$userModel = new User();
+	            $user = $userModel->getSimpleUserInfo($userId);
+				$notificationTargetUsers = $userModel->getNotificationTargetUsers([$targetUserId],FollowNotificationFactory::getNotificationAllowColumn());
 
 				$factory = new FollowNotificationFactory();
 				$notification =
@@ -72,9 +73,9 @@ class FriendService extends BaseService
 					->create();
 
 				//Send
-	            $notification->send();
+	            $notification->run();
 	            //insert
-	            (new NotificationLog())->saveData($notification->saveData());
+	            (new NotificationLog())->saveData($notification->getSaveData());
 
             }
             $switchFollowerResultVO = $followerModel->switchFollower($targetUserId,$userId,$isFollowOn);

@@ -255,5 +255,34 @@ class User extends DBModel
     public function getSimpleUserInfo($userId){
     	return $this->find($userId);
     }
+
+
+//	/**
+//	 * @param array $userIds
+//	 * @param $notificationCheckColumn
+//	 * @return array
+//	 */
+//	public function getNotificationTargetUsers(array $userIds,$notificationCheckColumn){
+//		$users =
+//			$this
+//				->select('notification_token','users.id',"users.".$notificationCheckColumn)
+//				->leftJoin('devices','devices.user_id','=','users.id')
+//				->whereIn('users.id',$userIds)
+//				->where('users.'.$notificationCheckColumn,1)
+//				->get();
+//
+//		$data = [];
+//		if(empty($users->count())) return $data;
+//
+//		foreach($userIds as $userId){
+//			$data[$userId] = [];
+//		}
+//
+//		foreach($users as $user){
+//			$data[$user['id']][] = $user['notification_token'];
+//		}
+//
+//		return $data;
+//	}
 }
 

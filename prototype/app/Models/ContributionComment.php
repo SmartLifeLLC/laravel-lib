@@ -15,6 +15,7 @@ use App\Constants\QueryOrderTypes;
 use App\Lib\Util;
 use App\Models\Common\DeleteAllForContributionImplements;
 use App\Models\Common\DeleteAllForContributionInterface;
+use DB;
 
 class ContributionComment extends DBModel implements DeleteAllForContributionInterface
 {
@@ -151,9 +152,10 @@ class ContributionComment extends DBModel implements DeleteAllForContributionInt
 	/**
 	 * @param $commentUserId
 	 * @param $contributionId
-	 * @return array
+	 * @param $notificationCheckColumn
+	 * @return mixed
 	 */
-	public function getNotificationTargetUsersDirty($commentUserId,$contributionId){
+	public function getNotificationTargetUsersDirty($commentUserId,$contributionId,$notificationCheckColumn){
 		$result =
 			$this
 				->select(
@@ -163,16 +165,22 @@ class ContributionComment extends DBModel implements DeleteAllForContributionInt
 					'devices.notification_token')
 				->leftJoin('block_users',function($join) use ($commentUserId){
 					$join->on('block_users.target_user_id','=','contribution_comments.user_id');
-					$join->on('block_users.user_id','=',$commentUserId);
+					$join->on('block_users.user_id','=',DB::raw($commentUserId));
 
 				})
 				->leftJoin('blocked_users',function($join) use ($commentUserId){
 					$join->on('blocked_users.target_user_id','=','contribution_comments.user_id');
-					$join->on('blocked_users.target_user_id','=',$commentUserId);
+					$join->on('blocked_users.target_user_id','=',DB::raw($commentUserId));
 				})
 				->leftJoin('devices','devices.user_id','=','contribution_comments.user_id')
+				->leftJoin('users','users.id','=','contribution_comments.user_id')
 				->where('contribution_comments.contribution_id',$contributionId)
-				->groupBy('devices.notification_token')
+				->where("users.{$notificationCheckColumn}",1)
+				->groupBy('notification_token')
+				->groupBY('users.id')
+				->groupBY('block_users.target_user_id')
+				->groupBY('blocked_users.target_user_id')
+				->groupBY('notification_token')
 				->get();
 		return $result;
 

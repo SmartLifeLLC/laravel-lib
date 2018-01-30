@@ -45,9 +45,11 @@ class ContributionReactionCount extends DBModel implements DeleteAllForContribut
 
 		//Run update
 		}else{
-			$entity->{$column} += 1;
-			$entity->total_reaction_count += 1;
-			$entity->save();
+			$this->increment($column);
+			$this->increment('total_reaction_count');
+//			$entity->{$column} += 1;
+//			$entity->total_reaction_count += 1;
+//			$entity->save();
 		}
 	}
 
@@ -66,8 +68,11 @@ class ContributionReactionCount extends DBModel implements DeleteAllForContribut
 			throw new \Exception("Count data for the contribution id  {$contributionId}  and product id {$productId} could not be found.");
 		}
 		$column = $this->getTargetColumn($contributionType);
-		$entity->{$column} -= 1;
-		$entity->total_reaction_count -= 1;
+
+		$this->decrement($column);
+		$this->decrement('total_reaction_count');
+//		$entity->{$column} -= 1;
+//		$entity->total_reaction_count -= 1;
 		$entity->save();
 	}
 

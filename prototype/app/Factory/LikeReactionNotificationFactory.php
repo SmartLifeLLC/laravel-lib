@@ -6,7 +6,7 @@
  * Time: 16:24
  */
 
-namespace App\Services\Tasks\NotificationTask\Factory;
+namespace App\Factory;
 
 
 use App\Constants\ContributionReactionType;
@@ -14,12 +14,23 @@ use App\Constants\DefaultValues;
 use App\Constants\NotificationLogType;
 use App\Constants\NotificationString;
 use App\Lib\Util;
-use App\Services\Tasks\NotificationTask\Notification;
+use App\Services\Tasks\NotificationTask\NotificationTask;
 
-class ReactionNotificationFactory extends NotificationFactory
+class LikeReactionNotificationFactory extends NotificationFactory
 {
 	private $productName;
 	private $reactionType;
+
+	static function getNotificationAllowColumn(): string
+	{
+		return "is_like_notification_allowed";
+	}
+
+
+	public function __construct()
+	{
+		$this->reactionType = ContributionReactionType::LIKE;
+	}
 
 	/**
 	 * @param mixed $productName
@@ -33,12 +44,13 @@ class ReactionNotificationFactory extends NotificationFactory
 
 	public function setReactionType(int $reactionType):NotificationFactory
 	{
-		$this->reactionType = $reactionType;
 	}
 
 
-	function create(): Notification
+	function create(): NotificationTask
 	{
+
+
 		//Comment
 		//1.$message
 		$name = Util::getStringWithMaxLength($this->userName,DefaultValues::MAX_LENGTH_NOTIFICATION_USERNAME);
@@ -46,6 +58,6 @@ class ReactionNotificationFactory extends NotificationFactory
 		$message = NotificationString::getReaction($name,$productName,$this->reactionType);
 		$notificationType = ($this->reactionType == ContributionReactionType::LIKE)?NotificationLogType::LIKE:NotificationLogType::INTEREST;
 		return
-			new Notification($this->fromUserId,$this->targetUsers,$this->contributionId,$this->contributionCommentId,$notificationType,$message);
+			new NotificationTask($this->fromUserId,$this->targetUsers,$this->contributionId,$this->contributionCommentId,$notificationType,$message);
 	}
 }

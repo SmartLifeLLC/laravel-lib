@@ -35,8 +35,9 @@ class ContributionCommentCount extends DBModel implements DeleteAllForContributi
 
 			//Run update
 		}else{
-			$entity->comment_count += 1;
-			$entity->save();
+			$this->increment('comment_count');
+//			$entity->comment_count += 1;
+//			$entity->save();
 		}
 	}
 

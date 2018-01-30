@@ -6,7 +6,7 @@
  * Time: 16:23
  */
 
-namespace App\Services\Tasks\NotificationTask\Factory;
+namespace App\Factory;
 
 
 /**
@@ -42,11 +42,20 @@ use App\Constants\DefaultValues;
 use App\Constants\NotificationLogType;
 use App\Constants\NotificationString;
 use App\Lib\Util;
-use App\Services\Tasks\NotificationTask\Notification;
+use App\Services\Tasks\NotificationTask\NotificationTask;
 
 class CommentNotificationFactory extends NotificationFactory
 {
 	private $productName;
+
+	/**
+	 * @return string
+	 */
+	static function getNotificationAllowColumn():string
+	{
+		return "is_comment_notification_allowed";
+	}
+
 
 	/**
 	 * @param mixed $productName
@@ -58,7 +67,10 @@ class CommentNotificationFactory extends NotificationFactory
 		return $this;
 	}
 
-	function create(): Notification
+
+
+
+	function create(): NotificationTask
 	{
 		//Comment
 		//1.$message
@@ -66,7 +78,7 @@ class CommentNotificationFactory extends NotificationFactory
 		$productName = Util::getStringWithMaxLength($this->productName, DefaultValues::MAX_LENGTH_NOTIFICATION_PRODUCT);
 		$message = NotificationString::getComment($name,$productName);
 		return
-			new Notification($this->fromUserId,$this->targetUsers,$this->contributionId,$this->contributionCommentId,NotificationLogType::COMMENT,$message);
+			new NotificationTask($this->fromUserId,$this->targetUsers,$this->contributionId,$this->contributionCommentId,NotificationLogType::COMMENT,$message);
 	}
 
 }
