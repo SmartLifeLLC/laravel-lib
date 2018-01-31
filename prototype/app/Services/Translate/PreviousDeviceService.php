@@ -15,7 +15,13 @@ use DB;
 
 class PreviousDeviceService extends BaseService
 {
-
+    /**
+     * @param $userId
+     * @param $deviceType
+     * @param $notificationToken
+     * @param $created
+     * @return ServiceResult
+     */
     public function getData($userId, $deviceType, $notificationToken, $created):ServiceResult{
         return $this->executeTasks(function() use($userId, $deviceType, $notificationToken, $created) {
             $contributionId = (new Device())->translateGetId($userId, $deviceType, $notificationToken, $created);

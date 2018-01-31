@@ -9,7 +9,7 @@
 namespace App\Console\Commands\Translate;
 
 use Illuminate\Console\Command;
-use App\Http\Controllers\Translate\TranslateNotificationDeliveryController;
+use App\Http\Controllers\Translate\TranslateReactionNotificationController;
 
 class ContributionReactionNotificationDeliveryTranslator extends Command
 {
@@ -18,7 +18,7 @@ class ContributionReactionNotificationDeliveryTranslator extends Command
      *
      * @var string
      */
-    protected $signature = 'command:contribution-notification-delivery-translator';
+    protected $signature = 'command:contribution-reaction-notification-delivery-translator';
 
     /**
      * The console command description.
@@ -44,7 +44,7 @@ class ContributionReactionNotificationDeliveryTranslator extends Command
      */
     public function handle()
     {
-        $TranslateResult = (new TranslateNotificationDeliveryController())->translatePreviousData();
+        $TranslateResult = (new TranslateReactionNotificationController())->translatePreviousData();
         echo $TranslateResult;
     }
 }

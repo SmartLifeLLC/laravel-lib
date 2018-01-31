@@ -19,7 +19,18 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         CategoryGenerator::class,
         JicfsItemReader::class,
-        Translate\ContributionCommentTranslator::class
+        Translate\ContributionAllReactionTranslator::class,
+        Translate\ContributionCommentTranslator::class,
+        Translate\ContributionHaveReactionTranslator::class,
+        Translate\ContributionInterestReactionTranslator::class,
+        Translate\ContributionLikeReactionTranslator::class,
+        Translate\ContributionReactionNotificationDeliveryTranslator::class,
+        Translate\ContributionTranslator::class,
+        Translate\DeletedContentTranslator::class,
+        Translate\DeviceTranslator::class,
+        Translate\ImageTranslator::class,
+        Translate\NotificationLogTranslator::class,
+        Translate\UserTranslator::class
     ];
 
     /**

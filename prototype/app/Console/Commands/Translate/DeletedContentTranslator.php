@@ -9,7 +9,7 @@
 namespace App\Console\Commands\Translate;
 
 use Illuminate\Console\Command;
-use App\Http\Controllers\Translate\TranslateDeletedContentsController;
+use App\Http\Controllers\Translate\TranslateDeletedContentController;
 
 class DeletedContentTranslator extends Command
 {
@@ -44,7 +44,7 @@ class DeletedContentTranslator extends Command
      */
     public function handle()
     {
-        $TranslateResult = (new TranslateDeletedContentsController())->translatePreviousData();
+        $TranslateResult = (new TranslateDeletedContentController())->translatePreviousData();
         echo $TranslateResult;
     }
 }

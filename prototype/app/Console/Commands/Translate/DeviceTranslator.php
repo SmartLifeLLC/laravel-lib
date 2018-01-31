@@ -44,7 +44,7 @@ class DeviceTranslator extends Command
      */
     public function handle()
     {
-        $TranslateResult = (new TranlateDeviceController())->translatePreviousData();
+        $TranslateResult = (new TranslateDeviceController())->translatePreviousData();
         echo $TranslateResult;
     }
 }
