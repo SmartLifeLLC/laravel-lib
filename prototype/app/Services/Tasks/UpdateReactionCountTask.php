@@ -34,6 +34,13 @@ class UpdateReactionCountTask implements ServiceTask
 	private $productId;
 	private $contributionReactionType;
 	private $isIncrease;
+	/**
+	 * @var boolean
+	 */
+	private $isFirstReaction;
+	public function getIsFirstReaction(){
+		return $this->isFirstReaction;
+	}
 
 	/**
 	 * UpdateReactionCountTask constructor.
@@ -96,8 +103,8 @@ class UpdateReactionCountTask implements ServiceTask
 		$contributionReactionModel->createReaction($this->userId,$this->contributionId);
 		(new ContributionAllReaction())->createReaction($this->userId,$this->contributionId,$this->contributionReactionType);
 		(new ContributionReactionCount())->incrementCount($this->productId,$this->contributionId,$this->contributionReactionType);
-		$isPreviousSent = (new ContributionReactionNotificationDelivery())->isPreviousSent($this->userId,$this->contributionId,$this->contributionReactionType);
-		if(!$isPreviousSent){ (new SendNotificationTask())->run(); }
+		$this->isFirstReaction = !(new ContributionReactionNotificationDelivery())->isPreviousSent($this->userId,$this->contributionId,$this->contributionReactionType);
+
 	}
 
 

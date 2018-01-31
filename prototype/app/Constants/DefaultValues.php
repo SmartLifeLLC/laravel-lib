@@ -26,5 +26,6 @@ final class DefaultValues
         const QUERY_DEFAULT_PAGE = 1;
         const PRODUCT_N_GRAM_SIZE = 2;
         const SWAGGER_TOKEN = "rt";
-
+		const MAX_LENGTH_NOTIFICATION_USERNAME = 16;
+		const MAX_LENGTH_NOTIFICATION_PRODUCT = 20;
 }

@@ -40,6 +40,34 @@ class Device extends DBModel
             ]
         );
         return $result;
+    }
 
+
+	/**
+	 * @param array $userIds
+	 * @param $notificationCheckColumn
+	 * @return array
+	 */
+    public function getNotificationTargetUsers(array $userIds,$notificationCheckColumn){
+    	$users =
+		    $this
+			    ->select('notification_token','user_id',"users.".$notificationCheckColumn)
+			    ->leftJoin('users','users.id','=','devices.user_id')
+		        ->whereIn('user_id',$userIds)
+			    ->where('users.'.$notificationCheckColumn,1)
+		        ->get();
+
+    	$data = [];
+	    if(empty($users->count())) return $data;
+
+    	foreach($userIds as $userId){
+    		$data[$userId] = [];
+	    }
+
+	    foreach($users as $user){
+			$data[$user['user_id']][] = $user['notification_token'];
+	    }
+
+	    return $data;
     }
 }

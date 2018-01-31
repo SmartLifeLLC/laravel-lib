@@ -227,5 +227,6 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
     ],
+	'firebase_key' => "AAAAitVl9ME:APA91bHd6alWyqTeqUQstGUtNrhvr2RXyJhvYAofyxDuxY2lDfw5YI-IpyQ-d1U-seQrU8Dnu5DrqgDszCEIV5t19jOOZ9DKPMiHyx1lcBVi4E-sTj_KW9YU_qik4xEvprE16ReU6B4D"
 
 ];
