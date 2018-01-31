@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="32305396-a728-48bd-a2b9-2748e96dc899" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/JsonView/Translate/PreviousDeletedContentJsonView.php" afterPath="$PROJECT_DIR$/prototype/app/Http/JsonView/Translate/PreviousDeletedContentJsonView.php" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Models/Device.php" afterPath="$PROJECT_DIR$/prototype/app/Models/Device.php" />
+      <change beforePath="$PROJECT_DIR$/prototype/app/Http/Controllers/Translate/TranslateContributionController.php" afterPath="$PROJECT_DIR$/prototype/app/Http/Controllers/Translate/TranslateContributionController.php" />
+      <change beforePath="$PROJECT_DIR$/prototype/app/Services/Translate/PreviousContributionService.php" afterPath="$PROJECT_DIR$/prototype/app/Services/Translate/PreviousContributionService.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -29,7 +29,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TranslateDeviceController.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="TranslateDeviceController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/prototype/app/Http/Controllers/Translate/TranslateDeviceController.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="510">
@@ -37,6 +37,58 @@
               <folding>
                 <element signature="e#131#167#0#PHP" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PreviousContributionJsonView.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/prototype/app/Http/JsonView/Translate/PreviousContributionJsonView.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="225">
+              <caret line="20" column="5" lean-forward="false" selection-start-line="20" selection-start-column="5" selection-end-line="20" selection-end-column="5" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ContributionService.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/prototype/app/Services/ContributionService.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PreviousContributionService.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/prototype/app/Services/Translate/PreviousContributionService.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="495">
+              <caret line="38" column="1" lean-forward="true" selection-start-line="38" selection-start-column="1" selection-end-line="38" selection-end-column="1" />
+              <folding>
+                <element signature="e#123#151#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TranslateContributionController.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/prototype/app/Http/Controllers/Translate/TranslateContributionController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="435">
+              <caret line="38" column="9" lean-forward="true" selection-start-line="38" selection-start-column="9" selection-end-line="38" selection-end-column="9" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="NegativeProductContribution.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/prototype/app/Models/NegativeProductContribution.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -101,7 +153,6 @@
         <option value="$PROJECT_DIR$/prototype/app/Http/Controllers/Translate/TranslateUserController.php" />
         <option value="$PROJECT_DIR$/prototype/app/Http/JsonView/Translate/PreviousContributionJsonView.php" />
         <option value="$PROJECT_DIR$/prototype/app/Models/ContributionAllReaction.php" />
-        <option value="$PROJECT_DIR$/prototype/app/Http/Controllers/Translate/TranslateContributionController.php" />
         <option value="$PROJECT_DIR$/prototype/app/Http/Controllers/Translate/TranslateFeaturedScheduleTypeController.php" />
         <option value="$PROJECT_DIR$/prototype/app/Models/Old/ReviewPost.php" />
         <option value="$PROJECT_DIR$/prototype/app/Models/Old/Content.php" />
@@ -125,7 +176,6 @@
         <option value="$PROJECT_DIR$/prototype/app/Models/NotificationLog.php" />
         <option value="$PROJECT_DIR$/prototype/app/Console/Kernel.php" />
         <option value="$PROJECT_DIR$/prototype/app/Models/Contribution.php" />
-        <option value="$PROJECT_DIR$/prototype/app/Services/Translate/PreviousContributionService.php" />
         <option value="$PROJECT_DIR$/prototype/app/Services/Translate/PreviousHaveReactionService.php" />
         <option value="$PROJECT_DIR$/prototype/app/Services/Translate/PreviousLikeReactionService.php" />
         <option value="$PROJECT_DIR$/prototype/app/Services/Translate/PreviousInterestReactionService.php" />
@@ -141,6 +191,8 @@
         <option value="$PROJECT_DIR$/prototype/app/Http/Controllers/Translate/TranslateDeviceController.php" />
         <option value="$PROJECT_DIR$/prototype/app/Http/JsonView/Translate/PreviousDeviceJsonView.php" />
         <option value="$PROJECT_DIR$/prototype/app/Http/JsonView/Translate/PreviousDeletedContentJsonView.php" />
+        <option value="$PROJECT_DIR$/prototype/app/Services/Translate/PreviousContributionService.php" />
+        <option value="$PROJECT_DIR$/prototype/app/Http/Controllers/Translate/TranslateContributionController.php" />
       </list>
     </option>
   </component>
@@ -412,12 +464,12 @@
       <workItem from="1516968681688" duration="168000" />
       <workItem from="1517054199350" duration="25894000" />
       <workItem from="1517293971165" duration="1160000" />
-      <workItem from="1517397883718" duration="7109000" />
+      <workItem from="1517397883718" duration="7910000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="94228000" />
+    <option name="totallyTimeSpent" value="95029000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -476,26 +528,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/prototype/app/Http/Controllers/Translate/TranslateNotificationLogController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="41" column="15" lean-forward="true" selection-start-line="41" selection-start-column="15" selection-end-line="41" selection-end-column="15" />
-          <folding>
-            <element signature="e#131#167#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/prototype/app/Services/Translate/PreviousNotificationLogService.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="28" column="1" lean-forward="true" selection-start-line="28" selection-start-column="1" selection-end-line="28" selection-end-column="1" />
-          <folding>
-            <element signature="e#123#154#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/prototype/app/Services/Translate/PreviousImageService.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="315">
@@ -707,14 +739,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/prototype/app/Http/Controllers/Translate/TranslateContributionController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="30" column="22" lean-forward="false" selection-start-line="30" selection-start-column="22" selection-end-line="30" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/prototype/app/Models/Old/Content.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="345">
@@ -741,14 +765,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/prototype/app/Http/JsonView/Translate/PreviousContributionJsonView.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="20" column="5" lean-forward="false" selection-start-line="20" selection-start-column="5" selection-end-line="20" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/prototype/app/Console/Commands/Translate/DeletedContentTranslator.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
@@ -764,16 +780,6 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/prototype/app/Services/Translate/PreviousContributionService.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="30" column="10" lean-forward="true" selection-start-line="30" selection-start-column="10" selection-end-line="30" selection-end-column="10" />
-          <folding>
-            <element signature="e#123#151#0#PHP" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -919,6 +925,48 @@
           <caret line="39" column="1" lean-forward="true" selection-start-line="39" selection-start-column="1" selection-end-line="39" selection-end-column="1" />
           <folding>
             <element signature="e#131#167#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/prototype/app/Http/JsonView/Translate/PreviousContributionJsonView.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="20" column="5" lean-forward="false" selection-start-line="20" selection-start-column="5" selection-end-line="20" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/prototype/app/Services/ContributionService.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/prototype/app/Models/NegativeProductContribution.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/prototype/app/Http/Controllers/Translate/TranslateContributionController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="435">
+          <caret line="38" column="9" lean-forward="true" selection-start-line="38" selection-start-column="9" selection-end-line="38" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/prototype/app/Services/Translate/PreviousContributionService.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="495">
+          <caret line="38" column="1" lean-forward="true" selection-start-line="38" selection-start-column="1" selection-end-line="38" selection-end-column="1" />
+          <folding>
+            <element signature="e#123#151#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
