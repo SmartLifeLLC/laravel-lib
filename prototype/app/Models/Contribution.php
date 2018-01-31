@@ -344,4 +344,18 @@ class Contribution extends DBModel implements UserContentsCountBuilderInterface
 				->leftJoin('products','products.id','=','contributions.product_id')
 				->first();
 	}
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+	public function getProductId($id){
+	    return
+            $this
+                ->table('contributions')
+                ->select('product_id')
+                ->where('id', $id)
+                ->first()
+                ->value('id');
+    }
 }

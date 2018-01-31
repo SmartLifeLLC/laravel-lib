@@ -2,353 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="32305396-a728-48bd-a2b9-2748e96dc899" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/laravel-lib.iml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/README.md" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/.env.example" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/.gitattributes" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/.gitignore" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Console/Commands/CategoryGenerator.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Console/Commands/JicfsItemReader.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Console/Commands/Translate/ContributionAllReactionTranslator.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Console/Commands/Translate/ContributionCommentTranslator.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Console/Commands/Translate/ContributionHaveReactionTranslator.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Console/Commands/Translate/ContributionInterestReactionTranslator.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Console/Commands/Translate/ContributionLikeReactionTranslator.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Console/Commands/Translate/ContributionReactionCountTranslator.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Console/Commands/Translate/ContributionReactionNotificationDeliveryTranslator.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Console/Commands/Translate/ContributionTranslator.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Console/Commands/Translate/FeaturedScheduleTypeTranslator.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Console/Commands/Translate/ImageTranslator.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Console/Commands/Translate/NegativeProductContributionTranslator.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Console/Commands/Translate/NotificationLogTranslator.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Console/Commands/Translate/PositiveProductContributionTranslator.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Console/Commands/Translate/ProductContributionCountTranslator.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Console/Commands/Translate/UserTranslator.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Console/Kernel.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Constants/AuthAllowedUrls.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Constants/ContributionFeelingType.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Constants/ContributionReactionType.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Constants/DateTimeFormat.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Constants/DefaultValues.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Constants/DeviceTypes.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Constants/FeaturedScheduleType.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Constants/Gender.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Constants/HeaderKeys.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Constants/HttpMethod.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Constants/ImageCategory.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Constants/ListType.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Constants/PostParametersValidationRule.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Constants/QueryOrderTypes.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Constants/S3Buckets.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Constants/StatusCode.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Constants/StatusMessage.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Constants/SystemConstants.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Constants/URLs.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Constants/UserLimitationLevel.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Constants/Versions.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Exceptions/Handler.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/Controllers/CategoryController.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/Controllers/CommentController.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/Controllers/ContributionController.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/Controllers/Controller.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/Controllers/Featured/FeaturedUsersController.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/Controllers/ProductController.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/Controllers/ReactionController.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/Controllers/Translate/TranslateAllReactionController.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/Controllers/Translate/TranslateCommentController.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/Controllers/Translate/TranslateContributionController.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/Controllers/Translate/TranslateHaveReactionController.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/Controllers/Translate/TranslateImageController.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/Controllers/Translate/TranslateInterestReactionController.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/Controllers/Translate/TranslateLikeReactionController.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/Controllers/Translate/TranslateNotificationLogController.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/Controllers/Translate/TranslateReactionNotificationController.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/Controllers/Translate/TranslateUserController.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/Controllers/User/AuthController.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/Controllers/User/BlockController.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/Controllers/User/DeviceController.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/Controllers/User/FriendController.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/Controllers/User/NotificationLogController.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/Controllers/User/UserController.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/Controllers/swagger-react-v2.0.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/JsonView/Category/CategoryListJsonView.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/JsonView/Contribution/CommentCreateJsonView.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/JsonView/Contribution/CommentDeleteJsonView.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/JsonView/Contribution/CommentGetListJsonView.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/JsonView/Contribution/ContributionCreateJsonView.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/JsonView/Contribution/ContributionDeleteJsonView.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/JsonView/Contribution/ContributionDetailJsonView.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/JsonView/Contribution/ContributionEditJsonView.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/JsonView/Contribution/ContributionFindJsonView.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/JsonView/Contribution/ContributionListJsonView.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/JsonView/Contribution/ReactionGetListJsonView.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/JsonView/Contribution/ReactionUpdateJsonView.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/JsonView/JsonResponseErrorView.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/JsonView/JsonResponseView.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/JsonView/Product/ProductListJsonView.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/JsonView/Recommend/FeaturedUser/GetListOnAppInitJsonView.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/JsonView/Translate/PreviousAllReactionJsonView.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/JsonView/Translate/PreviousCommentJsonView.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/JsonView/Translate/PreviousContributionJsonView.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/JsonView/Translate/PreviousHaveReactionJsonView.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/JsonView/Translate/PreviousImageJsonView.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/JsonView/Translate/PreviousInterestReactionJsonView.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/JsonView/Translate/PreviousLikeReactionJsonView.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/JsonView/Translate/PreviousNegativeContributionJsonView.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/JsonView/Translate/PreviousNotificationLogJsonView.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/JsonView/Translate/PreviousPositiveContributionJsonView.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/JsonView/Translate/PreviousReactionNotificationJsonView.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/JsonView/Translate/PreviousUserJsonView.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/JsonView/User/Auth/UserValidationJsonView.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/JsonView/User/Block/BlockListJsonView.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/JsonView/User/Block/SwitchUserBlockStatusJsonView.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/JsonView/User/Device/DeviceRegisterJsonView.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/JsonView/User/Follow/SwitchUserFollowStatusJsonView.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/JsonView/User/FollowOrFollowerGetListJsonView.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/JsonView/User/NotificationLog/GetLogsJsonView.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/JsonView/User/Page/PageInfoJsonView.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/JsonView/User/Setting/UpdateNotifyPropertiesJsonView.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/JsonView/User/User/NotificationSettingEditJsonView.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/JsonView/User/User/NotificationSettingJsonView.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/JsonView/User/User/UserEditJsonView.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/JsonView/User/User/UserInfoJsonVIew.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/Kernel.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/Middleware/EncryptCookies.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/Middleware/ReactApiAuthChecker.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/Middleware/RedirectIfAuthenticated.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/Middleware/TrimStrings.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/Middleware/TrustProxies.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/Middleware/VerifyCsrfToken.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Lib/Enum.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Lib/JSYService/NormalServiceManager.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Lib/JSYService/Service.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Lib/JSYService/ServiceManager.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Lib/JSYService/ServiceManagerFactory.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Lib/JSYService/ServiceResult.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Lib/JSYService/ServiceTask.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Lib/JSYService/TransactionServiceManager.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Lib/Logger.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Lib/RandomFacebookUser.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Lib/Singleton.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Lib/Util.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Manager/AwsManager.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Models/BlockUser.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Models/BlockedUser.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Models/Common/ContributionReactionImplements.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Models/Common/ContributionReactionInterface.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Models/Common/DeleteAllForContributionImplements.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Models/Common/DeleteAllForContributionInterface.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Models/Common/UserContentsCountBuilderImplements.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Models/Common/UserContentsCountBuilderInterface.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Models/Contribution.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Models/ContributionAllReaction.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Models/ContributionComment.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Models/ContributionCommentCount.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Models/ContributionHaveReaction.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Models/ContributionInterestReaction.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Models/ContributionLikeReaction.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Models/ContributionReactionCount.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Models/ContributionReactionNotificationDelivery.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Models/CurrentHeaders.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Models/CurrentUser.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Models/DBModel.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Models/DeletedContent.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Models/Device.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Models/FeaturedSchedule.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Models/Follow.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Models/Follower.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Models/Image.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Models/JicfsCategory.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Models/JicfsManufacturer.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Models/JicfsProduct.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Models/JicfsScraping.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Models/NegativeProductContribution.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Models/NotificationLog.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Models/Old/Content.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Models/Old/NotificationLog.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Models/Old/ReactionLog.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Models/Old/ReviewPost.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Models/Old/ReviewPostComment.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Models/Old/User.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Models/Old/UserSetting.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Models/PositiveProductContribution.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Models/Product.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Models/ProductBrand.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Models/ProductCategory.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Models/ProductCategoryContributionCount.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Models/ProductCategoryHierarchy.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Models/ProductContributionCount.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Models/ProductsProductCategory.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Models/User.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Providers/AppServiceProvider.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Providers/AuthServiceProvider.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Providers/BroadcastServiceProvider.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Providers/EventServiceProvider.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Providers/RouteServiceProvider.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Services/AuthService.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Services/BaseService.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Services/BlockService.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Services/CategoryService.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Services/CommentService.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Services/ContributionService.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Services/DeviceService.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Services/FeaturedService.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Services/FollowService.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Services/NotificationLogService.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Services/NotificationService.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Services/ProductService.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Services/ReactionService.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Services/Tasks/CheckFacebookTokenTask.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Services/Tasks/CreateGetProductIdTask.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Services/Tasks/CreateUserTask.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Services/Tasks/NotificationTask/CommentNotification.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Services/Tasks/NotificationTask/Factory/CommentNotificationFactory.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Services/Tasks/NotificationTask/Factory/FollowNotificationFactory.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Services/Tasks/NotificationTask/Factory/NotificationFactory.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Services/Tasks/NotificationTask/Factory/ReactionNotificationFactory.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Services/Tasks/NotificationTask/FollowNotification.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Services/Tasks/NotificationTask/Notification.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Services/Tasks/NotificationTask/ReactionNotification.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Services/Tasks/SendNotificationTask.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Services/Tasks/UpdateContributionCountTask.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Services/Tasks/UpdateReactionCountTask.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Services/Translate/PreviousAllReactionService.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Services/Translate/PreviousCommentService.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Services/Translate/PreviousContributionService.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Services/Translate/PreviousHaveReactionService.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Services/Translate/PreviousImageService.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Services/Translate/PreviousInterestReactionService.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Services/Translate/PreviousLikeReactionService.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Services/Translate/PreviousNegativeContributionService.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Services/Translate/PreviousNotificationLogService.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Services/Translate/PreviousPositiveContributionService.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Services/Translate/PreviousReactionNotificationService.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Services/Translate/PreviousUserService.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Services/UserService.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/ValueObject/ContributionDetailResultVO.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/ValueObject/ContributionListResultVO.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/ValueObject/CreateJicfsProductResultVO.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/ValueObject/CreateProductManufacturerResultVO.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/ValueObject/CreateProductResultVO.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/ValueObject/FacebookResponseVO.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/ValueObject/FollowOrFollowerGetListResultVO.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/ValueObject/JicfsObject/ITFDistributionProductInfo.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/ValueObject/JicfsObject/JANProductBaseInfoVO.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/ValueObject/JicfsObject/JANProductBaseInfoVars.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/ValueObject/JicfsObject/JFBaseObject.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/ValueObject/JicfsObject/JicfsManufacturerInfoVO.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/ValueObject/NotificationLogListVO.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/ValueObject/PageInfoResultVO.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/ValueObject/ProductAndCountDataVO.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/ValueObject/ReactionGetLIstResultVO.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/ValueObject/SwitchFollowResultVO.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/ValueObject/SwitchFollowerResultVO.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/ValueObject/UserEditVO.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/ValueObject/UserNotifyPropertiesVO.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/ValueObject/UserValidationVO.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/artisan" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/bootstrap/app.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/bootstrap/cache/.gitignore" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/composer.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/composer.lock" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/config/app.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/config/auth.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/config/broadcasting.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/config/cache.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/config/database.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/config/filesystems.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/config/mail.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/config/queue.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/config/services.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/config/session.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/config/view.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/database/.gitignore" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/database/factories/UserFactory.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/database/migrations/2014_10_12_000000_create_users_table.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/database/migrations/2014_10_12_100000_create_password_resets_table.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/database/seeds/DatabaseSeeder.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/package.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/phpunit.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/public/.htaccess" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/public/api-docs/favicon-16x16.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/public/api-docs/favicon-32x32.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/public/api-docs/index.html" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/public/api-docs/oauth2-redirect.html" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/public/api-docs/recomil.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/public/api-docs/recomil.v2.0.4.yaml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/public/api-docs/recomil.yaml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/public/api-docs/swagger-ui-bundle.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/public/api-docs/swagger-ui-bundle.js.map" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/public/api-docs/swagger-ui-standalone-preset.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/public/api-docs/swagger-ui-standalone-preset.js.map" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/public/api-docs/swagger-ui.css" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/public/api-docs/swagger-ui.css.map" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/public/api-docs/swagger-ui.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/public/api-docs/swagger-ui.js.map" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/public/css/app.css" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/public/favicon.ico" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/public/index.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/public/js/app.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/public/robots.txt" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/public/web.config" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/readme.md" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/resources/assets/js/app.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/resources/assets/js/bootstrap.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/resources/assets/js/components/ExampleComponent.vue" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/resources/assets/sass/_variables.scss" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/resources/assets/sass/app.scss" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/resources/lang/en/auth.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/resources/lang/en/pagination.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/resources/lang/en/passwords.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/resources/lang/en/validation.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/resources/views/welcome.blade.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/routes/api.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/routes/channels.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/routes/console.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/routes/web.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/server.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/storage/app/.gitignore" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/storage/app/public/.gitignore" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/storage/framework/.gitignore" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/storage/framework/cache/.gitignore" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/storage/framework/sessions/.gitignore" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/storage/framework/testing/.gitignore" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/storage/framework/views/.gitignore" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/storage/logs/.gitignore" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/storage/swagger" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/tests/CreatesApplication.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/tests/Feature/ExampleTest.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/tests/Playgrounds/ClosureCall.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/tests/TestCase.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/tests/Unit/Controllers/AuthControllerTest.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/tests/Unit/Controllers/BlockControllerTest.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/tests/Unit/Controllers/CategoryControllerTest.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/tests/Unit/Controllers/CommentControllerTest.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/tests/Unit/Controllers/ContributionControllerTest.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/tests/Unit/Controllers/DeviceControllerTest.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/tests/Unit/Controllers/FeaturedUsersControllerTest.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/tests/Unit/Controllers/FollowControllerTest.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/tests/Unit/Controllers/NotificationLogControllerTest.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/tests/Unit/Controllers/ProductControllerTest.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/tests/Unit/Controllers/ReactionControllerTest.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/tests/Unit/Controllers/UserControllerTest.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/tests/Unit/ExampleTest.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/tests/Unit/Models/BlockUserTest.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/tests/Unit/Models/ContributionCommentTest.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/tests/Unit/Models/ContributionInterestReactionTest.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/tests/Unit/Models/ContributionReactionCountTest.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/tests/Unit/Models/ContributionTest.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/tests/Unit/Models/FeedAllReactionTest.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/tests/Unit/Models/FollowTest.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/tests/Unit/Models/ProductTest.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/tests/Unit/Models/UserTest.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/tests/Unit/Services/AuthServiceTest.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/webpack.mix.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/prototype/app/Console/Kernel.php" afterPath="$PROJECT_DIR$/prototype/app/Console/Kernel.php" />
+      <change beforePath="$PROJECT_DIR$/prototype/app/Models/Contribution.php" afterPath="$PROJECT_DIR$/prototype/app/Models/Contribution.php" />
+      <change beforePath="$PROJECT_DIR$/prototype/app/Models/NotificationLog.php" afterPath="$PROJECT_DIR$/prototype/app/Models/NotificationLog.php" />
+      <change beforePath="$PROJECT_DIR$/prototype/app/Services/Translate/PreviousHaveReactionService.php" afterPath="$PROJECT_DIR$/prototype/app/Services/Translate/PreviousHaveReactionService.php" />
+      <change beforePath="$PROJECT_DIR$/prototype/app/Services/Translate/PreviousInterestReactionService.php" afterPath="$PROJECT_DIR$/prototype/app/Services/Translate/PreviousInterestReactionService.php" />
+      <change beforePath="$PROJECT_DIR$/prototype/app/Services/Translate/PreviousLikeReactionService.php" afterPath="$PROJECT_DIR$/prototype/app/Services/Translate/PreviousLikeReactionService.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -362,50 +22,30 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="TranslateReactionNotificationController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/prototype/app/Http/Controllers/Translate/TranslateReactionNotificationController.php">
+      <file leaf-file-name="JicfsItemReader.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/prototype/app/Console/Commands/JicfsItemReader.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="525">
-              <caret line="40" column="24" lean-forward="true" selection-start-line="40" selection-start-column="24" selection-end-line="40" selection-end-column="24" />
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Kernel.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/prototype/app/Console/Kernel.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="300">
+              <caret line="20" column="31" lean-forward="true" selection-start-line="20" selection-start-column="31" selection-end-line="20" selection-end-column="31" />
               <folding>
-                <element signature="e#131#167#0#PHP" expanded="true" />
+                <element signature="e#31#72#0#PHP" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PreviousReactionNotificationJsonView.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/prototype/app/Http/JsonView/Translate/PreviousReactionNotificationJsonView.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="23" column="1" lean-forward="true" selection-start-line="23" selection-start-column="1" selection-end-line="23" selection-end-column="1" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="6" lean-forward="false" selection-start-line="0" selection-start-column="6" selection-end-line="0" selection-end-column="6" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PreviousNotificationLogJsonView.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/prototype/app/Http/JsonView/Translate/PreviousNotificationLogJsonView.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="22" column="1" lean-forward="true" selection-start-line="22" selection-start-column="1" selection-end-line="22" selection-end-column="1" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PreviousPositiveContributionJsonView.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/prototype/app/Http/JsonView/Translate/PreviousPositiveContributionJsonView.php">
+      <file leaf-file-name="PreviousCommentService.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/prototype/app/Services/Translate/PreviousCommentService.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -414,41 +54,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PreviousUserJsonView.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/prototype/app/Http/JsonView/Translate/PreviousUserJsonView.php">
+      <file leaf-file-name="NotificationLog.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/prototype/app/Models/NotificationLog.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="12" column="51" lean-forward="false" selection-start-line="12" selection-start-column="51" selection-end-line="12" selection-end-column="51" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PreviousLikeReactionJsonView.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/prototype/app/Http/JsonView/Translate/PreviousLikeReactionJsonView.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="21" column="10" lean-forward="true" selection-start-line="21" selection-start-column="10" selection-end-line="21" selection-end-column="10" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ContributionReactionNotificationDelivery.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/prototype/app/Models/ContributionReactionNotificationDelivery.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="559">
-              <caret line="53" column="20" lean-forward="false" selection-start-line="53" selection-start-column="20" selection-end-line="53" selection-end-column="20" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PreviousLikeReactionService.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/prototype/app/Services/Translate/PreviousLikeReactionService.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="394">
+              <caret line="66" column="7" lean-forward="true" selection-start-line="66" selection-start-column="7" selection-end-line="66" selection-end-column="7" />
               <folding />
             </state>
           </provider>
@@ -469,10 +79,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/prototype/app/Models/ContributionInterestReaction.php" />
-        <option value="$PROJECT_DIR$/prototype/app/Models/ContributionHaveReaction.php" />
-        <option value="$PROJECT_DIR$/prototype/app/Http/Controllers/Translate/TranslateAllReactionController.php" />
-        <option value="$PROJECT_DIR$/prototype/app/Console/Commands/Translate/ContributionHaveReactionTranslator.php" />
         <option value="$PROJECT_DIR$/prototype/app/Console/Commands/Translate/ContributionTranslator.php" />
         <option value="$PROJECT_DIR$/prototype/app/Console/Commands/Translate/ImageTranslator.php" />
         <option value="$PROJECT_DIR$/prototype/app/Console/Commands/Translate/NotificationLogTranslator.php" />
@@ -487,8 +93,6 @@
         <option value="$PROJECT_DIR$/prototype/app/Models/Old/ReviewPosts.php" />
         <option value="$PROJECT_DIR$/prototype/app/Models/Old/ReviewPostComments.php" />
         <option value="$PROJECT_DIR$/prototype/app/Models/Old/ReactionLog.php" />
-        <option value="$PROJECT_DIR$/prototype/app/Models/Contribution.php" />
-        <option value="$PROJECT_DIR$/prototype/app/Services/Translate/PreviousContributionService.php" />
         <option value="$PROJECT_DIR$/prototype/app/Http/Controllers/Translate/TranslatePositiveContributionController.php" />
         <option value="$PROJECT_DIR$/prototype/app/Models/Old/User.php" />
         <option value="$PROJECT_DIR$/prototype/app/Models/Old/UserSetting.php" />
@@ -509,7 +113,6 @@
         <option value="$PROJECT_DIR$/prototype/app/Models/Old/NotificationLog.php" />
         <option value="$PROJECT_DIR$/prototype/app/Models/User.php" />
         <option value="$PROJECT_DIR$/prototype/app/Services/Translate/PreviousNotificationLogService.php" />
-        <option value="$PROJECT_DIR$/prototype/app/Models/NotificationLog.php" />
         <option value="$PROJECT_DIR$/prototype/app/Http/Controllers/Translate/TranslateNotificationLogController.php" />
         <option value="$PROJECT_DIR$/prototype/app/Http/JsonView/Translate/PreviousNotificationLogJsonView.php" />
         <option value="$PROJECT_DIR$/prototype/app/Http/Controllers/Translate/TranslateHaveReactionController.php" />
@@ -520,6 +123,13 @@
         <option value="$PROJECT_DIR$/prototype/app/Http/JsonView/Translate/PreviousUserJsonView.php" />
         <option value="$PROJECT_DIR$/prototype/app/Http/JsonView/Translate/PreviousReactionNotificationJsonView.php" />
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/prototype/app/Models/NotificationLog.php" />
+        <option value="$PROJECT_DIR$/prototype/app/Console/Kernel.php" />
+        <option value="$PROJECT_DIR$/prototype/app/Models/Contribution.php" />
+        <option value="$PROJECT_DIR$/prototype/app/Services/Translate/PreviousContributionService.php" />
+        <option value="$PROJECT_DIR$/prototype/app/Services/Translate/PreviousHaveReactionService.php" />
+        <option value="$PROJECT_DIR$/prototype/app/Services/Translate/PreviousLikeReactionService.php" />
+        <option value="$PROJECT_DIR$/prototype/app/Services/Translate/PreviousInterestReactionService.php" />
       </list>
     </option>
   </component>
@@ -643,6 +253,78 @@
               <item name="laravel-lib" type="b2602c69:ProjectViewProjectNode" />
               <item name="laravel-lib" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
+            <path>
+              <item name="laravel-lib" type="b2602c69:ProjectViewProjectNode" />
+              <item name="laravel-lib" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="prototype" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="laravel-lib" type="b2602c69:ProjectViewProjectNode" />
+              <item name="laravel-lib" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="prototype" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="laravel-lib" type="b2602c69:ProjectViewProjectNode" />
+              <item name="laravel-lib" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="prototype" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="Console" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="laravel-lib" type="b2602c69:ProjectViewProjectNode" />
+              <item name="laravel-lib" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="prototype" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="Console" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="Commands" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="laravel-lib" type="b2602c69:ProjectViewProjectNode" />
+              <item name="laravel-lib" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="prototype" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="Http" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="laravel-lib" type="b2602c69:ProjectViewProjectNode" />
+              <item name="laravel-lib" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="prototype" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="Http" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="Controllers" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="laravel-lib" type="b2602c69:ProjectViewProjectNode" />
+              <item name="laravel-lib" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="prototype" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="Http" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="Controllers" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="Translate" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="laravel-lib" type="b2602c69:ProjectViewProjectNode" />
+              <item name="laravel-lib" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="prototype" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="Models" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="laravel-lib" type="b2602c69:ProjectViewProjectNode" />
+              <item name="laravel-lib" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="prototype" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="Services" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="laravel-lib" type="b2602c69:ProjectViewProjectNode" />
+              <item name="laravel-lib" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="prototype" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="Services" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="Translate" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -685,16 +367,18 @@
       <workItem from="1516968681688" duration="168000" />
       <workItem from="1517054199350" duration="25894000" />
       <workItem from="1517293971165" duration="1160000" />
+      <workItem from="1517397883718" duration="3517000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="87119000" />
+    <option name="totallyTimeSpent" value="90636000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21387696" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2167382" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -702,7 +386,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.50497514" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.50497514" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -723,7 +407,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.50497514" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24105866" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2167382" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -747,123 +431,13 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/prototype/app/Http/JsonView/Contribution/ContributionCreateJsonView.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/prototype/app/Http/JsonView/Contribution/ContributionDetailJsonView.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/prototype/app/Http/JsonView/Contribution/ContributionDeleteJsonView.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/prototype/app/Http/JsonView/Contribution/ContributionEditJsonView.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/prototype/app/Http/JsonView/Contribution/ContributionFindJsonView.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/prototype/app/Http/JsonView/Contribution/ContributionListJsonView.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/prototype/app/Http/JsonView/Contribution/ReactionGetListJsonView.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/prototype/app/Http/JsonView/Contribution/ReactionUpdateJsonView.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/prototype/app/Http/JsonView/Category/CategoryListJsonView.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/prototype/app/Models/Old/ReactionLog.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="41">
-          <caret line="29" column="21" lean-forward="true" selection-start-line="29" selection-start-column="21" selection-end-line="29" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/prototype/app/Models/Contribution.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3248">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/prototype/app/Http/Controllers/Translate/TranslateNotificationDeliveryController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/prototype/app/Http/Controllers/Translate/TranslatePositiveContributionController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="14" column="1" lean-forward="true" selection-start-line="14" selection-start-column="1" selection-end-line="14" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/prototype/app/Http/Controllers/Translate/TranslateNotificationDeliveryController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/prototype/app/Http/Controllers/Translate/TranslateNotificationDeliveryController.php" />
+    <entry file="file://$PROJECT_DIR$/prototype/app/Http/Controllers/Translate/TranslatePositiveContributionController.php" />
+    <entry file="file://$PROJECT_DIR$/prototype/app/Http/Controllers/Translate/TranslateNotificationDeliveryController.php" />
     <entry file="file://$PROJECT_DIR$/prototype/app/Http/Controllers/CommentController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-206">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -881,7 +455,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -897,7 +470,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="544">
           <caret line="64" column="0" lean-forward="true" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -915,7 +487,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-26">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -923,7 +494,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -939,14 +509,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
           <caret line="19" column="7" lean-forward="true" selection-start-line="19" selection-start-column="7" selection-end-line="19" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/prototype/app/Services/Translate/PreviousHaveReactionService.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="29" selection-end-column="1" />
           <folding />
         </state>
       </provider>
@@ -985,14 +547,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/prototype/app/Models/NotificationLog.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="539">
-          <caret line="61" column="20" lean-forward="false" selection-start-line="61" selection-start-column="20" selection-end-line="61" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/prototype/app/Http/Controllers/Translate/TranslateLikeReactionController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1013,14 +567,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
           <caret line="13" column="6" lean-forward="false" selection-start-line="13" selection-start-column="6" selection-end-line="13" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/prototype/app/Http/Controllers/Translate/TranslateHaveReactionController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="38" column="1" lean-forward="true" selection-start-line="38" selection-start-column="1" selection-end-line="38" selection-end-column="1" />
           <folding />
         </state>
       </provider>
@@ -1061,14 +607,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/prototype/app/Services/Translate/PreviousLikeReactionService.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/prototype/app/Services/Translate/PreviousImageService.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="315">
@@ -1079,7 +617,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/prototype/app/Models/ContributionReactionNotificationDelivery.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="559">
+        <state relative-caret-position="690">
           <caret line="53" column="20" lean-forward="false" selection-start-line="53" selection-start-column="20" selection-end-line="53" selection-end-column="20" />
           <folding />
         </state>
@@ -1099,14 +637,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="589">
           <caret line="74" column="41" lean-forward="false" selection-start-line="74" selection-start-column="41" selection-end-line="74" selection-end-column="41" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/prototype/app/Http/Controllers/Translate/TranslateReactionNotificationController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="525">
-          <caret line="40" column="24" lean-forward="true" selection-start-line="40" selection-start-column="24" selection-end-line="40" selection-end-column="24" />
+          <caret line="40" column="24" lean-forward="false" selection-start-line="40" selection-start-column="24" selection-end-line="40" selection-end-column="24" />
           <folding>
             <element signature="e#131#167#0#PHP" expanded="true" />
           </folding>
@@ -1124,7 +661,7 @@
     <entry file="file://$PROJECT_DIR$/prototype/app/Http/JsonView/Translate/PreviousLikeReactionJsonView.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
-          <caret line="21" column="10" lean-forward="true" selection-start-line="21" selection-start-column="10" selection-end-line="21" selection-end-column="10" />
+          <caret line="21" column="10" lean-forward="false" selection-start-line="21" selection-start-column="10" selection-end-line="21" selection-end-column="10" />
           <folding />
         </state>
       </provider>
@@ -1140,7 +677,7 @@
     <entry file="file://$PROJECT_DIR$/prototype/app/Http/JsonView/Translate/PreviousNotificationLogJsonView.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
-          <caret line="22" column="1" lean-forward="true" selection-start-line="22" selection-start-column="1" selection-end-line="22" selection-end-column="1" />
+          <caret line="22" column="1" lean-forward="false" selection-start-line="22" selection-start-column="1" selection-end-line="22" selection-end-column="1" />
           <folding />
         </state>
       </provider>
@@ -1156,7 +693,7 @@
     <entry file="file://$PROJECT_DIR$/prototype/app/Http/JsonView/Translate/PreviousReactionNotificationJsonView.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
-          <caret line="23" column="1" lean-forward="true" selection-start-line="23" selection-start-column="1" selection-end-line="23" selection-end-column="1" />
+          <caret line="23" column="1" lean-forward="false" selection-start-line="23" selection-start-column="1" selection-end-line="23" selection-end-column="1" />
           <folding />
         </state>
       </provider>
@@ -1165,6 +702,136 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="6" lean-forward="false" selection-start-line="0" selection-start-column="6" selection-end-line="0" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/prototype/app/Console/Commands/Translate/ContributionAllReactionTranslator.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/prototype/app/Console/Commands/JicfsItemReader.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/prototype/app/Console/Commands/CategoryGenerator.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/prototype/app/Models/Contribution.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="574">
+          <caret line="349" column="20" lean-forward="false" selection-start-line="349" selection-start-column="20" selection-end-line="349" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/prototype/app/Models/ContributionReactionCount.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="109">
+          <caret line="25" column="20" lean-forward="false" selection-start-line="25" selection-start-column="20" selection-end-line="25" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/prototype/app/Services/Translate/PreviousInterestReactionService.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="33" column="1" lean-forward="true" selection-start-line="33" selection-start-column="1" selection-end-line="33" selection-end-column="1" />
+          <folding>
+            <element signature="e#123#167#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/prototype/app/Services/Translate/PreviousContributionService.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="28" column="127" lean-forward="true" selection-start-line="28" selection-start-column="127" selection-end-line="28" selection-end-column="127" />
+          <folding>
+            <element signature="e#123#151#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/prototype/app/Services/Translate/PreviousHaveReactionService.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="32" column="5" lean-forward="true" selection-start-line="32" selection-start-column="5" selection-end-line="32" selection-end-column="5" />
+          <folding>
+            <element signature="e#123#163#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/prototype/app/Services/Translate/PreviousLikeReactionService.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="29" column="92" lean-forward="false" selection-start-line="29" selection-start-column="92" selection-end-line="29" selection-end-column="92" />
+          <folding>
+            <element signature="e#123#163#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/prototype/app/Console/Commands/Translate/ContributionCommentTranslator.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/prototype/app/Models/Old/ReactionLog.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="14" column="6" lean-forward="false" selection-start-line="14" selection-start-column="6" selection-end-line="14" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/prototype/app/Http/Controllers/Translate/TranslateHaveReactionController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="24" column="38" lean-forward="false" selection-start-line="24" selection-start-column="38" selection-end-line="24" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/prototype/app/Console/Kernel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="20" column="31" lean-forward="true" selection-start-line="20" selection-start-column="31" selection-end-line="20" selection-end-column="31" />
+          <folding>
+            <element signature="e#31#72#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/prototype/app/Services/Translate/PreviousCommentService.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/prototype/app/Models/NotificationLog.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="394">
+          <caret line="66" column="7" lean-forward="true" selection-start-line="66" selection-start-column="7" selection-end-line="66" selection-end-column="7" />
           <folding />
         </state>
       </provider>

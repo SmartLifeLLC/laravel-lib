@@ -3,13 +3,12 @@
 namespace App\Console;
 
 use App\Console\Commands\JicfsItemReader;
-use App\Console\Commands\Translate\ContributionCommentTranslator;
-use App\Http\Controllers\Translate\TranslateCommentController;
+use App\Console\Commands\Translate;
 use App\Models\JicfsCategory;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use App\Console\Commands\CategoryGenerator;
-//use App\Console\Commands\Translate\ContributionCommentTranslator;
+
 class Kernel extends ConsoleKernel
 {
     /**
@@ -20,7 +19,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         CategoryGenerator::class,
         JicfsItemReader::class,
-        ContributionCommentTranslator::class
+        Translate\ContributionCommentTranslator::class
     ];
 
     /**
