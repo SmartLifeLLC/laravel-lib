@@ -10,19 +10,23 @@ namespace App\Services;
 
 
 use App\Constants\StatusCode;
+use App\Factory\FollowNotificationFactory;
 use App\Lib\JSYService\ServiceManagerFactory;
 use App\Lib\JSYService\ServiceResult;
 use App\Lib\JSYService\TransactionServiceManager;
 use App\Models\Contribution;
 use App\Models\ContributionInterestReaction;
+use App\Models\Device;
 use App\Models\Follow;
 use App\Models\Follower;
 use App\Models\BlockUser;
 use App\Models\BlockedUser;
+use App\Models\NotificationLog;
+use App\Models\User;
 use App\ValueObject\FollowOrFollowerGetListResultVO;
 use App\ValueObject\SwitchFollowResultVO;
 
-class FollowService extends BaseService
+class FriendService extends BaseService
 {
     /**
      * @param $userId
@@ -31,7 +35,7 @@ class FollowService extends BaseService
      * @return ServiceResult (data is instance of SwitchFollowResultVO)
      */
     public function switchFollowStatus($userId,$targetUserId,$isFollowOn):ServiceResult{
-        return $this->executeTasks($this->_getSwitchBlockStatusTasks($userId,$targetUserId,$isFollowOn));
+        return $this->executeTasks($this->_getSwitchBlockStatusTasks($userId,$targetUserId,$isFollowOn),true);
     }
 
 
@@ -53,6 +57,26 @@ class FollowService extends BaseService
                 return ServiceResult::withError(StatusCode::FOLLOW_ADD_ERROR,"User {$userId} and target user {$targetUserId} is block status.");
             }
             $switchFollowResultVO = $followModel->switchFollow($userId, $targetUserId,$isFollowOn);
+
+            //Send Notification
+            if($switchFollowResultVO->isFirstTime()){
+            	$userModel = new User();
+	            $user = $userModel->getSimpleUserInfo($userId);
+				$notificationTargetUsers = (new Device())->getNotificationTargetUsers([$targetUserId],FollowNotificationFactory::getNotificationAllowColumn());
+				$factory = new FollowNotificationFactory();
+				$notification =
+				$factory
+					->setUserName($user['user_name'])
+					->setFromUserId($userId)
+					->setTargetUsers($notificationTargetUsers)
+					->create();
+
+				//Send
+	            $notification->run();
+	            //insert
+	            (new NotificationLog())->saveData($notification->getSaveData());
+
+            }
             $switchFollowerResultVO = $followerModel->switchFollower($targetUserId,$userId,$isFollowOn);
             return  ServiceResult::withResult($switchFollowResultVO,SwitchFollowResultVO::class);
         };

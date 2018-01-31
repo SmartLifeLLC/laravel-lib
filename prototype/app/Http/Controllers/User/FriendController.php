@@ -18,7 +18,7 @@ use App\Http\JsonView\JsonResponseErrorView;
 use App\Http\JsonView\User\FollowOrFollowerGetListJsonView;
 use App\Models\CurrentUser;
 use App\Lib\Logger;
-use App\Services\FollowService;
+use App\Services\FriendService;
 use App\Services\NotificationService;
 use Illuminate\Http\Request;
 use App\Http\JsonView\User\Follow\SwitchUserFollowStatusJsonView;
@@ -74,7 +74,7 @@ class FriendController extends Controller
             return $this->responseParameterErrorJsonViewWithDebugMessage("User id {$userId} is same with target user id {$targetUserId}");
         }
 
-        $serviceResult = (new FollowService())->switchFollowStatus($userId,$targetUserId,$isFollowOn);
+        $serviceResult = (new FriendService())->switchFollowStatus($userId,$targetUserId,$isFollowOn);
 	    $jsonView = new SwitchUserFollowStatusJsonView($serviceResult);
         if($serviceResult->getResult() == null){
         	return $this->responseJson($jsonView);
@@ -117,7 +117,7 @@ class FriendController extends Controller
 
 		$page = $request->get('page',DefaultValues::QUERY_DEFAULT_PAGE);
 		$limit = $request->get('limit',DefaultValues::QUERY_DEFAULT_LIMIT);
-		$serviceResult = (new FollowService())->getFollowList($userId,$ownerId,$page,$limit);
+		$serviceResult = (new FriendService())->getFollowList($userId,$ownerId,$page,$limit);
 		return $this->responseJson(new FollowOrFollowerGetListJsonView($serviceResult));
 
     }
@@ -133,7 +133,7 @@ class FriendController extends Controller
 
 		$page = $request->get('page',DefaultValues::QUERY_DEFAULT_PAGE);
 		$limit = $request->get('limit',DefaultValues::QUERY_DEFAULT_LIMIT);
-		$serviceResult = (new FollowService())->getFollowerList($userId,$ownerId,$page,$limit);
+		$serviceResult = (new FriendService())->getFollowerList($userId,$ownerId,$page,$limit);
 		return $this->responseJson(new FollowOrFollowerGetListJsonView($serviceResult));
 	}
 

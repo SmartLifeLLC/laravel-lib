@@ -17,4 +17,5 @@ final class URLs
     const IMG_HOST_DEVP = "https://dev-cdn.recomil.com/";
     const API_FB_USER_INFO =
         "https://graph.facebook.com/me?fields=id,email,gender,link,locale,name,timezone,updated_time,verified,last_name,first_name,middle_name,birthday,about,picture,cover,location&access_token=";
+    const FIREBASE_FCM_ENDPOINT = "https://fcm.googleapis.com/fcm/send";
 }

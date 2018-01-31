@@ -27,6 +27,10 @@ final class SystemConstants
     }
 
 
+    static function getFirebaseKey(){
+    	return config("app.firebase_key");
+    }
+
     static function S3ImageBucket(){
         $env = config("app.env");
         switch ($env){
