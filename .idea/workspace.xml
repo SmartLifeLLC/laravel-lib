@@ -2,19 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="32305396-a728-48bd-a2b9-2748e96dc899" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/prototype/app/Console/Commands/Translate/ContributionReactionNotificationDeliveryTranslator.php" afterPath="$PROJECT_DIR$/prototype/app/Console/Commands/Translate/ContributionReactionNotificationDeliveryTranslator.php" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Console/Commands/Translate/DeletedContentTranslator.php" afterPath="$PROJECT_DIR$/prototype/app/Console/Commands/Translate/DeletedContentTranslator.php" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Console/Commands/Translate/DeviceTranslator.php" afterPath="$PROJECT_DIR$/prototype/app/Console/Commands/Translate/DeviceTranslator.php" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Console/Kernel.php" afterPath="$PROJECT_DIR$/prototype/app/Console/Kernel.php" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/JsonView/Translate/PreviousCommentJsonView.php" afterPath="$PROJECT_DIR$/prototype/app/Http/JsonView/Translate/PreviousCommentJsonView.php" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/JsonView/Translate/PreviousContributionJsonView.php" afterPath="$PROJECT_DIR$/prototype/app/Http/JsonView/Translate/PreviousContributionJsonView.php" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/JsonView/Translate/PreviousLikeReactionJsonView.php" afterPath="$PROJECT_DIR$/prototype/app/Http/JsonView/Translate/PreviousLikeReactionJsonView.php" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/JsonView/Translate/PreviousNegativeContributionJsonView.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/JsonView/Translate/PreviousPositiveContributionJsonView.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Http/JsonView/Translate/PreviousUserJsonView.php" afterPath="$PROJECT_DIR$/prototype/app/Http/JsonView/Translate/PreviousUserJsonView.php" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Services/Translate/PreviousDeviceService.php" afterPath="$PROJECT_DIR$/prototype/app/Services/Translate/PreviousDeviceService.php" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Services/Translate/PreviousNegativeContributionService.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/prototype/app/Services/Translate/PreviousPositiveContributionService.php" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -481,16 +469,15 @@
       <workItem from="1516968681688" duration="168000" />
       <workItem from="1517054199350" duration="25894000" />
       <workItem from="1517293971165" duration="1160000" />
-      <workItem from="1517397883718" duration="9135000" />
+      <workItem from="1517397883718" duration="9358000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="96254000" />
+    <option name="totallyTimeSpent" value="96477000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2167382" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -500,7 +487,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.50497514" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.50497514" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -550,7 +537,7 @@
         <state relative-caret-position="413">
           <caret line="32" column="39" lean-forward="true" selection-start-line="32" selection-start-column="39" selection-end-line="32" selection-end-column="39" />
           <folding>
-            <element signature="e#31#72#0#PHP" expanded="true" />
+            <element signature="e#31#72#0#PHP" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -560,7 +547,7 @@
         <state relative-caret-position="75">
           <caret line="10" column="4" lean-forward="true" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
           <folding>
-            <element signature="e#131#167#0#PHP" expanded="true" />
+            <element signature="e#131#167#0#PHP" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -570,7 +557,7 @@
         <state relative-caret-position="75">
           <caret line="10" column="4" lean-forward="true" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
           <folding>
-            <element signature="e#131#167#0#PHP" expanded="true" />
+            <element signature="e#131#167#0#PHP" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -580,7 +567,7 @@
         <state relative-caret-position="75">
           <caret line="10" column="4" lean-forward="true" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
           <folding>
-            <element signature="e#131#167#0#PHP" expanded="true" />
+            <element signature="e#131#167#0#PHP" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -590,7 +577,7 @@
         <state relative-caret-position="75">
           <caret line="10" column="4" lean-forward="true" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
           <folding>
-            <element signature="e#131#167#0#PHP" expanded="true" />
+            <element signature="e#131#167#0#PHP" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -600,7 +587,7 @@
         <state relative-caret-position="510">
           <caret line="39" column="1" lean-forward="true" selection-start-line="39" selection-start-column="1" selection-end-line="39" selection-end-column="1" />
           <folding>
-            <element signature="e#131#167#0#PHP" expanded="true" />
+            <element signature="e#131#167#0#PHP" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -610,7 +597,7 @@
         <state relative-caret-position="540">
           <caret line="41" column="1" lean-forward="true" selection-start-line="41" selection-start-column="1" selection-end-line="41" selection-end-column="1" />
           <folding>
-            <element signature="e#131#167#0#PHP" expanded="true" />
+            <element signature="e#131#167#0#PHP" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -620,7 +607,7 @@
         <state relative-caret-position="75">
           <caret line="10" column="4" lean-forward="true" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
           <folding>
-            <element signature="e#131#167#0#PHP" expanded="true" />
+            <element signature="e#131#167#0#PHP" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -630,7 +617,7 @@
         <state relative-caret-position="90">
           <caret line="11" column="4" lean-forward="true" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="4" />
           <folding>
-            <element signature="e#132#168#0#PHP" expanded="true" />
+            <element signature="e#132#168#0#PHP" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -640,7 +627,7 @@
         <state relative-caret-position="75">
           <caret line="10" column="4" lean-forward="true" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
           <folding>
-            <element signature="e#131#167#0#PHP" expanded="true" />
+            <element signature="e#131#167#0#PHP" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -650,7 +637,7 @@
         <state relative-caret-position="-66">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#131#167#0#PHP" expanded="true" />
+            <element signature="e#131#167#0#PHP" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -660,7 +647,7 @@
         <state relative-caret-position="68">
           <caret line="10" column="4" lean-forward="true" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
           <folding>
-            <element signature="e#130#166#0#PHP" expanded="true" />
+            <element signature="e#130#166#0#PHP" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -670,7 +657,7 @@
         <state relative-caret-position="90">
           <caret line="12" column="4" lean-forward="true" selection-start-line="12" selection-start-column="4" selection-end-line="12" selection-end-column="4" />
           <folding>
-            <element signature="e#218#270#0#PHP" expanded="true" />
+            <element signature="e#218#270#0#PHP" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -680,7 +667,7 @@
         <state relative-caret-position="45">
           <caret line="11" column="4" lean-forward="true" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="4" />
           <folding>
-            <element signature="e#122#154#0#PHP" expanded="true" />
+            <element signature="e#122#154#0#PHP" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -802,7 +789,7 @@
         <state relative-caret-position="75">
           <caret line="10" column="4" lean-forward="true" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
           <folding>
-            <element signature="e#115#154#0#PHP" expanded="true" />
+            <element signature="e#115#154#0#PHP" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -812,7 +799,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#115#154#0#PHP" expanded="true" />
+            <element signature="e#115#154#0#PHP" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -822,7 +809,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#115#154#0#PHP" expanded="true" />
+            <element signature="e#115#154#0#PHP" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -832,7 +819,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#115#154#0#PHP" expanded="true" />
+            <element signature="e#115#154#0#PHP" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -842,7 +829,7 @@
         <state relative-caret-position="-266">
           <caret line="11" column="4" lean-forward="true" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="4" />
           <folding>
-            <element signature="e#116#155#0#PHP" expanded="true" />
+            <element signature="e#116#155#0#PHP" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -852,7 +839,7 @@
         <state relative-caret-position="75">
           <caret line="10" column="4" lean-forward="true" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
           <folding>
-            <element signature="e#115#154#0#PHP" expanded="true" />
+            <element signature="e#115#154#0#PHP" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -862,7 +849,7 @@
         <state relative-caret-position="75">
           <caret line="10" column="4" lean-forward="true" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
           <folding>
-            <element signature="e#115#154#0#PHP" expanded="true" />
+            <element signature="e#115#154#0#PHP" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -872,7 +859,7 @@
         <state relative-caret-position="75">
           <caret line="10" column="4" lean-forward="true" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
           <folding>
-            <element signature="e#115#154#0#PHP" expanded="true" />
+            <element signature="e#115#154#0#PHP" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -882,7 +869,7 @@
         <state relative-caret-position="75">
           <caret line="10" column="4" lean-forward="true" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
           <folding>
-            <element signature="e#115#154#0#PHP" expanded="true" />
+            <element signature="e#115#154#0#PHP" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -900,7 +887,7 @@
         <state relative-caret-position="75">
           <caret line="10" column="4" lean-forward="true" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
           <folding>
-            <element signature="e#123#162#0#PHP" expanded="true" />
+            <element signature="e#123#162#0#PHP" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -910,7 +897,7 @@
         <state relative-caret-position="90">
           <caret line="11" column="4" lean-forward="true" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="4" />
           <folding>
-            <element signature="e#124#159#0#PHP" expanded="true" />
+            <element signature="e#124#159#0#PHP" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -920,7 +907,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#123#151#0#PHP" expanded="true" />
+            <element signature="e#123#151#0#PHP" expanded="false" />
           </folding>
         </state>
       </provider>
