@@ -239,9 +239,9 @@ abstract class JsonResponseView
     	return [
 			        'id' => $userId, //id
 			        'un' => $userName, //user_name
-			        'pu' => $profileImageS3Key, //profile_image_url
-			        "if" => $followId,//is_following
-			        'ds' => $description
+			        'pu' => $this->getImageURLForS3Key($profileImageS3Key), //profile_image_url
+			        "if" => $this->getBinaryValue($followId),//is_following
+			        'ds' => $this->getNotNullString($description)
 	            ]
 		    ;
     }
@@ -280,9 +280,9 @@ abstract class JsonResponseView
                         $this->getUserHashArray(
                             $contribution['contribution_user_id'], //id
                             $contribution['user_name'], //user_name
-                            $this->getImageURLForS3Key($contribution['profile_image_s3_key']), //profile_image_url
-                            $this->getBinaryValue($contribution['follow_id']),//is_following
-	                        $this->getNotNullString($contribution['description'])
+                            $contribution['profile_image_s3_key'], //profile_image_url
+                            $contribution['follow_id'],//is_following
+	                        $contribution['description']
                         )
                 ],
                 "pi" => //product_item
