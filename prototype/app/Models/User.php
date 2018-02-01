@@ -256,6 +256,14 @@ class User extends DBModel
     	return $this->find($userId);
     }
 
+	/**
+	 * @param $userId
+	 * @return mixed
+	 */
+	public function getUserFacebookInfo($userId){
+    	return $this->find($userId)->select('facebook_id','facebook_token','birthday');
+	}
+
 
 //	/**
 //	 * @param array $userIds
