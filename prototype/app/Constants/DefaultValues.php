@@ -28,6 +28,6 @@ final class DefaultValues
         const SWAGGER_TOKEN = "rt";
 		const MAX_LENGTH_NOTIFICATION_USERNAME = 16;
 		const MAX_LENGTH_NOTIFICATION_PRODUCT = 20;
-
+		const FEED_TOTAL_FEATURED_USER_NUM  = 30;
 
 }

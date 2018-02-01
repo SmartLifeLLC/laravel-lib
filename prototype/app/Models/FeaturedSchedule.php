@@ -18,8 +18,7 @@ class FeaturedSchedule extends DBModel
      * @param $featuredScheduleTypeId
      * @return mixed
      */
-    public function getFeaturedUsers($userId, $currentDate, $featuredScheduleTypeId){
-        $imageHost = SystemConstants::getCdnHost();
+    public function getFeaturedUsers($userId, $currentDate, $featuredScheduleTypeId, $limit = 30){
         $query =
             "
                 SELECT
@@ -34,9 +33,9 @@ class FeaturedSchedule extends DBModel
                       AND featured_users.user_id NOT IN (SELECT follows.target_user_id from follows where follows.user_id = ?  AND follows.is_on = true)
                       AND featured_users.user_id NOT IN (SELECT block_users.target_user_id from block_users where block_users.user_id = ?)
                       AND featured_users.user_id NOT IN (SELECT blocked_users.user_id from blocked_users where blocked_users.target_user_id= ?)
-                      AND featured_users.user_id != ?
-                      
-                ORDER BY featured_users.weight DESC
+                      AND featured_users.user_id != ?       
+                ORDER BY featured_users.weight DESC 
+                LIMIT {$limit}
                       ;
             ";
         $result = DB::select($query,[$currentDate,$currentDate,$featuredScheduleTypeId,$userId,$userId,$userId,$userId]);

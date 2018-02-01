@@ -39,6 +39,7 @@ class FeaturedUsersControllerTest extends TestCase
     }
 
 	public function testGetFeatureUserListForFeed(){
+    	$this->prepareUserWithIdAndAuth(49,1);
 		$httpMethod = HttpMethod::GET;
 		$uri = "/featured/user/list?type=feed";
 		$content = $this->getJsonRequestContent($httpMethod,$uri);

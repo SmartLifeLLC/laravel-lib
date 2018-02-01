@@ -33,13 +33,9 @@ class FeaturedUsersController extends Controller
 	        $serviceResult = (new FeaturedService())->getFeaturedUsersForInitStart($userId);
 	        $jsonView = new GetListOnAppInitJsonView($serviceResult);
         }else if($type == "feed"){
-        	$serviceResult = (new FeaturedService())->getFeaturedUsersForFeedTmp($userId);
+        	$serviceResult = (new FeaturedService())->getFeaturedUsersForFeed($userId);
         	$jsonView = new GetListOnFeedJsonView($serviceResult);
         }
-
-
-
-
         return $this->responseJson($jsonView);
     }
 

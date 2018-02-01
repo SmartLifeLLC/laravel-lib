@@ -9,29 +9,45 @@
 namespace App\Http\JsonView\Recommend\FeaturedUser;
 
 use App\Http\JsonView\JsonResponseView;
+use App\ValueObject\GetFeaturedUsersForFeedVO;
 
 class GetListOnFeedJsonView extends JsonResponseView
 {
 
-    /**
-     * @var see FeaturedService::getFeaturedUsersForFeed
-     */
+
+	/**
+	 * @var GetFeaturedUsersForFeedVO
+	 */
     protected $data;
     function createBody()
     {
 
     	$result = [];
-	    foreach ($this->data as $data){
+
+    	$featuredUsersFromFacebook = $this->data->getUsersFromFacebookFriends();
+		$featuredUsersFromPickupUsers =  $this->data->getUsersFromPickup();
+	    foreach ($featuredUsersFromFacebook as $data){
 	    	$user =
 			    [
 				    "id" => $data->id,
                     "user_name" => $data->user_name,
-                    "featured_type" => (rand(0,1)==0)?"おすすめユーザー":"Facebookの友達",
-				    "profile_image_url" => "https://cdn.recomil.com/765_user_5/profile/img/origin/2017/11/27/e12efa823e508704405c5b11645af016.jpeg",
+                    "featured_type" => "Facebookの友達",
+				    "profile_image_url" => $this->getImageURLForS3Key($data->profile_image_s3_key),
                     "is_following" => 0
 			    ];
 			$result[] = $user;
 	    }
-        $this->body = ['featured_users' => $result];
+	    foreach ($featuredUsersFromPickupUsers as $data){
+		    $user =
+			    [
+				    "id" => $data->id,
+				    "user_name" => $data->user_name,
+				    "featured_type" => "おすすめユーザ",
+				    "profile_image_url" => $this->getImageURLForS3Key($data->profile_image_s3_key),
+				    "is_following" => 0
+			    ];
+		    $result[] = $user;
+	    }
+	    $this->body = ['featured_users' => $result];
     }
 }
