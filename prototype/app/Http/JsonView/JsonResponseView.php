@@ -235,6 +235,16 @@ abstract class JsonResponseView
     	return ($text === null)?"":$text;
     }
 
+    public function getUserHashArray($userId,$userName,$profileImageS3Key,$followId,$description){
+    	return [
+			        'id' => $userId, //id
+			        'un' => $userName, //user_name
+			        'pu' => $profileImageS3Key, //profile_image_url
+			        "if" => $followId,//is_following
+			        'ds' => $description
+	            ]
+		    ;
+    }
 
 
     public function getWellFormedContribution($contribution,$categories,$shops = []){
@@ -267,12 +277,13 @@ abstract class JsonResponseView
                     'ii' => $this->getBinaryValue($contribution['contribution_interest_reaction_id']), //is_interest
                     "ic" => $this->getBinaryValue($contribution['my_contribution_id']), //is_contributed
                     'ur' => //user
-                        [
-                            'id' => $contribution['contribution_user_id'], //id
-                            'un' => $contribution['user_name'], //user_name
-                            'pu' => $this->getImageURLForS3Key($contribution['profile_image_s3_key']), //profile_image_url
-                            "if" => $this->getBinaryValue($contribution['follow_id'])//is_following
-                        ]
+                        $this->getUserHashArray(
+                            $contribution['contribution_user_id'], //id
+                            $contribution['user_name'], //user_name
+                            $this->getImageURLForS3Key($contribution['profile_image_s3_key']), //profile_image_url
+                            $this->getBinaryValue($contribution['follow_id']),//is_following
+	                        $this->getNotNullString($contribution['description'])
+                        )
                 ],
                 "pi" => //product_item
                     [

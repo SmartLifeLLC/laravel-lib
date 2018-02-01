@@ -40,13 +40,14 @@ class ReactionGetListJsonView extends JsonResponseView
 		foreach($this->data->getReactions() as $userReaction){
 			$reactions[] =
 				[
-					'user'=> [
-						'id' => $userReaction['id'],
-						'user_name' => $userReaction['user_name'],
-						'profile_image_url' => $this->getImageURLForS3Key($userReaction['profile_image_s3_key']),
-						'is_following' => $userReaction['is_following'],
-						'introduction' => $userReaction['description']
-					],
+					'ur'=>
+						$this->getUserHashArray(
+							$userReaction['id'], //id
+							$userReaction['user_name'], //user_name
+							$this->getImageURLForS3Key($userReaction['profile_image_s3_key']), //profile_image_url
+							$userReaction['is_following'],//is_following
+							$this->$userReaction['description']
+						),
 					'type'=> $userReaction['contribution_reaction_type']
 				];
 
