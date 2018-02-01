@@ -46,7 +46,7 @@ class ReactionGetListJsonView extends JsonResponseView
 							$userReaction['user_name'], //user_name
 							$this->getImageURLForS3Key($userReaction['profile_image_s3_key']), //profile_image_url
 							$userReaction['is_following'],//is_following
-							$this->$userReaction['description']
+							$userReaction['description']
 						),
 					'type'=> $userReaction['contribution_reaction_type']
 				];
