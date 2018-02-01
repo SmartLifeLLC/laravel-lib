@@ -276,6 +276,7 @@ class User extends DBModel
 			$this
 				->select(
 					'users.id',
+					'users.user_name',
 					'images.s3_key as profile_image_s3_key',
 					'users.description')
 				->leftJoin('images','images.id','=','users.profile_image_id')

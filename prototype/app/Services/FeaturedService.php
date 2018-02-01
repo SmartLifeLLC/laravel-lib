@@ -22,8 +22,6 @@ use App\ValueObject\GetFeaturedUsersForFeedVO;
 
 class FeaturedService extends BaseService
 {
-	private $getFacebookFriendListTask = null;
-
     /**
      * @param int $userId
      * @return ServiceResult
@@ -91,51 +89,51 @@ class FeaturedService extends BaseService
 		});
     }
 
+
 	/**
-	 * @param $facebookId
-	 * @param $facebookToken
-	 * @return mixed
+	 * @param int $userId
+	 * @param $page
+	 * @param $limit
+	 * @return ServiceResult
 	 */
-    private function getAllFacebookFriendList($facebookId,$facebookToken){
-	    $facebookFriends = [];
+    public function getFeaturedUsersForFacebook(int $userId,$page,$limit):ServiceResult{
+    	return $this->executeTasks(function () use ($userId,$page,$limit){
+		    //Get all facebook friend list
+		    $userModel = new User();
+		    $userInfo = $userModel->getSimpleUserInfo($userId);
+		    $facebookId = $userInfo['facebook_id'];
+		    $facebookToken = $userInfo['facebook_token'];
+		    $birthday = $userInfo['birthday'];
+		    $gender = $userInfo['gender'];
 
-	    $fbResult = $this->getFacebookFriendList($facebookId,$facebookToken);
-	    if(isset($fbResult['error'])){
-		    return $fbResult;
-	    }else{
-		    foreach($fbResult['data'] as $friend){
-			    $facebookFriends[] = $friend['id'];
-		    }
 
-		    if(isset($fbResult['paging'])&&isset($fbResult['paging']['cursors'])&&isset($fbResult['paging']['cursors']['after'])){
-			    $after = $fbResult['paging']['cursors']['after'];
-		    }
-	    }
+		    $getFacebookFriendListTask = new GetFacebookFriendListTask($facebookId,$facebookToken);
+		    $getFacebookFriendListTask->run();
+		    $allFacebookFriendIds = $getFacebookFriendListTask->getResult();
+		    if(isset($allFacebookFriendIds['error']))
+			    ServiceResult::withError(StatusCode::FACEBOOK_FRIEND_API_ERROR,json_encode($allFacebookFriendIds));
 
-	    while (!empty($after)){
-		    $fbResult = $this->getFacebookFriendList($facebookId,$facebookToken,$after);
-		    foreach($fbResult['data'] as $friend){
-			    $facebookFriends[] = $friend['id'];
-		    }
-		    if(isset($fbResult['paging'])&&isset($fbResult['paging']['cursors'])&&isset($fbResult['paging']['cursors']['after'])){
-			    $after = $fbResult['paging']['cursors']['after'];
-		    }else{
-			    $after = null;
-		    }
-	    }
+		    $featuredUsersFromFacebookFriend = $userModel->getFeaturedUserListFromFacebookIdsWithCount($userId,$gender,$birthday,$allFacebookFriendIds,$limit,$page);
+			return ServiceResult::withResult($featuredUsersFromFacebookFriend);
+
+	    });
     }
 
 
 	/**
-	 * @param $facebookId
-	 * @param $facebookToken
-	 * @param null $after
-	 * @return mixed
+	 * @param int $userId
+	 * @return ServiceResult
 	 */
-    private function getFacebookFriendList($facebookId, $facebookToken, $after = null){
-		if($this->getFacebookFriendListTask == null)
-			$this->getFacebookFriendListTask = new GetFacebookFriendListTask($facebookId,$facebookToken,$after);
-		$this->getFacebookFriendListTask->run();
-		return $this->getFacebookFriendListTask->getResult();
+    public function getFeaturedUsersForPickup(int $userId):ServiceResult{
+		return $this->executeTasks(function() use ($userId){
+			$pickupUsers = (new FeaturedSchedule())->getFeaturedUsers(
+				$userId,
+				date(DateTimeFormat::General),
+				FeaturedScheduleType::FEED,DefaultValues::PICKUP_TOTAL_FEATURED_USER_NUM);
+			return ServiceResult::withResult($pickupUsers);
+
+		});
     }
+
+
 }
