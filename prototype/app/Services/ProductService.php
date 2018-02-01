@@ -158,7 +158,7 @@ class ProductService extends BaseService
     public function getProductListByKeyword($keyword,$categoryId,$limit,$page,$orderList){
         return $this->executeTasks(function() use ($keyword,$categoryId,$limit,$page,$orderList){
 	        //$keyword = base64_decode($keyword);
-            $result = (new Product())->getProductsAndCountByKeyword($keyword,$limit,$page);
+            $result = (new Product())->getProductsAndCountByKeyword($keyword,$orderList,$limit,$page);
             return ServiceResult::withResult($result);
         });
     }
@@ -173,7 +173,7 @@ class ProductService extends BaseService
     public function getProductListByCategory($categoryId,$limit,$page,$orderList){
         return $this->executeTasks(function() use ($categoryId,$limit,$page,$orderList){
             $count = (new ProductCategory())->getProductsCount($categoryId);
-            $result = (new Product())->getProductsByCategoryId($categoryId,$count,$limit,$page,$orderList);
+            $result = (new Product())->getProductsByCategoryId($categoryId,$orderList,$count,$limit,$page);
             return ServiceResult::withResult($result);
         });
     }

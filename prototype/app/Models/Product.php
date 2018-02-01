@@ -95,6 +95,7 @@ class Product extends DBModel
      * aws elastic searchをつかうには、企画を満たすことが厳しいうえに
      * 検索対象が商品タイトルのみであれば Full Text Indexの活用で十分対応できる。
      * @param $keyword
+     * @param $orderList,
      * @param int $page
      * @param int $limit
      * @return ProductAndCountDataVO
@@ -124,6 +125,7 @@ class Product extends DBModel
     /**
      * category total countは　product_categoryテーブルで簡単に取得できるのでそちらを利用
      * @param $categoryId
+     * @param $orderList,
      * @param int $totalCount
      * @param int $page
      * @param int $limit
