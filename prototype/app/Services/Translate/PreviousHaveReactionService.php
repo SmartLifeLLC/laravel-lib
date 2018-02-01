@@ -9,6 +9,8 @@
 namespace App\Services\Translate;
 
 use App\Models\ContributionHaveReaction;
+use App\Models\ContributionReactionCount;
+use App\Models\Contribution;
 use App\Services\BaseService;
 use App\Lib\JSYService\ServiceResult;
 use DB;
@@ -24,6 +26,8 @@ class PreviousHaveReactionService extends BaseService
     public function getData($userId, $contributionId, $created):ServiceResult{
         return $this->executeTasks(function() use($userId, $contributionId, $created) {
             $haveReactionId = (new ContributionHaveReaction())->translateGetId($userId, $contributionId, $created);
+            $productId = (new Contribution())->getProductId($contributionId);
+            (new ContributionReactionCount())->incrementCount($productId, $contributionId, 3);
             return ServiceResult::withResult($haveReactionId);
         },true);
     }

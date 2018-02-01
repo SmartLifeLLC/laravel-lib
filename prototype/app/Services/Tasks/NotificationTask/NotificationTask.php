@@ -14,8 +14,9 @@ namespace App\Services\Tasks\NotificationTask;
 use App\Constants\DateTimeFormat;
 use App\Constants\SystemConstants;
 use App\Constants\URLs;
+use App\Lib\JSYService\ServiceTask;
 
-class Notification
+class NotificationTask implements ServiceTask
 {
 
 	protected $message;
@@ -26,7 +27,7 @@ class Notification
 	protected $contributionId;
 	protected $contributionCommentId;
 	protected $notificationLogTypeId;
-
+	private $result;
 	/**
 	 * Notification constructor.
 	 * @param $fromUserId
@@ -45,10 +46,11 @@ class Notification
 		$this->contributionId = $contributionId;
 		$this->targetUserIds = [];
 		$this->targetUserFBKeys = [];
+		$this->notificationLogTypeId = $notificationTypeId;
 		foreach($targetUsers as $userId => $fbKeys){
 			$this->targetUserIds[] = $userId;
 			foreach($fbKeys as $fbKey){
-				$this->targetUserFBKeys[] = $fbKey;
+				$this->targetUserFBKeys[$fbKey] = $fbKey; //make unique
 			}
 		}
 	}
@@ -56,7 +58,7 @@ class Notification
 	/**
 	 * @return array
 	 */
-	function saveData():array{
+	function getSaveData():array{
 		$data = [];
 		foreach ($this->targetUserIds as $targetUserId){
 		$data[] =
@@ -74,20 +76,28 @@ class Notification
 	}
 
 
+	/**
+	 * @return mixed|void
+	 */
+	public function run(){
 
-	public function send(){
+
+		if(empty($this->targetUserFBKeys)) {
+			$this->result = "No notification tokens ";
+			return;
+		}
+
 		//Send to Firebase
 		$headers = [
 			"Authorization: key=". SystemConstants::getFirebaseKey(),
 			"Content-Type: application/json"
 		];
 		$fields = [
-			"registration_ids" => $this->targetUserFBKeys,
+			"registration_ids" => array_values($this->targetUserFBKeys),
 			"notification" => [
 				"text" => $this->message
 			]
 		];
-
 		$handle = curl_init();
 		curl_setopt($handle, CURLOPT_URL, URLs::FIREBASE_FCM_ENDPOINT);
 		curl_setopt($handle, CURLOPT_POST, true);
@@ -97,9 +107,13 @@ class Notification
 		curl_setopt($handle, CURLOPT_POSTFIELDS, json_encode($fields));
 		$result = curl_exec($handle);
 		curl_close($handle);
-		return $result;
+		$this->result = $result;
 
 
 	}
 
+	function getResult()
+	{
+		return $this->result;
+	}
 }

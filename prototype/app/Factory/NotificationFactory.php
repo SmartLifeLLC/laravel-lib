@@ -6,8 +6,8 @@
  * Time: 16:14
  */
 
-namespace App\Services\Tasks\NotificationTask\Factory;
-use App\Services\Tasks\NotificationTask\Notification;
+namespace App\Factory;
+use App\Services\Tasks\NotificationTask\NotificationTask;
 abstract class NotificationFactory
 {
 
@@ -23,6 +23,10 @@ abstract class NotificationFactory
 
 	//protected $notificationLogTypeId;
 
+	/**
+	 * @return string {is_xxxx_notification_allowed}
+	 */
+	abstract static function getNotificationAllowColumn():string;
 
 	/**
 	 * @param string $userName
@@ -81,7 +85,7 @@ abstract class NotificationFactory
 		return $this;
 	}
 
-	abstract function create():Notification;
+	abstract function create():NotificationTask;
 
 
 

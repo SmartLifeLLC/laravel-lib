@@ -184,7 +184,7 @@ final class Util
 
     static function getStringWithMaxLength($string,$maxLength = 16){
 	if(mb_strlen($string) > $maxLength){
-		$string = substr($string,0,16);
+		$string = mb_substr($string,0,16);
 		$string .= "...";
 	}
 	return $string;

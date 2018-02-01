@@ -24,14 +24,16 @@ class CommentControllerTest extends TestCase
 	}
 
 	public function testCreate(){
+		$this->prepareUserWithIdAndAuth(49,1);
+		$contributionId = 48;
 		$httpMethod = HttpMethod::POST;
 		$uri = "/comment/create";
 		$data =
 			[
 				//'product_item_id'=>51,
-				'contribution_id'=>7,
+				'contribution_id'=>$contributionId,
 				'user_id'=>$this->userId,
-				'text'=>'コメントコメント',
+				'text'=>'コメントコメント - 通知テストー　コメントコメント',
 
 			];
 		$content = $this->getJsonRequestContent($httpMethod,$uri,$data);

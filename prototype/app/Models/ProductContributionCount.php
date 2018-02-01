@@ -8,7 +8,6 @@
 
 namespace App\Models;
 
-
 class ProductContributionCount extends DBModel
 {
 	protected $guarded = [];
@@ -51,10 +50,19 @@ class ProductContributionCount extends DBModel
 		if($productContributionCount == null){
 			$this->insert(['product_id'=>$productId,$feelingColumn=>1,'contribution_count'=>1]);
 		}else{
+
+			//increase
+			if($operator == "+"){
+				$this->increment($feelingColumn);
+				$this->increment('contribution_count');
+			}else{
+				$this->decrement($feelingColumn);
+				$this->decrement('contribution_count');
+			}
 			$amount = ($operator == "+")?1:-1;
-			$productContributionCount->{$feelingColumn} += $amount;
-			$productContributionCount->contribution_count += $amount ;
-			$productContributionCount->save();
+//			$productContributionCount->{$feelingColumn} += $amount;
+//			$productContributionCount->contribution_count += $amount ;
+//			$productContributionCount->save();
 		}
 	}
 }

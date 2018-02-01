@@ -2,23 +2,23 @@
 /**
  * Created by PhpStorm.
  * User: wada
- * Date: 2018/01/28
- * Time: 20:46
+ * Date: 2018/01/31
+ * Time: 21:31
  */
 
 namespace App\Console\Commands\Translate;
 
 use Illuminate\Console\Command;
-use App\Http\Controllers\Translate\TranslateFeaturedScheduleTypeController;
+use App\Http\Controllers\Translate\TranslateDeletedContentController;
 
-class FeaturedScheduleTypeTranslator extends Command
+class DeletedContentTranslator extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'command:featured-schedule-type-translator';
+    protected $signature = 'command:deleted-content-translator';
 
     /**
      * The console command description.
@@ -44,7 +44,7 @@ class FeaturedScheduleTypeTranslator extends Command
      */
     public function handle()
     {
-        $TranslateResult = (new TranslateFeaturedScheduleTypeController())->translatePreviousData();
+        $TranslateResult = (new TranslateDeletedContentController())->translatePreviousData();
         echo $TranslateResult;
     }
 }

@@ -29,9 +29,6 @@ class CommentController extends Controller
 
 		if($validator->fails()) return  $this->responseParameterErrorJsonViewWithValidator($validator);
 
-		//No use
-		$productId = $request->get('product_item_id');
-
 		//parameters
 		$userId = $this->getCurrentUserId();
 		$contributionId = $request->get('contribution_id');

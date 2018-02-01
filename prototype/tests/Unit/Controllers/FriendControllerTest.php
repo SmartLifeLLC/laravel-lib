@@ -13,7 +13,7 @@ use App\Constants\HttpMethod;
 use App\Constants\StatusCode;
 use Tests\TestCase;
 
-class FollowControllerTest extends TestCase
+class FriendControllerTest extends TestCase
 {
     public function setUp()
     {
@@ -48,18 +48,20 @@ class FollowControllerTest extends TestCase
 	//105 -> 102
 
     public function testSwitchFollowStatus(){
-    	    $userId = 101;
-    	    $userAuth = "AUTH_5a61c3b9d87ca"; //101 : AUTH_5a61c3b9d87ca //102 : AUTH_5a61c3b9d8a25 // 105 : AUTH_5a61c3b9d9480
+//    	    $userId = 101;
+//    	    $userAuth = "AUTH_5a61c3b9d87ca"; //101 : AUTH_5a61c3b9d87ca //102 : AUTH_5a61c3b9d8a25 // 105 : AUTH_5a61c3b9d9480
+//
+//			parent::prepareUserWithIdAndAuth($userId,$userAuth);
 
-			parent::prepareUserWithIdAndAuth($userId,$userAuth);
+	    $httpMethod = HttpMethod::PUT;
+	    $targetUserId = 48;
+	    $isOn = 1;
+	    $uri = "/user/friend/edit/{$targetUserId}/{$isOn}";
+	    $content = $this->getJsonRequestContent($httpMethod, $uri);
+		$this->printResponse($content);
+	    $this->printSQLLog();
 
-		    $httpMethod = HttpMethod::PUT;
-		    $targetUserId = 105;
-		    $isOn = 0;
-		    $uri = "/user/follow/edit/{$targetUserId}/{$isOn}";
-		    $content = $this->getJsonRequestContent($httpMethod, $uri);
-			$this->printResponse($content);
-            $this->assertEquals(StatusCode::SUCCESS,$content["code"]);
+	    $this->assertEquals(StatusCode::SUCCESS,$content["code"]);
 
     }
 	public function testGetFollowList(){
@@ -74,7 +76,7 @@ class FollowControllerTest extends TestCase
 		$content = $this->getJsonRequestContent($httpMethod,$uri);
 		if(!isset($content['code']))  var_dump($content);
 		$this->printResponse($content);
-		//$this->printSQLLog();
+		$this->printSQLLog();
 		$this->assertEquals(StatusCode::SUCCESS,$content["code"]);
 	}
 

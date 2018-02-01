@@ -20,9 +20,10 @@ use App\Models\ContributionHaveReaction;
 use App\Models\ContributionInterestReaction;
 use App\Models\ContributionLikeReaction;
 use App\Models\ContributionReactionCount;
+use App\Models\User;
+use App\Services\Tasks\SendReactionNotificationTask;
 use App\Services\Tasks\UpdateReactionCountTask;
 use App\ValueObject\ReactionGetListResultVO;
-use function foo\func;
 
 class ReactionService extends BaseService
 {
@@ -36,7 +37,7 @@ class ReactionService extends BaseService
 	 */
 	public function updateReaction($userId, $contributionId, $reactionType, $isIncrease):ServiceResult{
 		return $this->executeTasks(function()use ($userId,$contributionId,$reactionType,$isIncrease){
-			$contributionEntity = (new Contribution())->find($contributionId);
+			$contributionEntity = (new Contribution())->getContributionWithProductName($contributionId);
 			if(empty($contributionEntity))
 				return ServiceResult::withError(StatusCode::FAILED_TO_FIND_CONTRIBUTION,"Can't find contribution id for ({$contributionId})");
 
@@ -44,7 +45,14 @@ class ReactionService extends BaseService
 			if($isBlocked)
 				return ServiceResult::withError(StatusCode::BLOCK_STATUS_WITH_TARGET_USER,"user {$userId} and target user {$contributionEntity['user_id']} is block status.");
 
-			(new UpdateReactionCountTask($userId,$contributionId,$contributionEntity['product_id'],$reactionType,$isIncrease))->run();
+			$updateReactionTask = new UpdateReactionCountTask($userId,$contributionId,$contributionEntity['product_id'],$reactionType,$isIncrease);
+			$updateReactionTask->run();
+			if($updateReactionTask->getIsFirstReaction()){
+				$user = (new User())->getSimpleUserInfo($userId);
+				$sendReactionNotificationTask =
+					new SendReactionNotificationTask($userId,$user['user_name'],$contributionEntity['user_id'],$contributionEntity['id'],$contributionEntity['display_name'],$reactionType);
+				$sendReactionNotificationTask->run();
+			}
 
 			return ServiceResult::withResult(true);
 		},true);
