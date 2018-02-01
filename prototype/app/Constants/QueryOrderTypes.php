@@ -15,7 +15,7 @@ final class QueryOrderTypes extends Enum
 {
     const DESCENDING = "desc";
     const ASCENDING = "asc";
-
+	const PRODUCT_ORDER_LIST = ['positive_count','negative_count','contribution_count','display_name'];
     /**
      * Enum constructor.
      * @param $value

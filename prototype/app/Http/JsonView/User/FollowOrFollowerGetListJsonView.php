@@ -24,13 +24,9 @@ class FollowOrFollowerGetListJsonView extends JsonResponseView
 	{
 		$list = [];
 		foreach($this->data->getList() as $entity){
-			$user = [];
-			$user['id'] = $entity->user_id;
-			$user['user_name'] = $entity->user_name;
-			$user['profile_image_url'] = Util::getS3CdnUrl($entity->s3_key);
-			$user['introduction'] = $entity->description;
-			$user['is_following'] = ($entity->is_follow == 1)?1:0;
-			$list [] = $user;
+			$list[] =
+				$this->getUserHashArray($entity->user_id,$entity->user_name,$entity->s3_key,$entity->is_follow,$entity->description);
+
 		}
 
 		$this->body =
