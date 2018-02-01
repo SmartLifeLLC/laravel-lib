@@ -43,6 +43,7 @@ final class StatusMessage
 
 
             case StatusCode::FACEBOOK_TOKEN_FAILED : return "Facebook Token認証に失敗しました。";
+		    case StatusCode::FACEBOOK_FRIEND_API_ERROR : return "Facebook 友たち取得に失敗しました。";
             case StatusCode::AUTH_FAILED : return "認証に失敗しました。";
 		    case StatusCode::LIMITED_USER : return "該当サービスは利用が制限されています。";
             case StatusCode::FAILED_TO_FIND_CONTRIBUTION : return "投稿詳細を取得できませんでした。";

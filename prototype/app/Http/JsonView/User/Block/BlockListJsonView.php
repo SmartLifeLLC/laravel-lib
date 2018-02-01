@@ -20,13 +20,14 @@ class BlockListJsonView extends JsonResponseView
 	function createBody()
 	{
 		foreach ($this->data as $blockUser){
-			$user = [
-				'id' => $blockUser->user_id,
-				'introduction' => $this->getNotNullString($blockUser->description),
-				'user_name' => $blockUser->user_name,
-				'profile_image_user' => $this->getImageURLForS3Key($blockUser->profile_image_s3_key),
-				'is_following' => 0
-			];
+			$user =
+				$this->getUserHashArray(
+					$blockUser->user_id, //id
+					$blockUser->user_name, //user_name
+					$this->getImageURLForS3Key($blockUser->profile_image_s3_key), //profile_image_url
+					$this->getBinaryValue(0),//is_following
+					$this->getNotNullString($this->getNotNullString($blockUser->description))
+				);
 			$this->body[] = $user;
 		}
 	}

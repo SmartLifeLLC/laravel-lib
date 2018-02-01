@@ -37,4 +37,12 @@ class FeaturedUsersControllerTest extends TestCase
         $this->printResponse($content);
         $this->assertEquals(StatusCode::SUCCESS,$content["code"]);
     }
+
+	public function testGetFeatureUserListForFeed(){
+		$httpMethod = HttpMethod::GET;
+		$uri = "/featured/user/list?type=feed";
+		$content = $this->getJsonRequestContent($httpMethod,$uri);
+		$this->printResponse($content);
+		$this->assertEquals(StatusCode::SUCCESS,$content["code"]);
+	}
 }

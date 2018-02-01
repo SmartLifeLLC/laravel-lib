@@ -278,6 +278,7 @@ class Contribution extends DBModel implements UserContentsCountBuilderInterface
 			'contribution_users.birthday',
 			'contribution_users.user_name',
 			'contribution_users.gender',
+			'contribution_users.description',
 			'contribution_users.gender_published_flag',
 			'contribution_users.birthday_published_flag',
 			'contribution_reaction_counts.total_reaction_count',
