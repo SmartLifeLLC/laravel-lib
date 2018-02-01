@@ -147,44 +147,45 @@ class ProductService extends BaseService
         },true);
     }
 
-
-    /**
-     * @param $keyword
-     * @param $categoryId
-     * @param $limit
-     * @param $page
-     * @return ServiceResult
-     */
-    public function getProductListByKeyword($keyword,$categoryId,$limit,$page){
-        return $this->executeTasks(function() use ($keyword,$categoryId,$limit,$page){
+	/**
+	 * @param $keyword
+	 * @param $categoryId
+	 * @param $limit
+	 * @param $page
+	 * @param $orderList
+	 * @return ServiceResult
+	 */
+    public function getProductListByKeyword($keyword,$categoryId,$limit,$page,$orderList){
+        return $this->executeTasks(function() use ($keyword,$categoryId,$limit,$page,$orderList){
 	        //$keyword = base64_decode($keyword);
             $result = (new Product())->getProductsAndCountByKeyword($keyword,$limit,$page);
             return ServiceResult::withResult($result);
         });
     }
 
-
-    /**
-     * @param $categoryId
-     * @param $limit
-     * @param $page
-     * @return ServiceResult
-     */
-    public function getProductListByCategory($categoryId,$limit,$page){
-        return $this->executeTasks(function() use ($categoryId,$limit,$page){
+	/**
+	 * @param $categoryId
+	 * @param $limit
+	 * @param $page
+	 * @param $orderList
+	 * @return ServiceResult
+	 */
+    public function getProductListByCategory($categoryId,$limit,$page,$orderList){
+        return $this->executeTasks(function() use ($categoryId,$limit,$page,$orderList){
             $count = (new ProductCategory())->getProductsCount($categoryId);
-            $result = (new Product())->getProductsByCategoryId($categoryId,$count,$limit,$page);
+            $result = (new Product())->getProductsByCategoryId($categoryId,$count,$limit,$page,$orderList);
             return ServiceResult::withResult($result);
         });
     }
 
-    /**
-     * @param $janCode
-     * @return ServiceResult
-     */
-    public function getProductListByJanCode($janCode){
-        return $this->executeTasks(function()use ($janCode){
-            $result = (new Product())->getProductsByJanCode($janCode);
+	/**
+	 * @param $janCode
+	 * @param $orderList
+	 * @return ServiceResult
+	 */
+    public function getProductListByJanCode($janCode,$orderList){
+        return $this->executeTasks(function()use ($janCode,$orderList){
+            $result = (new Product())->getProductsByJanCode($janCode,$orderList);
             return ServiceResult::withResult($result);
         });
     }

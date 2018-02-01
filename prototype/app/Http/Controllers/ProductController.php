@@ -28,23 +28,31 @@ class ProductController extends Controller
     public function getList(Request $request)
     {
 
+
+
         $keyword = $request->get('keyword');
         $limit = Util::getValueForKeyOnGetRequest($request, 'limit', DefaultValues::QUERY_DEFAULT_LIMIT);
         $page = Util::getValueForKeyOnGetRequest($request, 'page', DefaultValues::QUERY_DEFAULT_PAGE);
         $categoryId = $request->get('category');
         $janCode = $request->get('jan_code');
+		$orderString = $request->get('order',"display_name-desc");
+		$orderList = explode(',',$orderString);
+	    //$orderList = array_intersect($tmpOrderList,DefaultValues::PRODUCT_ORDER_LIST);
+
+
+
 
         //Keyword Search
         if ($keyword != null){
-            $serviceResult = (new ProductService())->getProductListByKeyword($keyword, $categoryId, $limit, $page);
+            $serviceResult = (new ProductService())->getProductListByKeyword($keyword, $categoryId, $limit, $page, $orderList);
 
         //Jan Code Search
         }else if ($janCode != null){
-            $serviceResult = (new ProductService())->getProductListByJanCode($janCode);
+            $serviceResult = (new ProductService())->getProductListByJanCode($janCode, $orderList);
 
         //Category Search
         }else if (!empty($categoryId)){
-            $serviceResult = (new ProductService())->getProductListByCategory($categoryId,$limit,$page);
+            $serviceResult = (new ProductService())->getProductListByCategory($categoryId,$limit,$page, $orderList);
 
         //Error return
         }else{

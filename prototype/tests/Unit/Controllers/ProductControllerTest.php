@@ -43,10 +43,11 @@ class ProductControllerTest extends TestCase
 
     public function testGetListByJanCode(){
         $httpMethod = HttpMethod::GET;
-        $uri = "/product/list?jan_code=0000100990942";
+        $uri = "/product/list?jan_code=0000100990942&order=negative_count-asc,positive_count-desc";
         $content = $this->getJsonRequestContent($httpMethod,$uri);
         var_dump($content);
         $this->printResponse($content);
+        $this->printSQLLog();
         $this->assertEquals(StatusCode::SUCCESS,$content["code"]);
     }
 

@@ -11,6 +11,7 @@ namespace App\Models;
 
 use App\Constants\DateTimeFormat;
 use App\Constants\DefaultValues;
+use App\Constants\QueryOrderTypes;
 use App\Lib\Util;
 use App\ValueObject\ProductAndCountDataVO;
 use Illuminate\Database\Eloquent\Model;
@@ -98,7 +99,7 @@ class Product extends DBModel
      * @param int $limit
      * @return ProductAndCountDataVO
      */
-    public function getProductsAndCountByKeyword($keyword, $limit = DefaultValues::QUERY_DEFAULT_LIMIT, $page = DefaultValues::QUERY_DEFAULT_PAGE ):ProductAndCountDataVO{
+    public function getProductsAndCountByKeyword($keyword,$orderList, $limit = DefaultValues::QUERY_DEFAULT_LIMIT, $page = DefaultValues::QUERY_DEFAULT_PAGE ):ProductAndCountDataVO{
         $nGramKeyword = Util::getNGram($keyword,DefaultValues::PRODUCT_N_GRAM_SIZE);
         $where = "match(`search_text`) against('+{$nGramKeyword}' IN BOOLEAN MODE)";
         $countResult =
@@ -112,7 +113,7 @@ class Product extends DBModel
 
         $products =
             $this
-                ->getQueryBuilderForProducts($limit,$page)
+                ->getQueryBuilderForProducts($orderList,$limit,$page)
                 ->whereRaw($where)
                 ->get();
 
@@ -128,13 +129,13 @@ class Product extends DBModel
      * @param int $limit
      * @return ProductAndCountDataVO
      */
-    public function getProductsByCategoryId($categoryId,$totalCount = 0,$limit = DefaultValues::QUERY_DEFAULT_LIMIT, $page = DefaultValues::QUERY_DEFAULT_PAGE ){
+    public function getProductsByCategoryId($categoryId,$orderList,$totalCount = 0,$limit = DefaultValues::QUERY_DEFAULT_LIMIT, $page = DefaultValues::QUERY_DEFAULT_PAGE ){
 
         if($totalCount == 0){
             return new ProductAndCountDataVO($totalCount,[]);
         }
         $products =
-            $this->getQueryBuilderForProducts($limit,$page)
+            $this->getQueryBuilderForProducts($orderList,$limit,$page)
             ->whereIn('products_product_categories.product_category_id',function($query) use ($categoryId){
                $query
                    ->select('descendant_id')
@@ -144,13 +145,14 @@ class Product extends DBModel
         return new ProductAndCountDataVO($totalCount,$products->toArray());
     }
 
-    /**
-     * @param $janCode
-     * @return ProductAndCountDataVO
-     */
-    public function getProductsByJanCode($janCode){
+	/**
+	 * @param $janCode
+	 * @param $orderList
+	 * @return ProductAndCountDataVO
+	 */
+    public function getProductsByJanCode($janCode,$orderList){
         $products =
-            $this->getQueryBuilderForProducts(DefaultValues::QUERY_DEFAULT_LIMIT_FOR_JANCODE,DefaultValues::QUERY_DEFAULT_PAGE)
+            $this->getQueryBuilderForProducts($orderList, DefaultValues::QUERY_DEFAULT_LIMIT_FOR_JANCODE,DefaultValues::QUERY_DEFAULT_PAGE)
             ->leftJoin('jicfs_products','jicfs_products.product_id','=','products.id')
             ->where('jicfs_products.jan_code',$janCode)
             ->get();
@@ -159,14 +161,16 @@ class Product extends DBModel
         return new ProductAndCountDataVO(count($resultArray),$resultArray);
     }
 
-    /**
-     * @param int $limit
-     * @param int $page
-     * @return mixed
-     */
-    private function getQueryBuilderForProducts($limit , $page ){
+	/**
+	 * @param $orderList
+	 * @param $limit
+	 * @param $page
+	 * @return mixed
+	 */
+    private function getQueryBuilderForProducts($orderList, $limit , $page ){
             if($page < 1) $page = 1;
-            return  $this
+            $queryBuilder =
+	            $this
                 ->select([
                     'display_name',
                     'product_categories.unique_name as breadcrumb',
@@ -181,6 +185,17 @@ class Product extends DBModel
                 ->leftJoin('images','images.id','=','products.image_id')
                 ->offset($this->getOffset($limit,$page))
                 ->limit($limit);
+
+            if(!empty($orderList)){
+            	foreach ($orderList as $order){
+            		$fieldAndOrder = explode('-',$order);
+            		if(count($fieldAndOrder) < 2)  continue;
+					if(!in_array($fieldAndOrder[0],QueryOrderTypes::PRODUCT_ORDER_LIST))  continue;
+					if($fieldAndOrder[1] != QueryOrderTypes::DESCENDING && $fieldAndOrder[1]  != QueryOrderTypes::ASCENDING)  continue;
+		            $queryBuilder = $queryBuilder->orderBy($fieldAndOrder[0],$fieldAndOrder[1]);
+	            }
+            }
+            return $queryBuilder;
     }
 
 	/**
