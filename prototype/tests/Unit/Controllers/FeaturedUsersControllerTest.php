@@ -43,6 +43,7 @@ class FeaturedUsersControllerTest extends TestCase
 		$httpMethod = HttpMethod::GET;
 		$uri = "/featured/user/list?type=feed";
 		$content = $this->getJsonRequestContent($httpMethod,$uri);
+		var_dump($content);
 		$this->printResponse($content);
 		$this->assertEquals(StatusCode::SUCCESS,$content["code"]);
 	}

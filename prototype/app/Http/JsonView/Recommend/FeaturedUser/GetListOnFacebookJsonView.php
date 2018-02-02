@@ -28,13 +28,15 @@ class GetListOnFacebookJsonView extends JsonResponseView
 		$hasNext = $this->data->isHasNext();
 	    foreach ($featuredUsersFromFacebook as $data){
 	    	$user =
-			    [
-				    "id" => $data->id,
-                    "user_name" => $data->user_name,
-				    "profile_image_url" => $this->getImageURLForS3Key($data->profile_image_s3_key),
-                    "is_following" => 0,
-				    'introduction' => $data->description
-			    ];
+
+			    $this->getUserHashArray(
+			    	$data->id,
+				    $data->user_name,
+				    $data->profile_image_s3_key,
+				    0,
+				    $data->description
+			    );
+
 			$result[] = $user;
 	    }
 	    $this->body = ['featured_users' => $result,'has_next' => $this->getBinaryValue($hasNext)];

@@ -23,20 +23,22 @@ class ContributionListJsonView extends JsonResponseView
 
 
 		$contributions = $this->data->getContributions();
-
-
 		$categories = $this->data->getProductsCategories();
-
 		$productsCategories = [];
 		foreach($categories as $category){
-			$productsCategories[$category['product_id']][$category['product_category_id']] =$category;
-
+			$categoryItem = $this->getWelFormedCategory(
+				$category['product_category_id'],
+				$category['name'],
+				$category['unique_name'],
+				(int) $category['product_count']
+			);
+			$productsCategories[$category['product_id']][$category['product_category_id']] = $categoryItem;
 		}
 
 		$body =[];
 		foreach($contributions as $contribution){
 			$displayData =
-                $this->getWellFormedContribution($contribution,array_values($productsCategories[$contribution['product_id']]),$shops=[]);
+                $this->getWellFormedContribution($contribution,$productsCategories[$contribution['product_id']],$shops=[]);
 			$body[] = $displayData;
 		}
 		$this->body = $body;

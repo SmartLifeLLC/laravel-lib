@@ -66,7 +66,4 @@ class ProductController extends Controller
         return $this->responseJson(new ProductListJsonView($serviceResult));
     }
 
-    public function get(Request $request,$productId){
-
-    }
 }

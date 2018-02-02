@@ -23,22 +23,25 @@ class ProductControllerTest extends TestCase
         parent::prepareUser();
     }
 
-//    public function testGetListByKeyword(){
-//        $httpMethod = HttpMethod::GET;
-//        $keyword = base64_encode("インペ");
-//        $uri = "/product/list?keyword={$keyword}&page=45";
-//        $content = $this->getJsonRequestContent($httpMethod,$uri);
-//        $this->printResponse($content);
-//        $this->assertEquals(StatusCode::SUCCESS,$content["code"]);
-//    }
-//
-//    public function testGetListByCategoryId(){
-//        $httpMethod = HttpMethod::GET;
-//        $uri = "/product/list?category=2&page=41";
-//        $content = $this->getJsonRequestContent($httpMethod,$uri);
-//        $this->printResponse($content);
-//        $this->assertEquals(StatusCode::SUCCESS,$content["code"]);
-//    }
+
+    //todo 複数カテゴリに属する商品を作成後テストしてみること。
+
+   public function testGetListByKeyword(){
+        $httpMethod = HttpMethod::GET;
+        $keyword = base64_encode("イン");
+        $uri = "/product/list?keyword={$keyword}&page=0";
+        $content = $this->getJsonRequestContent($httpMethod,$uri);
+        $this->printResponse($content);
+        $this->assertEquals(StatusCode::SUCCESS,$content["code"]);
+    }
+
+    public function testGetListByCategoryId(){
+        $httpMethod = HttpMethod::GET;
+        $uri = "/product/list?category=2&page=41";
+        $content = $this->getJsonRequestContent($httpMethod,$uri);
+        $this->printResponse($content);
+        $this->assertEquals(StatusCode::SUCCESS,$content["code"]);
+    }
 
 
     public function testGetListByJanCode(){
