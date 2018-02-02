@@ -23,12 +23,13 @@ class TranslateImageController extends Controller
         $images = (new Content())->getData();
 
         foreach ($images as $image) {
+            $id = $image->id;
             $userId = $image->user_id;
             $s3Key = $image->s3_key;
             $type = $image->type;
             $created = $image->created_at;
 
-            $serviceResult = (new PreviousImageService())->getData($userId, $s3Key, $type, $created);
+            $serviceResult = (new PreviousImageService())->getData($id, $userId, $s3Key, $type, $created);
 
             if ($serviceResult->getDebugMessage() != NULL) return $serviceResult->getDebugMessage();
         }

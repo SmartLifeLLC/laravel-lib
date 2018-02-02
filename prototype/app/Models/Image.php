@@ -65,10 +65,11 @@ class Image extends DBModel
      * @param $created
      * @return mixed
      */
-    public function translateGetId($userId, $s3Key, $type, $created)
+    public function translateGetId($id, $userId, $s3Key, $type, $created)
     {
         return $this->insertGetId(
             [
+                'id' => $id,
                 'user_id' => $userId,
                 's3_key' => $s3Key,
                 'type' => $type,

@@ -17,7 +17,7 @@ class Content extends OldModel
     public function getData()
     {
         $data = $this
-            ->select('user_id', 's3_key', 'type', 'created_at')
+            ->select('id', 'user_id', 's3_key', 'type', 'created_at')
             ->get();
 
         return $data;
