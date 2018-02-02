@@ -72,6 +72,7 @@ class NotificationLog extends DBModel
     {
         return $this->insertGetId(
             [
+                'id' => $logData['id'],
                 'target_user_id' => $logData['targetUserId'],
                 'from_user_id' => $logData['fromUserId'],
                 'message' => $logData['message'],

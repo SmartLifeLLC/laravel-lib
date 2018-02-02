@@ -24,6 +24,7 @@ class TranslateNotificationLogController extends Controller
 
         foreach ($logs as $log) {
             $logData = [
+                'id' => $log->id,
                 'targetUserId' => $log->user_id,
                 'message' => $log->message,
                 'deliveredAt' => $log->created_at,
