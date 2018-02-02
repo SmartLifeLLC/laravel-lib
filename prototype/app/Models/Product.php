@@ -137,13 +137,15 @@ class Product extends DBModel
             return new ProductAndCountDataVO($totalCount,[]);
         }
         $products =
-            $this->getQueryBuilderForProducts($orderList,$limit,$page)
-            ->whereIn('products_product_categories.product_category_id',function($query) use ($categoryId){
-               $query
-                   ->select('descendant_id')
-                   ->from(with(new ProductCategoryHierarchy())->getTable())
-                   ->where('ancestor_id',$categoryId);})
-            ->get();
+	        $this->getQueryBuilderForProducts($orderList,$limit,$page)
+		            ->leftJoin('products_product_categories','products.id','=','products_product_categories.product_id')
+					->leftJoin('product_categories','products_product_categories.product_category_id','=','product_categories.id')
+		            ->whereIn('products_product_categories.product_category_id',function($query) use ($categoryId){
+				               $query
+				                   ->select('descendant_id')
+				                   ->from(with(new ProductCategoryHierarchy())->getTable())
+				                   ->where('ancestor_id',$categoryId);})
+		            ->get();
         return new ProductAndCountDataVO($totalCount,$products->toArray());
     }
 
@@ -174,16 +176,15 @@ class Product extends DBModel
             $queryBuilder =
 	            $this
                 ->select([
+                	'products.id',
                     'display_name',
-                    'product_categories.unique_name as breadcrumb',
-                    'images.s3_key',
+                    //'product_categories.unique_name as breadcrumb',
+                    'images.s3_key as product_image_s3_key',
                     'products.price',
                     'product_contribution_counts.contribution_count',
                     'product_contribution_counts.positive_count',
                     'product_contribution_counts.negative_count'])
-                ->leftJoin('products_product_categories','products.id','=','products_product_categories.product_id')
-                ->leftJoin('product_contribution_counts','products.id','=','product_contribution_counts.product_id')
-                ->leftJoin('product_categories','products_product_categories.product_category_id','=','product_categories.id')
+	            ->leftJoin('product_contribution_counts','products.id','=','product_contribution_counts.product_id')
                 ->leftJoin('images','images.id','=','products.image_id')
                 ->offset($this->getOffset($limit,$page))
                 ->limit($limit);

@@ -9,6 +9,7 @@
 namespace App\Services;
 
 use App\Constants\DateTimeFormat;
+use App\Constants\DefaultValues;
 use App\Constants\FeaturedScheduleType;
 use App\Constants\StatusCode;
 use App\Constants\URLs;
@@ -17,11 +18,10 @@ use App\Lib\JSYService\ServiceResult;
 use App\Models\FeaturedSchedule;
 use App\Models\User;
 use App\Services\Tasks\GetFacebookFriendListTask;
+use App\ValueObject\GetFeaturedUsersForFeedVO;
 
 class FeaturedService extends BaseService
 {
-	private $getFacebookFriendListTask = null;
-
     /**
      * @param int $userId
      * @return ServiceResult
@@ -60,67 +60,80 @@ class FeaturedService extends BaseService
 	 */
     public function getFeaturedUsersForFeed(int $userId):ServiceResult{
 		return $this->executeTasks(function() use ($userId){
-			//Get data from facebook
-			$friendAPIFormat = URLs::API_FB_USER_FRIEND_FORMAT;
+
+			//Get all facebook friend list
+			$userModel = new User();
+			$userInfo = $userModel->getSimpleUserInfo($userId);
+			$facebookId = $userInfo['facebook_id'];
+			$facebookToken = $userInfo['facebook_token'];
+			$birthday = $userInfo['birthday'];
+			$gender = $userInfo['gender'];
 
 
-			$userFacebookInfo = (new User())->getUserFacebookInfo($userId);
-			$facebookId = $userFacebookInfo['facebook_id'];
-			$facebookToken = $userFacebookInfo['facebook_token'];
-
-			$allFacebookFriendIds = $this->getAllFacebookFriendList($facebookId,$facebookToken);
-
+			$getFacebookFriendListTask = new GetFacebookFriendListTask($facebookId,$facebookToken);
+			$getFacebookFriendListTask->run();
+			$allFacebookFriendIds = $getFacebookFriendListTask->getResult();
 			if(isset($allFacebookFriendIds['error']))
 				ServiceResult::withError(StatusCode::FACEBOOK_FRIEND_API_ERROR,json_encode($allFacebookFriendIds));
+
+			$limit = DefaultValues::FEED_TOTAL_FEATURED_USER_NUM;
+			$featuredUsersFromFacebookFriend = $userModel->getFeaturedUserListFromFacebookIdsWithCount($userId,$gender,$birthday,$allFacebookFriendIds,$limit,1);
+
+			$limitForPickupUser = $limit - $featuredUsersFromFacebookFriend->getCount();
+			$pickupUsers = [];
+			if($limit > 0 ){
+				$pickupUsers = (new FeaturedSchedule())->getFeaturedUsers($userId,date(DateTimeFormat::General),FeaturedScheduleType::FEED,$limitForPickupUser);
+			}
+			$featuredUsers = new GetFeaturedUsersForFeedVO($featuredUsersFromFacebookFriend->getData(),$pickupUsers);
+			return ServiceResult::withResult($featuredUsers);
+		});
+    }
+
+
+	/**
+	 * @param int $userId
+	 * @param $page
+	 * @param $limit
+	 * @return ServiceResult
+	 */
+    public function getFeaturedUsersForFacebook(int $userId,$page,$limit):ServiceResult{
+    	return $this->executeTasks(function () use ($userId,$page,$limit){
+		    //Get all facebook friend list
+		    $userModel = new User();
+		    $userInfo = $userModel->getSimpleUserInfo($userId);
+		    $facebookId = $userInfo['facebook_id'];
+		    $facebookToken = $userInfo['facebook_token'];
+		    $birthday = $userInfo['birthday'];
+		    $gender = $userInfo['gender'];
+
+
+		    $getFacebookFriendListTask = new GetFacebookFriendListTask($facebookId,$facebookToken);
+		    $getFacebookFriendListTask->run();
+		    $allFacebookFriendIds = $getFacebookFriendListTask->getResult();
+		    if(isset($allFacebookFriendIds['error']))
+			    ServiceResult::withError(StatusCode::FACEBOOK_FRIEND_API_ERROR,json_encode($allFacebookFriendIds));
+
+		    $featuredUsersFromFacebookFriend = $userModel->getFeaturedUserListFromFacebookIdsWithCount($userId,$gender,$birthday,$allFacebookFriendIds,$limit,$page);
+			return ServiceResult::withResult($featuredUsersFromFacebookFriend);
+
+	    });
+    }
+
+
+	/**
+	 * @param int $userId
+	 * @return ServiceResult
+	 */
+    public function getFeaturedUsersForPickup(int $userId):ServiceResult{
+		return $this->executeTasks(function() use ($userId){
+			$pickupUsers = (new FeaturedSchedule())->getFeaturedUsers(
+				$userId,
+				date(DateTimeFormat::General),
+				FeaturedScheduleType::FEED,DefaultValues::PICKUP_TOTAL_FEATURED_USER_NUM);
+			return ServiceResult::withResult($pickupUsers);
 
 		});
     }
 
-	/**
-	 * @param $facebookId
-	 * @param $facebookToken
-	 * @return mixed
-	 */
-    private function getAllFacebookFriendList($facebookId,$facebookToken){
-	    $facebookFriends = [];
 
-	    $fbResult = $this->getFacebookFriendList($facebookId,$facebookToken);
-	    if(isset($fbResult['error'])){
-		    return $fbResult;
-	    }else{
-		    foreach($fbResult['data'] as $friend){
-			    $facebookFriends[] = $friend['id'];
-		    }
-
-		    if(isset($fbResult['paging'])&&isset($fbResult['paging']['cursors'])&&isset($fbResult['paging']['cursors']['after'])){
-			    $after = $fbResult['paging']['cursors']['after'];
-		    }
-	    }
-
-	    while (!empty($after)){
-		    $fbResult = $this->getFacebookFriendList($facebookId,$facebookToken,$after);
-		    foreach($fbResult['data'] as $friend){
-			    $facebookFriends[] = $friend['id'];
-		    }
-		    if(isset($fbResult['paging'])&&isset($fbResult['paging']['cursors'])&&isset($fbResult['paging']['cursors']['after'])){
-			    $after = $fbResult['paging']['cursors']['after'];
-		    }else{
-			    $after = null;
-		    }
-	    }
-    }
-
-
-	/**
-	 * @param $facebookId
-	 * @param $facebookToken
-	 * @param null $after
-	 * @return mixed
-	 */
-    private function getFacebookFriendList($facebookId, $facebookToken, $after = null){
-		if($this->getFacebookFriendListTask == null)
-			$this->getFacebookFriendListTask = new GetFacebookFriendListTask($facebookId,$facebookToken,$after);
-		$this->getFacebookFriendListTask->run();
-		return $this->getFacebookFriendListTask->getResult();
-    }
 }

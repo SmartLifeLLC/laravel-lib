@@ -39,8 +39,28 @@ class FeaturedUsersControllerTest extends TestCase
     }
 
 	public function testGetFeatureUserListForFeed(){
+    	$this->prepareUserWithIdAndAuth(49,1);
 		$httpMethod = HttpMethod::GET;
 		$uri = "/featured/user/list?type=feed";
+		$content = $this->getJsonRequestContent($httpMethod,$uri);
+		var_dump($content);
+		$this->printResponse($content);
+		$this->assertEquals(StatusCode::SUCCESS,$content["code"]);
+	}
+
+	public function testGetFeatureUserListForFacebook(){
+		$this->prepareUserWithIdAndAuth(49,1);
+		$httpMethod = HttpMethod::GET;
+		$uri = "/featured/user/list?type=facebook&page=1";
+		$content = $this->getJsonRequestContent($httpMethod,$uri);
+		$this->printResponse($content);
+		$this->assertEquals(StatusCode::SUCCESS,$content["code"]);
+	}
+
+	public function testGetFeatureUserListForPickup(){
+		$this->prepareUserWithIdAndAuth(49,1);
+		$httpMethod = HttpMethod::GET;
+		$uri = "/featured/user/list?type=pickup";
 		$content = $this->getJsonRequestContent($httpMethod,$uri);
 		$this->printResponse($content);
 		$this->assertEquals(StatusCode::SUCCESS,$content["code"]);

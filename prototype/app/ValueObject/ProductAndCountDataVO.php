@@ -17,9 +17,14 @@ class ProductAndCountDataVO
     private $count;
 
     /**
-     * @var Array
+     * @var array
      */
     private $products;
+
+	/**
+	 * @var array
+	 */
+    private $productsCategories;
 
     /**
      * @return int
@@ -30,12 +35,27 @@ class ProductAndCountDataVO
     }
 
     /**
-     * @return Array
+     * @return array
      */
-    public function getProducts(): Array
+    public function getProducts(): array
     {
         return $this->products;
     }
+
+	/**
+	 * @param $productsCategories
+	 */
+	public function setProductsCategories($productsCategories){
+		$this->productsCategories = $productsCategories;
+	}
+
+
+	/**
+	 * @return array
+	 */
+	public function getProductsCategories(){
+		return $this->productsCategories;
+	}
 
 
     /**
@@ -43,7 +63,7 @@ class ProductAndCountDataVO
      * @param $count
      * @param array $products
      */
-    public function __construct($count,Array $products)
+    public function __construct($count,array $products)
     {
         $this->count = $count;
         $this->products = $products;

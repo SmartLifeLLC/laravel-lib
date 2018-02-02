@@ -11,27 +11,28 @@ namespace App\Http\JsonView\Recommend\FeaturedUser;
 use App\Http\JsonView\JsonResponseView;
 use App\ValueObject\GetFeaturedUsersForFeedVO;
 
-class GetListOnFeedJsonView extends JsonResponseView
+class GetListOnFeedTmpJsonView extends JsonResponseView
 {
 
 
 	/**
-	 * @var GetFeaturedUsersForFeedVO
+	 * @var
 	 */
     protected $data;
     function createBody()
     {
-    	$result = [];
-    	$featuredUsersFromFacebook = $this->data->getUsersFromFacebookFriends();
-		$featuredUsersFromPickupUsers =  $this->data->getUsersFromPickup();
-	    foreach ($featuredUsersFromFacebook as $data){
+
+	    $result = [];
+	    for ($i = 0 ; $i < 15 ; $i ++){
+	    	$data = $this->data[$i];
 	    	$user = $this->getUserHashArray($data->id,$data->user_name,$data->profile_image_s3_key,0,$data->description);
 			$user['tp'] = "Facebookの友達";
 			$result[] = $user;
 	    }
-	    foreach ($featuredUsersFromPickupUsers as $data){
+	    for ($i = 15 ; $i < 30 ; $i ++){
+		    $data = $this->data[$i];
 		    $user = $this->getUserHashArray($data->id,$data->user_name,$data->profile_image_s3_key,0,$data->description);
-			$user['tp'] = "おすすめユーザ";
+		    $user['tp'] = "おすすめユーザ";
 		    $result[] = $user;
 	    }
 	    $this->body = ['featured_users' => $result];

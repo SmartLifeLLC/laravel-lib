@@ -53,8 +53,9 @@ class FriendControllerTest extends TestCase
 //
 //			parent::prepareUserWithIdAndAuth($userId,$userAuth);
 
+	    $this->prepareUserWithIdAndAuth(48,1);
 	    $httpMethod = HttpMethod::PUT;
-	    $targetUserId = 48;
+	    $targetUserId = 60;
 	    $isOn = 1;
 	    $uri = "/user/friend/edit/{$targetUserId}/{$isOn}";
 	    $content = $this->getJsonRequestContent($httpMethod, $uri);

@@ -298,7 +298,7 @@ class Contribution extends DBModel implements UserContentsCountBuilderInterface
 			'follows.id as follow_id',
 			'products.display_name',
 			'products.price',
-			'product_image.s3_key as product_image_s3key'
+			'product_image.s3_key as product_image_s3_key'
 			);
 	}
 

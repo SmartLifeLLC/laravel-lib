@@ -235,7 +235,7 @@ abstract class JsonResponseView
     	return ($text === null)?"":$text;
     }
 
-    public function getUserHashArray($userId,$userName,$profileImageS3Key,$followId,$description){
+    protected function getUserHashArray($userId,$userName,$profileImageS3Key,$followId,$description){
     	return [
 			        'id' => $userId, //id
 			        'un' => $userName, //user_name
@@ -246,21 +246,41 @@ abstract class JsonResponseView
 		    ;
     }
 
+	protected function getProductHashArray($productId,$name,$price,$contributionCount,$positiveCount,$negativeCount,$categories,$imageS3Key,$shops){
+    	return
+	        [
+				"id" => $productId, //id
+				"na" => $name, //name
+				"pr" => (int) $price, //price
+				"cc" => (int) $contributionCount, //contribution_count
+				"pc" => (int) $positiveCount, //positive_count
+				"nc" => (int) $negativeCount, //negative_count
+				"ca" => array_values($categories), //array_values($productsCategories[$contribution['product_id']]),
+				"iu" => $this->getImageURLForS3Key($imageS3Key), //image_url
+				"sh" => $shops //shops
+			];
+	}
 
-    public function getWellFormedContribution($contribution,$categories,$shops = []){
+	/**
+	 * @param $categoryId
+	 * @param $categoryName
+	 * @param $breadcrumb
+	 * @param $productCount
+	 * @return array
+	 */
+	protected function getWelFormedCategory($categoryId, $categoryName, $breadcrumb, $productCount){
+		return
+		[
+			'id' =>$categoryId,
+			'nm' =>$categoryName,
+			'bc' =>$breadcrumb,
+			'pn' =>$productCount,
+		];
+	}
+
+
+    protected function getWellFormedContribution($contribution,$categories,$shops = []){
         $imageUrls = $this->getImageURLs($contribution['image_id_0'],$contribution['image_id_1'],$contribution['image_id_2'],$contribution['image_id_3']);
-        $welFormedCategories = [];
-            foreach($categories as $category){
-                $welFormedCategory =
-                    [
-                        'id' =>$category['product_category_id'],
-                        'nm' =>$category['name'],
-                        'bs' =>$category['unique_name'],
-                        'pn' =>(int) $category['product_count'],
-                    ];
-                $welFormedCategories [] = $welFormedCategory;
-            }
-
         $displayData =
             ["cb"=> //contribution
                 [
@@ -275,7 +295,7 @@ abstract class JsonResponseView
                     'iu' => $imageUrls, //image_urls
                     'il' => $this->getBinaryValue($contribution['contribution_like_reaction_id']), //is_like
                     'ii' => $this->getBinaryValue($contribution['contribution_interest_reaction_id']), //is_interest
-                    "ic" => $this->getBinaryValue($contribution['my_contribution_id']), //is_contributed
+                    "mc" => $this->getBinaryValue($contribution['my_contribution_id']), //is_contributed
                     'ur' => //user
                         $this->getUserHashArray(
                             $contribution['contribution_user_id'], //id
@@ -286,17 +306,18 @@ abstract class JsonResponseView
                         )
                 ],
                 "pi" => //product_item
-                    [
-                        "id" => $contribution['product_id'], //id
-                        "na" => $contribution['display_name'], //name
-                        "pr" => (int) $contribution['price'], //price
-                        "cc" => $contribution['contribution_count'], //contribution_count
-                        "pc" => $contribution['positive_count'], //positive_count
-                        "nc" => $contribution['negative_count'], //negative_count
-                        "ca" => $welFormedCategories, //array_values($productsCategories[$contribution['product_id']]),
-                        "iu" => $this->getImageURLForS3Key($contribution['product_image_s3key']), //image_url
-                        "sh" => $shops //shops
-                    ]
+                    $this->getProductHashArray(
+	                    $contribution['product_id'],
+	                    $contribution['display_name'],
+	                    $contribution['price'],
+	                    $contribution['contribution_count'],
+	                    $contribution['positive_count'],
+	                    $contribution['negative_count'],
+	                    $categories,
+	                    $contribution['product_image_s3_key'],
+	                    $shops
+                    )
+
             ];
         return $displayData;
     }

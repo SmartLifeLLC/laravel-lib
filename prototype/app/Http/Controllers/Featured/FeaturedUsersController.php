@@ -7,7 +7,10 @@
  */
 namespace App\Http\Controllers\Featured;
 use App\Constants\DefaultValues;
+use App\Http\JsonView\Recommend\FeaturedUser\GetListOnFacebookJsonView;
 use App\Http\JsonView\Recommend\FeaturedUser\GetListOnFeedJsonView;
+use App\Http\JsonView\Recommend\FeaturedUser\GetListOnFeedTmpJsonView;
+use App\Http\JsonView\Recommend\FeaturedUser\GetListOnPickupJsonView;
 use App\Lib\Util;
 use App\Models\CurrentUser;
 use App\Http\Controllers\Controller;
@@ -33,13 +36,19 @@ class FeaturedUsersController extends Controller
 	        $serviceResult = (new FeaturedService())->getFeaturedUsersForInitStart($userId);
 	        $jsonView = new GetListOnAppInitJsonView($serviceResult);
         }else if($type == "feed"){
-        	$serviceResult = (new FeaturedService())->getFeaturedUsersForFeedTmp($userId);
-        	$jsonView = new GetListOnFeedJsonView($serviceResult);
+        	//$serviceResult = (new FeaturedService())->getFeaturedUsersForFeed($userId);
+	        //$jsonView = new GetListOnFeedJsonView($serviceResult);
+	        $serviceResult = (new FeaturedService())->getFeaturedUsersForFeedTmp($userId);
+	        $jsonView = new GetListOnFeedTmpJsonView($serviceResult);
+
+
+        }else if($type == "facebook"){
+	        $serviceResult = (new FeaturedService())->getFeaturedUsersForFacebook($userId,$page,$limit);
+	        $jsonView = new GetListOnFacebookJsonView($serviceResult);
+        }else {
+	        $serviceResult = (new FeaturedService())->getFeaturedUsersForPickup($userId);
+	        $jsonView = new GetListOnPickupJsonView($serviceResult);
         }
-
-
-
-
         return $this->responseJson($jsonView);
     }
 
