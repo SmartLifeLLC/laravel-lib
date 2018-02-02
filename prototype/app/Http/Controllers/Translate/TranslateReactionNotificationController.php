@@ -17,11 +17,9 @@ use DB;
 class TranslateReactionNotificationController extends Controller
 {
     /**
-     * @return array
+     * @return null|String
      */
     public function translatePreviousData(){
-        $results = array();
-
         $logs = (new NotificationLog())->getData();
 
         foreach ($logs as $log) {
@@ -35,10 +33,9 @@ class TranslateReactionNotificationController extends Controller
 
             $serviceResult = (new PreviousReactionNotificationService())->getData($userId, $contributionId, $type, $created);
 
-            $jsonView = (new PreviousReactionNotificationJsonView($serviceResult));
-            $results[] = $this->responseJson($jsonView);
+            if ($serviceResult->getDebugMessage() != NULL) return $serviceResult->getDebugMessage();
         }
-        return $results;
+        return 'SUCCESS';
     }
 
     /**

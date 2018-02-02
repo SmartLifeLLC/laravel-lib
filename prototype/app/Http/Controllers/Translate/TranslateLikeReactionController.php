@@ -17,11 +17,9 @@ use DB;
 class TranslateLikeReactionController extends Controller
 {
     /**
-     * @return array
+     * @return null|String
      */
     public function translatePreviousData(){
-        $results = array();
-
         $contributions = (new ReactionLog())->getLikeData();
 
         foreach ($contributions as $contribution) {
@@ -31,9 +29,8 @@ class TranslateLikeReactionController extends Controller
 
             $serviceResult = (new PreviousLikeReactionService())->getData($userId, $contributionId, $created);
 
-            $jsonView = (new PreviousLikeReactionJsonView($serviceResult));
-            $results[] = $this->responseJson($jsonView);
+            if ($serviceResult->getDebugMessage() != NULL) return $serviceResult->getDebugMessage();
         }
-        return $results;
+        return 'SUCCESS';
     }
 }

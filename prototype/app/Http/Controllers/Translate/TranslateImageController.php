@@ -17,11 +17,9 @@ use DB;
 class TranslateImageController extends Controller
 {
     /**
-     * @return array
+     * @return null|string
      */
     public function translatePreviousData(){
-        $results = array();
-
         $images = (new Content())->getData();
 
         foreach ($images as $image) {
@@ -32,9 +30,8 @@ class TranslateImageController extends Controller
 
             $serviceResult = (new PreviousImageService())->getData($userId, $s3Key, $type, $created);
 
-            $jsonView = (new PreviousImageJsonView($serviceResult));
-            $results[] = $this->responseJson($jsonView);
+            if ($serviceResult->getDebugMessage() != NULL) return $serviceResult->getDebugMessage();
         }
-        return $results;
+        return 'SUCCESS';
     }
 }

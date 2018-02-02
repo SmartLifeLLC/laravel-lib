@@ -17,11 +17,9 @@ use DB;
 class TranslateAllReactionController extends Controller
 {
     /**
-     * @return array
+     * @return null|string
      */
     public function translatePreviousData(){
-        $result = array();
-
         $contributions = (new ReactionLog())->getData();
 
         foreach ($contributions as $contribution) {
@@ -31,8 +29,9 @@ class TranslateAllReactionController extends Controller
             $created = $contribution->created_at;
 
             $serviceResult = (new PreviousAllReactionService())->getData($userId, $contributionId, $reactionType, $created);
-            $result[] = $serviceResult;
+
+            if($serviceResult->getDebugMessage() != NULL) return $serviceResult->getDebugMessage();
         }
-        return $result;
+        return 'SUCCESS';
     }
 }

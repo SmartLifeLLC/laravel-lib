@@ -17,11 +17,9 @@ use DB;
 class TranslateHaveReactionController extends Controller
 {
     /**
-     * @return array
+     * @return null|string
      */
     public function translatePreviousData(){
-        $results = array();
-
         $contributions = (new ReactionLog())->getHaveData();
 
         foreach ($contributions as $contribution) {
@@ -31,9 +29,8 @@ class TranslateHaveReactionController extends Controller
 
             $serviceResult = (new PreviousHaveReactionService())->getData($userId, $contributionId, $created);
 
-            $jsonView = (new PreviousHaveReactionJsonView($serviceResult));
-            $results[] = $this->responseJson($jsonView);
+            if ($serviceResult->getDebugMessage() != NULL) return $serviceResult->getDebugMessage();
         }
-        return $results;
+        return 'SUCCESS';
     }
 }

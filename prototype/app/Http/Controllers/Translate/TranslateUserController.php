@@ -41,6 +41,7 @@ class TranslateUserController extends Controller
                 'profileImageId' => $user->profile_image_id,
                 'coverImageId' => $user->cover_image_id,
                 'description' => $user->description,
+                'limitationLevel' => $user->is_blocked,
                 'created' => $user->created_at,
                 'updated' => $user->updated_at
             ];

@@ -24,9 +24,10 @@ class TranslateDeviceController extends Controller
 
         foreach ($devices as $device) {
             $userId = $device->user_id;
-            $deviceType = $device->registed_app_info;
+            $deviceType = 'iPhone';
             $notificationToken = $device->device_token;
             $created = $device->created_at;
+            $updated = $device->updated_at;
 
             $serviceResult = (new PreviousDeviceService())->getData($userId, $deviceType, $notificationToken, $created);
 

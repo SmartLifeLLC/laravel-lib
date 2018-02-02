@@ -17,11 +17,9 @@ use DB;
 class TranslateNotificationLogController extends Controller
 {
     /**
-     * @return array|\Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\JsonResponse|null|string
      */
     public function translatePreviousData(){
-        $results = array();
-
         $logs = (new NotificationLog())->getData();
 
         foreach ($logs as $log) {
@@ -41,10 +39,9 @@ class TranslateNotificationLogController extends Controller
 
             $serviceResult = (new PreviousNotificationLogService())->getData($logData);
 
-            $jsonView = (new PreviousNotificationLogJsonView($serviceResult));
-            $results[] = $this->responseJson($jsonView);
+            if ($serviceResult->getDebugMessage() != NULL) return $serviceResult->getDebugMessage();
         }
-        return $results;
+        return 'SUCCESS';
     }
 
     /**

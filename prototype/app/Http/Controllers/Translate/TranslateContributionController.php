@@ -17,11 +17,9 @@ use DB;
 class TranslateContributionController extends Controller
 {
     /**
-     * @return array
+     * @return null|string
      */
     public function translatePreviousData(){
-        $results = array();
-
         $contributions = (new ReviewPost())->getData();
 
         foreach ($contributions as $contribution) {
@@ -34,10 +32,9 @@ class TranslateContributionController extends Controller
 
             $serviceResult = (new PreviousContributionService())->getData($userId, $productId, $feeling, $images, $content, $created);
 
-            $jsonView = (new PreviousContributionJsonView($serviceResult));
-            $results[] = $this->responseJson($jsonView);
+            if($serviceResult->getDebugMessage() != NULL) return $serviceResult->getDebugMessage();
         }
-        return $results;
+        return 'SUCCESS';
     }
 
     private function getFeeling($isConsent){

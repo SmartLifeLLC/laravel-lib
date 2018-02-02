@@ -17,11 +17,9 @@ use DB;
 class TranslateDeletedContentController extends Controller
 {
     /**
-     * @return array
+     * @return null|string
      */
     public function translatePreviousData(){
-        $results = array();
-
         $contents = (new DeletedContent())->getData();
 
         foreach ($contents as $content) {
@@ -34,9 +32,8 @@ class TranslateDeletedContentController extends Controller
 
             $serviceResult = (new PreviousDeletedContentService())->getData($targetId, $targetTable, $userId, $content, $relatedContent, $created);
 
-            $jsonView = (new PreviousDeletedContentJsonView($serviceResult));
-            $results[] = $this->responseJson($jsonView);
+            if($serviceResult->getDebugMessage() != NULL) return $serviceResult->getDebugMessage();
         }
-        return $results;
+        return 'SUCCESS';
     }
 }
