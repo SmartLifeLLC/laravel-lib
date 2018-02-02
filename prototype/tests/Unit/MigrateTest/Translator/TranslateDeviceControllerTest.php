@@ -9,7 +9,13 @@
 namespace Tests\Unit\MigrateTest\Translator;
 
 
-class TranslateDeviceControllerTest
-{
+use App\Http\Controllers\Translate\TranslateDeviceController;
+use Tests\TestCase;
 
+class TranslateDeviceControllerTest extends TestCase
+{
+    function testDevice(){
+        $TranslateResult = (new TranslateDeviceController())->translatePreviousData();
+        var_dump($TranslateResult);
+    }
 }

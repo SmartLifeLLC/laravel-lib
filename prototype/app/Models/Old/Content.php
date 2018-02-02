@@ -8,20 +8,15 @@
 
 namespace App\Models\Old;
 
-use Illuminate\Database\Eloquent\Model;
-use App\Models\DBModel;
-
-class Content extends DBModel
+class Content extends OldModel
 {
-    protected $guarded = [];
-
+    protected $table = 'contents';
     /**
      * @return mixed
      */
     public function getData()
     {
-        $data = DB::connection('mysql_old')
-            ->table('contents')
+        $data = $this
             ->select('user_id', 's3_key', 'type', 'created_at')
             ->get();
 

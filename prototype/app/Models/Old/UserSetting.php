@@ -8,14 +8,8 @@
 
 namespace App\Models\Old;
 
-use Illuminate\Database\Eloquent\Model;
-use App\Models\DBModel;
-use DB;
-
-class UserSetting extends DBModel
+class UserSetting extends OldModel
 {
-    protected $guarded = [];
-    protected $connection = 'mysql_old';
     protected $table = 'user_settings';
 
     /**

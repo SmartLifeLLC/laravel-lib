@@ -245,6 +245,7 @@ class User extends DBModel
                 'is_interest_notification_allowed' => $userData['interestNotification'],
                 'is_comment_notification_allowed' => $userData['commentNotification'],
                 'description' => $userData['description'],
+                'limitation_level' => $userData['limitationLevel'],
                 'created_at' => $userData['created'],
                 'last_posted_at' => $userData['updated'],
                 'updated_at' => $userData['updated']

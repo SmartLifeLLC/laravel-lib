@@ -9,14 +9,8 @@
 namespace App\Models\Old;
 
 
-use Illuminate\Database\Eloquent\Model;
-use App\Models\DBModel;
-use Illuminate\Support\Facades\DB;
-
-class ReactionLog extends DBModel
+class ReactionLog extends OldModel
 {
-    protected $guarded = [];
-    protected $connection = 'mysql_old';
     protected $table = 'reaction_log';
 
 
@@ -37,8 +31,7 @@ class ReactionLog extends DBModel
      */
     public function getLikeData()
     {
-        $likeData = DB::connection('mysql_old')
-            ->table('reaction_log')
+        $likeData = $this
             ->where('review_post_reaction_type', 1)
             ->select('reaction_user_id', 'review_post_id', 'created_at')
             ->get();
@@ -51,8 +44,7 @@ class ReactionLog extends DBModel
      */
     public function getInterestData()
     {
-        $interestData = DB::connection('mysql_old')
-            ->table('reaction_log')
+        $interestData = $this
             ->where('review_post_reaction_type', 2)
             ->select('reaction_user_id', 'review_post_id', 'created_at')
             ->get();
@@ -65,8 +57,7 @@ class ReactionLog extends DBModel
      */
     public function getHaveData()
     {
-        $haveData = DB::connection('mysql_old')
-            ->table('reaction_log')
+        $haveData = $this
             ->where('review_post_reaction_type', 3)
             ->select('reaction_user_id', 'review_post_id', 'created_at')
             ->get();

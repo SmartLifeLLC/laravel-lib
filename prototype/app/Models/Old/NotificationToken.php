@@ -8,25 +8,20 @@
 
 namespace App\Models\Old;
 
-use Illuminate\Database\Eloquent\Model;
-use App\Models\DBModel;
-use DB;
-
-class NotificationToken extends DBModel
+class NotificationToken extends OldModel
 {
-    protected $guarded = [];
+    protected $table = 'notification_tokens';
 
     /**
      * @return mixed
      */
     public function getData()
     {
-        $data = DB::connection('mysql_old')
-            ->table('notification_tokens')
+        $data = $this
             ->select('user_id',
                 'device_token',
-                'registed_app_info',
-                'created_at'
+                'created_at',
+                'updated_at'
             )
             ->get();
 

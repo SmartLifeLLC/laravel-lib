@@ -8,21 +8,15 @@
 
 namespace App\Models\Old;
 
-use Illuminate\Database\Eloquent\Model;
-use App\Models\DBModel;
-use DB;
-
-class NotificationLog extends DBModel
+class NotificationLog extends OldModel
 {
-    protected $guarded = [];
-
+    protected $table = 'notification_log';
     /**
      * @return mixed
      */
     public function getData()
     {
-        $data = DB::connection('mysql_old')
-            ->table('notification_log')
+        $data = $this
             ->select('user_id',
                 'detail_info',
                 'message',

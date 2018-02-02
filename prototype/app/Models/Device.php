@@ -84,6 +84,7 @@ class Device extends DBModel
                 'user_id'=>$userId,
                 'device_type'=>$deviceType,
                 'notification_token'=>$notificationToken,
+                'device_uuid'=>$notificationToken,
                 'created_at'=>$created,
                 'updated_at'=>date(DateTimeFormat::General)
 

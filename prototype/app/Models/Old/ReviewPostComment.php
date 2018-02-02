@@ -8,22 +8,17 @@
 
 namespace App\Models\Old;
 
-use Illuminate\Database\Eloquent\Model;
-use App\Models\DBModel;
-use DB;
-
-class ReviewPostComment extends DBModel
+class ReviewPostComment extends OldModel
 {
-    protected $guarded = [];
+    protected $table = 'review_post_comments';
 
     /**
      * @return mixed
      */
     public function getData()
     {
-        $data = DB::connection('mysql_old')
-            ->table('review_post_comments')
-            ->select('user_id', 'feed_id', 'text', 'created_at')
+        $data = $this
+            ->select('user_id', 'review_post_id', 'text', 'created_at')
             ->get();
 
         return $data;
