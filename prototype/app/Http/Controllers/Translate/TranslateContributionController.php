@@ -23,14 +23,16 @@ class TranslateContributionController extends Controller
         $contributions = (new ReviewPost())->getData();
 
         foreach ($contributions as $contribution) {
+            $id = $contribution->id;
             $userId = $contribution->user_id;
-            $productId = $contribution->product_item_id;
+            $oldProductId = $contribution->product_item_id;
             $images = explode(',', $contribution->image_ids);
             $content = $contribution->text;
             $created = $contribution->created_at;
+            $updated = $contribution->updated_at;
             $feeling = $this->getFeeling($contribution->is_consent);
 
-            $serviceResult = (new PreviousContributionService())->getData($userId, $productId, $feeling, $images, $content, $created);
+            $serviceResult = (new PreviousContributionService())->getData($id, $userId, $oldProductId, $feeling, $images, $content, $created, $updated);
 
             if($serviceResult->getDebugMessage() != NULL) return $serviceResult->getDebugMessage();
         }

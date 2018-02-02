@@ -10,14 +10,14 @@ namespace App\Models\Old;
 
 class ReviewPost extends OldModel
 {
-    protected $table = 'review_post';
+    protected $table = 'review_posts';
     /**
      * @return mixed
      */
     public function getData()
     {
         $data = $this
-            ->select('user_id', 'product_item_id', 'is_consent', 'image_ids', 'text', 'created_at')
+            ->select('id', 'user_id', 'product_item_id', 'is_consent', 'image_ids', 'text', 'created_at')
             ->get();
 
         return $data;

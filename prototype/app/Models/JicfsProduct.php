@@ -69,5 +69,10 @@ class JicfsProduct extends Model
         return $this->insertGetId($data);
     }
 
-
+    public function getProductId($janCode){
+        return $this
+            ->where('jan_code', $janCode)
+            ->select('product_id')
+            ->first();
+    }
 }

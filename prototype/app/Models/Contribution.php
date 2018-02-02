@@ -246,14 +246,15 @@ class Contribution extends DBModel implements UserContentsCountBuilderInterface
      * @param $created
      * @return mixed
      */
-	public function translateGetId($userId, $productId, $feeling, $images, $content, $created){
+	public function translateGetId($id, $userId, $productId, $feeling, $images, $content, $created, $updated){
         $data = [
+            'id'=>$id,
             'user_id'=>$userId,
             'product_id'=>$productId,
             'feeling'=>$feeling,
             'content'=>$content,
-            'created'=>$created,
-            'modified_at'=>date(DateTimeFormat::General)
+            'created_at'=>$created,
+            'modified_at'=>$updated
         ];
         for($i = 0 ; $i < count($images) ; $i ++){
             $data['image_id_'.$i] = $images[$i];
