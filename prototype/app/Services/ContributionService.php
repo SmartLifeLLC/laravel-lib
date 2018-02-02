@@ -146,7 +146,7 @@ class ContributionService extends BaseService
 				if($contributionDetail == null)
 					return ServiceResult::withError(StatusCode::FAILED_TO_FIND_CONTRIBUTION);
 
-				$productCategories = (new ProductsProductCategory())->getProductCategories($contributionDetail->product_id);
+				$productCategories = (new ProductsProductCategory())->getProductCategories($contributionDetail->product_id)->toArray();
 				$resultVo = new ContributionDetailResultVO($contributionDetail,$productCategories);
 
 				return ServiceResult::withResult($resultVo);
@@ -254,12 +254,13 @@ class ContributionService extends BaseService
 	 */
 	public function getListForOwnerInterest($userId,$ownerId,$page,$limit):ServiceResult{
 		return $this->executeTasks(function () use ($userId,$ownerId,$page,$limit){
-			$contributions = (new Contribution())->getListForOwnerInterest($userId,$ownerId,$page,$limit);
+			$blockUsers = (new BlockUser())->getBlockAndBlockedUserIds($userId,$ownerId);
+
+			$contributions = (new Contribution())->getListForOwnerInterest($userId,$ownerId,$blockUsers,$page,$limit);
 			$productIds = [];
 			foreach($contributions as $contribution){
 				$productIds[] = $contribution->product_id;
 			}
-			$blockUsers = (new BlockUser())->getBlockAndBlockedUserIds($userId,$ownerId);
 			$contributions = $this->adjustReactionCountForEachContributionBlockUsers($contributions,$blockUsers);
 			$productsCategories = (new ProductsProductCategory())->getProductsCategories($productIds);
 			$result = new ContributionListResultVO($contributions,$productsCategories);

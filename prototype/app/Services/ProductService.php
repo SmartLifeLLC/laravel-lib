@@ -26,6 +26,7 @@ use App\ValueObject\CreateJicfsProductResultVO;
 use App\ValueObject\CreateProductManufacturerResultVO;
 use App\ValueObject\JicfsObject\JANProductBaseInfoVO;
 use App\ValueObject\JicfsObject\JicfsManufacturerInfoVO;
+use App\ValueObject\ProductAndCountDataVO;
 use DateTime;
 use \Exception;
 
@@ -159,6 +160,7 @@ class ProductService extends BaseService
         return $this->executeTasks(function() use ($keyword,$categoryId,$limit,$page,$orderList){
 	        //$keyword = base64_decode($keyword);
             $result = (new Product())->getProductsAndCountByKeyword($keyword,$orderList,$limit,$page);
+	        $this->setProductCategories($result);
             return ServiceResult::withResult($result);
         });
     }
@@ -174,6 +176,7 @@ class ProductService extends BaseService
         return $this->executeTasks(function() use ($categoryId,$limit,$page,$orderList){
             $count = (new ProductCategory())->getProductsCount($categoryId);
             $result = (new Product())->getProductsByCategoryId($categoryId,$orderList,$count,$limit,$page);
+            $this->setProductCategories($result);
             return ServiceResult::withResult($result);
         });
     }
@@ -186,9 +189,22 @@ class ProductService extends BaseService
     public function getProductListByJanCode($janCode,$orderList){
         return $this->executeTasks(function()use ($janCode,$orderList){
             $result = (new Product())->getProductsByJanCode($janCode,$orderList);
+	        $this->setProductCategories($result);
             return ServiceResult::withResult($result);
         });
     }
 
+
+	/**
+	 * @param ProductAndCountDataVO $productAndCountDataVO
+	 */
+    private function setProductCategories(ProductAndCountDataVO &$productAndCountDataVO){
+	    $productIds = [];
+	    foreach($productAndCountDataVO->getProducts() as $product){
+		    $productIds[] = $product['id'];
+	    }
+	    $productsCategories = (new ProductsProductCategory())->getProductsCategories($productIds);
+		$productAndCountDataVO->setProductsCategories($productsCategories);
+    }
 
 }

@@ -4,8 +4,10 @@ namespace App\Models;
 
 use App\Constants\DateTimeFormat;
 use App\Constants\DefaultValues;
+use App\Constants\FeaturedUserType;
 use App\Lib\Util;
 use App\ValueObject\FacebookResponseVO;
+use App\ValueObject\GetFeaturedUserListFromFacebookWithCountResultVO;
 use App\ValueObject\UserNotifyPropertiesVO;
 use App\ValueObject\UserValidationVO;
 use Illuminate\Database\Eloquent\Model;
@@ -256,12 +258,41 @@ class User extends DBModel
     	return $this->find($userId);
     }
 
+
+
 	/**
 	 * @param $userId
-	 * @return mixed
+	 * @param $gender
+	 * @param $birthday
+	 * @param $facebookIds
+	 * @param $limit
+	 * @param $page
+	 * @return GetFeaturedUserListFromFacebookWithCountResultVO
 	 */
-	public function getUserFacebookInfo($userId){
-    	return $this->find($userId)->select('facebook_id','facebook_token','birthday');
+	public function getFeaturedUserListFromFacebookIdsWithCount($userId, $gender, $birthday, $facebookIds, $limit, $page):GetFeaturedUserListFromFacebookWithCountResultVO{
+		$offset = $this->getOffset($limit,$page);
+		$genderOrder = ($gender == 1)?"asc":"desc";
+		$queryBuilder =
+			$this
+				->select(
+					'users.id',
+					'users.user_name',
+					'images.s3_key as profile_image_s3_key',
+					'users.description')
+				->leftJoin('images','images.id','=','users.profile_image_id')
+				->whereIn('facebook_id',$facebookIds)
+				->whereRaw(DB::raw("NOT EXISTS(select id from block_users where block_users.user_id = {$userId} and block_users.target_user_id = users.id)"))
+				->whereRaw(DB::raw("NOT EXISTS(SELECT id from blocked_users  where blocked_users.user_id = {$userId} and blocked_users.target_user_id = users.id) "))
+				->whereRaw(DB::raw("NOT EXISTS(SELECT id from follows  where follows.user_id = {$userId} and follows.target_user_id = users.id) "))
+				->orderByRaw( "gender {$genderOrder}, ABS(DATEDIFF(birthday,'{$birthday}')) ASC, last_posted_at DESC");
+
+		$count = $queryBuilder->count();
+		$hasNext = $this->getHasNext($limit,$page,$count);
+		$data = $queryBuilder
+				->limit($limit)
+				->offset($offset)
+				->get();
+		return new GetFeaturedUserListFromFacebookWithCountResultVO($data,$hasNext,$count);
 	}
 
 

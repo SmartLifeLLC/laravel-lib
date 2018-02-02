@@ -26,13 +26,34 @@ class ProductListJsonView extends JsonResponseView
     function createBody()
     {
         $products = [];
+
+	    $categories = $this->data->getProductsCategories();
+	    $productsCategories = [];
+	    foreach($categories as $category){
+		    $categoryItem = $this->getWelFormedCategory(
+			    $category['product_category_id'],
+			    $category['name'],
+			    $category['unique_name'],
+			    (int) $category['product_count']
+		    );
+		    $productsCategories[$category['product_id']][$category['product_category_id']] = $categoryItem;
+	    }
+
+
         foreach($this->data->getProducts() as $product){
-            $product['image_url'] = $this->getImageURLForS3Key($product['s3_key']);
-            $product['contribution_count'] = (int) $product['contribution_count'] ;
-	        $product['positive_count'] = (int) $product['positive_count'] ;
-	        $product['negative_count'] = (int) $product['negative_count'] ;
-            unset($product['s3_key']);
-            $products[] = $product;
+	        $welFormedProduct =
+		        $this->getProductHashArray(
+			        $product['id'],
+			        $product['display_name'],
+			        $product['price'],
+			        $product['contribution_count'],
+			        $product['positive_count'],
+			        $product['negative_count'],
+			        array_values($productsCategories[$product['id']]),
+			        $product['product_image_s3_key'],
+			        $shops=[]
+		        );
+            $products[] = $welFormedProduct;
         }
 
         $this->body = [
