@@ -18,15 +18,14 @@ use DB;
 class TranslateUserController extends Controller
 {
     /**
-     * @return array
+     * @return null|string
      */
     public function translatePreviousData(){
-        $results = array();
-
         $users = (new User())->getData();
 
         foreach ($users as $user) {
             $userData = [
+                'id' => $user->id,
                 'facebookId' => $user->facebook_id,
                 'mailAddress' => $user->mail_address,
                 'auth' => $user->auth,
@@ -34,6 +33,7 @@ class TranslateUserController extends Controller
                 'lastName' => $user->family_name,
                 'userName' => $user->user_name,
                 'birthday' => $user->birthday,
+                'address' => $user->address,
                 'gender' => $user->gender,
                 'genderPublishedFlag' => $user->gender_published_flag,
                 'birthdayPublishedFlag' => $user->birthday_published_flag,
@@ -42,7 +42,7 @@ class TranslateUserController extends Controller
                 'coverImageId' => $user->cover_image_id,
                 'description' => $user->description,
                 'created' => $user->created_at,
-                'lastPosted' => $user->updated_at
+                'updated' => $user->updated_at
             ];
 
             $userSetting = (new UserSetting()) -> getData($user->id);
@@ -54,9 +54,8 @@ class TranslateUserController extends Controller
 
             $serviceResult = (new PreviousUserService())->getData($userData);
 
-            $jsonView = (new PreviousUserJsonView($serviceResult));
-            $results[] = $this->responseJson($jsonView);
+            if($serviceResult->getDebugMessage() != NULL) return $serviceResult->getDebugMessage();
         }
-        return $results;
+        return 'SUCCESS';
     }
 }

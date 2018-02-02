@@ -12,16 +12,14 @@ use App\Http\Controllers\Controller;
 use App\Http\JsonView\Translate\PreviousDeviceJsonView;
 use App\Models\Old\NotificationToken;
 use App\Services\Translate\PreviousDeviceService;
-use DB;
 
 class TranslateDeviceController extends Controller
 {
     /**
-     * @return array
+     * @return null|string
      */
-    public function translatePreviousData(){
-        $results = array();
-
+    public function translatePreviousData()
+    {
         $devices = (new NotificationToken())->getData();
 
         foreach ($devices as $device) {
@@ -32,9 +30,8 @@ class TranslateDeviceController extends Controller
 
             $serviceResult = (new PreviousDeviceService())->getData($userId, $deviceType, $notificationToken, $created);
 
-            $jsonView = (new PreviousDeviceJsonView($serviceResult));
-            $results[] = $this->responseJson($jsonView);
+            if ($serviceResult->getDebugMessage() != NULL) return $serviceResult->getDebugMessage();
         }
-        return $results;
+        return 'SUCCESS';
     }
 }

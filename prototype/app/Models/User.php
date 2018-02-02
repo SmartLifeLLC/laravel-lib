@@ -222,6 +222,7 @@ class User extends DBModel
     public function translateGetId($userData){
         return $this->insertGetId(
             [
+                'id' => $userData['id'],
                 'facebook_id' => $userData['facebookId'],
                 'mail_address' => $userData['mailAddress'],
                 'auth' => $userData['auth'],
@@ -229,6 +230,7 @@ class User extends DBModel
                 'last_name' => $userData['lastName'],
                 'user_name' => $userData['userName'],
                 'birthday' => $userData['birthday'],
+                'address' => $userData['address'],
                 'gender' => $userData['gender'],
                 'gender_published_flag' => $userData['genderPublishedFlag'],
                 'birthday_published_flag' => $userData['birthdayPublishedFlag'],
@@ -242,7 +244,8 @@ class User extends DBModel
                 'is_comment_notification_allowed' => $userData['commentNotification'],
                 'description' => $userData['description'],
                 'created_at' => $userData['created'],
-                'last_posted_at' => $userData['lastPosted']
+                'last_posted_at' => $userData['updated'],
+                'updated_at' => $userData['updated']
 
             ]
         );

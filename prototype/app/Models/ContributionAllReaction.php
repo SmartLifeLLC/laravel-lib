@@ -79,7 +79,6 @@ class ContributionAllReaction extends DBModel implements ContributionReactionInt
                 'contribution_id'=>$contributionId,
                 'contribution_reaction_type'=>$reactionType,
                 'created_at'=>$created,
-                'updated_at'=>date(DateTimeFormat::General)
 
             ]
         );

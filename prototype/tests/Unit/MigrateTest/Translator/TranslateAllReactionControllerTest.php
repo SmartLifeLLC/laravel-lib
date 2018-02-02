@@ -22,9 +22,8 @@ class TranslateAllReactionControllerTest extends TestCase
 		$this->assertEquals($data1,$data2);
 	}
 
-	function testUser(){
+	function testAllReaction(){
 		$TranslateResult = (new TranslateAllReactionController())->translatePreviousData();
 		var_dump($TranslateResult);
-
 	}
 }

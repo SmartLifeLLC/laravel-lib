@@ -10,6 +10,7 @@ namespace App\Models\Old;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\DBModel;
+use DB;
 
 class DeletedContent extends DBModel
 {

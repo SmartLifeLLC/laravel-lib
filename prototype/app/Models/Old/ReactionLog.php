@@ -11,10 +11,13 @@ namespace App\Models\Old;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\DBModel;
+use Illuminate\Support\Facades\DB;
 
 class ReactionLog extends DBModel
 {
     protected $guarded = [];
+    protected $connection = 'mysql_old';
+    protected $table = 'reaction_log';
 
 
     /**
@@ -22,9 +25,8 @@ class ReactionLog extends DBModel
      */
     public function getData()
     {
-        $data = DB::connection('mysql_old')
-            ->table('reaction_log')
-            ->select('user_id', 'feed_id', 'review_post_reaction_type', 'created_at')
+        $data = $this
+            ->select('reaction_user_id', 'review_post_id', 'review_post_reaction_type', 'created_at')
             ->get();
 
         return $data;
@@ -38,7 +40,7 @@ class ReactionLog extends DBModel
         $likeData = DB::connection('mysql_old')
             ->table('reaction_log')
             ->where('review_post_reaction_type', 1)
-            ->select('user_id', 'feed_id', 'created_at')
+            ->select('reaction_user_id', 'review_post_id', 'created_at')
             ->get();
 
         return $likeData;
@@ -52,7 +54,7 @@ class ReactionLog extends DBModel
         $interestData = DB::connection('mysql_old')
             ->table('reaction_log')
             ->where('review_post_reaction_type', 2)
-            ->select('user_id', 'feed_id', 'created_at')
+            ->select('reaction_user_id', 'review_post_id', 'created_at')
             ->get();
 
         return $interestData;
@@ -66,7 +68,7 @@ class ReactionLog extends DBModel
         $haveData = DB::connection('mysql_old')
             ->table('reaction_log')
             ->where('review_post_reaction_type', 3)
-            ->select('user_id', 'feed_id', 'created_at')
+            ->select('reaction_user_id', 'review_post_id', 'created_at')
             ->get();
 
         return $haveData;
