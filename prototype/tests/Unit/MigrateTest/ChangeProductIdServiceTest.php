@@ -6,7 +6,7 @@
  * Time: 2:48
  */
 
-namespace Tests\Unit\MigrateTest\Models;
+namespace Tests\Unit\MigrateTest;
 
 
 use App\Services\Translate\ChangeProductIdService;

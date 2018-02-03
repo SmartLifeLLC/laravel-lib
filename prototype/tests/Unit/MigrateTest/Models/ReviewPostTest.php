@@ -3,19 +3,19 @@
  * Created by PhpStorm.
  * User: wada
  * Date: 2018/02/03
- * Time: 20:01
+ * Time: 20:06
  */
 
 namespace Tests\Unit\MigrateTest\Models;
 
 
-use App\Models\Old\ReactionLog;
+use App\Models\Old\ReviewPost;
 use Tests\TestCase;
 
-class ReactionLogTest extends TestCase
+class ReviewPostTest extends TestCase
 {
-    function testReactionLog(){
-        $oldData = (new ReactionLog())->getData();
+    function testReviewPost(){
+        $oldData = (new ReviewPost())->getData();
         var_dump($oldData);
     }
 }
