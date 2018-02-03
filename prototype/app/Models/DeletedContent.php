@@ -39,9 +39,10 @@ class DeletedContent extends DBModel
 		return $this->insertGetId($data);
 	}
 
-	public function translateGetId($targetId, $targetTable, $userId, $content, $relatedContent, $created){
+	public function translateGetId($id, $targetId, $targetTable, $userId, $content, $relatedContent, $created){
         return $this->insertGetId(
             [
+                'id'=>$id,
                 'target_id'=>$targetId,
                 'target_table'=>$targetTable,
                 'user_id'=>$userId,

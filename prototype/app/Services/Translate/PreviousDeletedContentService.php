@@ -16,6 +16,7 @@ use DB;
 class PreviousDeletedContentService extends BaseService
 {
     /**
+     * @param $id
      * @param $targetId
      * @param $targetTable
      * @param $userId
@@ -24,9 +25,9 @@ class PreviousDeletedContentService extends BaseService
      * @param $created
      * @return ServiceResult
      */
-    public function getData($targetId, $targetTable, $userId, $content, $relatedContent, $created):ServiceResult{
-        return $this->executeTasks(function() use($targetId, $targetTable, $userId, $content, $relatedContent, $created) {
-            $contributionId = (new DeletedContent())->translateGetId($targetId, $targetTable, $userId, $content, $relatedContent, $created);
+    public function getData($id, $targetId, $targetTable, $userId, $content, $relatedContent, $created):ServiceResult{
+        return $this->executeTasks(function() use($id, $targetId, $targetTable, $userId, $content, $relatedContent, $created) {
+            $contributionId = (new DeletedContent())->translateGetId($id, $targetId, $targetTable, $userId, $content, $relatedContent, $created);
             return ServiceResult::withResult($contributionId);
         },true);
     }

@@ -20,17 +20,18 @@ class TranslateDeletedContentController extends Controller
      * @return null|string
      */
     public function translatePreviousData(){
-        $contents = (new DeletedContent())->getData();
+        $deletedContents = (new DeletedContent())->getData();
 
-        foreach ($contents as $content) {
-            $targetId = $content->target_id;
-            $targetTable = $content->target_table;
-            $userId = $content->user_id;
-            $content = $content->contents_detail;
-            $relatedContent = $content->related_data;
-            $created = $content->created_at;
+        foreach ($deletedContents as $deletedContent) {
+            $id = $deletedContent->id;
+            $targetId = $deletedContent->target_id;
+            $targetTable = $deletedContent->target_table;
+            $userId = $deletedContent->user_id;
+            $content = $deletedContent->contents_detail;
+            $relatedContent = $deletedContent->related_data;
+            $created = $deletedContent->created_at;
 
-            $serviceResult = (new PreviousDeletedContentService())->getData($targetId, $targetTable, $userId, $content, $relatedContent, $created);
+            $serviceResult = (new PreviousDeletedContentService())->getData($id, $targetId, $targetTable, $userId, $content, $relatedContent, $created);
 
             if($serviceResult->getDebugMessage() != NULL) return $serviceResult->getDebugMessage();
         }

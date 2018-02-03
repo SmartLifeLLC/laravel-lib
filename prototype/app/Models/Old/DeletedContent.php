@@ -17,7 +17,7 @@ class DeletedContent extends OldModel
     public function getData()
     {
         $data = $this
-            ->select('target_id', 'target_table', 'user_id', 'contents_detail', 'related_data', 'created_at')
+            ->select('id', 'target_id', 'target_table', 'user_id', 'contents_detail', 'related_data', 'created_at')
             ->get();
 
         return $data;

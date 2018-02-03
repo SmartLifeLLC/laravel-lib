@@ -23,8 +23,8 @@ class TranslateLikeReactionController extends Controller
         $contributions = (new ReactionLog())->getLikeData();
 
         foreach ($contributions as $contribution) {
-            $userId = $contribution->user_id;
-            $contributionId = $contribution->feed_id;
+            $userId = $contribution->reaction_user_id;
+            $contributionId = $contribution->review_post_id;
             $created = $contribution->created_at;
 
             $serviceResult = (new PreviousLikeReactionService())->getData($userId, $contributionId, $created);

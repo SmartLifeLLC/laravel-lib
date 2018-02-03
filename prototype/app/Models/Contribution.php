@@ -354,7 +354,6 @@ class Contribution extends DBModel implements UserContentsCountBuilderInterface
 	public function getProductId($id){
 	    return
             $this
-                ->table('contributions')
                 ->select('product_id')
                 ->where('id', $id)
                 ->first()

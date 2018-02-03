@@ -36,8 +36,7 @@ class ContributionHaveReaction extends DBModel implements ContributionReactionIn
             [
                 'user_id'=>$userId,
                 'contribution_id'=>$contributionId,
-                'created_at'=>$created,
-                'updated_at'=>date(DateTimeFormat::General)
+                'created_at'=>$created
 
             ]
         );
