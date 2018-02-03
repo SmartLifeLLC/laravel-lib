@@ -16,8 +16,9 @@ use App\Services\BaseService;
 class ChangeProductIdService extends BaseService
 {
     public function getNewProductId($oldProductId){
-        $janCode = (new ProductItemCategory())->getJanCode($oldProductId);
-        $newProductID = (new JicfsProduct())->getProductId($janCode);
+        $janCodeData = (new ProductItemCategory())->getJanCode($oldProductId);
+        $productIdData = (new JicfsProduct())->getProductId($janCodeData->jan_code);
+        $newProductID = $productIdData->product_id;
         return $newProductID;
     }
 }

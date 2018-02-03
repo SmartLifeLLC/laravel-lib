@@ -15,7 +15,7 @@ use Tests\TestCase;
 class ChangeProductIdServiceTest extends TestCase
 {
     function testChangeProductId(){
-        $id = 3;
+        $id = 2095001;
         $newId = (new ChangeProductIdService())->getNewProductId($id);
         var_dump($newId);
     }

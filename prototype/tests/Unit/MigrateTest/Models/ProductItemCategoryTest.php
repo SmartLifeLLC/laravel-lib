@@ -16,6 +16,6 @@ class ProductItemCategoryTest extends TestCase
 {
     function testProductItemCategory(){
         $oldData = (new ProductItemCategory())->getJanCode(1);
-        var_dump($oldData);
+        var_dump($oldData->jan_code);
     }
 }

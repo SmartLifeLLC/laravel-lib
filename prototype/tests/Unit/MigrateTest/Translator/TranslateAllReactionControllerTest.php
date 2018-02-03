@@ -15,13 +15,6 @@ use Tests\TestCase;
 
 class TranslateAllReactionControllerTest extends TestCase
 {
-	function testSomething(){
-		echo "RUN TEST";
-		$data1 = "a";
-		$data2 = "a";
-		$this->assertEquals($data1,$data2);
-	}
-
 	function testAllReaction(){
 		$TranslateResult = (new TranslateAllReactionController())->translatePreviousData();
 		var_dump($TranslateResult);
