@@ -9,7 +9,16 @@
 namespace App\Http\JsonView\Translate;
 
 
-class PreviousReactionNotificationJsonView
+use App\Http\JsonView\JsonResponseView;
+
+class PreviousReactionNotificationJsonView extends JsonResponseView
 {
 
+    function createBody()
+    {
+        $this->body = [
+            'image_id' => $this->data,
+            'message' => "リアクションの通知の移行に成功しました。"
+        ];
+    }
 }

@@ -70,4 +70,25 @@ class Device extends DBModel
 
 	    return $data;
     }
+
+    /**
+     * @param $userId
+     * @param $deviceType
+     * @param $notificationToken
+     * @param $created
+     * @return mixed
+     */
+    public function translateGetId($userId, $deviceType, $notificationToken, $created){
+        return $this->insertGetId(
+            [
+                'user_id'=>$userId,
+                'device_type'=>$deviceType,
+                'notification_token'=>$notificationToken,
+                'device_uuid'=>$notificationToken,
+                'created_at'=>$created,
+                'updated_at'=>date(DateTimeFormat::General)
+
+            ]
+        );
+    }
 }

@@ -9,12 +9,9 @@
 namespace App\Models\Old;
 
 
-use Illuminate\Database\Eloquent\Model;
-use App\Models\DBModel;
-
-class ReactionLog extends DBModel
+class ReactionLog extends OldModel
 {
-    protected $guarded = [];
+    protected $table = 'reaction_log';
 
 
     /**
@@ -22,9 +19,8 @@ class ReactionLog extends DBModel
      */
     public function getData()
     {
-        $data = DB::connection('mysql_old')
-            ->table('reaction_log')
-            ->select('user_id', 'feed_id', 'review_post_reaction_type', 'created_at')
+        $data = $this
+            ->select('reaction_user_id', 'review_post_id', 'review_post_reaction_type', 'created_at')
             ->get();
 
         return $data;
@@ -35,10 +31,9 @@ class ReactionLog extends DBModel
      */
     public function getLikeData()
     {
-        $likeData = DB::connection('mysql_old')
-            ->table('reaction_log')
+        $likeData = $this
             ->where('review_post_reaction_type', 1)
-            ->select('user_id', 'feed_id', 'created_at')
+            ->select('reaction_user_id', 'review_post_id', 'created_at')
             ->get();
 
         return $likeData;
@@ -49,10 +44,9 @@ class ReactionLog extends DBModel
      */
     public function getInterestData()
     {
-        $interestData = DB::connection('mysql_old')
-            ->table('reaction_log')
+        $interestData = $this
             ->where('review_post_reaction_type', 2)
-            ->select('user_id', 'feed_id', 'created_at')
+            ->select('reaction_user_id', 'review_post_id', 'created_at')
             ->get();
 
         return $interestData;
@@ -63,10 +57,9 @@ class ReactionLog extends DBModel
      */
     public function getHaveData()
     {
-        $haveData = DB::connection('mysql_old')
-            ->table('reaction_log')
+        $haveData = $this
             ->where('review_post_reaction_type', 3)
-            ->select('user_id', 'feed_id', 'created_at')
+            ->select('reaction_user_id', 'review_post_id', 'created_at')
             ->get();
 
         return $haveData;

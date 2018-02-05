@@ -53,9 +53,7 @@ class ContributionInterestReaction extends DBModel implements ContributionReacti
             [
                 'user_id'=>$userId,
                 'contribution_id'=>$contributionId,
-                'created_at'=>$created,
-                'updated_at'=>date(DateTimeFormat::General)
-
+                'created_at'=>$created
             ]
         );
     }

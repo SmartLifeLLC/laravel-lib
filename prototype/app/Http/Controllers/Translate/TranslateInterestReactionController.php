@@ -17,23 +17,20 @@ use DB;
 class TranslateInterestReactionController extends Controller
 {
     /**
-     * @return array
+     * @return null|string
      */
     public function translatePreviousData(){
-        $results = array();
-
         $contributions = (new ReactionLog())->getInterestData();
 
         foreach ($contributions as $contribution) {
-            $userId = $contribution->user_id;
-            $contributionId = $contribution->feed_id;
+            $userId = $contribution->reaction_user_id;
+            $contributionId = $contribution->review_post_id;
             $created = $contribution->created_at;
 
             $serviceResult = (new PreviousInterestReactionService())->getData($userId, $contributionId, $created);
 
-            $jsonView = (new PreviousInterestReactionJsonView($serviceResult));
-            $results[] = $this->responseJson($jsonView);
+            if ($serviceResult->getDebugMessage() != NULL) return $serviceResult->getDebugMessage();
         }
-        return $results;
+        return 'SUCCESS';
     }
 }

@@ -17,26 +17,31 @@ use DB;
 class TranslateContributionController extends Controller
 {
     /**
-     * @return array
+     * @return null|string
      */
     public function translatePreviousData(){
-        $results = array();
-
         $contributions = (new ReviewPost())->getData();
 
         foreach ($contributions as $contribution) {
+            $id = $contribution->id;
             $userId = $contribution->user_id;
-            $productId = $contribution->product_item_id;
-            $feeling = $contribution->is_consent;
+            $oldProductId = $contribution->product_item_id;
             $images = explode(',', $contribution->image_ids);
             $content = $contribution->text;
             $created = $contribution->created_at;
+            $updated = $contribution->updated_at;
+            $feeling = $this->getFeeling($contribution->is_consent);
 
-            $serviceResult = (new PreviousContributionService())->getData($userId, $productId, $feeling, $images, $content, $created);
+            $serviceResult = (new PreviousContributionService())->getData($id, $userId, $oldProductId, $feeling, $images, $content, $created, $updated);
 
-            $jsonView = (new PreviousContributionJsonView($serviceResult));
-            $results[] = $this->responseJson($jsonView);
+            if($serviceResult->getDebugMessage() != NULL) return $serviceResult->getDebugMessage();
         }
-        return $results;
+        return 'SUCCESS';
+    }
+
+    private function getFeeling($isConsent){
+        if($isConsent) $feeling = 'positive';
+        else $feeling = 'negative';
+        return $feeling;
     }
 }

@@ -12,28 +12,24 @@ use App\Http\Controllers\Controller;
 use App\Http\JsonView\Translate\PreviousHaveReactionJsonView;
 use App\Models\Old\ReactionLog;
 use App\Services\Translate\PreviousHaveReactionService;
-use DB;
 
 class TranslateHaveReactionController extends Controller
 {
     /**
-     * @return array
+     * @return null|string
      */
     public function translatePreviousData(){
-        $results = array();
-
         $contributions = (new ReactionLog())->getHaveData();
 
         foreach ($contributions as $contribution) {
-            $userId = $contribution->user_id;
-            $contributionId = $contribution->feed_id;
+            $userId = $contribution->reaction_user_id;
+            $contributionId = $contribution->review_post_id;
             $created = $contribution->created_at;
 
             $serviceResult = (new PreviousHaveReactionService())->getData($userId, $contributionId, $created);
 
-            $jsonView = (new PreviousHaveReactionJsonView($serviceResult));
-            $results[] = $this->responseJson($jsonView);
+            if ($serviceResult->getDebugMessage() != NULL) return $serviceResult->getDebugMessage();
         }
-        return $results;
+        return 'SUCCESS';
     }
 }

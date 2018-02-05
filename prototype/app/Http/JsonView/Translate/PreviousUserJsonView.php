@@ -9,7 +9,9 @@
 namespace App\Http\JsonView\Translate;
 
 
-class PreviousUserJsonView
+use App\Http\JsonView\JsonResponseView;
+
+class PreviousUserJsonView extends JsonResponseView
 {
 
     function createBody()

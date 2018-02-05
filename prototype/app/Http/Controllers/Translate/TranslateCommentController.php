@@ -18,24 +18,21 @@ use DB;
 class TranslateCommentController extends Controller
 {
     /**
-     * @return array
+     * @return null|String
      */
     public function translatePreviousData(){
-        $results = array();
-
         $comments = (new ReviewPostComment())->getData();
 
         foreach ($comments as $comment) {
             $userId = $comment->user_id;
-            $contributionId = $comment->feed_id;
+            $contributionId = $comment->review_post_id;
             $content = $comment->text;
             $created = $comment->created_at;
 
             $serviceResult = (new PreviousCommentService())->getData($userId, $contributionId, $content, $created);
 
-            $jsonView = (new PreviousCommentJsonView($serviceResult));
-            $results[] = $this->responseJson($jsonView);
+            if($serviceResult->getDebugMessage() != NULL) return $serviceResult->getDebugMessage();
         }
-        return $results;
+        return 'SUCCESS';
     }
 }

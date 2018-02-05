@@ -8,20 +8,17 @@
 
 namespace App\Models\Old;
 
-use Illuminate\Database\Eloquent\Model;
-use App\Models\DBModel;
 
-class User extends DBModel
+class User extends OldModel
 {
-    protected $guarded = [];
+    protected $table = 'users';
 
     /**
      * @return mixed
      */
     public function getData()
     {
-        $data = DB::connection('mysql_old')
-            ->table('users')
+        $data = $this
             ->select('id',
                 'facebook_id',
                 'mail_address',
@@ -38,6 +35,7 @@ class User extends DBModel
                 'profile_image_id',
                 'cover_image_id',
                 'description',
+                'is_blocked',
                 'created_at',
                 'updated_at'
                 )

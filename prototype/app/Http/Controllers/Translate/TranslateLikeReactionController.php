@@ -17,23 +17,20 @@ use DB;
 class TranslateLikeReactionController extends Controller
 {
     /**
-     * @return array
+     * @return null|String
      */
     public function translatePreviousData(){
-        $results = array();
-
         $contributions = (new ReactionLog())->getLikeData();
 
         foreach ($contributions as $contribution) {
-            $userId = $contribution->user_id;
-            $contributionId = $contribution->feed_id;
+            $userId = $contribution->reaction_user_id;
+            $contributionId = $contribution->review_post_id;
             $created = $contribution->created_at;
 
             $serviceResult = (new PreviousLikeReactionService())->getData($userId, $contributionId, $created);
 
-            $jsonView = (new PreviousLikeReactionJsonView($serviceResult));
-            $results[] = $this->responseJson($jsonView);
+            if ($serviceResult->getDebugMessage() != NULL) return $serviceResult->getDebugMessage();
         }
-        return $results;
+        return 'SUCCESS';
     }
 }

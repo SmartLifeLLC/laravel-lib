@@ -9,6 +9,8 @@
 namespace App\Services\Translate;
 
 use App\Models\ContributionInterestReaction;
+use App\Models\ContributionReactionCount;
+use App\Models\Contribution;
 use App\Services\BaseService;
 use App\Lib\JSYService\ServiceResult;
 use DB;
@@ -24,6 +26,8 @@ class PreviousInterestReactionService extends BaseService
     public function getData($userId, $contributionId, $created):ServiceResult{
         return $this->executeTasks(function() use($userId, $contributionId, $created) {
             $interestReactionId = (new ContributionInterestReaction())->translateGetId($userId, $contributionId, $created);
+            $productId = (new Contribution())->getProductId($contributionId);
+            (new ContributionReactionCount())->incrementCount($productId, $contributionId, 4);
             return ServiceResult::withResult($interestReactionId);
         },true);
     }

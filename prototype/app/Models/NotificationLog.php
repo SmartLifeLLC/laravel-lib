@@ -28,7 +28,7 @@ class NotificationLog extends DBModel
      */
     public function getLogs(int $userId, int $boundaryId, int $limit, ?QueryOrderTypes $orderType ) {
         $compareSymbol = $orderType->getQueryCompareSymbol();
-        $model = self::where('user_id',$userId);
+        $model = self::where('target_user_id',$userId);
         if($boundaryId > 0){
             $model = $model->where('id',$compareSymbol,$boundaryId);
         }
@@ -42,7 +42,7 @@ class NotificationLog extends DBModel
      * @return mixed
      */
     public function getUnreadCount($userId){
-        $unreadCount = self::where('user_id',$userId)
+        $unreadCount = self::where('target_user_id',$userId)
             ->whereNull('read_at')
             ->count();
         return $unreadCount;
@@ -57,10 +57,30 @@ class NotificationLog extends DBModel
             ->update(['read_at'=>date(DateTimeFormat::General)]);
     }
 
-	/**
-	 * @param array $saveData
-	 */
+    /**
+     * @param array $saveData
+     */
     public function saveData(array $saveData){
-		self::insert($saveData);
+        self::insert($saveData);
+    }
+
+    /**
+     * @param $logData
+     * @return mixed
+     */
+    public function translateGetId($logData)
+    {
+        return $this->insertGetId(
+            [
+                'id' => $logData['id'],
+                'target_user_id' => $logData['targetUserId'],
+                'from_user_id' => $logData['fromUserId'],
+                'message' => $logData['message'],
+                'delivered_at' => $logData['deliveredAt'],
+                'contribution_id' => $logData['contributionId'],
+                'contribution_comment_id' => $logData['contributionCommentId'],
+                'notification_log_type_id' => $logData['notificationLogTypeId']
+            ]
+        );
     }
 }

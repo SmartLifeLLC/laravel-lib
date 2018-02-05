@@ -2,23 +2,23 @@
 /**
  * Created by PhpStorm.
  * User: wada
- * Date: 2018/01/28
- * Time: 21:01
+ * Date: 2018/01/31
+ * Time: 22:01
  */
 
 namespace App\Console\Commands\Translate;
 
 use Illuminate\Console\Command;
-use App\Http\Controllers\Translate\TranslateNegativeContributionController;
+use App\Http\Controllers\Translate\TranslateDeviceController;
 
-class NegativeProductContributionTranslator extends Command
+class DeviceTranslator extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'command:negative-contribution-translator';
+    protected $signature = 'command:device-translator';
 
     /**
      * The console command description.
@@ -44,7 +44,7 @@ class NegativeProductContributionTranslator extends Command
      */
     public function handle()
     {
-        $TranslateResult = (new TranslateNegativeContributionController())->translatePreviousData();
+        $TranslateResult = (new TranslateDeviceController())->translatePreviousData();
         echo $TranslateResult;
     }
 }

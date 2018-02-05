@@ -8,20 +8,16 @@
 
 namespace App\Models\Old;
 
-use Illuminate\Database\Eloquent\Model;
-use App\Models\DBModel;
-
-class UserSetting extends DBModel
+class UserSetting extends OldModel
 {
-    protected $guarded = [];
+    protected $table = 'user_settings';
 
     /**
      * @return mixed
      */
     public function getData($userId)
     {
-        $data = DB::connection('mysql_old')
-            ->table('users')
+        $data = $this
             ->where('user_id', $userId)
             ->select('can_notice_follow',
                 'can_notice_having',
@@ -29,7 +25,7 @@ class UserSetting extends DBModel
                 'can_notice_interest',
                 'can_notice_comment'
             )
-            ->get();
+            ->first();
 
         return $data;
     }
