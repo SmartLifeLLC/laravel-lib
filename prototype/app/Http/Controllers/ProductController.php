@@ -14,6 +14,7 @@ use App\Constants\DefaultValues;
 use App\Constants\PostParametersValidationRule;
 use App\Constants\StatusCode;
 use App\Http\JsonView\JsonResponseErrorView;
+use App\Http\JsonView\Product\ProductJsonView;
 use App\Http\JsonView\Product\ProductListJsonView;
 use App\Lib\Util;
 use App\Services\ProductService;
@@ -27,9 +28,6 @@ class ProductController extends Controller
      */
     public function getList(Request $request)
     {
-
-
-
         $keyword = $request->get('keyword');
         $limit = Util::getValueForKeyOnGetRequest($request, 'limit', DefaultValues::QUERY_DEFAULT_LIMIT);
         $page = Util::getValueForKeyOnGetRequest($request, 'page', DefaultValues::QUERY_DEFAULT_PAGE);
@@ -38,9 +36,6 @@ class ProductController extends Controller
 		$orderString = $request->get('order',"display_name-desc");
 		$orderList = explode(',',$orderString);
 	    //$orderList = array_intersect($tmpOrderList,DefaultValues::PRODUCT_ORDER_LIST);
-
-
-
 
         //Keyword Search
         if ($keyword != null){
@@ -62,8 +57,16 @@ class ProductController extends Controller
             );
             return $this->responseJson($jsonResponseView);
         }
-
         return $this->responseJson(new ProductListJsonView($serviceResult));
     }
 
+	/**
+	 * @param Request $request
+	 * @param $productId
+	 * @return \Illuminate\Http\JsonResponse
+	 */
+    public function get(Request $request, $productId){
+		$serviceResult = (new ProductService())->getProduct($productId);
+		return $this->responseJson(new ProductJsonView($serviceResult));
+    }
 }
