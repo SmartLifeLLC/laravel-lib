@@ -70,7 +70,6 @@ class NotificationLogService extends BaseService
     public function getAdminNotificationList($userId,$limit,$page):ServiceResult{
     	return $this->executeTasks(function () use ($userId, $limit, $page){
 			$result = (new AdminScheduledNotifications())->getList($limit,$page);
-			var_dump($result);
 			return ServiceResult::withResult($result);
 	    });
     }
