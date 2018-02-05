@@ -723,7 +723,7 @@ paths:
           '200':
             description: Success
   '/product/get/{productId}':
-      delete:
+      get:
         tags:
           - Product
         summary: "商品IDによる商品検索"
