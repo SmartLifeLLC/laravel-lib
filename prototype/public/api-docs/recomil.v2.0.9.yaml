@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  version: 2.0.8
+  version: 2.0.9
   title: "React - {Recomil}  API Documents - "
   description: "Author: Jung. \r\nLast Updated : 2018. 2. 5.\r\n 2018 WonderPlanet Inc. All rights reserved."
 host: bengal.recomil.com
@@ -361,7 +361,7 @@ paths:
       responses:
         '200':
           description: Success
-  '/user/notification-log/list/{boundaryId}':
+  '/user/notification-log/list':
       get:
         tags:
           - User
@@ -369,12 +369,22 @@ paths:
         produces:
               - application/json
         parameters:
-          - in: path
-            name: boundaryId
+          - in: query
+            name: listType
+            type: string
+            required: true
+            description: "user : User通知リスト admin :　管理者通知リスト"
+            enum:
+              - user
+              - admin
+          - in: query
+            name: boundary_id
             type: integer
             format: int64
             required: false
-            description: "boundaryId 以降のIDの通知ログを取得"
+            description: "User通知の場合使用.ユーザ通知はpage,limitの代わりにboundaryId 以降のIDの通知ログを取得"
+          - $ref: '#/parameters/Page'
+          - $ref: '#/parameters/Limit'
         responses:
           '200':
             description: Success
