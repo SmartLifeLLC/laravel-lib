@@ -14,6 +14,7 @@ use App\Constants\QueryOrderTypes;
 use App\Constants\StatusCode;
 use App\Lib\JSYService\ServiceResult;
 use App\Lib\JSYService\TransactionServiceManager;
+use App\Models\AdminScheduledNotifications;
 use App\Models\NotificationLog;
 use App\ValueObject\NotificationLogListVO;
 
@@ -22,19 +23,13 @@ class NotificationLogService extends BaseService
 	/**
 	 * @param $userId
 	 * @param $boundaryId
-	 * @param $listType
 	 * @param $limit
 	 * @param $orderTypeString
 	 * @return ServiceResult
 	 */
-    public function getList($userId, $boundaryId, $listType,$limit, $orderTypeString){
+    public function getUserNotificationList($userId, $boundaryId, $limit, $orderTypeString){
         $orderType = new QueryOrderTypes($orderTypeString);
-
-        if($listType == ListType::NOTIFICATION_LOG_USER)
-            return $this->executeTasks($this->_getUserLogsTasks($userId,$boundaryId,$limit,$orderType),true);
-        else
-        	return ServiceResult::withError(StatusCode::UNKNOWN,"Can't find method for list type {$listType}");
-
+	    return $this->executeTasks($this->_getUserLogsTasks($userId,$boundaryId,$limit,$orderType),true);
     }
 
     /**
@@ -63,6 +58,21 @@ class NotificationLogService extends BaseService
             $notificationLogListVo = new NotificationLogListVO($count,$notificationLogs->toArray());
             return ServiceResult::withResult($notificationLogListVo);
         };
+    }
+
+
+	/**
+	 * @param $userId
+	 * @param $limit
+	 * @param $page
+	 * @return ServiceResult
+	 */
+    public function getAdminNotificationList($userId,$limit,$page):ServiceResult{
+    	return $this->executeTasks(function () use ($userId, $limit, $page){
+			$result = (new AdminScheduledNotifications())->getList($limit,$page);
+			var_dump($result);
+			return ServiceResult::withResult($result);
+	    });
     }
 
 

@@ -28,7 +28,7 @@ class NotificationLog extends DBModel
      */
     public function getLogs(int $userId, int $boundaryId, int $limit, ?QueryOrderTypes $orderType ) {
         $compareSymbol = $orderType->getQueryCompareSymbol();
-        $model = self::where('user_id',$userId);
+        $model = self::where('target_user_id',$userId);
         if($boundaryId > 0){
             $model = $model->where('id',$compareSymbol,$boundaryId);
         }
@@ -42,7 +42,7 @@ class NotificationLog extends DBModel
      * @return mixed
      */
     public function getUnreadCount($userId){
-        $unreadCount = self::where('user_id',$userId)
+        $unreadCount = self::where('target_user_id',$userId)
             ->whereNull('read_at')
             ->count();
         return $unreadCount;
