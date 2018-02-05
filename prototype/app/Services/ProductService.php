@@ -196,6 +196,19 @@ class ProductService extends BaseService
 
 
 	/**
+	 * @param $productId
+	 * @return ServiceResult
+	 */
+    public function getProduct($productId){
+    	return $this->executeTasks(function() use ($productId){
+			$result = (new Product())->getProductById($productId);
+			$this->setProductCategories($result);
+			return ServiceResult::withResult($result);
+	    });
+    }
+
+
+	/**
 	 * @param ProductAndCountDataVO $productAndCountDataVO
 	 */
     private function setProductCategories(ProductAndCountDataVO &$productAndCountDataVO){

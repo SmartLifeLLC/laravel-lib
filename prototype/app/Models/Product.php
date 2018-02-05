@@ -166,6 +166,17 @@ class Product extends DBModel
     }
 
 	/**
+	 * @param $productId
+	 * @return mixed
+	 */
+	public function getProductById($productId){
+		$queryBuilder = $this->getQueryBuilderForProducts(null,DefaultValues::QUERY_DEFAULT_LIMIT,DefaultValues::QUERY_DEFAULT_PAGE);
+		$products = $queryBuilder->where('products.id',$productId)->get();
+		$resultArray = $products->toArray();
+		return new ProductAndCountDataVO(count($resultArray),$resultArray);
+	}
+
+	/**
 	 * @param $orderList
 	 * @param $limit
 	 * @param $page
@@ -213,6 +224,5 @@ class Product extends DBModel
 		        ->first();
 
     }
-
 
 }

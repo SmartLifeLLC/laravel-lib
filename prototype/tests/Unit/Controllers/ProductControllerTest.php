@@ -55,4 +55,14 @@ class ProductControllerTest extends TestCase
     }
 
 
+    public function testGetById(){
+	    $httpMethod = HttpMethod::GET;
+	    $uri = "/product/get/10";
+	    $content = $this->getJsonRequestContent($httpMethod,$uri);
+	    var_dump($content);
+	    $this->printResponse($content);
+	    $this->printSQLLog();
+	    $this->assertEquals(StatusCode::SUCCESS,$content["code"]);
+    }
+
 }

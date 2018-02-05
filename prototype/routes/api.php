@@ -74,6 +74,7 @@ Route::group(['prefix'=>'category'],
 
 Route::group(['prefix'=>'product'], function(){
     Route::get('list','ProductController@getList');
+    Route::get('get/{productId}','ProductController@get');
 });
 
 
