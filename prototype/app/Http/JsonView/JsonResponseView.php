@@ -257,7 +257,20 @@ abstract class JsonResponseView
 				"nc" => (int) $negativeCount, //negative_count
 				"ca" => array_values($categories), //array_values($productsCategories[$contribution['product_id']]),
 				"iu" => $this->getImageURLForS3Key($imageS3Key), //image_url
-				"sh" => $shops //shops
+				"sh" => [
+							[
+								"nm"=>"Amazon",
+	                            //"pi"=> 0,
+								"lk"=> "http://www.amazon.co.jp/exec/obidos/ASIN/4809411982/japanstuffine-22/"
+							],
+							[
+								"nm"=>"Rakuten",
+								//"pi"=> 500,
+								"lk"=> "http://www.amazon.co.jp/exec/obidos/ASIN/4809411982/japanstuffine-21/"
+							]
+						]
+
+
 			];
 	}
 
