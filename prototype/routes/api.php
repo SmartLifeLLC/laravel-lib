@@ -28,7 +28,7 @@ Route::group(
         Route::get('/auth/get/{facebookId}', 'AuthController@getUserAuth');
 
         //Get user notification logs
-        Route::get('/notification-log/list/{boundaryId?}','NotificationLogController@getList');
+        Route::get('/notification-log/list','NotificationLogController@getList');
 
         //Switch user block status.
         //isBlockOn : {0/1}
@@ -74,6 +74,7 @@ Route::group(['prefix'=>'category'],
 
 Route::group(['prefix'=>'product'], function(){
     Route::get('list','ProductController@getList');
+    Route::get('get/{productId}','ProductController@get');
 });
 
 

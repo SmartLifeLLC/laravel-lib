@@ -8,7 +8,7 @@
 namespace App\Http\JsonView\User\NotificationLog;
 use App\Http\JsonView\JsonResponseView;
 use App\ValueObject\NotificationLogListVO;
-class GetLogsJsonView extends JsonResponseView
+class GetUserNotificationLogsJsonView extends JsonResponseView
 {
     /**
      * @var NotificationLogListVO

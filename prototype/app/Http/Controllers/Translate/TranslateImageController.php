@@ -16,6 +16,9 @@ use DB;
 
 class TranslateImageController extends Controller
 {
+	//Todo
+
+
     /**
      * @return null|string
      */
