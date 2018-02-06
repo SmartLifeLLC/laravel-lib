@@ -9,6 +9,8 @@
 namespace App\Models\Old;
 
 
+use App\Constants\ContributionReactionType;
+
 class ReactionLog extends OldModel
 {
     protected $table = 'reaction_log';
@@ -20,6 +22,7 @@ class ReactionLog extends OldModel
     public function getData()
     {
         $data = $this
+            ->where('review_post_reaction_type', '!=', ContributionReactionType::HAVE)
             ->select('reaction_user_id', 'review_post_id', 'review_post_reaction_type', 'created_at')
             ->get();
 
@@ -32,7 +35,7 @@ class ReactionLog extends OldModel
     public function getLikeData()
     {
         $likeData = $this
-            ->where('review_post_reaction_type', 1)
+            ->where('review_post_reaction_type', ContributionReactionType::LIKE)
             ->select('reaction_user_id', 'review_post_id', 'created_at')
             ->get();
 
@@ -45,7 +48,7 @@ class ReactionLog extends OldModel
     public function getInterestData()
     {
         $interestData = $this
-            ->where('review_post_reaction_type', 2)
+            ->where('review_post_reaction_type', ContributionReactionType::INTEREST)
             ->select('reaction_user_id', 'review_post_id', 'created_at')
             ->get();
 
@@ -58,7 +61,7 @@ class ReactionLog extends OldModel
     public function getHaveData()
     {
         $haveData = $this
-            ->where('review_post_reaction_type', 3)
+            ->where('review_post_reaction_type', ContributionReactionType::HAVE)
             ->select('reaction_user_id', 'review_post_id', 'created_at')
             ->get();
 

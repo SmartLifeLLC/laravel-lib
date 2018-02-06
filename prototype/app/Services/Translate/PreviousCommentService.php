@@ -24,10 +24,12 @@ class PreviousCommentService extends BaseService
      * @param $created
      * @return ServiceResult
      */
-    public function getData($userId, $contributionId, $content, $created):ServiceResult{
-        return $this->executeTasks(function() use($userId, $contributionId, $content, $created) {
-            $commentId = (new ContributionComment())->translateGetId($userId, $contributionId, $content, $created);
+    public function getData($userId, $contributionId, $content, $created, $updated):ServiceResult{
+        return $this->executeTasks(function() use($userId, $contributionId, $content, $created, $updated) {
+            $commentId = (new ContributionComment())->translateGetId($userId, $contributionId, $content, $created, $updated);
+
 			(new ContributionCommentCount())->increaseCommentCount($contributionId);
+
             return ServiceResult::withResult($commentId);
         },true);
     }

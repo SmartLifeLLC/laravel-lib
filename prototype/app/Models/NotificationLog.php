@@ -76,10 +76,12 @@ class NotificationLog extends DBModel
                 'target_user_id' => $logData['targetUserId'],
                 'from_user_id' => $logData['fromUserId'],
                 'message' => $logData['message'],
+                'read_at' => $logData['deliveredAt'],
                 'delivered_at' => $logData['deliveredAt'],
                 'contribution_id' => $logData['contributionId'],
                 'contribution_comment_id' => $logData['contributionCommentId'],
-                'notification_log_type_id' => $logData['notificationLogTypeId']
+                'notification_log_type_id' => $logData['notificationLogTypeId'],
+                'product_id' => $logData['productId']
             ]
         );
     }

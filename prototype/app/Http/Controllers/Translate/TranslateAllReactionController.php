@@ -9,7 +9,6 @@
 namespace App\Http\Controllers\Translate;
 
 use App\Http\Controllers\Controller;
-use App\Http\JsonView\Translate\PreviousAllReactionJsonView;
 use App\Models\Old\ReactionLog;
 use App\Services\Translate\PreviousAllReactionService;
 use DB;

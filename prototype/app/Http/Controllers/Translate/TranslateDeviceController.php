@@ -29,7 +29,7 @@ class TranslateDeviceController extends Controller
             $created = $device->created_at;
             $updated = $device->updated_at;
 
-            $serviceResult = (new PreviousDeviceService())->getData($userId, $deviceType, $notificationToken, $created);
+            $serviceResult = (new PreviousDeviceService())->getData($userId, $deviceType, $notificationToken, $created, $updated);
 
             if ($serviceResult->getDebugMessage() != NULL) return $serviceResult->getDebugMessage();
         }

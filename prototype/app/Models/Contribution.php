@@ -256,6 +256,7 @@ class Contribution extends DBModel implements UserContentsCountBuilderInterface
             'created_at'=>$created,
             'modified_at'=>$updated
         ];
+        if($images[0] == '') $images = array();
         for($i = 0 ; $i < count($images) ; $i ++){
             $data['image_id_'.$i] = $images[$i];
         }
@@ -354,9 +355,8 @@ class Contribution extends DBModel implements UserContentsCountBuilderInterface
 	public function getProductId($id){
 	    return
             $this
-                ->select('product_id')
                 ->where('id', $id)
-                ->first()
-                ->value('id');
+                ->select('product_id')
+                ->value('product_id');
     }
 }

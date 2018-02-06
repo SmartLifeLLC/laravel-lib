@@ -8,8 +8,8 @@
 
 namespace App\Http\Controllers\Translate;
 
+use App\Constants\ContributionFeelingType;
 use App\Http\Controllers\Controller;
-use App\Http\JsonView\Translate\PreviousContributionJsonView;
 use App\Models\Old\ReviewPost;
 use App\Services\Translate\PreviousContributionService;
 use DB;
@@ -40,8 +40,8 @@ class TranslateContributionController extends Controller
     }
 
     private function getFeeling($isConsent){
-        if($isConsent) $feeling = 'positive';
-        else $feeling = 'negative';
+        if($isConsent) $feeling = ContributionFeelingType::POSITIVE;
+        else $feeling = ContributionFeelingType::NEGATIVE;
         return $feeling;
     }
 }
