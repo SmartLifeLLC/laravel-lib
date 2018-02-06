@@ -111,7 +111,7 @@ class ContributionController extends Controller
 	 * @return \Illuminate\Http\JsonResponse
 	 */
 	public function list(Request $request, $targetId = null){
-		$listType = $request->get('listType',ListType::CONTRIBUTION_LIST_FEED);
+		$listType = $request->get('list_type',ListType::CONTRIBUTION_LIST_FEED);
 		switch ($listType){
 			case ListType::CONTRIBUTION_LIST_FEED:
 				return $this->listForFeed($request);break;

@@ -86,7 +86,7 @@ class ReactionController extends Controller
 	 */
 	public function getList(Request $request, $contributionId):JsonResponse{
 		$userId = $this->getCurrentUserId();
-		$type = $request->get('type',ContributionReactionType::ALL);
+		$type = $request->get('list_type',ContributionReactionType::ALL);
 		$page = $request->get('page',DefaultValues::QUERY_DEFAULT_PAGE);
 		$limit = $request->get('limit',DefaultValues::QUERY_DEFAULT_LIMIT);
 		$serviceResult = (new ReactionService())->getList($userId,$contributionId,$type,$page,$limit);

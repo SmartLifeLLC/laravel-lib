@@ -221,7 +221,7 @@ paths:
     get:
       tags:
         - User
-      summary: "{ownerId}ユーザの{listType}リストを取得"
+      summary: "{ownerId}ユーザの{list_type}リストを取得"
       produces:
         - application/json
       parameters:
@@ -232,7 +232,7 @@ paths:
           format: int64
           required: false
         - in: query
-          name: listType
+          name: list_type
           description: "follow:followリストを出力.\r\n follower:followerリストを出力"
           type: string
           required: true
@@ -370,7 +370,7 @@ paths:
               - application/json
         parameters:
           - in: query
-            name: listType
+            name: list_type
             type: string
             required: true
             description: "user : User通知リスト admin :　管理者通知リスト"
@@ -400,7 +400,7 @@ paths:
       parameters:
         - in: path
           name: targetId
-          description: "listType別検索用 ID\r\n
+          description: "list_type別検索用 ID\r\n
           - product : 商品id,\r\n
           - interest:ページオナーID \r\n
           - user:ページオナーID(ない場合現在アプリ使用中のユーザIDにサーバ上で自動アップデート) \r\n
@@ -409,7 +409,7 @@ paths:
           format: int64
           required: false
         - in: query
-          name: listType
+          name: list_type
           description: "{product 商品別, interest 気になる, user ユーザ投稿, feed　フィード}"
           format: string
           enum:
@@ -419,8 +419,8 @@ paths:
             - feed
           required: true
         - in: query
-          name: feelingType
-          description: "商品ごとの投稿を取得する場合(listTypeが productの場合), 投稿のfeelingタイプ別の投稿取得"
+          name: feeling_type
+          description: "商品ごとの投稿を取得する場合(list_typeが productの場合), 投稿のfeelingタイプ別の投稿取得"
           format: string
           enum:
             - all
@@ -767,7 +767,7 @@ paths:
         - application/json
         parameters:
         - in: query
-          name: type
+          name: list_type
           type: string
           required: false
           enum:

@@ -99,7 +99,7 @@ class ContributionControllerTest extends TestCase
 		$httpMethod = HttpMethod::GET;
 		$productId = 101;
 		$listType = ListType::CONTRIBUTION_LIST_FOR_PRODUCT;
-		$uri = "/contribution/list/{$productId}?page=1&feeling=positive&listType={$listType}";
+		$uri = "/contribution/list/{$productId}?page=1&feeling=positive&list_type={$listType}";
 
 		$content = $this->getJsonRequestContent($httpMethod,$uri);
 		if(!isset($content['code']))  var_dump($content);
@@ -113,7 +113,7 @@ class ContributionControllerTest extends TestCase
 		$ownerId = 6577;
 		$listType = ListType::CONTRIBUTION_LIST_FOR_USER_INTEREST;
 
-		$uri = "/contribution/list/{$ownerId}?page=1&listType={$listType}";
+		$uri = "/contribution/list/{$ownerId}?page=1&list_type={$listType}";
 
 		$content = $this->getJsonRequestContent($httpMethod,$uri);
 		if(!isset($content['code']))  var_dump($content);
@@ -126,7 +126,7 @@ class ContributionControllerTest extends TestCase
 		$httpMethod = HttpMethod::GET;
 		$ownerId = 48;
 		$listType = ListType::CONTRIBUTION_LIST_USER;
-		$uri = "/contribution/list/{$ownerId}?page=1&listType={$listType}";
+		$uri = "/contribution/list/{$ownerId}?page=1&list_type={$listType}";
 		$content = $this->getJsonRequestContent($httpMethod,$uri);
 		//var_dump($content);
 		if(!isset($content['code']))  var_dump($content);
@@ -140,7 +140,7 @@ class ContributionControllerTest extends TestCase
 		$httpMethod = HttpMethod::GET;
 		$listType = ListType::CONTRIBUTION_LIST_FEED;
 		$this->prepareUserWithIdAndAuth(48,1);
-		$uri = "/contribution/list/62?listType={$listType}&feelingType=all";
+		$uri = "/contribution/list/62?list_type={$listType}&feeling_type=all";
 		$content = $this->getJsonRequestContent($httpMethod,$uri);
 		if(!isset($content['code']))  var_dump($content);
 		$this->printResponse($content);
