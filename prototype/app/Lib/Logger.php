@@ -55,11 +55,11 @@ class Logger extends Log
         Log::warning($message);
     }
 
-    /**
-     * @param String $message
-     * @param array $data
-     */
-    static function info(String $message,Array $data = null){
+	/**
+	 * @param String $message
+	 * @param array|null $data
+	 */
+    static function info(String $message,array $data = []){
         Log::info($message,$data);
     }
 }

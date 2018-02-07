@@ -14,7 +14,7 @@ use App\Constants\QueryOrderTypes;
 use App\Constants\StatusCode;
 use App\Lib\JSYService\ServiceResult;
 use App\Lib\JSYService\TransactionServiceManager;
-use App\Models\AdminScheduledNotifications;
+use App\Models\AdminScheduledNotification;
 use App\Models\NotificationLog;
 use App\ValueObject\NotificationLogListVO;
 
@@ -69,7 +69,7 @@ class NotificationLogService extends BaseService
 	 */
     public function getAdminNotificationList($userId,$limit,$page):ServiceResult{
     	return $this->executeTasks(function () use ($userId, $limit, $page){
-			$result = (new AdminScheduledNotifications())->getList($limit,$page);
+			$result = (new AdminScheduledNotification())->getList($limit,$page);
 			return ServiceResult::withResult($result);
 	    });
     }
