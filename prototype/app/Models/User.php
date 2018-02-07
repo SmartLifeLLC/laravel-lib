@@ -175,8 +175,8 @@ class User extends DBModel
 		     $this
 			     ->select(
 			     	    'users.*',
-			            DB::raw(" (select count(*) from follows where user_id = {$ownerId}) as follow_count"),
-				        DB::raw(" (select count(*) from followers where user_id = {$ownerId}) as follower_count"),
+			            DB::raw(" (select count(*) from follows where user_id = {$ownerId} and follows.is_on = 1 ) as follow_count"),
+				        DB::raw(" (select count(*) from followers where user_id = {$ownerId} and followers.is_on = 1 ) as follower_count"),
 			            'follows.id as my_follow_id',
 			            'profile_images.s3_key as profile_image_s3_key',
 			            'cover_images.s3_key as cover_image_s3_key'
