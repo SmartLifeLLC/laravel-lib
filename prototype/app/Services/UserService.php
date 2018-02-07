@@ -86,7 +86,7 @@ class UserService extends BaseService
 
 			$userInfoForPage = $userModel->getUserInfoForPage($userId,$ownerId);
 			$allReactionCount = (new ContributionAllReaction())->getReactionCountsForUser($ownerId);
-			$contributionCount = (new Contribution())->getCountForUser($userId);
+			$contributionCount = (new Contribution())->getCountForUser($ownerId);
 			$result = new PageInfoResultVO($userInfoForPage,$contributionCount,$allReactionCount);
 			return ServiceResult::withResult($result);
 		});
