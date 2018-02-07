@@ -39,13 +39,19 @@ class NotificationLog extends DBModel
 		            'message',
 		            'read_at',
 		            'extra_info',
+		            'users.user_name',
+		            'users.description',
 		            'notification_log_type_id',
 		            'images.s3_key as profile_image_s3_key',
-		            'contribution_id',
+		            'notification_logs.contribution_id',
+		            'products.display_name',
 		            'contribution_comment_id',
+		            'contribution_comments.content as contribution_comment_content',
 		            'delivered_at')
 		        ->leftJoin('users','users.id','=','from_user_id')
 		        ->leftJoin('images','images.id','=','users.profile_image_id')
+		        ->leftJoin('contribution_comments','contribution_comments.id','=','contribution_comment_id')
+		        ->leftJoin('products','product_id','=','products.id')
 		        ->leftJoin('follows as my_follows',function($join) use ($userId){
 			        $join->on('from_user_id','=','my_follows.target_user_id');
 			        $join->on('my_follows.user_id','=',DB::raw($userId));

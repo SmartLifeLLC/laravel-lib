@@ -20,21 +20,22 @@ class GetUserNotificationLogsJsonView extends JsonResponseView
     	$notificationData = $this->data->getNotificationLogData();
     	$returnData = [];
     	foreach($notificationData as $d){
+    		$user = $this->getUserHashArray($d['from_user_id'],$d['user_name'],$d['profile_image_s3_key'],$d['my_follow_id'],$d['description']);
 
     		$data =
 			    [
 			    	'id' => $d['id'],
-				    'from_user_id' => $d['from_user_id'],
+				    'from_user'=>$user,
 				    'message' => $d['message'],
-					'is_following' => $this->getBinaryValue($d['my_follow_id']),
-				    'profile_image_url' => $this->getImageURLForS3Key($d['profile_image_s3_key']),
 				    'read_at' => $d['read_at'],
+				    'contribution_id' => $d['contribution_id'],
+				    'contribution_comment_id' => $d['contribution_comment_id'],
+				    'contribution_comment_content' => $this->getNotNullString($d['contribution_comment_content']),
 				    'notification_log_type_id' => $d['notification_log_type_id'],
 				    'product_id' =>(int) $d['product_id'],
-				    'extra_info' => $d['extra_info'],
-				    'contribution_comment_id' => $d['contribution_comment_id'],
+				    'product_name'=> $this->getNotNullString($d['display_name']),
 				    'delivered_at' => $d['delivered_at'],
-				    'contribution_id' => $d['contribution_id']
+				    'extra_info' => $d['extra_info'],
 			    ];
     		$returnData[] = $data;
 	    }
