@@ -194,7 +194,7 @@ class Contribution extends DBModel implements UserContentsCountBuilderInterface
 			->limit($limit);
 		if(!empty($blockList))
 			$queryBuilder =
-				$queryBuilder->wherNotIn('contributions.user_id',$blockList);
+				$queryBuilder->whereNotIn('contributions.user_id',$blockList);
 		return $queryBuilder->get();
 	}
 
