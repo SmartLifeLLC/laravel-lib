@@ -13,21 +13,19 @@ class PageInfoResultVO
 {
 	private $userInfoForPage ;
 	private $contributionCount;
-	private $friendsCount;
 	private $allReactionCounts;
 
 	/**
 	 * PageInfoResultVO constructor.
 	 * @param $userInfoForPage
 	 * @param $contributionCount
-	 * @param $friendsCount
 	 * @param $allReactionCounts
 	 */
-	public function __construct($userInfoForPage, $contributionCount, $friendsCount, $allReactionCounts)
+	public function __construct($userInfoForPage, $contributionCount, $allReactionCounts)
 	{
 		$this->userInfoForPage = $userInfoForPage;
 		$this->contributionCount = $contributionCount;
-		$this->friendsCount = $friendsCount;
+		//$this->friendsCount = $friendsCount;
 		$this->allReactionCounts = $allReactionCounts;
 	}
 
@@ -45,14 +43,6 @@ class PageInfoResultVO
 	public function getContributionCount()
 	{
 		return $this->contributionCount;
-	}
-
-	/**
-	 * @return mixed
-	 */
-	public function getFriendsCount()
-	{
-		return $this->friendsCount;
 	}
 
 	/**
