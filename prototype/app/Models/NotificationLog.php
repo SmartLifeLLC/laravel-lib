@@ -41,6 +41,7 @@ class NotificationLog extends DBModel
 		            'extra_info',
 		            'notification_log_type_id',
 		            'images.s3_key as profile_image_s3_key',
+		            'contribution_id',
 		            'contribution_comment_id',
 		            'delivered_at')
 		        ->leftJoin('users','users.id','=','from_user_id')

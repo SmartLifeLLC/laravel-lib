@@ -33,7 +33,8 @@ class GetUserNotificationLogsJsonView extends JsonResponseView
 				    'product_id' =>(int) $d['product_id'],
 				    'extra_info' => $d['extra_info'],
 				    'contribution_comment_id' => $d['contribution_comment_id'],
-				    'delivered_at' => $d['delivered_at']
+				    'delivered_at' => $d['delivered_at'],
+				    'contribution_id' => $d['contribution_id']
 			    ];
     		$returnData[] = $data;
 	    }
