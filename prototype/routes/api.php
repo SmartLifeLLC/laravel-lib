@@ -44,7 +44,7 @@ Route::group(
 	    Route::get('/friend/list/{ownerId?}','FriendController@getFriendList');
 
 		//device info for notification token
-        Route::post('/device/create','DeviceController@create');
+        Route::post('/device/update','DeviceController@update');
 
 
         //User setting

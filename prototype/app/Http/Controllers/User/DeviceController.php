@@ -18,7 +18,7 @@ use App\Constants\PostParametersValidationRule;
 class DeviceController extends Controller
 {
 
-    public function updateToken(Request $request){
+    public function update(Request $request){
         $validator = $this->createValidator(
         	$request->all(),
 	        PostParametersValidationRule::NOTIFICATION_TOKEN,
