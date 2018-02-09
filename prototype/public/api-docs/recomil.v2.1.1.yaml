@@ -504,7 +504,7 @@ paths:
       - in: formData
         name: text
         type: string
-        required: true
+        required: false
       - in: formData
         name: image1
         type: file

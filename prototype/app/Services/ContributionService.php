@@ -78,7 +78,6 @@ class ContributionService extends BaseService
 			//Update have reaction
 			if(!empty($haveReactionContributionId)){
 				$isIncrease = true;
-				var_dump("START HAVE REACTION");
 				(new UpdateReactionCountTask($userId,$contributionId,$productId,ContributionReactionType::HAVE,$isIncrease ))->run();
 			}
 
