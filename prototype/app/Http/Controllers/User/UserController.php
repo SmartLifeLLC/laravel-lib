@@ -60,9 +60,12 @@ class UserController extends Controller
 		$userEditVo->setMailAddress($request->get('mail_address',null));
 		$userEditVo->setDescription($request->get('description',null));
 		$userEditVo->setCoverImage($request->get('cover_image',null));
+	    $userEditVo->setProfileImage($request->get('profile_image',null));
 		$userEditVo->setDescription($request->get('description',null));
 		$userEditVo->setAddress($request->get('address',null));
-		$userEditVo->setProfileImage($request->get('profile_image',null));
+	    if($request->get('delete_profile_image',0) == 1) $userEditVo->setDeleteProfileImage();
+	    if($request->get('delete_cover_image',0) == 1) $userEditVo->setDeleteCoverImage();
+
 	    $serviceResult = (new UserService())->edit($userId,$userEditVo);
 	    return $this->responseJson(new UserEditJsonView($serviceResult));
 
