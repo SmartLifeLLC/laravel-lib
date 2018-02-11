@@ -32,7 +32,7 @@ class NotificationLogController extends Controller
 	    $page = $request->get('page',DefaultValues::QUERY_DEFAULT_PAGE);
 	    $boundaryId = $request->get('boundary_id',0);
 	    $orderTypeString = $request->get('order',QueryOrderTypes::DESCENDING);
-	    $listType = $request->get('listType','user');
+	    $listType = $request->get('list_type','user');
         $userId = $this->getCurrentUserId();
         if($listType == ListType::NOTIFICATION_LOG_USER) {
 	        $serviceResult = (new NotificationLogService())->getUserNotificationList($userId, $boundaryId, $limit, $orderTypeString);

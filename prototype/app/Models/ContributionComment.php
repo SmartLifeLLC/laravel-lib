@@ -177,7 +177,7 @@ class ContributionComment extends DBModel implements DeleteAllForContributionInt
 				->where('contribution_comments.contribution_id',$contributionId)
 				->where("users.{$notificationCheckColumn}",1)
 				->groupBy('notification_token')
-				->groupBy('users.id')
+				->groupBy('contribution_comments.user_id')
 				->groupBy('block_users.target_user_id')
 				->groupBy('blocked_users.target_user_id')
 				->groupBy('notification_token')

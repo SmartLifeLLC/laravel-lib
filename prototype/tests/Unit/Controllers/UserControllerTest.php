@@ -41,12 +41,14 @@ class UserControllerTest extends TestCase
 				'description'=>'NEW description 2 ',
 				'user_name'=>"NEW USER NAME 2  ",
 				'mail_address' => "jung@smt-life.biz",
+				'delete_cover_image' => 1,
+				'delete_profile_image' => 1
 
 			];
 		$content = $this->getJsonRequestContent($httpMethod,$uri,$data);
 		if(!isset($content['code']))  var_dump($content);
 		$this->printResponse($content);
-		//$this->printSQLLog();
+		$this->printSQLLog();
 		$this->assertEquals(StatusCode::SUCCESS,$content["code"]);
 	}
 
@@ -69,13 +71,13 @@ class UserControllerTest extends TestCase
 
 
     public function testGetPageInfo(){
-    	$this->prepareUserWithIdAndAuth(50,"AUTH_5a61c35655e8e");
+    	//$this->prepareUserWithIdAndAuth(50,"AUTH_5a61c35655e8e");
 	    $httpMethod = HttpMethod::GET;
 	    $uri = "/user/page/get/48";
 	    $content = $this->getJsonRequestContent($httpMethod,$uri);
 	    if(!isset($content['code']))  var_dump($content);
 	    $this->printResponse($content);
-	    //$this->printSQLLog();
+	    $this->printSQLLog();
 	    $this->assertEquals(StatusCode::SUCCESS,$content["code"]);
     }
 

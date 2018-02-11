@@ -242,6 +242,29 @@ class UserEditVO
 		return $this->saveData;
 	}
 
+	/**
+	 * @return mixed
+	 */
+	public function getProfileImageId()
+	{
+		return $this->profileImageId;
+	}
+
+	/**
+	 *
+	 */
+	public function setDeleteProfileImage(): void
+	{
+		$this->saveData['profile_image_id'] = 0;
+	}
+
+	public function setDeleteCoverImage() : void
+	{
+		$this->saveData['cover_image_id'] = 0;
+	}
+
+
+
 
 
 	public function __construct(){

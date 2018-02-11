@@ -23,7 +23,6 @@ class PageInfoJsonView extends JsonResponseView
 	{
 		$user = $this->data->getUserInfoForPage();
 		$contributionCount = $this->data->getContributionCount();
-		$friendsCount = $this->data->getFriendsCount();
 		$allReactionCounts = $this->data->getAllReactionCounts();
 
 		$this->body =
@@ -40,8 +39,8 @@ class PageInfoJsonView extends JsonResponseView
 		//		'like' => $allReactionCounts['like'],
 				'interest' => $allReactionCounts['interest'],
 		//		'having' => $allReactionCounts['have'],
-				'follow' => (int) $friendsCount['follow_count'],
-				'follower' => (int) $friendsCount['follower_count'],
+				'follow' => (int) $user['follow_count'],
+				'follower' => (int) $user['follower_count'],
 				'is_following' => $this->getBinaryValue($user['my_follow_id']),
 			];
 	}

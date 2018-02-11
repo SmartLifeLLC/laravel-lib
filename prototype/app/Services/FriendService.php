@@ -98,8 +98,8 @@ class FriendService extends BaseService
     		$blockList = $blockModel->getBlockAndBlockedUserIds($userId,$ownerId);
     		$follow = new Follow();
     		$followCount = $follow->getCountForUser($ownerId,$blockList);
-		    $contributionCount = (new Contribution())->getCountForUser($ownerId);
 		    $followerCount = (new Follower())->getCountForUser($ownerId,$blockList);
+		    $contributionCount = (new Contribution())->getCountForUser($ownerId);
 			$interestCount = (new ContributionInterestReaction())->getCountForUser($ownerId,$blockList);
 		    $followList = [];
 		    $hasNext = 0;

@@ -1,8 +1,8 @@
 swagger: '2.0'
 info:
-  version: 2.0.8
+  version: 2.1.1
   title: "React - {Recomil}  API Documents - "
-  description: "Author: Jung. \r\nLast Updated : 2018. 2. 5.\r\n 2018 WonderPlanet Inc. All rights reserved."
+  description: "Author: Jung. \r\nLast Updated : 2018. 2. 9.\r\n 2018 WonderPlanet Inc. All rights reserved."
 host: bengal.recomil.com
 basePath: /
 tags:
@@ -172,6 +172,23 @@ paths:
             required: false
             description: "紹介文"
 
+          - in: formData
+            name: delete_profile_image
+            type: integer
+            required: false
+            enum:
+              - 0
+              - 1
+            description: "プロフィール画像削除"
+
+          - in: formData
+            name: delete_cover_image
+            type: integer
+            required: false
+            enum:
+              - 0
+              - 1
+            description: "カバー画像削除"
 
         responses:
           '200':
@@ -221,7 +238,7 @@ paths:
     get:
       tags:
         - User
-      summary: "{ownerId}ユーザの{listType}リストを取得"
+      summary: "{ownerId}ユーザの{list_type}リストを取得"
       produces:
         - application/json
       parameters:
@@ -232,7 +249,7 @@ paths:
           format: int64
           required: false
         - in: query
-          name: listType
+          name: list_type
           description: "follow:followリストを出力.\r\n follower:followerリストを出力"
           type: string
           required: true
@@ -361,7 +378,7 @@ paths:
       responses:
         '200':
           description: Success
-  '/user/notification-log/list/{boundaryId}':
+  '/user/notification-log/list':
       get:
         tags:
           - User
@@ -369,12 +386,22 @@ paths:
         produces:
               - application/json
         parameters:
-          - in: path
-            name: boundaryId
+          - in: query
+            name: list_type
+            type: string
+            required: true
+            description: "user : User通知リスト admin :　管理者通知リスト"
+            enum:
+              - user
+              - admin
+          - in: query
+            name: boundary_id
             type: integer
             format: int64
             required: false
-            description: "boundaryId 以降のIDの通知ログを取得"
+            description: "User通知の場合使用.ユーザ通知はpage,limitの代わりにboundaryId 以降のIDの通知ログを取得"
+          - $ref: '#/parameters/Page'
+          - $ref: '#/parameters/Limit'
         responses:
           '200':
             description: Success
@@ -390,7 +417,7 @@ paths:
       parameters:
         - in: path
           name: targetId
-          description: "listType別検索用 ID\r\n
+          description: "list_type別検索用 ID\r\n
           - product : 商品id,\r\n
           - interest:ページオナーID \r\n
           - user:ページオナーID(ない場合現在アプリ使用中のユーザIDにサーバ上で自動アップデート) \r\n
@@ -399,7 +426,7 @@ paths:
           format: int64
           required: false
         - in: query
-          name: listType
+          name: list_type
           description: "{product 商品別, interest 気になる, user ユーザ投稿, feed　フィード}"
           format: string
           enum:
@@ -409,8 +436,8 @@ paths:
             - feed
           required: true
         - in: query
-          name: feelingType
-          description: "商品ごとの投稿を取得する場合(listTypeが productの場合), 投稿のfeelingタイプ別の投稿取得"
+          name: feeling_type
+          description: "商品ごとの投稿を取得する場合(list_typeが productの場合), 投稿のfeelingタイプ別の投稿取得"
           format: string
           enum:
             - all
@@ -477,7 +504,7 @@ paths:
       - in: formData
         name: text
         type: string
-        required: true
+        required: false
       - in: formData
         name: image1
         type: file
@@ -713,7 +740,7 @@ paths:
           '200':
             description: Success
   '/product/get/{productId}':
-      delete:
+      get:
         tags:
           - Product
         summary: "商品IDによる商品検索"
@@ -757,7 +784,7 @@ paths:
         - application/json
         parameters:
         - in: query
-          name: type
+          name: list_type
           type: string
           required: false
           enum:

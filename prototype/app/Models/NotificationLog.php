@@ -13,6 +13,7 @@ use App\Constants\DateTimeFormat;
 use App\Constants\DefaultValues;
 use App\Constants\QueryOrderTypes;
 use Illuminate\Database\Eloquent\Model;
+use DB;
 
 class NotificationLog extends DBModel
 {
@@ -28,13 +29,40 @@ class NotificationLog extends DBModel
      */
     public function getLogs(int $userId, int $boundaryId, int $limit, ?QueryOrderTypes $orderType ) {
         $compareSymbol = $orderType->getQueryCompareSymbol();
-        $model = self::where('target_user_id',$userId);
+        $queryBuilder =
+	        $this
+	            ->select(
+	            	'my_follows.id as my_follow_id',
+		            'product_id',
+		            'notification_logs.id',
+		            'from_user_id',
+		            'message',
+		            'read_at',
+		            'extra_info',
+		            'users.user_name',
+		            'users.description',
+		            'notification_log_type_id',
+		            'images.s3_key as profile_image_s3_key',
+		            'notification_logs.contribution_id',
+		            'products.display_name',
+		            'contribution_comment_id',
+		            'contribution_comments.content as contribution_comment_content',
+		            'delivered_at')
+		        ->leftJoin('users','users.id','=','from_user_id')
+		        ->leftJoin('images','images.id','=','users.profile_image_id')
+		        ->leftJoin('contribution_comments','contribution_comments.id','=','contribution_comment_id')
+		        ->leftJoin('products','product_id','=','products.id')
+		        ->leftJoin('follows as my_follows',function($join) use ($userId){
+			        $join->on('from_user_id','=','my_follows.target_user_id');
+			        $join->on('my_follows.user_id','=',DB::raw($userId));
+			        $join->on('my_follows.is_on','=',DB::raw("1"));})
+		        ->where('notification_logs.target_user_id',$userId)
+	            ->orderBy('id', $orderType->getValue())
+		        ->limit($limit);
         if($boundaryId > 0){
-            $model = $model->where('id',$compareSymbol,$boundaryId);
+            $queryBuilder = $queryBuilder->where('notification_logs.id',$compareSymbol,$boundaryId);
         }
-
-        $logs =  $model->orderBy('id', $orderType->getValue())->limit($limit)->get();
-        return $logs;
+		return $queryBuilder->get();
     }
 
     /**
