@@ -25,7 +25,7 @@ class CommentControllerTest extends TestCase
 
 	public function testCreate(){
 		$this->prepareUserWithIdAndAuth(49,1);
-		$contributionId = 48;
+		$contributionId = 31;
 		$httpMethod = HttpMethod::POST;
 		$uri = "/comment/create";
 		$data =

@@ -38,4 +38,7 @@ class ContributionTest extends TestCase
 		$this->printSQLLog();
 	}
 
+	public function testDelete(){
+	}
+
 }

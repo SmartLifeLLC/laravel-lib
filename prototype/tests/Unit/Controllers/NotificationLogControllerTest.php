@@ -24,8 +24,10 @@ class NotificationLogControllerTest extends TestCase
 
     public function testGetNotificationLogs(){
         $httpMethod = HttpMethod::GET;
-        $uri = "/user/notification-log/list/?limit=10&listType=".ListType::NOTIFICATION_LOG_ADMIN."&boundary_id=101";
+        $this->prepareUserWithIdAndAuth(48,1);
+        $uri = "/user/notification-log/list/?limit=10&list_type=".ListType::NOTIFICATION_LOG_USER;
         $content = $this->getJsonRequestContent($httpMethod,$uri);
+        var_dump($content);
 	    $this->printResponse($content);
 	    $this->printSQLLog();
         $this->assertEquals(StatusCode::SUCCESS,$content["code"]);

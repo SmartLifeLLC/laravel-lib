@@ -66,14 +66,13 @@ class FriendControllerTest extends TestCase
 
     }
 	public function testGetFollowList(){
-		$userId = 101;
-		$ownerId = 102;
-		$userAuth = "AUTH_5a61c3b9d87ca"; //101 : AUTH_5a61c3b9d87ca //102 : AUTH_5a61c3b9d8a25 // 105 : AUTH_5a61c3b9d9480
-
-		parent::prepareUserWithIdAndAuth($userId,$userAuth);
+		//$userId = 101;
+		//$userAuth = "AUTH_5a61c3b9d87ca"; //101 : AUTH_5a61c3b9d87ca //102 : AUTH_5a61c3b9d8a25 // 105 : AUTH_5a61c3b9d9480
+		//parent::prepareUserWithIdAndAuth($userId,$userAuth);
+		$ownerId = 48;
 		$httpMethod = HttpMethod::GET;
 		$page = 1;
-		$uri = "/user/follow/list/{$ownerId}?page={$page}";
+		$uri = "/user/friend/list/{$ownerId}?page={$page}";
 		$content = $this->getJsonRequestContent($httpMethod,$uri);
 		if(!isset($content['code']))  var_dump($content);
 		$this->printResponse($content);
