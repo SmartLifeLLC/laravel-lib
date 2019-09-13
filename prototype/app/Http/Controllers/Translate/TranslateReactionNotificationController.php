@@ -8,6 +8,7 @@
 
 namespace App\Http\Controllers\Translate;
 
+use App\Constants\ContributionReactionType;
 use App\Http\Controllers\Controller;
 use App\Http\JsonView\Translate\PreviousReactionNotificationJsonView;
 use App\Models\Old\NotificationLog;
@@ -44,14 +45,12 @@ class TranslateReactionNotificationController extends Controller
      */
     private function getTypeId($type){
         switch($type){
-            case 'comment':
-                return 1;
             case 'like':
-                return 2;
+                return ContributionReactionType::LIKE;
             case 'have':
-                return 3;
+                return ContributionReactionType::HAVE;
             case 'interest':
-                return 4;
+                return ContributionReactionType::INTEREST;
             default:
                 return 0;
         }

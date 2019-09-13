@@ -23,6 +23,7 @@ class NotificationToken extends OldModel
                 'created_at',
                 'updated_at'
             )
+            ->groupBy('device_token')
             ->get();
 
         return $data;

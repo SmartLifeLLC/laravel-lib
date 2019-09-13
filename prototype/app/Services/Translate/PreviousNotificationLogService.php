@@ -8,6 +8,7 @@
 
 namespace App\Services\Translate;
 
+use App\Models\Contribution;
 use App\Models\NotificationLog;
 use App\Services\BaseService;
 use App\Lib\JSYService\ServiceResult;
@@ -22,6 +23,12 @@ class PreviousNotificationLogService extends BaseService
     public function getData($logData): ServiceResult
     {
         return $this->executeTasks(function () use ($logData) {
+            if($logData['contributionId']) {
+                $logData['productId'] = (new Contribution())->getProductId($logData['contributionId']);
+            }
+            else{
+                $logData['productId'] = 0;
+            }
             $logId = (new NotificationLog())->translateGetId($logData);
             return ServiceResult::withResult($logId);
         }, true);

@@ -22,9 +22,9 @@ class PreviousDeviceService extends BaseService
      * @param $created
      * @return ServiceResult
      */
-    public function getData($userId, $deviceType, $notificationToken, $created):ServiceResult{
-        return $this->executeTasks(function() use($userId, $deviceType, $notificationToken, $created) {
-            $contributionId = (new Device())->translateGetId($userId, $deviceType, $notificationToken, $created);
+    public function getData($userId, $deviceType, $notificationToken, $created, $updated):ServiceResult{
+        return $this->executeTasks(function() use($userId, $deviceType, $notificationToken, $created, $updated) {
+            $contributionId = (new Device())->translateGetId($userId, $deviceType, $notificationToken, $created, $updated);
             return ServiceResult::withResult($contributionId);
         },true);
     }

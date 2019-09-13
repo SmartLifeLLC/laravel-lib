@@ -28,8 +28,9 @@ class TranslateCommentController extends Controller
             $contributionId = $comment->review_post_id;
             $content = $comment->text;
             $created = $comment->created_at;
+            $updated = $comment->updated_at;
 
-            $serviceResult = (new PreviousCommentService())->getData($userId, $contributionId, $content, $created);
+            $serviceResult = (new PreviousCommentService())->getData($userId, $contributionId, $content, $created, $updated);
 
             if($serviceResult->getDebugMessage() != NULL) return $serviceResult->getDebugMessage();
         }

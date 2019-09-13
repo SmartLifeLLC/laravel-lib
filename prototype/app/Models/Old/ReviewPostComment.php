@@ -18,7 +18,7 @@ class ReviewPostComment extends OldModel
     public function getData()
     {
         $data = $this
-            ->select('user_id', 'review_post_id', 'text', 'created_at')
+            ->select('user_id', 'review_post_id', 'text', 'created_at', 'updated_at')
             ->get();
 
         return $data;

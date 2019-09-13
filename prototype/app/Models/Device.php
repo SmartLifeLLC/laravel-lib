@@ -78,7 +78,7 @@ class Device extends DBModel
      * @param $created
      * @return mixed
      */
-    public function translateGetId($userId, $deviceType, $notificationToken, $created){
+    public function translateGetId($userId, $deviceType, $notificationToken, $created, $updated){
         return $this->insertGetId(
             [
                 'user_id'=>$userId,
@@ -86,7 +86,7 @@ class Device extends DBModel
                 'notification_token'=>$notificationToken,
                 'device_uuid'=>$notificationToken,
                 'created_at'=>$created,
-                'updated_at'=>date(DateTimeFormat::General)
+                'updated_at'=>$updated
 
             ]
         );

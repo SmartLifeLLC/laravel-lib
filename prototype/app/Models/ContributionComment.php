@@ -47,14 +47,14 @@ class ContributionComment extends DBModel implements DeleteAllForContributionInt
      * @param $created
      * @return mixed
      */
-    function translateGetId($userId, $contributionId, $content, $created){
+    function translateGetId($userId, $contributionId, $content, $created, $updated){
         return $this->insertGetId(
             [
                 'user_id'=>$userId,
                 'contribution_id'=>$contributionId,
                 'content'=>$content,
                 'created_at'=>$created,
-                'updated_at'=>date(DateTimeFormat::General)
+                'updated_at'=>$updated
 
             ]
         );
